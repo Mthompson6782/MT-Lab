@@ -58,7 +58,7 @@ A mission-critical Node.js cyber safety hub designed for parents to manage real-
 
 <br/>
 
-[**▶ Watch / View Code**](https://github.com/Mthompson6782/operation-leo-lockdown) &nbsp;&nbsp;|&nbsp;&nbsp; [**➕ Add to My List**](https://mthompson6782.github.io/MT-Lab/) &nbsp;&nbsp;|&nbsp;&nbsp; [**ℹ System Specs**](https://github.com/Mthompson6782/operation-leo-lockdown#readme)
+[**🚀 Launch Live Website**](https://operation-leo-lockdown.onrender.com) &nbsp;&nbsp;|&nbsp;&nbsp; [**💻 View Source Code**](https://github.com/Mthompson6782/operation-leo-lockdown) &nbsp;&nbsp;|&nbsp;&nbsp; [**ℹ System Specs**](https://github.com/Mthompson6782/operation-leo-lockdown#readme)
 
 </td>
 <td width="45%" align="center" valign="middle">
@@ -71,9 +71,10 @@ A mission-critical Node.js cyber safety hub designed for parents to manage real-
 |  [ PARENT PORTAL  ] ========> DAD & CINDY VERIFIED    |
 |  [ DISCORD AUDIT  ] ========> ACTIVE MONITORING       |
 |                                                       |
-|  [▶ PLAY REPO]              [ℹ DETAILS]              |
+|  [🚀 LAUNCH LIVE]           [💻 VIEW CODE]           |
 +-------------------------------------------------------+
 ```
+[![Live Web](https://img.shields.io/badge/LIVE_WEB-ONLINE-46D369?style=flat-square&logo=render&logoColor=white)](https://operation-leo-lockdown.onrender.com)
 [![Stars](https://img.shields.io/github/stars/Mthompson6782/operation-leo-lockdown?style=social)](https://github.com/Mthompson6782/operation-leo-lockdown)
 [![Language](https://img.shields.io/badge/Language-JavaScript-F7DF1E?logo=javascript&logoColor=black)](https://github.com/Mthompson6782/operation-leo-lockdown)
 
@@ -89,7 +90,7 @@ A mission-critical Node.js cyber safety hub designed for parents to manage real-
 
 | #1 | #2 | #3 | #4 | #5 |
 | :---: | :---: | :---: | :---: | :---: |
-| [**Leo Lockdown**](https://github.com/Mthompson6782/operation-leo-lockdown)<br/>`Cyber Hub` | [**Cindy's Planner**](https://github.com/Mthompson6782/cindys-homeschool-planner)<br/>`Next.js App` | [**Improbability**](https://github.com/Mthompson6782/Autobiography)<br/>`Memoir` | [**Voice Cloner**](https://github.com/Mthompson6782/MT-Lab)<br/>`AI Avatar` | [**Agent Engine**](https://github.com/Mthompson6782/MT-Lab)<br/>`DAG AI` |
+| [**Leo Lockdown**](https://operation-leo-lockdown.onrender.com)<br/>`[🚀 Live App]` | [**Cindy's Planner**](https://cindys-homeschool-planner.vercel.app)<br/>`[🚀 Live App]` | [**Improbability**](https://mthompson6782.github.io/Autobiography/)<br/>`[📖 Live Memoir]` | [**Voice Cloner**](https://github.com/Mthompson6782/MT-Lab)<br/>`[AI Studio]` | [**Agent Engine**](https://github.com/Mthompson6782/MT-Lab)<br/>`[DAG Engine]` |
 
 </div>
 
@@ -102,40 +103,49 @@ A mission-critical Node.js cyber safety hub designed for parents to manage real-
 <td width="33%" valign="top">
 
 ### 🛡️ Operation Leo Lockdown
+[![Live Web](https://img.shields.io/badge/ONLINE-LIVE_SITE-46D369?style=flat-square)](https://operation-leo-lockdown.onrender.com)
 [![Leo Lockdown](https://img.shields.io/badge/MT--FLIX-TOP_1-E50914?style=flat-square)](https://github.com/Mthompson6782/operation-leo-lockdown)
+
 `99% Match` • `TV-MA` • `Node.js`
 
 Parental cyber-safety platform with automated Discord archive parsing and threat heuristic intelligence.
 
 * `Node.js` `Express` `Threat Intel`
 
-👉 [**Open Repository ↗**](https://github.com/Mthompson6782/operation-leo-lockdown)
+🚀 [**Launch Live Site ↗**](https://operation-leo-lockdown.onrender.com)<br/>
+💻 [**View Code on GitHub ↗**](https://github.com/Mthompson6782/operation-leo-lockdown)
 
 </td>
 <td width="33%" valign="top">
 
 ### 📚 Cindy's Homeschool Planner
+[![Live Web](https://img.shields.io/badge/ONLINE-LIVE_SITE-46D369?style=flat-square)](https://cindys-homeschool-planner.vercel.app)
 [![Cindy Planner](https://img.shields.io/badge/MT--FLIX-TOP_2-E50914?style=flat-square)](https://github.com/Mthompson6782/cindys-homeschool-planner)
+
 `98% Match` • `TV-PG` • `Next.js 19`
 
 Interactive curriculum pacing, multi-child course tracking, and calendar scheduling suite.
 
 * `React` `TypeScript` `Tailwind CSS`
 
-👉 [**Open Repository ↗**](https://github.com/Mthompson6782/cindys-homeschool-planner)
+🚀 [**Launch Live Site ↗**](https://cindys-homeschool-planner.vercel.app)<br/>
+💻 [**View Code on GitHub ↗**](https://github.com/Mthompson6782/cindys-homeschool-planner)
 
 </td>
 <td width="33%" valign="top">
 
 ### 📖 The Improbability of Me
+[![Live Web](https://img.shields.io/badge/ONLINE-LIVE_MEMOIR-46D369?style=flat-square)](https://mthompson6782.github.io/Autobiography/)
 [![Improbability of Me](https://img.shields.io/badge/MT--FLIX-TOP_3-E50914?style=flat-square)](https://github.com/Mthompson6782/Autobiography)
+
 `100% Match` • `TV-MA` • `Memoir`
 
 A personal autobiography exploring Baltimore streets, nuclear control rooms, cancer survivorship, and C-Suite leadership.
 
 * `Memoir` `Markdown` `8 Parts`
 
-👉 [**Open Memoir ↗**](https://github.com/Mthompson6782/Autobiography)
+📖 [**Read Live Memoir ↗**](https://mthompson6782.github.io/Autobiography/)<br/>
+💻 [**View Memoir on GitHub ↗**](https://github.com/Mthompson6782/Autobiography)
 
 </td>
 </tr>

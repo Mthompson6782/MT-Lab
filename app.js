@@ -305,12 +305,14 @@ function renderHeroBillboard(project) {
   if (!hero || !project) return;
 
   hero.style.backgroundImage = `url('${project.bannerImage}')`;
+  const hasLiveUrl = !!project.liveUrl;
   
   hero.innerHTML = `
     <div class="hero-vignette"></div>
     <div class="hero-content">
       <div class="hero-badge-row">
         <span class="original-pill">ORIGINAL SERIES</span>
+        ${hasLiveUrl ? `<span class="card-live-pill" style="position: static;"><span class="live-dot"></span> LIVE WEB APP</span>` : ''}
       </div>
       <h1 class="hero-title">${project.title}</h1>
       <div class="hero-meta-row">
@@ -322,9 +324,18 @@ function renderHeroBillboard(project) {
       </div>
       <p class="hero-synopsis">${project.synopsis}</p>
       <div class="hero-action-row">
-        <a href="${project.repoUrl}" target="_blank" rel="noopener noreferrer" class="btn-netflix btn-play">
-          <span>▶</span> <span>View Code</span>
-        </a>
+        ${hasLiveUrl ? `
+          <a href="${project.liveUrl}" target="_blank" rel="noopener noreferrer" class="btn-netflix btn-play" title="Launch Live Website">
+            <span>🚀</span> <span>Launch Live Website</span>
+          </a>
+          <a href="${project.repoUrl}" target="_blank" rel="noopener noreferrer" class="btn-netflix btn-info" title="View Code on GitHub">
+            <span>💻</span> <span>View Code</span>
+          </a>
+        ` : `
+          <a href="${project.repoUrl}" target="_blank" rel="noopener noreferrer" class="btn-netflix btn-play" title="View Code on GitHub">
+            <span>💻</span> <span>View Code</span>
+          </a>
+        `}
         <button class="btn-netflix btn-info" onclick="openDetailsModal('${project.id}')">
           <span>ℹ</span> <span>More Info</span>
         </button>
@@ -392,6 +403,11 @@ function renderTop10Row() {
             <div class="top10-poster-box">
               <div class="card-fallback-art" style="background: ${p.posterGradient};">
                 <div class="card-badge-top">${p.category}</div>
+                ${p.liveUrl ? `
+                  <a href="${p.liveUrl}" target="_blank" rel="noopener noreferrer" class="card-live-pill" onclick="event.stopPropagation();" title="Launch Live Website ↗">
+                    <span class="live-dot"></span> LIVE ↗
+                  </a>
+                ` : ''}
                 <div class="card-title-bottom">${p.title}</div>
               </div>
             </div>
@@ -437,12 +453,19 @@ function renderMyListRow() {
 
 function createCardHTML(p) {
   const inList = isProjectInMyList(p.id);
+  const hasLiveUrl = !!p.liveUrl;
+
   return `
     <div class="netflix-card" data-id="${p.id}">
       <div class="card-inner" onclick="openDetailsModal('${p.id}')">
         <div class="card-fallback-art" style="background: ${p.posterGradient};">
           <div class="card-vignette"></div>
           <div class="card-badge-top">${p.rating}</div>
+          ${hasLiveUrl ? `
+            <a href="${p.liveUrl}" target="_blank" rel="noopener noreferrer" class="card-live-pill" onclick="event.stopPropagation();" title="Launch Live Website ↗">
+              <span class="live-dot"></span> LIVE ↗
+            </a>
+          ` : ''}
           <div class="card-title-bottom">${p.title}</div>
         </div>
       </div>
@@ -452,15 +475,25 @@ function createCardHTML(p) {
         <div class="hover-preview-media" style="background: ${p.posterGradient};">
           <div class="card-vignette"></div>
           <div class="card-badge-top">${p.category}</div>
+          ${hasLiveUrl ? `
+            <a href="${p.liveUrl}" target="_blank" rel="noopener noreferrer" class="card-live-pill" onclick="event.stopPropagation();" title="Launch Live Website ↗">
+              <span class="live-dot"></span> LIVE WEB ↗
+            </a>
+          ` : ''}
           <div class="card-title-bottom" style="font-size: 1.1rem;">${p.title}</div>
         </div>
         <div class="hover-body">
           <div class="hover-controls">
             <div class="hover-btn-group-left">
-              <a href="${p.repoUrl}" target="_blank" rel="noopener noreferrer" class="circle-btn play-btn" title="Open GitHub Repo">
-                ▶
+              ${hasLiveUrl ? `
+                <a href="${p.liveUrl}" target="_blank" rel="noopener noreferrer" class="circle-btn live-btn" title="Launch Live Website (Opens in new tab)" onclick="event.stopPropagation();">
+                  🌐
+                </a>
+              ` : ''}
+              <a href="${p.repoUrl}" target="_blank" rel="noopener noreferrer" class="circle-btn play-btn" title="View Source Code on GitHub" onclick="event.stopPropagation();">
+                💻
               </a>
-              <button class="circle-btn" onclick="toggleMyList('${p.id}', this)" title="${inList ? 'Remove from My List' : 'Add to My List'}">
+              <button class="circle-btn" onclick="event.stopPropagation(); toggleMyList('${p.id}', this)" title="${inList ? 'Remove from My List' : 'Add to My List'}">
                 ${inList ? '✓' : '➕'}
               </button>
               <button class="circle-btn" onclick="openDetailsModal('${p.id}')" title="More Information">
@@ -471,6 +504,23 @@ function createCardHTML(p) {
               <span class="match-badge" style="font-size: 0.8rem; font-weight: bold;">${p.matchScore}%</span>
             </div>
           </div>
+
+          <!-- Direct Action Buttons for Cards -->
+          <div class="card-action-bar">
+            ${hasLiveUrl ? `
+              <a href="${p.liveUrl}" target="_blank" rel="noopener noreferrer" class="card-action-link live-link" onclick="event.stopPropagation();">
+                <span>🚀</span> <strong>Live Site ↗</strong>
+              </a>
+              <a href="${p.repoUrl}" target="_blank" rel="noopener noreferrer" class="card-action-link code-link" onclick="event.stopPropagation();" title="GitHub Code">
+                <span>💻</span> <strong>Code ↗</strong>
+              </a>
+            ` : `
+              <a href="${p.repoUrl}" target="_blank" rel="noopener noreferrer" class="card-action-link code-link full-width" onclick="event.stopPropagation();">
+                <span>💻</span> <strong>View GitHub Repository ↗</strong>
+              </a>
+            `}
+          </div>
+
           <div class="hover-meta">
             <span class="rating-badge">${p.rating}</span>
             <span>${p.duration}</span>
@@ -516,6 +566,7 @@ function openDetailsModal(projectId) {
   const tags = document.getElementById('modal-tags');
   const stats = document.getElementById('modal-stats');
   const repoBtn = document.getElementById('modal-repo-btn');
+  const liveBtn = document.getElementById('modal-live-btn');
   const bookmarkBtn = document.getElementById('modal-bookmark-btn');
 
   heroMedia.style.background = project.posterGradient;
@@ -534,10 +585,20 @@ function openDetailsModal(projectId) {
   stats.innerHTML = `
     <div class="modal-meta-field"><strong>Category:</strong> <span>${project.category}</span></div>
     <div class="modal-meta-field"><strong>Status:</strong> <span>${project.stats.status}</span></div>
-    <div class="modal-meta-field"><strong>Audio/Format:</strong> <span>${project.audio}</span></div>
+    ${project.liveUrl ? `<div class="modal-meta-field"><strong>Live Website:</strong> <a href="${project.liveUrl}" target="_blank" rel="noopener noreferrer" style="color: #46d369; text-decoration: underline; font-weight: 600;">${project.liveUrl} ↗</a></div>` : ''}
+    <div class="modal-meta-field"><strong>Repository:</strong> <a href="${project.repoUrl}" target="_blank" rel="noopener noreferrer" style="color: #60a5fa; text-decoration: underline;">GitHub ↗</a></div>
   `;
 
   repoBtn.href = project.repoUrl;
+
+  if (liveBtn) {
+    if (project.liveUrl) {
+      liveBtn.style.display = 'inline-flex';
+      liveBtn.href = project.liveUrl;
+    } else {
+      liveBtn.style.display = 'none';
+    }
+  }
 
   const inList = isProjectInMyList(project.id);
   bookmarkBtn.innerHTML = inList ? '✓ In My List' : '➕ Add to My List';
@@ -548,7 +609,6 @@ function openDetailsModal(projectId) {
   };
 
   modal.classList.add('active');
-  document.body.style.overflow = 'hidden';
 }
 
 function closeDetailsModal() {

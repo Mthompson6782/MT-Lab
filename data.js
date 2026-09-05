@@ -17,7 +17,7 @@ const PROJECTS_DATA = [
     quality: "4K Ultra HD",
     audio: "5.1 Surround",
     repoUrl: "https://github.com/Mthompson6782/operation-leo-lockdown",
-    liveUrl: null,
+    liveUrl: "https://operation-leo-lockdown.onrender.com",
     synopsis: "A secure, collaborative Node.js web application designed for parents (Dad & Cindy) to manage digital safety audits, track real-time account remediation, and automatically scan exported Discord chat archives for cyber threats and grooming indicators.",
     longDescription: `Operation Leo Lockdown was engineered from the ground up to protect adolescent digital safety through rigorous automated analysis and parental visibility.
     
@@ -47,7 +47,7 @@ Key Architecture & Capabilities:
     quality: "HD",
     audio: "Stereo",
     repoUrl: "https://github.com/Mthompson6782/cindys-homeschool-planner",
-    liveUrl: null,
+    liveUrl: "https://cindys-homeschool-planner.vercel.app",
     synopsis: "A Next.js educational orchestration platform engineered for intuitive curriculum planning, multi-child course tracking, calendar scheduling, and academic progress visualization.",
     longDescription: `Cindy's Homeschool Planner streamlines homeschool management by combining fluid user experience with high-performance modern web architecture.
     
@@ -77,7 +77,7 @@ Key Architecture & Capabilities:
     quality: "Literary Edition",
     audio: "Narrative Voice",
     repoUrl: "https://github.com/Mthompson6782/Autobiography",
-    liveUrl: null,
+    liveUrl: "https://mthompson6782.github.io/Autobiography/",
     synopsis: "The Resume and The Rap Sheet. The Safety Mother and the Kingpin. The Engineer and the Survivor. The autobiographical story of the man who lived all of those lives simultaneously — from Baltimore streets to nuclear control rooms.",
     longDescription: `This autobiography traces the arc of Michael Thompson's life through a series of radical dualities:
 the Baltimore streets and the nuclear control room, the felony record and the functional safety credential, the cancer ward and the C-Suite. It is the story of a man who should not exist, statistically speaking — and yet here he is.
