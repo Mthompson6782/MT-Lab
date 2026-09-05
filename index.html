@@ -3,16 +3,79 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MT-FLIX | Michael Thompson's Software Laboratory</title>
+  <title>MT LABS | Michael Thompson's Software Laboratory</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎬</text></svg>">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <!-- ========================================================================
+       0. CINEMATIC MT LABS SPLASH SCREEN
+       ======================================================================== -->
+  <div id="splash-screen">
+    <!-- Cinematic Letterbox Aspect Bars -->
+    <div class="letterbox-bar letterbox-top"></div>
+    <div class="letterbox-bar letterbox-bottom"></div>
+
+    <div class="cinematic-backdrop">
+      <div class="ambient-glow"></div>
+      <div class="dust-particles"></div>
+    </div>
+
+    <!-- Pre-Click Initializer Gate -->
+    <div class="splash-intro-card" id="splash-intro-card">
+      <div class="studio-emblem">⚡</div>
+      <div class="studio-supertitle">MICHAEL THOMPSON PRESENTS</div>
+      
+      <button class="initialize-btn" id="initialize-splash-btn">
+        <div class="btn-pulse-ring"></div>
+        <span class="init-play-icon">▶</span>
+        <span class="init-text">ENTER MT LABS</span>
+      </button>
+
+      <div class="sound-hint">
+        <span class="sound-wave-icon">🔊</span>
+        <span>Includes Cinematic Audio Impact • Click to Launch</span>
+      </div>
+    </div>
+
+    <!-- Post-Click Cinematic Impact Stage -->
+    <div class="splash-stage" id="splash-stage">
+      <div class="shockwave-ring" id="shockwave-ring"></div>
+      <div class="flash-overlay" id="flash-overlay"></div>
+      <div class="lens-flare-beam" id="lens-flare-beam"></div>
+
+      <div class="title-container" id="title-container">
+        <div class="studio-presents">A MICHAEL THOMPSON PRODUCTION</div>
+        <h1 class="splash-brand-title" id="splash-brand-title">
+          <span class="title-word">MT</span> <span class="title-word highlight">LABS</span>
+        </h1>
+        <div class="latin-divider"></div>
+        <div class="latin-tagline" id="latin-tagline">
+          AUT VIAM INVENIAM AUT FACIAM
+        </div>
+        <div class="latin-translation" id="latin-translation">
+          "I Shall Either Find A Way Or Make One"
+        </div>
+        <div class="latin-secondary">
+          PER ASPERA AD ASTRA &nbsp;•&nbsp; RESURGO ET VINCO
+        </div>
+      </div>
+    </div>
+
+    <!-- Skip Intro Button -->
+    <button class="skip-intro-btn" id="skip-intro-btn" title="Skip to Profiles">
+      SKIP INTRO ❯
+    </button>
+  </div>
+
+  <!-- Audio Player for Cinematic Impact -->
+  <audio id="splash-audio" src="cinematic-impact.mp3" preload="auto"></audio>
+
+  <!-- ========================================================================
        1. "WHO'S WATCHING?" PROFILE GATE
        ======================================================================== -->
-  <div id="profile-gate">
+  <div id="profile-gate" class="hidden">
     <div class="profile-container">
       <div class="profile-brand-logo">MT-FLIX</div>
       <h1 class="profile-title">Who's watching MT-Lab?</h1>
@@ -31,7 +94,7 @@
   <header class="netflix-navbar" id="netflix-navbar">
     <div class="nav-left">
       <a href="#" class="brand-logo">
-        MT-FLIX <span class="tag">LAB</span>
+        MT-FLIX <span class="tag">LABS</span>
       </a>
       <ul class="nav-links">
         <li><a href="#" class="nav-link active">Home</a></li>
@@ -44,6 +107,10 @@
     </div>
 
     <div class="nav-right">
+      <button class="replay-intro-btn" id="replay-intro-btn" title="Replay Cinematic Splash Intro">
+        🎬 Intro
+      </button>
+
       <div class="search-box">
         <span class="search-icon">🔍</span>
         <input type="text" id="search-input" class="search-input" placeholder="Titles, tags, technologies...">
@@ -147,8 +214,11 @@
       <li><a href="https://github.com/Mthompson6782/Autobiography" target="_blank" rel="noopener">Autobiography Memoir</a></li>
       <li><a href="https://github.com/Mthompson6782/operation-leo-lockdown" target="_blank" rel="noopener">Leo Lockdown</a></li>
     </ul>
-    <button class="service-code-btn" onclick="playNetflixTaDum()">TA-DUM SOUND TEST</button>
-    <p>© 2026 Michael Thompson. MT-FLIX Engineering Studio. Built with pure web standards for high performance.</p>
+    <div style="margin-bottom: 16px;">
+      <button class="service-code-btn" onclick="replaySplashScreen()" style="margin-right: 10px;">REPLAY MT LABS SPLASH</button>
+      <button class="service-code-btn" onclick="playNetflixTaDum()">TA-DUM CHIME TEST</button>
+    </div>
+    <p>© 2026 Michael Thompson. MT-FLIX & MT LABS Engineering Studio. Built with pure web standards for high performance.</p>
   </footer>
 
   <!-- Scripts -->

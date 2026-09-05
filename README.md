@@ -7,6 +7,10 @@
 [![GitHub Profile](https://img.shields.io/badge/GITHUB-Mthompson6782-141414?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Mthompson6782)
 [![Active Status](https://img.shields.io/badge/STATUS-STREAMING_ACTIVE-46D369?style=for-the-badge)](https://github.com/Mthompson6782/MT-Lab)
 
+> ### 🏛️ *"AUT VIAM INVENIAM AUT FACIAM"*
+> **"I Shall Either Find A Way Or Make One"**
+> `• PER ASPERA AD ASTRA • RESURGO ET VINCO •`
+
 <br/>
 
 ```
@@ -17,7 +21,7 @@
   ██      ██    ██          ██      ███████ ██ ██   ██ 
 ```
 
-**Welcome to MT-FLIX.** Browse Michael Thompson's full ecosystem of full-stack platforms, autonomous AI systems, industrial cybersecurity architecture, and published memoirs — organized like your favorite streaming service.
+**Welcome to MT LABS & MT-FLIX.** Browse Michael Thompson's full ecosystem of full-stack platforms, autonomous AI systems, industrial cybersecurity architecture, and published memoirs — organized like your favorite streaming service.
 
 ---
 

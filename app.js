@@ -1,13 +1,14 @@
 // ==========================================================================
-// MT-FLIX: Netflix-Style Application Logic
+// MT-FLIX & MT LABS: Application Logic with Cinematic Splash Experience
 // ==========================================================================
 
 let activeProfile = null;
 let myList = JSON.parse(localStorage.getItem('mtflix_my_list') || '[]');
 let isAudioMuted = false;
 let currentModalProject = null;
+let splashTimer = null;
 
-// Web Audio API: Netflix "Ta-Dum!" Synthesizer
+// Web Audio API: Netflix "Ta-Dum!" Synthesizer (Fallback / Secondary Chime)
 function playNetflixTaDum() {
   if (isAudioMuted) return;
   try {
@@ -61,8 +62,9 @@ function playNetflixTaDum() {
   }
 }
 
-// Initialize Application
+// Initialize Application on DOM Ready
 document.addEventListener('DOMContentLoaded', () => {
+  initSplashScreen();
   initProfileGate();
   initNavbar();
   renderHeroBillboard(PROJECTS_DATA[0]);
@@ -71,25 +73,158 @@ document.addEventListener('DOMContentLoaded', () => {
   initModalHandlers();
 });
 
-// Profile Gate Setup
+// ==========================================================================
+// 0. CINEMATIC MT LABS SPLASH SCREEN CONTROLLER
+// ==========================================================================
+function initSplashScreen() {
+  const splashScreen = document.getElementById('splash-screen');
+  const initBtn = document.getElementById('initialize-splash-btn');
+  const introCard = document.getElementById('splash-intro-card');
+  const skipBtn = document.getElementById('skip-intro-btn');
+  const replayBtn = document.getElementById('replay-intro-btn');
+
+  if (initBtn) {
+    initBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      triggerCinematicImpact();
+    });
+  }
+
+  if (introCard) {
+    introCard.addEventListener('click', () => {
+      triggerCinematicImpact();
+    });
+  }
+
+  if (skipBtn) {
+    skipBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      finishSplashScreen();
+    });
+  }
+
+  if (replayBtn) {
+    replayBtn.addEventListener('click', () => {
+      replaySplashScreen();
+    });
+  }
+}
+
+function triggerCinematicImpact() {
+  const splashScreen = document.getElementById('splash-screen');
+  const introCard = document.getElementById('splash-intro-card');
+  const audio = document.getElementById('splash-audio');
+
+  if (introCard) {
+    introCard.classList.add('dismissed');
+  }
+
+  // Play cinematic impact sound effect
+  if (audio && !isAudioMuted) {
+    audio.currentTime = 0;
+    audio.volume = 1.0;
+    const playPromise = audio.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(err => {
+        console.warn("Autoplay restriction prevented audio, falling back to synthesizer:", err);
+        playNetflixTaDum();
+      });
+    }
+  }
+
+  // Activate cinematic visuals
+  if (splashScreen) {
+    splashScreen.classList.remove('fade-out');
+    splashScreen.classList.add('impact-active');
+  }
+
+  // Automatically transition to profile gate after impact completes
+  clearTimeout(splashTimer);
+  splashTimer = setTimeout(() => {
+    finishSplashScreen();
+  }, 4800);
+}
+
+function finishSplashScreen() {
+  clearTimeout(splashTimer);
+  const splashScreen = document.getElementById('splash-screen');
+  const audio = document.getElementById('splash-audio');
+  const profileGate = document.getElementById('profile-gate');
+
+  // Fade out audio smoothly if still playing
+  if (audio && !audio.paused) {
+    const fadeAudio = setInterval(() => {
+      if (audio.volume > 0.1) {
+        audio.volume -= 0.1;
+      } else {
+        audio.pause();
+        audio.volume = 1.0;
+        clearInterval(fadeAudio);
+      }
+    }, 50);
+  }
+
+  if (splashScreen) {
+    splashScreen.classList.add('fade-out');
+  }
+
+  // Reveal Profile Selection Gate
+  if (profileGate) {
+    profileGate.classList.remove('hidden');
+    profileGate.style.opacity = '1';
+  }
+}
+
+function replaySplashScreen() {
+  clearTimeout(splashTimer);
+  const splashScreen = document.getElementById('splash-screen');
+  const introCard = document.getElementById('splash-intro-card');
+  const profileGate = document.getElementById('profile-gate');
+
+  if (profileGate) {
+    profileGate.classList.add('hidden');
+  }
+
+  if (splashScreen) {
+    splashScreen.classList.remove('fade-out');
+    splashScreen.classList.remove('impact-active');
+  }
+
+  if (introCard) {
+    introCard.classList.add('dismissed');
+  }
+
+  // Force DOM reflow to re-trigger CSS animations
+  void splashScreen.offsetWidth;
+
+  triggerCinematicImpact();
+}
+
+// ==========================================================================
+// 1. PROFILE GATE
+// ==========================================================================
 function initProfileGate() {
   const gate = document.getElementById('profile-gate');
   const grid = document.getElementById('profiles-grid');
   const guestBtn = document.getElementById('enter-guest-btn');
 
-  grid.innerHTML = USER_PROFILES.map(p => `
-    <div class="profile-card" data-id="${p.id}" onclick="selectProfile('${p.id}')">
-      <div class="profile-avatar-box">
-        <span>${p.avatar}</span>
+  if (grid) {
+    grid.innerHTML = USER_PROFILES.map(p => `
+      <div class="profile-card" data-id="${p.id}" onclick="selectProfile('${p.id}')">
+        <div class="profile-avatar-box">
+          <span>${p.avatar}</span>
+        </div>
+        <div class="profile-name">${p.name}</div>
+        <div class="profile-tagline">${p.tagline}</div>
       </div>
-      <div class="profile-name">${p.name}</div>
-      <div class="profile-tagline">${p.tagline}</div>
-    </div>
-  `).join('');
+    `).join('');
+  }
 
-  guestBtn.addEventListener('click', () => {
-    selectProfile('recruiter');
-  });
+  if (guestBtn) {
+    guestBtn.addEventListener('click', () => {
+      selectProfile('recruiter');
+    });
+  }
 
   // Check saved profile
   const saved = localStorage.getItem('mtflix_active_profile');
@@ -97,7 +232,6 @@ function initProfileGate() {
     const found = USER_PROFILES.find(p => p.id === saved);
     if (found) {
       applyProfile(found);
-      gate.classList.add('hidden');
     }
   }
 }
@@ -110,10 +244,12 @@ function selectProfile(profileId) {
   playNetflixTaDum();
 
   const gate = document.getElementById('profile-gate');
-  gate.style.opacity = '0';
-  setTimeout(() => {
-    gate.classList.add('hidden');
-  }, 400);
+  if (gate) {
+    gate.style.opacity = '0';
+    setTimeout(() => {
+      gate.classList.add('hidden');
+    }, 400);
+  }
 }
 
 function applyProfile(profile) {
@@ -127,11 +263,15 @@ function applyProfile(profile) {
 
 function switchProfilePrompt() {
   const gate = document.getElementById('profile-gate');
-  gate.classList.remove('hidden');
-  gate.style.opacity = '1';
+  if (gate) {
+    gate.classList.remove('hidden');
+    gate.style.opacity = '1';
+  }
 }
 
-// Navbar Logic
+// ==========================================================================
+// 2. NAVBAR
+// ==========================================================================
 function initNavbar() {
   const nav = document.getElementById('netflix-navbar');
   window.addEventListener('scroll', () => {
@@ -148,11 +288,18 @@ function initNavbar() {
       isAudioMuted = !isAudioMuted;
       soundBtn.innerHTML = isAudioMuted ? '🔇' : '🔊';
       soundBtn.title = isAudioMuted ? 'Sound Muted' : 'Sound Enabled';
+      
+      const audio = document.getElementById('splash-audio');
+      if (audio && isAudioMuted) {
+        audio.pause();
+      }
     });
   }
 }
 
-// Hero Billboard Renderer
+// ==========================================================================
+// 3. HERO BILLBOARD
+// ==========================================================================
 function renderHeroBillboard(project) {
   const hero = document.getElementById('hero-billboard');
   if (!hero || !project) return;
@@ -189,7 +336,9 @@ function renderHeroBillboard(project) {
   `;
 }
 
-// Render All Rows
+// ==========================================================================
+// 4. CATALOG ROWS & CAROUSELS
+// ==========================================================================
 function renderAllRows() {
   renderTop10Row();
   renderCategoryRow("Trending Originals", "🍿 Trending Now | Flagship Applications", "trending-row");
@@ -199,7 +348,6 @@ function renderAllRows() {
   renderMyListRow();
 }
 
-// Render Category Carousel Row
 function renderCategoryRow(rowKey, displayTitle, elementId) {
   const container = document.getElementById(elementId);
   if (!container) return;
@@ -222,7 +370,6 @@ function renderCategoryRow(rowKey, displayTitle, elementId) {
   `;
 }
 
-// Render Top 10 Row
 function renderTop10Row() {
   const container = document.getElementById('top10-row');
   if (!container) return;
@@ -256,7 +403,6 @@ function renderTop10Row() {
   `;
 }
 
-// Render My List Row
 function renderMyListRow() {
   const container = document.getElementById('mylist-row');
   if (!container) return;
@@ -289,7 +435,6 @@ function renderMyListRow() {
   `;
 }
 
-// Generate Card HTML
 function createCardHTML(p) {
   const inList = isProjectInMyList(p.id);
   return `
@@ -340,7 +485,6 @@ function createCardHTML(p) {
   `;
 }
 
-// Carousel Scroll Buttons
 function scrollCarousel(trackId, direction) {
   const track = document.getElementById(trackId);
   if (!track) return;
@@ -351,7 +495,9 @@ function scrollCarousel(trackId, direction) {
   });
 }
 
-// Details Modal
+// ==========================================================================
+// 5. DETAILS MODAL
+// ==========================================================================
 function openDetailsModal(projectId) {
   const project = PROJECTS_DATA.find(p => p.id === projectId);
   if (!project) return;
@@ -426,7 +572,9 @@ function initModalHandlers() {
   });
 }
 
-// My List Management
+// ==========================================================================
+// 6. MY LIST
+// ==========================================================================
 function isProjectInMyList(id) {
   return myList.includes(id);
 }
@@ -441,13 +589,14 @@ function toggleMyList(id, btnElement) {
 
   renderMyListRow();
 
-  // If button passed, update icon
   if (btnElement) {
     btnElement.innerHTML = `<span>${isProjectInMyList(id) ? '✓' : '➕'}</span>`;
   }
 }
 
-// Search Functionality
+// ==========================================================================
+// 7. SEARCH
+// ==========================================================================
 function initSearch() {
   const input = document.getElementById('search-input');
   if (!input) return;
