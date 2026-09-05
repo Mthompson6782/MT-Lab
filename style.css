@@ -1,0 +1,1056 @@
+/* ==========================================================================
+   MT-FLIX: Netflix-Style Engineering Showcase
+   Designed for Michael Thompson (Mthompson6782 / MT-Lab)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --netflix-red: #E50914;
+  --netflix-red-hover: #F40612;
+  --bg-dark: #141414;
+  --bg-card: #181818;
+  --bg-modal: #181818;
+  --text-main: #FFFFFF;
+  --text-muted: #A3A3A3;
+  --text-dim: #737373;
+  --card-border: rgba(255, 255, 255, 0.1);
+  --netflix-transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --header-height: 68px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100%;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #141414;
+}
+::-webkit-scrollbar-thumb {
+  background: #333333;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--netflix-red);
+}
+
+/* ==========================================================================
+   1. "WHO'S WATCHING?" PROFILE GATE
+   ========================================================================== */
+#profile-gate {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, #1a1a1a 0%, #0c0c0c 100%);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+#profile-gate.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.profile-container {
+  text-align: center;
+  max-width: 900px;
+  padding: 20px;
+}
+
+.profile-brand-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3.5rem;
+  letter-spacing: 4px;
+  color: var(--netflix-red);
+  text-shadow: 0 4px 20px rgba(229, 9, 20, 0.5);
+  margin-bottom: 20px;
+  display: inline-block;
+}
+
+.profile-title {
+  font-size: 2.5rem;
+  font-weight: 500;
+  margin-bottom: 40px;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+
+.profiles-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+  flex-wrap: wrap;
+  margin-bottom: 50px;
+}
+
+.profile-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  group: relative;
+  transition: transform 0.25s ease;
+  width: 140px;
+}
+
+.profile-card:hover {
+  transform: translateY(-8px);
+}
+
+.profile-avatar-box {
+  width: 120px;
+  height: 120px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.5rem;
+  background: #262626;
+  border: 3px solid transparent;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.profile-card:hover .profile-avatar-box {
+  border-color: #ffffff;
+  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
+}
+
+.profile-name {
+  margin-top: 14px;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  text-align: center;
+  font-weight: 500;
+  transition: color 0.25s ease;
+}
+
+.profile-card:hover .profile-name {
+  color: #ffffff;
+}
+
+.profile-tagline {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  margin-top: 4px;
+  line-height: 1.2;
+}
+
+.enter-as-guest-btn {
+  background: transparent;
+  border: 1px solid #555;
+  color: #aaa;
+  padding: 10px 28px;
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: var(--netflix-transition);
+}
+
+.enter-as-guest-btn:hover {
+  border-color: #fff;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* ==========================================================================
+   2. STICKY NETFLIX NAVBAR
+   ========================================================================== */
+.netflix-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--header-height);
+  padding: 0 4%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 100;
+  transition: background-color 0.4s ease, box-shadow 0.4s ease;
+  background: linear-gradient(180deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%);
+}
+
+.netflix-navbar.scrolled {
+  background-color: #141414;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+
+.brand-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.3rem;
+  letter-spacing: 2.5px;
+  color: var(--netflix-red);
+  text-decoration: none;
+  text-shadow: 0 2px 10px rgba(229, 9, 20, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.brand-logo span.tag {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.65rem;
+  background: #333;
+  color: #eee;
+  padding: 2px 6px;
+  border-radius: 4px;
+  letter-spacing: 1px;
+  vertical-align: middle;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  list-style: none;
+}
+
+.nav-link {
+  color: #e5e5e5;
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 400;
+  transition: color 0.25s ease;
+  cursor: pointer;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  position: relative;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 4px;
+  padding: 6px 12px;
+  transition: var(--netflix-transition);
+}
+
+.search-box:focus-within {
+  border-color: #ffffff;
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.search-icon {
+  font-size: 0.9rem;
+  margin-right: 8px;
+  color: var(--text-muted);
+}
+
+.search-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 0.85rem;
+  width: 160px;
+  transition: width 0.3s ease;
+}
+
+.search-input:focus {
+  width: 240px;
+}
+
+.search-input::placeholder {
+  color: #777;
+}
+
+.audio-toggle-btn {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: var(--netflix-transition);
+}
+
+.audio-toggle-btn:hover {
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.nav-profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  position: relative;
+}
+
+.nav-profile-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 4px;
+  background: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  border: 2px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+.nav-profile:hover .nav-profile-avatar {
+  border-color: #ffffff;
+}
+
+/* ==========================================================================
+   3. HERO BILLBOARD
+   ========================================================================== */
+.hero-billboard {
+  position: relative;
+  width: 100%;
+  height: 82vh;
+  min-height: 520px;
+  display: flex;
+  align-items: center;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-bottom: -60px;
+  transition: background-image 0.6s ease-in-out;
+}
+
+.hero-vignette {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(77deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 45%, rgba(0,0,0,0) 85%),
+              linear-gradient(180deg, rgba(20,20,20,0) 65%, rgba(20,20,20,1) 100%);
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+  max-width: 680px;
+  padding-left: 4%;
+  padding-right: 20px;
+}
+
+.hero-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.original-pill {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.2rem;
+  letter-spacing: 3px;
+  color: var(--netflix-red);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.original-pill::before {
+  content: "N";
+  font-weight: 900;
+  font-size: 1.4rem;
+  color: var(--netflix-red);
+}
+
+.hero-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 4.8rem;
+  line-height: 1.0;
+  letter-spacing: 1px;
+  margin-bottom: 14px;
+  text-shadow: 0 4px 15px rgba(0,0,0,0.8);
+}
+
+.hero-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.match-badge {
+  color: #46d369;
+}
+
+.rating-badge {
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 1px 6px;
+  font-size: 0.75rem;
+  border-radius: 2px;
+  color: #fff;
+}
+
+.quality-badge {
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 1px 5px;
+  font-size: 0.7rem;
+  border-radius: 2px;
+  color: #ccc;
+}
+
+.hero-synopsis {
+  font-size: 1.05rem;
+  line-height: 1.5;
+  color: #e5e5e5;
+  margin-bottom: 24px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.hero-action-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.btn-netflix {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 11px 26px;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: var(--netflix-transition);
+  border: none;
+}
+
+.btn-play {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.btn-play:hover {
+  background-color: rgba(255, 255, 255, 0.75);
+}
+
+.btn-info {
+  background-color: rgba(109, 109, 110, 0.7);
+  color: #ffffff;
+}
+
+.btn-info:hover {
+  background-color: rgba(109, 109, 110, 0.4);
+}
+
+.btn-bookmark-hero {
+  background: rgba(40, 40, 40, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #fff;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: var(--netflix-transition);
+}
+
+.btn-bookmark-hero:hover {
+  border-color: #fff;
+  background: rgba(60, 60, 60, 0.9);
+}
+
+/* ==========================================================================
+   4. CATALOG ROWS & HORIZONTAL CAROUSELS
+   ========================================================================== */
+.main-catalog {
+  position: relative;
+  z-index: 20;
+  padding-bottom: 80px;
+}
+
+.catalog-row {
+  margin-bottom: 48px;
+  position: relative;
+}
+
+.row-header {
+  padding: 0 4%;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.row-title {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #e5e5e5;
+  transition: color 0.2s ease;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.row-title:hover {
+  color: #ffffff;
+}
+
+.row-explore-link {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.catalog-row:hover .row-explore-link {
+  opacity: 1;
+}
+
+/* Carousel Outer with Chevron Controls */
+.carousel-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 12px;
+  padding: 20px 4% 40px 4%;
+  overflow-x: auto;
+  overflow-y: visible;
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE */
+}
+
+.carousel-track::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+.chevron-btn {
+  position: absolute;
+  top: 20px;
+  bottom: 40px;
+  width: 48px;
+  background: rgba(20, 20, 20, 0.7);
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  opacity: 0;
+  transition: opacity 0.25s ease, background-color 0.25s ease;
+}
+
+.chevron-btn:hover {
+  background: rgba(20, 20, 20, 0.95);
+  color: var(--netflix-red);
+}
+
+.carousel-wrapper:hover .chevron-btn {
+  opacity: 1;
+}
+
+.chevron-left {
+  left: 0;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.chevron-right {
+  right: 0;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+/* ==========================================================================
+   5. NETFLIX PROJECT CARD (WITH HOVER EXPAND)
+   ========================================================================== */
+.netflix-card {
+  flex: 0 0 280px;
+  height: 160px;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.3s cubic-bezier(0.2, 0, 0.2, 1), box-shadow 0.3s ease;
+  user-select: none;
+}
+
+.card-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+  background-color: var(--bg-card);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.card-poster {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  inset: 0;
+}
+
+.card-fallback-art {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.card-vignette {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%);
+}
+
+.card-badge-top {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--netflix-red);
+  letter-spacing: 1px;
+  border: 1px solid rgba(229, 9, 20, 0.4);
+}
+
+.card-title-bottom {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  right: 12px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #fff;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.9);
+  line-height: 1.2;
+}
+
+/* Hover Detail Popup Layer */
+.card-hover-drawer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 320px;
+  background: #181818;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.95), 0 0 15px rgba(229, 9, 20, 0.2);
+  z-index: 80;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: scale(0.95);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.netflix-card:hover .card-hover-drawer {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: scale(1.08) translateY(-30px);
+}
+
+.hover-preview-media {
+  width: 100%;
+  height: 160px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hover-preview-media img,
+.hover-preview-media .hover-fallback {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hover-body {
+  padding: 14px;
+}
+
+.hover-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.hover-btn-group-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.circle-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(42, 42, 42, 0.6);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: var(--netflix-transition);
+}
+
+.circle-btn:hover {
+  border-color: #fff;
+  background: #ffffff;
+  color: #000;
+}
+
+.circle-btn.play-btn {
+  background: #fff;
+  color: #000;
+  border: none;
+}
+
+.circle-btn.play-btn:hover {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.hover-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  margin-bottom: 8px;
+}
+
+.hover-tags-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 8px;
+}
+
+.tech-tag {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ddd;
+  font-size: 0.68rem;
+  padding: 2px 7px;
+  border-radius: 3px;
+}
+
+/* ==========================================================================
+   6. "TOP 10" OVERSIZED NUMBER CARDS
+   ========================================================================== */
+.top10-card {
+  flex: 0 0 310px;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.25s ease;
+}
+
+.top10-card:hover {
+  transform: scale(1.05);
+}
+
+.top10-number {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 11rem;
+  line-height: 1;
+  color: #000000;
+  -webkit-text-stroke: 4px #595959;
+  text-shadow: 0 0 15px rgba(0,0,0,0.9);
+  width: 100px;
+  text-align: right;
+  margin-right: -15px;
+  z-index: 5;
+  user-select: none;
+}
+
+.top10-card:hover .top10-number {
+  -webkit-text-stroke: 4px var(--netflix-red);
+}
+
+.top10-poster-box {
+  flex: 1;
+  height: 100%;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #222;
+  position: relative;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ==========================================================================
+   7. NETFLIX DETAIL MODAL
+   ========================================================================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(6px);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.modal-dialog {
+  background: var(--bg-modal);
+  width: 100%;
+  max-width: 860px;
+  max-height: 90vh;
+  border-radius: 10px;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.9), 0 0 30px rgba(229, 9, 20, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  animation: modalScaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalScaleUp {
+  from { transform: scale(0.92) translateY(30px); }
+  to { transform: scale(1) translateY(0); }
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(20, 20, 20, 0.85);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.2rem;
+  z-index: 30;
+  transition: var(--netflix-transition);
+}
+
+.modal-close-btn:hover {
+  background: #fff;
+  color: #000;
+}
+
+.modal-hero {
+  position: relative;
+  height: 340px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+  padding: 30px;
+}
+
+.modal-hero-vignette {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, #181818 0%, rgba(24, 24, 24, 0.4) 60%, rgba(0,0,0,0.7) 100%);
+}
+
+.modal-hero-content {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+}
+
+.modal-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3.5rem;
+  letter-spacing: 1.5px;
+  line-height: 1.0;
+  margin-bottom: 8px;
+}
+
+.modal-subtitle {
+  font-size: 1.05rem;
+  color: #ccc;
+  margin-bottom: 16px;
+}
+
+.modal-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.modal-body {
+  padding: 30px;
+}
+
+.modal-columns {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.modal-left p {
+  color: #e5e5e5;
+  font-size: 0.98rem;
+  line-height: 1.6;
+  white-space: pre-line;
+}
+
+.modal-right {
+  font-size: 0.85rem;
+  color: #888;
+}
+
+.modal-meta-field {
+  margin-bottom: 14px;
+}
+
+.modal-meta-field strong {
+  color: #ccc;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.modal-meta-field span {
+  color: #fff;
+}
+
+/* ==========================================================================
+   8. FOOTER
+   ========================================================================== */
+.netflix-footer {
+  padding: 60px 4% 40px 4%;
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  border-top: 1px solid #222;
+  text-align: center;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  list-style: none;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  color: var(--text-dim);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+  color: #fff;
+}
+
+.service-code-btn {
+  background: transparent;
+  border: 1px solid #444;
+  color: #888;
+  padding: 6px 14px;
+  font-size: 0.78rem;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.service-code-btn:hover {
+  color: #fff;
+  border-color: #fff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 3rem;
+  }
+  .modal-columns {
+    grid-template-columns: 1fr;
+  }
+  .nav-links {
+    display: none;
+  }
+}

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MT-FLIX | Michael Thompson's Software Laboratory</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎬</text></svg>">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ========================================================================
+       1. "WHO'S WATCHING?" PROFILE GATE
+       ======================================================================== -->
+  <div id="profile-gate">
+    <div class="profile-container">
+      <div class="profile-brand-logo">MT-FLIX</div>
+      <h1 class="profile-title">Who's watching MT-Lab?</h1>
+      
+      <div class="profiles-grid" id="profiles-grid">
+        <!-- Injected via app.js from USER_PROFILES -->
+      </div>
+
+      <button id="enter-guest-btn" class="enter-as-guest-btn">Enter as Guest</button>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       2. STICKY NETFLIX NAVBAR
+       ======================================================================== -->
+  <header class="netflix-navbar" id="netflix-navbar">
+    <div class="nav-left">
+      <a href="#" class="brand-logo">
+        MT-FLIX <span class="tag">LAB</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#" class="nav-link active">Home</a></li>
+        <li><a href="#trending-row" class="nav-link">Flagships</a></li>
+        <li><a href="#ai-row" class="nav-link">AI & Audio</a></li>
+        <li><a href="#knowledge-row" class="nav-link">Second Brain</a></li>
+        <li><a href="#mylist-row" class="nav-link">My List</a></li>
+        <li><a href="https://github.com/Mthompson6782" target="_blank" rel="noopener noreferrer" class="nav-link">GitHub ↗</a></li>
+      </ul>
+    </div>
+
+    <div class="nav-right">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="search-input" class="search-input" placeholder="Titles, tags, technologies...">
+      </div>
+
+      <button id="audio-toggle" class="audio-toggle-btn" title="Toggle Sound">
+        🔊
+      </button>
+
+      <div class="nav-profile" onclick="switchProfilePrompt()" title="Switch Profile">
+        <div class="nav-profile-avatar" id="nav-profile-avatar">👔</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       3. HERO BILLBOARD
+       ======================================================================== -->
+  <section class="hero-billboard" id="hero-billboard">
+    <!-- Injected dynamically via app.js -->
+  </section>
+
+  <!-- ========================================================================
+       4. CATALOG ROWS & CAROUSELS
+       ======================================================================== -->
+  <main class="main-catalog" id="main-catalog">
+    <!-- Top 10 in Tech Today -->
+    <section class="catalog-row" id="top10-row"></section>
+
+    <!-- Trending Now / Flagships -->
+    <section class="catalog-row" id="trending-row"></section>
+
+    <!-- Web Apps & Full Stack -->
+    <section class="catalog-row" id="web-row"></section>
+
+    <!-- AI & Deep Tech -->
+    <section class="catalog-row" id="ai-row"></section>
+
+    <!-- Knowledge Vault & Second Brain -->
+    <section class="catalog-row" id="knowledge-row"></section>
+
+    <!-- My List -->
+    <section class="catalog-row" id="mylist-row"></section>
+  </main>
+
+  <!-- ========================================================================
+       5. CINEMATIC DETAIL MODAL
+       ======================================================================== -->
+  <div class="modal-overlay" id="details-modal">
+    <div class="modal-dialog">
+      <button class="modal-close-btn" onclick="closeDetailsModal()">✕</button>
+
+      <div class="modal-hero" id="modal-hero-media">
+        <div class="modal-hero-vignette"></div>
+        <div class="modal-hero-content">
+          <h2 class="modal-title" id="modal-title">Project Title</h2>
+          <p class="modal-subtitle" id="modal-subtitle">Project Subtitle</p>
+          <div class="modal-actions">
+            <a href="#" id="modal-repo-btn" target="_blank" rel="noopener noreferrer" class="btn-netflix btn-play">
+              <span>▶</span> <span>Open GitHub Code</span>
+            </a>
+            <button id="modal-bookmark-btn" class="btn-netflix btn-info">
+              <span>➕ Add to My List</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <div class="modal-columns">
+          <div class="modal-left">
+            <div class="hero-meta-row" style="margin-bottom: 18px;">
+              <span class="match-badge" id="modal-match">99% Match</span>
+              <span class="rating-badge" id="modal-rating">TV-MA</span>
+              <span class="quality-badge" id="modal-year">2026</span>
+              <span class="quality-badge" id="modal-quality">4K Ultra HD</span>
+              <span class="quality-badge" id="modal-duration">Production</span>
+            </div>
+            <p id="modal-description"></p>
+          </div>
+
+          <div class="modal-right">
+            <div id="modal-stats"></div>
+            <div class="modal-meta-field" style="margin-top: 18px;">
+              <strong>Technologies & Tags:</strong>
+              <div id="modal-tags" style="margin-top: 8px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       6. NETFLIX FOOTER
+       ======================================================================== -->
+  <footer class="netflix-footer">
+    <ul class="footer-links">
+      <li><a href="https://github.com/Mthompson6782" target="_blank" rel="noopener">GitHub Profile</a></li>
+      <li><a href="https://github.com/Mthompson6782/MT-Lab" target="_blank" rel="noopener">MT-Lab Repository</a></li>
+      <li><a href="https://github.com/Mthompson6782/Autobiography" target="_blank" rel="noopener">Autobiography Memoir</a></li>
+      <li><a href="https://github.com/Mthompson6782/operation-leo-lockdown" target="_blank" rel="noopener">Leo Lockdown</a></li>
+    </ul>
+    <button class="service-code-btn" onclick="playNetflixTaDum()">TA-DUM SOUND TEST</button>
+    <p>© 2026 Michael Thompson. MT-FLIX Engineering Studio. Built with pure web standards for high performance.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
