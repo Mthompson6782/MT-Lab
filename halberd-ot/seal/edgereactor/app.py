@@ -3,9 +3,16 @@
 import asyncio
 import json
 import os
+import sys
 from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import List
+
+# Ensure package root is on sys.path in cloud/serverless environments
+pkg_root = Path(__file__).resolve().parent.parent.parent
+if str(pkg_root) not in sys.path:
+    sys.path.insert(0, str(pkg_root))
+
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, HTMLResponse
