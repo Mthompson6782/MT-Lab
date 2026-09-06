@@ -15,5 +15,5 @@ dependencies = [
 ]
 
 [tool.vercel]
-entrypoint = "seal/edgereactor/app.py"
+entrypoint = "seal.edgereactor.app:app"
 
