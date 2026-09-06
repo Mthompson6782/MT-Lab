@@ -90,7 +90,7 @@ A mission-critical Node.js cyber safety hub designed for parents to manage real-
 
 | #1 | #2 | #3 | #4 | #5 | #6 |
 | :---: | :---: | :---: | :---: | :---: | :---: |
-| [**OpenSEAL (Cyber SEAL)**](https://mthompson6782.github.io/MT-Lab/cyberseal-executive.html)<br/>`[👔 Exec]` • `[🎮 Tech]` | [**Leo Lockdown**](https://operation-leo-lockdown.onrender.com)<br/>`[🚀 Live App]` | [**Cindy's Planner**](https://cindys-homeschool-planner.vercel.app)<br/>`[🚀 Live App]` | [**Improbability**](https://mthompson6782.github.io/Autobiography/)<br/>`[📖 Live Memoir]` | [**Voice Cloner**](https://github.com/Mthompson6782/MT-Lab)<br/>`[AI Studio]` | [**Agent Engine**](https://github.com/Mthompson6782/MT-Lab)<br/>`[DAG Engine]` |
+| [**HALBERD (Cyber SEAL)**](https://mthompson6782.github.io/MT-Lab/halberd-executive.html)<br/>`[👔 Exec]` • `[🎮 Tech]` | [**Leo Lockdown**](https://operation-leo-lockdown.onrender.com)<br/>`[🚀 Live App]` | [**Cindy's Planner**](https://cindys-homeschool-planner.vercel.app)<br/>`[🚀 Live App]` | [**Improbability**](https://mthompson6782.github.io/Autobiography/)<br/>`[📖 Live Memoir]` | [**Voice Cloner**](https://github.com/Mthompson6782/MT-Lab)<br/>`[AI Studio]` | [**Agent Engine**](https://github.com/Mthompson6782/MT-Lab)<br/>`[DAG Engine]` |
 
 </div>
 
@@ -103,8 +103,8 @@ A mission-critical Node.js cyber safety hub designed for parents to manage real-
 <td width="55%" valign="top">
 
 ### 🔴 N ORIGINAL DEFENSE SUITE
-# **OPENSEAL (MITRE CYBER SEAL™ / IOLITE CLONE)**
-#### *Low-SWaP OT/ICS Streaming Effects & Analytic Defense Platform*
+# **HALBERD (MITRE CYBER SEAL™ / IOLITE CLONE)**
+#### *Happened-Before Analytics & Logic Baseline for Edge Response & Defense*
 
 `99% Match` &nbsp; `TV-MA` &nbsp; `2026` &nbsp; `Edge Security` &nbsp; `Modbus / HBL / EL`
 
@@ -118,14 +118,14 @@ An open-source clone of **MITRE Cyber SEAL™** (commercialized as **iolite secu
 
 <br/>
 
-[**👔 Launch Executive Leadership Briefing ↗**](https://mthompson6782.github.io/MT-Lab/cyberseal-executive.html) &nbsp;&nbsp;|&nbsp;&nbsp; [**🎮 Launch Technical Console ↗**](https://mthompson6782.github.io/MT-Lab/cyberseal-demo.html) &nbsp;&nbsp;|&nbsp;&nbsp; [**💻 View Source Code in MT-Lab ↗**](cyberseal-ot) &nbsp;&nbsp;|&nbsp;&nbsp; [**📖 Architecture Docs ↗**](cyberseal-ot#readme)
+[**👔 Launch Executive Leadership Briefing ↗**](https://mthompson6782.github.io/MT-Lab/halberd-executive.html) &nbsp;&nbsp;|&nbsp;&nbsp; [**🎮 Launch Technical Console ↗**](https://mthompson6782.github.io/MT-Lab/halberd-demo.html) &nbsp;&nbsp;|&nbsp;&nbsp; [**💻 View Source Code in MT-Lab ↗**](halberd-ot) &nbsp;&nbsp;|&nbsp;&nbsp; [**📖 Architecture Docs ↗**](halberd-ot#readme)
 
 </td>
 <td width="45%" align="center" valign="middle">
 
 ```
 +-------------------------------------------------------+
-|  🛡️  OPENSEAL / MITRE CYBER SEAL™                    |
+|  🛡️  HALBERD / MITRE CYBER SEAL™                     |
 |                                                       |
 |  [ HBL TEMPORAL LOGIC ] ====> CAUSALITY VERIFIED      |
 |  [ eLEARN PROFILER    ] ====> ENVELOPE MONITORED      |
@@ -135,11 +135,11 @@ An open-source clone of **MITRE Cyber SEAL™** (commercialized as **iolite secu
 |  [👔 EXEC BRIEFING]         [🎮 TECH CONSOLE]         |
 +-------------------------------------------------------+
 ```
-[![Executive Briefing](https://img.shields.io/badge/LEADERSHIP-EXECUTIVE_BRIEFING-F59E0B?style=flat-square&logoColor=black)](https://mthompson6782.github.io/MT-Lab/cyberseal-executive.html)
-[![Live Demo](https://img.shields.io/badge/DEMO-TECHNICAL_CONSOLE-00F2FE?style=flat-square&logoColor=black)](https://mthompson6782.github.io/MT-Lab/cyberseal-demo.html)
-[![OT Security](https://img.shields.io/badge/SECURITY-OT_ICS_CRITICAL_INFRASTRUCTURE-064E3B?style=flat-square&logoColor=white)](cyberseal-ot)
-[![MITRE](https://img.shields.io/badge/MITRE-CYBER_SEAL_CLONE-0284C7?style=flat-square)](cyberseal-ot)
-[![Python](https://img.shields.io/badge/Language-Python_3.13-3776AB?logo=python&logoColor=white)](cyberseal-ot)
+[![Executive Briefing](https://img.shields.io/badge/LEADERSHIP-EXECUTIVE_BRIEFING-F59E0B?style=flat-square&logoColor=black)](https://mthompson6782.github.io/MT-Lab/halberd-executive.html)
+[![Live Demo](https://img.shields.io/badge/DEMO-TECHNICAL_CONSOLE-00F2FE?style=flat-square&logoColor=black)](https://mthompson6782.github.io/MT-Lab/halberd-demo.html)
+[![OT Security](https://img.shields.io/badge/SECURITY-OT_ICS_CRITICAL_INFRASTRUCTURE-064E3B?style=flat-square&logoColor=white)](halberd-ot)
+[![MITRE](https://img.shields.io/badge/MITRE-CYBER_SEAL_CLONE-0284C7?style=flat-square)](halberd-ot)
+[![Python](https://img.shields.io/badge/Language-Python_3.13-3776AB?logo=python&logoColor=white)](halberd-ot)
 
 </td>
 </tr>

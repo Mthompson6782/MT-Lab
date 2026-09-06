@@ -4,19 +4,20 @@ import argparse
 import asyncio
 import sys
 import uvicorn
+from pathlib import Path
 from seal.config import config
 from seal.core import system
 
 
 def main():
     parser = argparse.ArgumentParser(
-        prog="openseal",
-        description="OpenSEAL: Cyber Streaming Effects and Analytic Languages (MITRE Cyber SEAL / iolite clone)",
+        prog="halberd",
+        description="HALBERD: Happened-Before Analytics & Logic Baseline for Edge Response & Defense (MITRE Cyber SEAL / iolite clone)",
     )
-    subparsers = parser.add_subparsers(dest="command", help="Available subcommands")
+    subparsers = parser.add_subparsers(dest="command", help="HALBERD commands")
 
     # Start command
-    start_parser = subparsers.add_parser("start", help="Start OpenSEAL EdgeReactor daemon and OT simulator")
+    start_parser = subparsers.add_parser("start", help="Start HALBERD EdgeReactor daemon and OT simulator")
     start_parser.add_argument("--host", default=config.host, help="Bind host (default: 127.0.0.1)")
     start_parser.add_argument("--port", type=int, default=config.port, help="Bind port (default: 8080)")
     start_parser.add_argument("--no-sim", action="store_true", help="Disable virtual plant simulator")
@@ -42,8 +43,8 @@ def main():
         host = getattr(args, "host", config.host)
         port = getattr(args, "port", config.port)
         print(f"\n==================================================================")
-        print(f"  OpenSEAL - MITRE Cyber SEAL™ / iolite secure Clone")
-        print(f"  Streaming Effects and Analytic Languages for OT/ICS Edge")
+        print(f"  HALBERD - MITRE Cyber SEAL™ / iolite secure Clone")
+        print(f"  Happened-Before Analytics & Logic Baseline for Edge Response & Defense")
         print(f"==================================================================")
         print(f"  [+] Node ID:           {config.node_id}")
         print(f"  [+] Environment:       {config.environment_name}")
@@ -54,8 +55,19 @@ def main():
         uvicorn.run("seal.edgereactor.app:app", host=host, port=port, log_level="info")
 
     elif args.command == "emulate":
+        scenario_map = {
+            "chemical_overdose": "scenarios/chemical_overdose.yaml",
+            "false_data_injection": "scenarios/false_data_injection.yaml",
+        }
+        rel_path = scenario_map[args.scenario]
+        scenario_path = Path(__file__).parent / "effects_language" / rel_path
+
+        if not scenario_path.exists():
+            print(f"[!] Scenario definition not found at: {scenario_path}")
+            sys.exit(1)
+
         async def _run_em():
-            print(f"[*] Starting OpenSEAL Effects Language Emulation: {args.scenario}...")
+            print(f"[*] Starting HALBERD Effects Language Emulation: {args.scenario}...")
             await system.start(start_simulator=True)
             res = await system.trigger_emulation(args.scenario)
             print(f"[+] Completed: {res['steps_completed']}/{res['steps_total']} steps in {res['duration_seconds']:.2f}s")

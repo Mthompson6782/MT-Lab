@@ -1,10 +1,10 @@
-# OpenSEAL (MITRE Cyber SEAL™ / iolite secure Clone)
+# HALBERD (MITRE Cyber SEAL™ / iolite secure Clone)
 
-**OpenSEAL** (Cyber Streaming Effects and Analytic Languages for Operational Technology) is an open-source, modular, low-SWaP (Size, Weight, and Power) cybersecurity defense and threat emulation platform tailored for industrial control systems (ICS), supervisory control and data acquisition (SCADA), and tactical cyber-physical edge environments.
+**HALBERD** (**H**appened-before **A**nalytics & **L**ogic **B**aseline for **E**dge **R**esponse & **D**efense) is an open-source, modular, low-SWaP (Size, Weight, and Power) cybersecurity defense and threat emulation platform tailored for industrial control systems (ICS), supervisory control and data acquisition (SCADA), and tactical cyber-physical edge environments.
 
 Originally prototyped by MITRE under the **Cyber SEAL™** initiative and commercialized by Highway Ventures as **iolite secure**, this suite bridges the gap between IT network telemetry and cyber-physical process operations.
 
-Unlike traditional enterprise IT security tools that prioritize Confidentiality and often disrupt operations via aggressive scanning or blind disconnections, OpenSEAL operates strictly on the **Availability, Integrity, and Safety (AIC)** triad.
+Unlike traditional enterprise IT security tools that prioritize Confidentiality and often disrupt operations via aggressive scanning or blind disconnections, HALBERD operates strictly on the **Availability, Integrity, and Safety (AIC)** triad.
 
 ---
 
@@ -108,7 +108,7 @@ python -m pytest tests/ -v
 ```
 
 ### 3. Launch EdgeReactor™ Dashboard
-Start OpenSEAL with the virtual plant simulator:
+Start HALBERD with the virtual plant simulator:
 ```powershell
 python -m seal.cli start --port 8080
 ```
@@ -134,7 +134,7 @@ python -m seal.cli playbooks
 
 ## MITRE ATT&CK for ICS Coverage Matrix
 
-| Technique ID | Technique Name | OpenSEAL Detection Engine | Emulation Scenario | Operator Playbook |
+| Technique ID | Technique Name | HALBERD Detection Engine | Emulation Scenario | Operator Playbook |
 | :--- | :--- | :--- | :--- | :--- |
 | **T0836** | Modify Parameter | HBL-WP-001 / eLEARN | Chemical Dosing Setpoint Alteration | `PB-ICS-SETPOINT-01` |
 | **T0888** | Loss of Safety | HBL-WP-002 | Toxic Chemical Overdose Injection | `PB-ICS-SETPOINT-01` |
