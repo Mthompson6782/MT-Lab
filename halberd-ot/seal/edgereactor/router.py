@@ -20,6 +20,16 @@ class StepCompletionRequest(BaseModel):
     notes: str = ""
 
 
+@router.get("/health")
+def get_health() -> Dict[str, Any]:
+    return {
+        "status": "healthy",
+        "engine": "HALBERD",
+        "version": "1.0.0",
+        "node_id": system.config.node_id,
+    }
+
+
 @router.get("/status")
 def get_status() -> Dict[str, Any]:
     stats = system.hbl.get_stats()

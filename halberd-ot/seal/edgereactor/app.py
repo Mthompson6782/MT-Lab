@@ -2,12 +2,13 @@
 
 import asyncio
 import json
+import os
 from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import List
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from seal.core import system
 from seal.edgereactor.router import router
@@ -36,29 +37,39 @@ class WebSocketConnectionManager:
 
 
 manager = WebSocketConnectionManager()
+is_serverless = bool(os.getenv("VERCEL") or os.getenv("AWS_LAMBDA_FUNCTION_NAME") or os.getenv("LAMBDA_TASK_ROOT"))
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Startup: subscribe manager to HALBERD system event stream
-    try:
-        loop = asyncio.get_running_loop()
+    # Only start background simulator and Modbus TCP listener in persistent environments (not Serverless)
+    if not is_serverless:
+        try:
+            loop = asyncio.get_running_loop()
 
-        def sync_broadcast(msg: dict):
-            asyncio.run_coroutine_threadsafe(manager.broadcast_json(msg), loop)
+            def sync_broadcast(msg: dict):
+                asyncio.run_coroutine_threadsafe(manager.broadcast_json(msg), loop)
 
-        system.subscribe_ui(sync_broadcast)
+            system.subscribe_ui(sync_broadcast)
 
-        # Start plant simulator and Modbus server (safely ignore socket errors in serverless/cloud environments)
-        await system.start(start_simulator=True)
-    except Exception as e:
-        print(f"[!] Warning during EdgeReactor startup: {e}")
+            # Start plant simulator and Modbus server
+            await system.start(start_simulator=True)
+        except Exception as e:
+            print(f"[!] Warning during EdgeReactor startup: {e}")
+    else:
+        # In serverless environment, step plant physics once for baseline telemetry
+        try:
+            system.plant.step(dt=1.0)
+        except Exception:
+            pass
+
     yield
-    # Shutdown
-    try:
-        await system.stop()
-    except Exception:
-        pass
+
+    if not is_serverless:
+        try:
+            await system.stop()
+        except Exception:
+            pass
 
 
 app = FastAPI(
@@ -79,15 +90,43 @@ app.add_middleware(
 # Include REST API router
 app.include_router(router)
 
-# Mount Static Files
+# Mount Static Files safely if directory exists
 static_dir = Path(__file__).parent / "static"
-app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
+if static_dir.exists():
+    try:
+        app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
+    except Exception as e:
+        print(f"[!] Warning mounting static directory: {e}")
+
+public_static = Path(__file__).resolve().parent.parent.parent / "public" / "static"
+if public_static.exists() and "/static" not in [r.path for r in app.routes if hasattr(r, "path")]:
+    try:
+        app.mount("/static", StaticFiles(directory=str(public_static)), name="public_static")
+    except Exception as e:
+        print(f"[!] Warning mounting public/static directory: {e}")
 
 
-@app.get("/")
+@app.get("/", response_class=HTMLResponse)
 async def root():
-    index_file = static_dir / "index.html"
-    return FileResponse(str(index_file))
+    candidates = [
+        static_dir / "index.html",
+        Path(__file__).resolve().parent.parent.parent / "public" / "index.html",
+        Path(__file__).resolve().parent.parent.parent / "public" / "static" / "index.html",
+    ]
+    for c in candidates:
+        if c.exists():
+            try:
+                return HTMLResponse(content=c.read_text(encoding="utf-8"))
+            except Exception:
+                pass
+    return HTMLResponse(
+        content="""<!DOCTYPE html><html><head><title>HALBERD EdgeReactor</title></head>
+<body style='background:#020617;color:#f8fafc;font-family:sans-serif;padding:40px;'>
+<h1 style='color:#38bdf8;'>HALBERD EdgeReactor™ is Active</h1>
+<p>Happened-Before Analytics & Logic Baseline for Edge Response & Defense</p>
+<p>API Status: <a href='/api/status' style='color:#38bdf8;'>/api/status</a> | Health: <a href='/api/health' style='color:#38bdf8;'>/api/health</a></p>
+</body></html>"""
+    )
 
 
 @app.websocket("/ws")
