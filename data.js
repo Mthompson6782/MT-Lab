@@ -16,7 +16,7 @@ const PROJECTS_DATA = [
     duration: "Edge Security Suite",
     quality: "Low-SWaP OT / 4K",
     audio: "Modbus / HBL / EL",
-    repoUrl: "https://github.com/Mthompson6782/cyberseal-ot",
+    repoUrl: "https://github.com/Mthompson6782/MT-Lab/tree/main/cyberseal-ot",
     liveUrl: null,
     synopsis: "An open-source, low-SWaP clone of MITRE Cyber SEAL™ / iolite secure. Engineered for industrial control systems (ICS) and critical infrastructure to deliver real-time attack detection, threat emulation, and non-disruptive operator response.",
     longDescription: `OpenSEAL is a high-performance, low-SWaP operational technology cybersecurity platform modeled after MITRE's Cyber SEAL suite and iolite secure.

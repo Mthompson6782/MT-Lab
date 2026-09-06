@@ -88,11 +88,60 @@ A mission-critical Node.js cyber safety hub designed for parents to manage real-
 
 <div align="center">
 
-| #1 | #2 | #3 | #4 | #5 |
-| :---: | :---: | :---: | :---: | :---: |
-| [**Leo Lockdown**](https://operation-leo-lockdown.onrender.com)<br/>`[🚀 Live App]` | [**Cindy's Planner**](https://cindys-homeschool-planner.vercel.app)<br/>`[🚀 Live App]` | [**Improbability**](https://mthompson6782.github.io/Autobiography/)<br/>`[📖 Live Memoir]` | [**Voice Cloner**](https://github.com/Mthompson6782/MT-Lab)<br/>`[AI Studio]` | [**Agent Engine**](https://github.com/Mthompson6782/MT-Lab)<br/>`[DAG Engine]` |
+| #1 | #2 | #3 | #4 | #5 | #6 |
+| :---: | :---: | :---: | :---: | :---: | :---: |
+| [**OpenSEAL (Cyber SEAL)**](cyberseal-ot)<br/>`[🛡️ OT Defense]` | [**Leo Lockdown**](https://operation-leo-lockdown.onrender.com)<br/>`[🚀 Live App]` | [**Cindy's Planner**](https://cindys-homeschool-planner.vercel.app)<br/>`[🚀 Live App]` | [**Improbability**](https://mthompson6782.github.io/Autobiography/)<br/>`[📖 Live Memoir]` | [**Voice Cloner**](https://github.com/Mthompson6782/MT-Lab)<br/>`[AI Studio]` | [**Agent Engine**](https://github.com/Mthompson6782/MT-Lab)<br/>`[DAG Engine]` |
 
 </div>
+
+---
+
+## 🛡️ SPECIAL PREMIERE: OT CYBERSECURITY & CRITICAL INFRASTRUCTURE
+
+<table>
+<tr>
+<td width="55%" valign="top">
+
+### 🔴 N ORIGINAL DEFENSE SUITE
+# **OPENSEAL (MITRE CYBER SEAL™ / IOLITE CLONE)**
+#### *Low-SWaP OT/ICS Streaming Effects & Analytic Defense Platform*
+
+`99% Match` &nbsp; `TV-MA` &nbsp; `2026` &nbsp; `Edge Security` &nbsp; `Modbus / HBL / EL`
+
+An open-source clone of **MITRE Cyber SEAL™** (commercialized as **iolite secure**). Engineered specifically for Operational Technology (OT), SCADA, and critical infrastructure to deliver real-time cyber-physical threat detection, adversary emulation, and non-disruptive response.
+
+* **Happened-Before Language (HBL™):** Evaluates Lamport temporal causality across Modbus TCP and sensor streams with multi-event state machines.
+* **eLEARN™ Baseline Engine:** Online Welford variance, EWMA, and CUSUM drift detection without heavy ML overhead.
+* **Effects Language (EL™) Emulation:** Multi-stage adversary campaign orchestration mapped to MITRE ATT&CK for ICS (`T0836`, `T0855`, `T0846`, `T0888`).
+* **EdgeReactor™ Tactical Console:** Dynamic Purdue Model architecture map and deterministic non-disruptive operator response playbooks.
+* **Cyber-Physical Simulator:** Built-in municipal water treatment plant simulation and Modbus TCP PLC server for risk-free verification.
+
+<br/>
+
+[**💻 Explore Source Code in MT-Lab ↗**](cyberseal-ot) &nbsp;&nbsp;|&nbsp;&nbsp; [**📖 Architecture Docs ↗**](cyberseal-ot#readme)
+
+</td>
+<td width="45%" align="center" valign="middle">
+
+```
++-------------------------------------------------------+
+|  🛡️  OPENSEAL / MITRE CYBER SEAL™                    |
+|                                                       |
+|  [ HBL TEMPORAL LOGIC ] ====> CAUSALITY VERIFIED      |
+|  [ eLEARN PROFILER    ] ====> ENVELOPE MONITORED      |
+|  [ EFFECTS LANGUAGE   ] ====> ATT&CK FOR ICS READY    |
+|  [ EDGEREACTOR GUI    ] ====> ZERO-DISRUPTION PB      |
+|                                                       |
+|  [🛡️ RUN EDGEREACTOR]       [💻 VIEW SOURCE]          |
++-------------------------------------------------------+
+```
+[![OT Security](https://img.shields.io/badge/SECURITY-OT_ICS_CRITICAL_INFRASTRUCTURE-064E3B?style=flat-square&logoColor=white)](cyberseal-ot)
+[![MITRE](https://img.shields.io/badge/MITRE-CYBER_SEAL_CLONE-0284C7?style=flat-square)](cyberseal-ot)
+[![Python](https://img.shields.io/badge/Language-Python_3.13-3776AB?logo=python&logoColor=white)](cyberseal-ot)
+
+</td>
+</tr>
+</table>
 
 ---
 

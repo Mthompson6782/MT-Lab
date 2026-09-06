@@ -1,0 +1,81 @@
+# Canonical HBL Watchpoint Rules for OpenSEAL (MITRE Cyber SEAL clone)
+watchpoints:
+  - rule_id: "HBL-WP-001"
+    name: "Reconnaissance Diagnostic Followed by Parameter Alteration"
+    description: "Detects a Modbus Diagnostic subfunction query followed by an unauthorized parameter write to the same PLC within 30 seconds."
+    severity: "CRITICAL"
+    mitre_ics_id: "T0836"
+    mitre_ics_name: "Modify Parameter"
+    within_seconds: 30.0
+    playbook_id: "PB-ICS-SETPOINT-01"
+    sequence:
+      - label: "recon_diagnostic"
+        predicates:
+          - field: "protocol"
+            op: "=="
+            value: "MODBUS_TCP"
+          - field: "function_code"
+            op: "=="
+            value: 8
+      - label: "parameter_write"
+        predicates:
+          - field: "protocol"
+            op: "=="
+            value: "MODBUS_TCP"
+          - field: "function_code"
+            op: "in"
+            value: [6, 16]
+    correlations:
+      - step_source: 0
+        field_source: "dest_ip"
+        step_target: 1
+        field_target: "dest_ip"
+
+  - rule_id: "HBL-WP-002"
+    name: "Dangerous Chlorine Chemical Overdose Injection"
+    description: "Detects write command setting chlorine setpoint register 1004 to toxic levels exceeding safety limits."
+    severity: "CRITICAL"
+    mitre_ics_id: "T0888"
+    mitre_ics_name: "Loss of Safety"
+    within_seconds: 5.0
+    playbook_id: "PB-ICS-SETPOINT-01"
+    sequence:
+      - label: "toxic_chlorine_write"
+        predicates:
+          - field: "protocol"
+            op: "=="
+            value: "MODBUS_TCP"
+          - field: "function_code"
+            op: "in"
+            value: [6, 16]
+          - field: "register_address"
+            op: "=="
+            value: 1004
+          - field: "register_value"
+            op: ">"
+            value: 4.0
+
+  - rule_id: "HBL-WP-003"
+    name: "False Water Level Spoofing Followed by Emergency Valve Trip"
+    description: "Detects abnormal tank level spoofing followed by emergency intake valve closure."
+    severity: "HIGH"
+    mitre_ics_id: "T0855"
+    mitre_ics_name: "Unauthorized Command Message"
+    within_seconds: 20.0
+    sequence:
+      - label: "tank_level_spoof"
+        predicates:
+          - field: "register_address"
+            op: "=="
+            value: 1001
+          - field: "register_value"
+            op: ">="
+            value: 90.0
+      - label: "valve_force_close"
+        predicates:
+          - field: "register_address"
+            op: "=="
+            value: 2001
+          - field: "register_value"
+            op: "=="
+            value: 0

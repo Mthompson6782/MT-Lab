@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EdgeReactor™ | MITRE Cyber SEAL OT Defense</title>
+  <link rel="stylesheet" href="/static/edgereactor.css">
+  <!-- Lucide Icons & Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans antialiased selection:bg-cyan-500 selection:text-black">
+
+  <!-- Top Tactical Navigation Bar -->
+  <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur-md sticky top-0 z-50 px-6 py-3">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center space-x-4">
+        <div class="flex items-center space-x-2">
+          <div class="w-8 h-8 rounded bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center font-black text-black text-lg shadow-lg shadow-cyan-500/20">
+            S
+          </div>
+          <div>
+            <h1 class="font-black tracking-wider text-base uppercase bg-gradient-to-r from-cyan-300 via-sky-200 to-blue-400 bg-clip-text text-transparent">
+              EdgeReactor™ <span class="text-xs px-1.5 py-0.5 ml-1 rounded bg-cyan-950 border border-cyan-800 text-cyan-400 font-mono">SEAL v1.0</span>
+            </h1>
+            <p class="text-[11px] text-slate-400 font-mono flex items-center gap-1.5">
+              <span>MITRE Cyber SEAL</span>
+              <span class="text-slate-600">•</span>
+              <span class="text-cyan-400">HBL™</span>
+              <span class="text-slate-600">•</span>
+              <span class="text-purple-400">eLEARN™</span>
+              <span class="text-slate-600">•</span>
+              <span class="text-emerald-400">EL™</span>
+            </p>
+          </div>
+        </div>
+        <div class="h-6 w-px bg-slate-800"></div>
+        <div class="hidden md:flex items-center space-x-2 text-xs text-slate-300">
+          <span class="px-2 py-1 rounded bg-slate-800 border border-slate-700 font-mono" id="env-badge">Water Treatment & Substation Alpha</span>
+          <span class="px-2 py-1 rounded bg-amber-950/60 border border-amber-800/80 text-amber-300 font-medium flex items-center gap-1">
+            <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> AIC Triad: Safety & Availability First
+          </span>
+        </div>
+      </div>
+
+      <!-- Right System Status -->
+      <div class="flex items-center space-x-4 text-xs font-mono">
+        <div class="flex items-center space-x-2 bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-full">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" id="ws-pulse"></span>
+          </span>
+          <span id="ws-status" class="text-emerald-400">STREAM ACTIVE</span>
+        </div>
+        <div class="text-slate-400 hidden sm:block">
+          NODE: <span class="text-slate-200" id="node-id">edgereactor-node-01</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Metric Quickbar -->
+  <section class="grid grid-cols-2 md:grid-cols-4 gap-3 px-6 py-4 bg-slate-900/40 border-b border-slate-800/60">
+    <div class="bg-slate-900/90 border border-slate-800 rounded-lg p-3 flex items-center justify-between">
+      <div>
+        <p class="text-[11px] uppercase tracking-wider text-slate-400 font-mono">Streaming Events</p>
+        <p class="text-xl font-mono font-bold text-cyan-400" id="metric-events">0</p>
+      </div>
+      <i data-lucide="activity" class="w-6 h-6 text-cyan-500/50"></i>
+    </div>
+
+    <div class="bg-slate-900/90 border border-slate-800 rounded-lg p-3 flex items-center justify-between">
+      <div>
+        <p class="text-[11px] uppercase tracking-wider text-slate-400 font-mono">Active HBL Watchpoints</p>
+        <p class="text-xl font-mono font-bold text-sky-400" id="metric-watchpoints">3</p>
+      </div>
+      <i data-lucide="crosshair" class="w-6 h-6 text-sky-500/50"></i>
+    </div>
+
+    <div class="bg-slate-900/90 border border-slate-800 rounded-lg p-3 flex items-center justify-between">
+      <div>
+        <p class="text-[11px] uppercase tracking-wider text-slate-400 font-mono">eLEARN Baseline State</p>
+        <p class="text-xl font-mono font-bold text-purple-400" id="metric-baseline">PROFILED</p>
+      </div>
+      <i data-lucide="cpu" class="w-6 h-6 text-purple-500/50"></i>
+    </div>
+
+    <div class="bg-slate-900/90 border border-slate-800 rounded-lg p-3 flex items-center justify-between">
+      <div>
+        <p class="text-[11px] uppercase tracking-wider text-slate-400 font-mono">Active Incidents</p>
+        <p class="text-xl font-mono font-bold text-emerald-400" id="metric-alerts">0</p>
+      </div>
+      <i data-lucide="alert-triangle" class="w-6 h-6 text-emerald-500/50" id="metric-alerts-icon"></i>
+    </div>
+  </section>
+
+  <!-- Main Grid Layout -->
+  <main class="flex-1 p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+    <!-- Left Column: Purdue Architecture & Cyber-Physical Telemetry (7 cols) -->
+    <div class="lg:col-span-7 space-y-6 flex flex-col">
+
+      <!-- Purdue Model Dynamic Topology -->
+      <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-5 shadow-xl">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center space-x-2">
+            <i data-lucide="network" class="w-5 h-5 text-cyan-400"></i>
+            <h2 class="font-bold text-sm uppercase tracking-wider text-slate-200">Purdue Model Architecture & Zone Conduits</h2>
+          </div>
+          <span class="text-[11px] font-mono text-slate-400">IEC 62443 Zone-Conduit Defense</span>
+        </div>
+
+        <div id="purdue-container" class="space-y-3 font-mono text-xs">
+          <!-- Level 3.5 DMZ -->
+          <div class="bg-slate-950/60 border border-slate-800/80 rounded-lg p-2.5">
+            <div class="text-[10px] uppercase font-bold text-purple-400 mb-1.5 flex items-center justify-between">
+              <span>Level 3.5 - Industrial DMZ</span>
+              <span class="text-slate-500">Security Gateway Conduit</span>
+            </div>
+            <div class="flex gap-2" id="purdue-level-35"></div>
+          </div>
+
+          <!-- Level 2 Supervisory -->
+          <div class="bg-slate-950/60 border border-slate-800/80 rounded-lg p-2.5">
+            <div class="text-[10px] uppercase font-bold text-sky-400 mb-1.5 flex items-center justify-between">
+              <span>Level 2 - Supervisory Control</span>
+              <span class="text-slate-500">Control Room & Engineering Workstations</span>
+            </div>
+            <div class="flex gap-2" id="purdue-level-2"></div>
+          </div>
+
+          <!-- Level 1 Basic Control -->
+          <div class="bg-slate-950/60 border border-slate-800/80 rounded-lg p-2.5">
+            <div class="text-[10px] uppercase font-bold text-cyan-400 mb-1.5 flex items-center justify-between">
+              <span>Level 1 - Basic Control</span>
+              <span class="text-slate-500">Programmable Logic Controllers (PLCs)</span>
+            </div>
+            <div class="flex gap-2" id="purdue-level-1"></div>
+          </div>
+
+          <!-- Level 0 Physical Process -->
+          <div class="bg-slate-950/60 border border-slate-800/80 rounded-lg p-2.5">
+            <div class="text-[10px] uppercase font-bold text-emerald-400 mb-1.5 flex items-center justify-between">
+              <span>Level 0 - Cyber-Physical Process</span>
+              <span class="text-slate-500">Sensors, Actuators & Chemical Dosing</span>
+            </div>
+            <div class="flex gap-2" id="purdue-level-0"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cyber-Physical Live Telemetry Dashboard -->
+      <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-5 shadow-xl">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center space-x-2">
+            <i data-lucide="gauge" class="w-5 h-5 text-emerald-400"></i>
+            <h2 class="font-bold text-sm uppercase tracking-wider text-slate-200">Process Telemetry & Safety Envelopes</h2>
+          </div>
+          <span class="text-[11px] font-mono text-slate-400">Modbus TCP Holding Registers</span>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <!-- Tank Level -->
+          <div class="bg-slate-950/80 border border-slate-800 rounded-lg p-3 flex flex-col justify-between">
+            <div class="text-[11px] text-slate-400 font-mono">STORAGE TANK 1</div>
+            <div class="my-2">
+              <span class="text-2xl font-bold font-mono text-cyan-400" id="telemetry-tank">--</span>
+              <span class="text-xs text-slate-400 font-mono">%</span>
+            </div>
+            <div class="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
+              <div id="tank-bar" class="bg-cyan-500 h-1.5 rounded-full transition-all duration-300" style="width: 50%"></div>
+            </div>
+            <div class="text-[10px] text-slate-500 mt-1 font-mono">Envelope: 30% - 85%</div>
+          </div>
+
+          <!-- Chlorine Dosing (Safety Critical) -->
+          <div class="bg-slate-950/80 border border-slate-800 rounded-lg p-3 flex flex-col justify-between relative overflow-hidden" id="card-chlorine">
+            <div class="text-[11px] text-slate-400 font-mono flex items-center justify-between">
+              <span>CHLORINE RESIDUAL</span>
+              <span class="w-2 h-2 rounded-full bg-emerald-500" id="chlorine-status-dot"></span>
+            </div>
+            <div class="my-2">
+              <span class="text-2xl font-bold font-mono text-emerald-400" id="telemetry-chlorine">--</span>
+              <span class="text-xs text-slate-400 font-mono">PPM</span>
+            </div>
+            <div class="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
+              <div id="chlorine-bar" class="bg-emerald-500 h-1.5 rounded-full transition-all duration-300" style="width: 25%"></div>
+            </div>
+            <div class="text-[10px] text-slate-500 mt-1 font-mono">Safe Envelope: 1.5 - 2.5 PPM</div>
+          </div>
+
+          <!-- Pump Speed -->
+          <div class="bg-slate-950/80 border border-slate-800 rounded-lg p-3 flex flex-col justify-between">
+            <div class="text-[11px] text-slate-400 font-mono">INTAKE PUMP 1</div>
+            <div class="my-2">
+              <span class="text-2xl font-bold font-mono text-sky-400" id="telemetry-pump">--</span>
+              <span class="text-xs text-slate-400 font-mono">RPM</span>
+            </div>
+            <div class="text-[10px] text-slate-500 mt-1 font-mono">Normal: 1200 - 1800 RPM</div>
+          </div>
+
+          <!-- Line Pressure -->
+          <div class="bg-slate-950/80 border border-slate-800 rounded-lg p-3 flex flex-col justify-between">
+            <div class="text-[11px] text-slate-400 font-mono">LINE PRESSURE</div>
+            <div class="my-2">
+              <span class="text-2xl font-bold font-mono text-purple-400" id="telemetry-pressure">--</span>
+              <span class="text-xs text-slate-400 font-mono">PSI</span>
+            </div>
+            <div class="text-[10px] text-slate-500 mt-1 font-mono">Normal: 45 - 65 PSI</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Real-Time OT Streaming Terminal -->
+      <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-5 shadow-xl flex-1 flex flex-col min-h-[220px]">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center space-x-2">
+            <i data-lucide="terminal" class="w-4 h-4 text-slate-400"></i>
+            <h3 class="font-bold text-xs uppercase tracking-wider text-slate-300 font-mono">Industrial Packet & Telemetry Ingress Log</h3>
+          </div>
+          <button id="btn-clear-terminal" class="text-[10px] text-slate-400 hover:text-slate-200 font-mono">Clear Log</button>
+        </div>
+        <div id="terminal-feed" class="flex-1 bg-black/90 border border-slate-800/80 rounded-lg p-3 font-mono text-[11px] overflow-y-auto max-h-[220px] space-y-1 text-slate-300">
+          <div class="text-slate-600">// OpenSEAL Streaming Ingress Initialized...</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right Column: EdgeReactor Alerts, Guided Playbooks & Threat Emulation (5 cols) -->
+    <div class="lg:col-span-5 space-y-6 flex flex-col">
+
+      <!-- Effects Language (EL) Threat Emulation Sandbox -->
+      <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-5 shadow-xl">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center space-x-2">
+            <i data-lucide="zap" class="w-5 h-5 text-amber-400"></i>
+            <h2 class="font-bold text-sm uppercase tracking-wider text-slate-200">Effects Language (EL™) Emulation</h2>
+          </div>
+          <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-950 border border-amber-800 text-amber-400">MITRE ATT&CK for ICS</span>
+        </div>
+        <p class="text-xs text-slate-400 mb-4">
+          Execute multi-stage adversary TTP attack graphs against the cyber-physical simulator to validate HBL detection rules and operator playbooks.
+        </p>
+
+        <div class="space-y-2.5">
+          <button id="btn-emulate-dosing" class="w-full bg-slate-950 hover:bg-slate-800 border border-amber-700/60 hover:border-amber-500 text-amber-200 px-4 py-2.5 rounded-lg flex items-center justify-between text-xs font-mono transition-colors group">
+            <div class="text-left">
+              <div class="font-bold text-amber-300 group-hover:text-amber-100">1. Chemical Dosing Setpoint Attack</div>
+              <div class="text-[10px] text-slate-400">T0846 Recon Diagnostics &rarr; T0836 Toxic Setpoint Alteration (8.5 PPM)</div>
+            </div>
+            <i data-lucide="play" class="w-4 h-4 text-amber-400 group-hover:translate-x-0.5 transition-transform"></i>
+          </button>
+
+          <button id="btn-emulate-spoof" class="w-full bg-slate-950 hover:bg-slate-800 border border-cyan-800/60 hover:border-cyan-500 text-cyan-200 px-4 py-2.5 rounded-lg flex items-center justify-between text-xs font-mono transition-colors group">
+            <div class="text-left">
+              <div class="font-bold text-cyan-300 group-hover:text-cyan-100">2. False Tank Level & Valve Trip</div>
+              <div class="text-[10px] text-slate-400">T0855 Water Level Spoof (98.5%) &rarr; Force Intake Valve Close</div>
+            </div>
+            <i data-lucide="play" class="w-4 h-4 text-cyan-400 group-hover:translate-x-0.5 transition-transform"></i>
+          </button>
+        </div>
+
+        <div id="emulation-progress" class="hidden mt-3 p-2.5 rounded bg-slate-950 border border-slate-800 text-[11px] font-mono text-slate-300">
+          <div class="flex items-center space-x-2 text-amber-400 mb-1">
+            <i data-lucide="loader" class="w-3.5 h-3.5 animate-spin"></i>
+            <span id="emulation-status-text">Executing Attack Graph...</span>
+          </div>
+          <div id="emulation-log" class="text-[10px] text-slate-400 max-h-24 overflow-y-auto space-y-0.5"></div>
+        </div>
+      </div>
+
+      <!-- EdgeReactor Active Alerts & Non-Disruptive Playbooks -->
+      <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-5 shadow-xl flex-1 flex flex-col">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center space-x-2">
+            <i data-lucide="shield-alert" class="w-5 h-5 text-rose-400"></i>
+            <h2 class="font-bold text-sm uppercase tracking-wider text-slate-200">EdgeReactor™ Incident Desk</h2>
+          </div>
+          <span class="text-[11px] font-mono text-slate-400" id="alert-counter-badge">0 Alerts Active</span>
+        </div>
+
+        <!-- Alerts Stream -->
+        <div id="alerts-container" class="space-y-4 flex-1 overflow-y-auto max-h-[600px] pr-1">
+          <!-- Empty State -->
+          <div id="no-alerts-placeholder" class="bg-slate-950/40 border border-slate-800/80 rounded-lg p-6 text-center text-slate-400 space-y-2">
+            <i data-lucide="check-circle-2" class="w-10 h-10 text-emerald-500 mx-auto opacity-75"></i>
+            <p class="font-bold text-sm text-slate-300">Process Systems Nominal</p>
+            <p class="text-xs text-slate-500 max-w-sm mx-auto">
+              HBL streaming watchpoints and eLEARN baselines are monitoring Modbus communication conduits. No deviations detected.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Asset Detail Modal -->
+  <div id="asset-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-700 rounded-xl max-w-md w-full p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div class="flex items-center space-x-2">
+          <i data-lucide="cpu" class="w-5 h-5 text-cyan-400"></i>
+          <h3 class="font-bold text-base text-slate-100" id="modal-asset-name">Asset Name</h3>
+        </div>
+        <button id="modal-close" class="text-slate-400 hover:text-slate-100">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="space-y-2 text-xs font-mono">
+        <div class="flex justify-between py-1 border-b border-slate-800/60">
+          <span class="text-slate-400">Purdue Level:</span>
+          <span class="text-cyan-400 font-bold" id="modal-asset-level">--</span>
+        </div>
+        <div class="flex justify-between py-1 border-b border-slate-800/60">
+          <span class="text-slate-400">IP Address:</span>
+          <span class="text-slate-200" id="modal-asset-ip">--</span>
+        </div>
+        <div class="flex justify-between py-1 border-b border-slate-800/60">
+          <span class="text-slate-400">Criticality:</span>
+          <span class="text-amber-400 font-bold" id="modal-asset-crit">--</span>
+        </div>
+        <div class="flex justify-between py-1 border-b border-slate-800/60">
+          <span class="text-slate-400">Protocols:</span>
+          <span class="text-slate-200" id="modal-asset-protocols">--</span>
+        </div>
+        <div class="flex justify-between py-1">
+          <span class="text-slate-400">Health Status:</span>
+          <span class="px-2 py-0.5 rounded text-[10px] font-bold" id="modal-asset-status">HEALTHY</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/edgereactor.js"></script>
+</body>
+</html>

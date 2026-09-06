@@ -1,0 +1,51 @@
+{
+  "playbook_id": "PB-ICS-SETPOINT-01",
+  "name": "Unauthorized Chemical Setpoint Alteration Response",
+  "description": "Deterministic response procedure for unauthorized Modbus write commands altering process setpoints. Protects water safety without tripping plant intake.",
+  "target_asset": "PLC-01 (192.168.1.10)",
+  "mitre_ics_technique": "T0836 - Modify Parameter",
+  "recommended_recovery_action": "Verify physical gauge, lock PLC memory keyswitch, isolate rogue conduit, and restore setpoint via authorized HMI.",
+  "non_disruption_guarantee": "This playbook does not drop plant breakers or interrupt continuous potable water delivery.",
+  "steps": [
+    {
+      "step_id": 1,
+      "title": "Physical Process Verification",
+      "action_type": "PHYSICAL_VERIFICATION",
+      "description": "Dispatch field technician to inspect physical colorimetric chlorine analyzer dial on Disinfection Basin 1. Do NOT rely solely on remote SCADA display.",
+      "impact": "ZERO_DISRUPTION",
+      "safety_warning": "Wear standard PPE (chlorine vapor respirator) when inspecting chemical dosing room.",
+      "verification_check": "Physical dial reading recorded and cross-referenced with SCADA.",
+      "completed": false
+    },
+    {
+      "step_id": 2,
+      "title": "Hardware Memory Protect Key Switch",
+      "action_type": "PLC_KEYSWITCH_LOCK",
+      "description": "Turn physical hardware key switch on PLC-01 chassis from 'REMOTE' to 'RUN / MEMORY PROTECT'. This physically disables network write commands at the hardware backplane.",
+      "impact": "ZERO_DISRUPTION",
+      "safety_warning": "Ensure key is not switched to 'STOP' which would trip the intake pumps.",
+      "verification_check": "PLC front panel LED shows 'MEM PROT' lit solid.",
+      "completed": false
+    },
+    {
+      "step_id": 3,
+      "title": "Isolate Unauthorized Engineering Conduit",
+      "action_type": "CONDUIT_ISOLATION",
+      "description": "Instruct industrial firewall IFW-01 to sever conduit from Rogue Host (192.168.1.99) to PLC-01. Maintain Conduit C-101 (HMI to PLC) active to preserve process visibility.",
+      "impact": "MINIMAL_DISRUPTION",
+      "safety_warning": "Do NOT disconnect the entire plant switch; isolate only the rogue IP MAC pairing.",
+      "verification_check": "Firewall logs confirm drops from 192.168.1.99; HMI polling remains continuous.",
+      "completed": false
+    },
+    {
+      "step_id": 4,
+      "title": "Authorized Setpoint Restoration",
+      "action_type": "PROCESS_OVERRIDE",
+      "description": "From primary supervisory HMI-01, issue authorized write command to restore Register 1004 (Chlorine Setpoint) to 2.0 PPM.",
+      "impact": "ZERO_DISRUPTION",
+      "safety_warning": null,
+      "verification_check": "Holding register 1004 confirmed at 2.0 PPM; dosing rate stabilizes.",
+      "completed": false
+    }
+  ]
+}
