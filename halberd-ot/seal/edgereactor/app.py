@@ -97,6 +97,17 @@ app.add_middleware(
 # Include REST API router
 app.include_router(router)
 
+
+@app.get("/health")
+@app.get("/api/health")
+def api_health():
+    return {
+        "status": "healthy",
+        "service": "HALBERD EdgeReactor",
+        "version": "1.0.0",
+        "engine": "HALBERD",
+    }
+
 # Mount Static Files safely if directory exists
 static_dir = Path(__file__).parent / "static"
 if static_dir.exists():
