@@ -1,6 +1,6 @@
-"""OpenSEAL: Cyber Streaming Effects and Analytic Languages for OT/ICS.
-An open-source, low-SWaP clone of MITRE Cyber SEAL / iolite secure.
+"""HALBERD: Happened-Before Analytics & Logic Baseline for Edge Response & Defense.
+Low-SWaP OT/ICS cybersecurity defense and threat emulation platform.
 """
 
 __version__ = "0.1.0"
-__author__ = "OpenSEAL Authors"
+__author__ = "HALBERD Authors"

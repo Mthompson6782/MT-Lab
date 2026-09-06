@@ -1,8 +1,7 @@
-# HALBERD (MITRE Cyber SEAL™ / iolite secure Clone)
+# HALBERD
+### Happened-Before Analytics & Logic Baseline for Edge Response & Defense
 
-**HALBERD** (**H**appened-before **A**nalytics & **L**ogic **B**aseline for **E**dge **R**esponse & **D**efense) is an open-source, modular, low-SWaP (Size, Weight, and Power) cybersecurity defense and threat emulation platform tailored for industrial control systems (ICS), supervisory control and data acquisition (SCADA), and tactical cyber-physical edge environments.
-
-Originally prototyped by MITRE under the **Cyber SEAL™** initiative and commercialized by Highway Ventures as **iolite secure**, this suite bridges the gap between IT network telemetry and cyber-physical process operations.
+**HALBERD** is an open-source, modular, low-SWaP (Size, Weight, and Power) cybersecurity defense and threat emulation platform tailored for industrial control systems (ICS), supervisory control and data acquisition (SCADA), and tactical cyber-physical edge environments.
 
 Unlike traditional enterprise IT security tools that prioritize Confidentiality and often disrupt operations via aggressive scanning or blind disconnections, HALBERD operates strictly on the **Availability, Integrity, and Safety (AIC)** triad.
 
