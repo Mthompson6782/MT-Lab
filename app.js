@@ -326,8 +326,13 @@ function renderHeroBillboard(project) {
       <div class="hero-action-row">
         ${hasLiveUrl ? `
           <a href="${project.liveUrl}" target="_blank" rel="noopener noreferrer" class="btn-netflix btn-play" title="${project.isDemo ? 'Play Interactive Demo' : 'Launch Live Website'}" ${project.isDemo ? 'style="background: linear-gradient(135deg, #00f2fe 0%, #0284c7 100%); color: #000000; font-weight: 700;"' : ''}>
-            <span>${project.isDemo ? '🎮' : '🚀'}</span> <span>${project.isDemo ? 'Play Interactive Demo' : 'Launch Live Website'}</span>
+            <span>${project.isDemo ? '🎮' : '🚀'}</span> <span>${project.isDemo ? 'Technical Console' : 'Launch Live Website'}</span>
           </a>
+          ${project.executiveUrl ? `
+            <a href="${project.executiveUrl}" target="_blank" rel="noopener noreferrer" class="btn-netflix btn-play" title="Executive Story & Leadership Showcase" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: #000000; font-weight: 700;">
+              <span>👔</span> <span>Executive Briefing</span>
+            </a>
+          ` : ''}
           <a href="${project.repoUrl}" target="_blank" rel="noopener noreferrer" class="btn-netflix btn-info" title="View Code on GitHub">
             <span>💻</span> <span>View Code</span>
           </a>
@@ -490,6 +495,11 @@ function createCardHTML(p) {
                   ${p.isDemo ? '🎮' : '🌐'}
                 </a>
               ` : ''}
+              ${p.executiveUrl ? `
+                <a href="${p.executiveUrl}" target="_blank" rel="noopener noreferrer" class="circle-btn" style="background: #f59e0b; color: #000;" title="Executive Story & Leadership Showcase" onclick="event.stopPropagation();">
+                  👔
+                </a>
+              ` : ''}
               <a href="${p.repoUrl}" target="_blank" rel="noopener noreferrer" class="circle-btn play-btn" title="View Source Code on GitHub" onclick="event.stopPropagation();">
                 💻
               </a>
@@ -509,8 +519,13 @@ function createCardHTML(p) {
           <div class="card-action-bar">
             ${hasLiveUrl ? `
               <a href="${p.liveUrl}" target="_blank" rel="noopener noreferrer" class="card-action-link ${p.isDemo ? 'demo-link' : 'live-link'}" onclick="event.stopPropagation();">
-                <span>${p.isDemo ? '🎮' : '🚀'}</span> <strong>${p.isDemo ? 'Interactive Demo ↗' : 'Live Site ↗'}</strong>
+                <span>${p.isDemo ? '🎮' : '🚀'}</span> <strong>${p.isDemo ? 'Tech Demo ↗' : 'Live Site ↗'}</strong>
               </a>
+              ${p.executiveUrl ? `
+                <a href="${p.executiveUrl}" target="_blank" rel="noopener noreferrer" class="card-action-link" style="background: rgba(245, 158, 11, 0.18); border: 1px solid rgba(245, 158, 11, 0.5); color: #fbbf24;" onclick="event.stopPropagation();" title="Executive Story & Leadership Showcase">
+                  <span>👔</span> <strong>Exec ↗</strong>
+                </a>
+              ` : ''}
               <a href="${p.repoUrl}" target="_blank" rel="noopener noreferrer" class="card-action-link code-link" onclick="event.stopPropagation();" title="GitHub Code">
                 <span>💻</span> <strong>Code ↗</strong>
               </a>
@@ -585,7 +600,8 @@ function openDetailsModal(projectId) {
   stats.innerHTML = `
     <div class="modal-meta-field"><strong>Category:</strong> <span>${project.category}</span></div>
     <div class="modal-meta-field"><strong>Status:</strong> <span>${project.stats.status}</span></div>
-    ${project.liveUrl ? `<div class="modal-meta-field"><strong>Live Website:</strong> <a href="${project.liveUrl}" target="_blank" rel="noopener noreferrer" style="color: #46d369; text-decoration: underline; font-weight: 600;">${project.liveUrl} ↗</a></div>` : ''}
+    ${project.liveUrl ? `<div class="modal-meta-field"><strong>${project.isDemo ? 'Technical Console' : 'Live Website'}:</strong> <a href="${project.liveUrl}" target="_blank" rel="noopener noreferrer" style="color: #46d369; text-decoration: underline; font-weight: 600;">${project.liveUrl} ↗</a></div>` : ''}
+    ${project.executiveUrl ? `<div class="modal-meta-field"><strong>Executive Briefing:</strong> <a href="${project.executiveUrl}" target="_blank" rel="noopener noreferrer" style="color: #fbbf24; text-decoration: underline; font-weight: 600;">Launch Leadership Showcase ↗</a></div>` : ''}
     <div class="modal-meta-field"><strong>Repository:</strong> <a href="${project.repoUrl}" target="_blank" rel="noopener noreferrer" style="color: #60a5fa; text-decoration: underline;">GitHub ↗</a></div>
   `;
 
@@ -595,7 +611,7 @@ function openDetailsModal(projectId) {
     if (project.liveUrl) {
       liveBtn.style.display = 'inline-flex';
       liveBtn.href = project.liveUrl;
-      liveBtn.innerHTML = project.isDemo ? '<span>🎮</span> <span>Play Interactive Demo ↗</span>' : '<span>🚀</span> <span>Launch Live Website ↗</span>';
+      liveBtn.innerHTML = project.isDemo ? '<span>🎮</span> <span>Play Technical Demo ↗</span>' : '<span>🚀</span> <span>Launch Live Website ↗</span>';
       if (project.isDemo) {
         liveBtn.style.background = 'linear-gradient(135deg, #00f2fe 0%, #0284c7 100%)';
         liveBtn.style.color = '#000000';
@@ -607,6 +623,16 @@ function openDetailsModal(projectId) {
       }
     } else {
       liveBtn.style.display = 'none';
+    }
+  }
+
+  const execBtn = document.getElementById('modal-executive-btn');
+  if (execBtn) {
+    if (project.executiveUrl) {
+      execBtn.style.display = 'inline-flex';
+      execBtn.href = project.executiveUrl;
+    } else {
+      execBtn.style.display = 'none';
     }
   }
 

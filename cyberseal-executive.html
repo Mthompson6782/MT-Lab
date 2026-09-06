@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenSEAL Executive Briefing | MITRE Cyber SEAL Leadership Showcase</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    @keyframes waterFlow {
+      0% { stroke-dashoffset: 40; }
+      100% { stroke-dashoffset: 0; }
+    }
+    .water-pipe {
+      stroke-dasharray: 8, 4;
+      animation: waterFlow 1.2s linear infinite;
+    }
+    .water-pipe-danger {
+      stroke-dasharray: 8, 4;
+      animation: waterFlow 0.6s linear infinite;
+      stroke: #ef4444 !important;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 15px rgba(6, 182, 212, 0.3); }
+      50% { box-shadow: 0 0 35px rgba(6, 182, 212, 0.7); }
+    }
+    .glow-cyan { animation: pulseGlow 2.5s infinite; }
+
+    @keyframes dangerPulse {
+      0%, 100% { box-shadow: 0 0 15px rgba(239, 68, 68, 0.4); }
+      50% { box-shadow: 0 0 45px rgba(239, 68, 68, 0.9); }
+    }
+    .glow-danger { animation: dangerPulse 1.2s infinite; }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #070b14; }
+    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
+  </style>
+</head>
+<body class="bg-[#050811] text-slate-100 min-h-screen flex flex-col font-sans selection:bg-cyan-500 selection:text-black">
+
+  <!-- Executive Navigation Header -->
+  <header class="border-b border-slate-800/80 bg-slate-900/90 backdrop-blur-md px-6 py-4 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center space-x-3.5">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-400 via-blue-600 to-indigo-700 flex items-center justify-center font-black text-black text-xl shadow-lg shadow-cyan-500/25">
+          S
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="font-black tracking-wider text-lg uppercase bg-gradient-to-r from-cyan-300 via-sky-100 to-emerald-300 bg-clip-text text-transparent">
+              OpenSEAL™ Executive Showcase
+            </h1>
+            <span class="text-[10px] px-2.5 py-0.5 rounded-full bg-cyan-950/80 border border-cyan-700 text-cyan-300 font-mono font-bold tracking-wide">
+              C-SUITE & BOARD BRIEFING
+            </span>
+          </div>
+          <p class="text-xs text-slate-400">
+            Technology Transferred from <span class="text-slate-200 font-semibold">MITRE Cyber SEAL™</span> to <span class="text-cyan-400 font-semibold">iolite secure</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Action Toggles -->
+      <div class="flex items-center space-x-3 text-xs font-mono">
+        <button id="btn-audio-toggle" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 px-3 py-2 rounded-lg flex items-center gap-1.5 transition-all" title="Toggle Executive Audio Narration">
+          <span id="audio-icon">🔊</span>
+          <span id="audio-label">Voice: ON</span>
+        </button>
+        <button id="btn-start-briefing" class="bg-gradient-to-r from-amber-400 via-amber-500 to-yellow-500 hover:from-amber-300 hover:to-yellow-400 text-black font-extrabold px-4 py-2 rounded-lg shadow-lg shadow-amber-500/20 flex items-center gap-2 transition-all">
+          <i data-lucide="play" class="w-4 h-4 fill-black"></i>
+          <span id="briefing-btn-text">▶ Play Executive Story (2 Min)</span>
+        </button>
+        <a href="cyberseal-demo.html" class="bg-slate-900 hover:bg-slate-800 text-cyan-300 border border-cyan-800 px-3 py-2 rounded-lg flex items-center gap-1.5 transition-all">
+          <i data-lucide="terminal" class="w-3.5 h-3.5"></i>
+          <span>Technical Console ↗</span>
+        </a>
+        <a href="index.html" class="bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700 px-3 py-2 rounded-lg flex items-center gap-1.5 transition-all">
+          <i data-lucide="home" class="w-3.5 h-3.5"></i>
+          <span>Portfolio Home</span>
+        </a>
+        <a href="https://github.com/Mthompson6782/MT-Lab/tree/main/cyberseal-ot" target="_blank" class="bg-slate-900 hover:bg-slate-800 text-cyan-400 border border-cyan-800/80 px-3 py-2 rounded-lg flex items-center gap-1.5 transition-all">
+          <i data-lucide="code-2" class="w-3.5 h-3.5"></i>
+          <span>Code ↗</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Executive KPI Bar -->
+  <section class="bg-slate-900/50 border-b border-slate-800/80 px-6 py-3">
+    <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 text-xs font-mono">
+      <div class="flex items-center space-x-3 bg-slate-950/60 border border-slate-800/80 p-2.5 rounded-lg">
+        <div class="p-2 rounded bg-emerald-950/80 text-emerald-400 border border-emerald-800">
+          <i data-lucide="shield-check" class="w-4 h-4"></i>
+        </div>
+        <div>
+          <div class="text-[10px] text-slate-400 uppercase">Process Continuity</div>
+          <div class="text-sm font-bold text-emerald-400" id="kpi-uptime">100.0% ZERO TRIPS</div>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-3 bg-slate-950/60 border border-slate-800/80 p-2.5 rounded-lg">
+        <div class="p-2 rounded bg-cyan-950/80 text-cyan-400 border border-cyan-800">
+          <i data-lucide="droplet" class="w-4 h-4"></i>
+        </div>
+        <div>
+          <div class="text-[10px] text-slate-400 uppercase">Public Water Safety</div>
+          <div class="text-sm font-bold text-cyan-400" id="kpi-water">SAFE & POTABLE</div>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-3 bg-slate-950/60 border border-slate-800/80 p-2.5 rounded-lg">
+        <div class="p-2 rounded bg-amber-950/80 text-amber-400 border border-amber-800">
+          <i data-lucide="dollar-sign" class="w-4 h-4"></i>
+        </div>
+        <div>
+          <div class="text-[10px] text-slate-400 uppercase">Outage Losses Prevented</div>
+          <div class="text-sm font-bold text-amber-300" id="kpi-savings">$2.4M AVOIDED</div>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-3 bg-slate-950/60 border border-slate-800/80 p-2.5 rounded-lg">
+        <div class="p-2 rounded bg-purple-950/80 text-purple-400 border border-purple-800">
+          <i data-lucide="award" class="w-4 h-4"></i>
+        </div>
+        <div>
+          <div class="text-[10px] text-slate-400 uppercase">Regulatory Mandates</div>
+          <div class="text-sm font-bold text-purple-300">CISA CPG / IEC 62443</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Story Progress / Chapter Navigation -->
+  <section class="bg-[#0b1021] border-b border-cyan-950 px-6 py-2.5">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3 text-xs">
+      <div class="flex items-center space-x-2 font-mono">
+        <span class="text-slate-400 font-bold">CHAPTER:</span>
+        <span id="chapter-title" class="text-amber-400 font-bold">1. The Normal Day (Safe Municipal Supply)</span>
+      </div>
+      <div class="flex items-center space-x-1.5" id="chapter-dots">
+        <button onclick="jumpToChapter(1)" class="w-6 h-6 rounded-full bg-cyan-500 text-black font-bold text-[10px] flex items-center justify-center font-mono" id="dot-1">1</button>
+        <span class="text-slate-600">•</span>
+        <button onclick="jumpToChapter(2)" class="w-6 h-6 rounded-full bg-slate-800 text-slate-400 font-bold text-[10px] flex items-center justify-center font-mono" id="dot-2">2</button>
+        <span class="text-slate-600">•</span>
+        <button onclick="jumpToChapter(3)" class="w-6 h-6 rounded-full bg-slate-800 text-slate-400 font-bold text-[10px] flex items-center justify-center font-mono" id="dot-3">3</button>
+        <span class="text-slate-600">•</span>
+        <button onclick="jumpToChapter(4)" class="w-6 h-6 rounded-full bg-slate-800 text-slate-400 font-bold text-[10px] flex items-center justify-center font-mono" id="dot-4">4</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Showcase Canvas -->
+  <main class="flex-1 max-w-7xl mx-auto p-6 w-full space-y-6">
+
+    <!-- Top: The Executive Storyteller Card -->
+    <div id="narrative-card" class="bg-gradient-to-r from-slate-900 via-slate-900/90 to-slate-950 border border-slate-800 rounded-2xl p-6 shadow-2xl relative overflow-hidden transition-all duration-500">
+      <div class="flex items-start justify-between gap-4 relative z-10">
+        <div class="space-y-2 max-w-4xl">
+          <div class="flex items-center gap-2">
+            <span id="narrative-badge" class="px-2.5 py-0.5 rounded text-[11px] font-bold font-mono bg-emerald-950 border border-emerald-800 text-emerald-300">
+              OPERATIONAL BASELINE
+            </span>
+            <span class="text-xs text-slate-400 font-mono" id="narrative-subtext">Clean water delivery serving 125,000 citizens</span>
+          </div>
+          <h2 id="narrative-headline" class="text-xl md:text-2xl font-black text-slate-100 leading-tight">
+            Safe, Continuous Municipal Water Distribution
+          </h2>
+          <p id="narrative-body" class="text-sm text-slate-300 leading-relaxed">
+            The city's water filtration facility runs 24/7. Water from the river is treated with strict, automated chlorine chemical injection (kept within a delicate window of 1.5 to 2.5 parts-per-million). Industrial PLCs ensure public safety without human error.
+          </p>
+        </div>
+
+        <div class="hidden md:flex flex-col items-end justify-center min-w-[160px] text-right font-mono">
+          <div class="text-[10px] text-slate-500 uppercase">Citizens Protected</div>
+          <div class="text-2xl font-black text-cyan-400">125,000</div>
+          <div class="text-[11px] text-emerald-400 font-semibold mt-1">✓ Drinking Water Pure</div>
+        </div>
+      </div>
+      <!-- Background watermark -->
+      <div class="absolute -bottom-10 -right-10 opacity-5 pointer-events-none text-cyan-400 font-black text-9xl">
+        SEAL
+      </div>
+    </div>
+
+    <!-- Middle: Split Interactive Visual (Physical Plant vs Cyber Protection) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+      <!-- Left 7 Cols: The Cyber-Physical Reality (What is happening in the real world) -->
+      <div class="lg:col-span-7 bg-slate-900/80 border border-slate-800 rounded-2xl p-6 shadow-2xl flex flex-col justify-between relative overflow-hidden">
+        <div class="flex items-center justify-between mb-4 border-b border-slate-800 pb-3">
+          <div class="flex items-center space-x-2">
+            <i data-lucide="factory" class="w-5 h-5 text-cyan-400"></i>
+            <h3 class="font-bold text-sm uppercase tracking-wider text-slate-200 font-mono">
+              The Physical Infrastructure
+            </h3>
+          </div>
+          <span id="physical-status-badge" class="px-2 py-0.5 rounded text-xs font-mono font-bold bg-emerald-950 text-emerald-300 border border-emerald-800">
+            WATER PURE & SAFE
+          </span>
+        </div>
+
+        <!-- Animated Plant Diagram -->
+        <div class="relative py-4 my-auto">
+          <!-- Flow Line SVG -->
+          <svg class="w-full h-44" viewBox="0 0 700 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Connecting Pipe from River to Tank -->
+            <path d="M 90 80 L 250 80" stroke="#0284c7" stroke-width="8" stroke-linecap="round" id="pipe-intake" class="water-pipe"/>
+            
+            <!-- Chemical Dosing Pipe dropping into tank -->
+            <path d="M 330 20 L 330 65" stroke="#10b981" stroke-width="6" stroke-linecap="round" id="pipe-dosing" stroke-dasharray="4, 4"/>
+
+            <!-- Connecting Pipe from Tank to City -->
+            <path d="M 410 80 L 590 80" stroke="#0284c7" stroke-width="8" stroke-linecap="round" id="pipe-outflow" class="water-pipe"/>
+
+            <!-- INTAKE STATION -->
+            <g transform="translate(20, 45)">
+              <rect width="80" height="70" rx="8" fill="#0b1329" stroke="#1e293b" stroke-width="2"/>
+              <text x="40" y="30" fill="#94a3b8" font-size="10" font-family="monospace" text-anchor="middle" font-weight="bold">RIVER INTAKE</text>
+              <text x="40" y="50" fill="#38bdf8" font-size="11" font-family="monospace" text-anchor="middle" font-weight="bold" id="flow-text">850 GPM</text>
+            </g>
+
+            <!-- FILTRATION & DOSING TANK -->
+            <g transform="translate(250, 25)">
+              <rect width="160" height="110" rx="12" fill="#0b1329" stroke="#1e293b" stroke-width="2" id="tank-outline"/>
+              <text x="80" y="24" fill="#94a3b8" font-size="10" font-family="monospace" text-anchor="middle" font-weight="bold">TREATMENT BASIN</text>
+              
+              <!-- Water Level Fill -->
+              <rect x="10" y="45" width="140" height="65" rx="6" fill="#0284c7" fill-opacity="0.3" id="tank-water-fill"/>
+              <line x1="10" y1="45" x2="150" y2="45" stroke="#38bdf8" stroke-width="2" id="tank-water-surface"/>
+              
+              <!-- Chemical Sensor Indicator -->
+              <circle cx="80" cy="75" r="16" fill="#022c22" stroke="#10b981" stroke-width="2" id="sensor-circle"/>
+              <text x="80" y="79" fill="#34d399" font-size="11" font-family="monospace" text-anchor="middle" font-weight="bold" id="chem-val">2.0</text>
+            </g>
+
+            <!-- CHEMICAL DOSING INJECTOR -->
+            <g transform="translate(290, 0)">
+              <rect width="80" height="28" rx="6" fill="#052e16" stroke="#10b981" stroke-width="1.5" id="dosing-pump-box"/>
+              <text x="40" y="18" fill="#34d399" font-size="9" font-family="monospace" text-anchor="middle" font-weight="bold" id="dosing-label">CHLORINE: 2.0</text>
+            </g>
+
+            <!-- CITY DISTRIBUTION -->
+            <g transform="translate(580, 45)">
+              <rect width="95" height="70" rx="8" fill="#0b1329" stroke="#1e293b" stroke-width="2"/>
+              <text x="47" y="30" fill="#94a3b8" font-size="10" font-family="monospace" text-anchor="middle" font-weight="bold">CITY HOMES</text>
+              <text x="47" y="50" fill="#34d399" font-size="11" font-family="monospace" text-anchor="middle" font-weight="bold" id="city-status">SAFE WATER</text>
+            </g>
+          </svg>
+        </div>
+
+        <!-- Real-World Impact Callout Box -->
+        <div id="impact-callout" class="bg-slate-950 border border-slate-800 rounded-xl p-4 mt-4 text-xs font-mono">
+          <div class="flex items-center justify-between">
+            <span class="text-slate-400 uppercase font-bold">Physical Plant Status:</span>
+            <span class="text-emerald-400 font-bold" id="dial-readout">Chlorine: 2.00 PPM (Optimal Taste & Microbial Safety)</span>
+          </div>
+          <p class="text-slate-400 font-sans mt-1 text-[13px]" id="dial-explanation">
+            Safe chlorine levels destroy bacteria and viruses without causing chemical burns or toxic vapor. Everything is in equilibrium.
+          </p>
+        </div>
+      </div>
+
+      <!-- Right 5 Cols: The OpenSEAL Difference (Why Traditional IT Fails vs OpenSEAL) -->
+      <div class="lg:col-span-5 bg-slate-900/80 border border-slate-800 rounded-2xl p-6 shadow-2xl flex flex-col justify-between space-y-4">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+          <div class="flex items-center space-x-2">
+            <i data-lucide="cpu" class="w-5 h-5 text-amber-400"></i>
+            <h3 class="font-bold text-sm uppercase tracking-wider text-slate-200 font-mono">
+              The Security Defense Engine
+            </h3>
+          </div>
+          <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-950 border border-cyan-800 text-cyan-300">
+            AIC TRIAD
+          </span>
+        </div>
+
+        <!-- The IT vs OT Dilemma Card -->
+        <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 space-y-2.5">
+          <div class="text-[11px] font-mono font-bold uppercase text-slate-400 flex items-center justify-between">
+            <span>The Fundamental OT Cybersecurity Challenge</span>
+            <i data-lucide="help-circle" class="w-3.5 h-3.5 text-slate-500"></i>
+          </div>
+          <div class="grid grid-cols-2 gap-2 text-[11px]">
+            <div class="bg-slate-900/90 border border-rose-950 p-2.5 rounded">
+              <div class="text-rose-400 font-bold">❌ Standard IT Tools</div>
+              <p class="text-slate-400 mt-1 text-[10px] leading-relaxed">
+                Aggressive scanning or severing network cables trips the plant controller, halts water pumping, and causes boil-water notices.
+              </p>
+            </div>
+            <div class="bg-slate-900/90 border border-emerald-950 p-2.5 rounded">
+              <div class="text-emerald-400 font-bold">✅ OpenSEAL (SEAL)</div>
+              <p class="text-slate-400 mt-1 text-[10px] leading-relaxed">
+                Monitors data streams passively without touching PLCs. Guides operators with safe, non-disruptive steps that never trip the plant.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Detection & Response Box -->
+        <div id="openseal-live-box" class="bg-slate-950 border border-cyan-900/60 rounded-xl p-4 space-y-3 font-mono text-xs">
+          <div class="flex items-center justify-between">
+            <span class="text-cyan-300 font-bold flex items-center gap-1.5">
+              <i data-lucide="radar" class="w-4 h-4 text-cyan-400"></i> OpenSEAL Live Telemetry Engine
+            </span>
+            <span id="defense-mode-pill" class="text-[9px] px-2 py-0.5 rounded bg-emerald-950 border border-emerald-800 text-emerald-300 font-bold">
+              PASSIVE MONITORING
+            </span>
+          </div>
+
+          <div class="space-y-2 text-[11px]">
+            <div class="flex justify-between border-b border-slate-900 pb-1.5">
+              <span class="text-slate-400">HBL™ Temporal Logic:</span>
+              <span class="text-slate-200" id="hbl-status">Scanning for Causal Patterns</span>
+            </div>
+            <div class="flex justify-between border-b border-slate-900 pb-1.5">
+              <span class="text-slate-400">eLEARN™ Baseline:</span>
+              <span class="text-emerald-400 font-bold" id="elearn-status">Operating in Normal Envelope</span>
+            </div>
+            <div class="flex justify-between border-b border-slate-900 pb-1.5">
+              <span class="text-slate-400">EdgeReactor™ Playbook:</span>
+              <span class="text-slate-400" id="playbook-status">Standby (0 Active Threats)</span>
+            </div>
+          </div>
+
+          <!-- Interactive Action Button -->
+          <div class="pt-2">
+            <button id="btn-demo-trigger" onclick="runAttackDemo()" class="w-full bg-slate-900 hover:bg-slate-800 border border-amber-700/80 hover:border-amber-500 text-amber-300 p-2.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-2">
+              <i data-lucide="alert-triangle" class="w-4 h-4 text-amber-400"></i>
+              <span>Simulate Real-World Cyber Attack</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Bottom: What Leadership Needs to Know (Executive Summary Grid) -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      
+      <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-5 space-y-2">
+        <div class="flex items-center space-x-2 text-cyan-400 font-bold text-sm">
+          <i data-lucide="check-circle" class="w-4 h-4"></i>
+          <h4>1. Why Cyber SEAL Was Created</h4>
+        </div>
+        <p class="text-xs text-slate-300 leading-relaxed">
+          MITRE developed Cyber SEAL for tactical military platforms and critical infrastructure edge controllers where memory is low and failure is catastrophic. It is now commercialized through <b>iolite secure</b>.
+        </p>
+      </div>
+
+      <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-5 space-y-2">
+        <div class="flex items-center space-x-2 text-emerald-400 font-bold text-sm">
+          <i data-lucide="shield" class="w-4 h-4"></i>
+          <h4>2. The Happened-Before Difference</h4>
+        </div>
+        <p class="text-xs text-slate-300 leading-relaxed">
+          Instead of relying on outdated signatures, HBL connects distributed dots in time: <i>Did an unknown diagnostic check occur right before a setpoint was dialed up?</i> It stops attacks before physical damage occurs.
+        </p>
+      </div>
+
+      <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-5 space-y-2">
+        <div class="flex items-center space-x-2 text-amber-400 font-bold text-sm">
+          <i data-lucide="users" class="w-4 h-4"></i>
+          <h4>3. Designed for Plant Operators</h4>
+        </div>
+        <p class="text-xs text-slate-300 leading-relaxed">
+          Control room operators aren't cyber forensics experts. EdgeReactor provides clear, fail-safe instructions (physical dial check, keyswitch memory lock) so they can neutralize attacks without calling an external SWAT team.
+        </p>
+      </div>
+
+    </div>
+
+  </main>
+
+  <script>
+    let currentChapter = 1;
+    let voiceNarrationEnabled = true;
+    let isStoryPlaying = false;
+    let storyStepTimeout = null;
+
+    // Speech synthesis helper
+    function speakText(text) {
+      if (!voiceNarrationEnabled || !('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = 1.05;
+      utterance.pitch = 1.0;
+      window.speechSynthesis.speak(utterance);
+    }
+
+    document.getElementById('btn-audio-toggle').onclick = () => {
+      voiceNarrationEnabled = !voiceNarrationEnabled;
+      document.getElementById('audio-icon').textContent = voiceNarrationEnabled ? '🔊' : '🔇';
+      document.getElementById('audio-label').textContent = voiceNarrationEnabled ? 'Voice: ON' : 'Voice: OFF';
+      if (!voiceNarrationEnabled && 'speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+    };
+
+    function jumpToChapter(ch) {
+      currentChapter = ch;
+      updateChapterDots();
+
+      if (ch === 1) {
+        resetToNormal();
+      } else if (ch === 2) {
+        runAttackDemo();
+      } else if (ch === 3) {
+        showDetection();
+      } else if (ch === 4) {
+        showResolution();
+      }
+    }
+
+    function updateChapterDots() {
+      for (let i = 1; i <= 4; i++) {
+        const dot = document.getElementById(`dot-${i}`);
+        if (i === currentChapter) {
+          dot.className = "w-6 h-6 rounded-full bg-cyan-400 text-black font-bold text-[10px] flex items-center justify-center font-mono ring-2 ring-cyan-300";
+        } else {
+          dot.className = "w-6 h-6 rounded-full bg-slate-800 text-slate-400 font-bold text-[10px] flex items-center justify-center font-mono";
+        }
+      }
+    }
+
+    function resetToNormal() {
+      currentChapter = 1;
+      updateChapterDots();
+
+      // UI Text
+      document.getElementById('chapter-title').textContent = "1. The Normal Day (Safe Municipal Supply)";
+      document.getElementById('narrative-badge').textContent = "OPERATIONAL BASELINE";
+      document.getElementById('narrative-badge').className = "px-2.5 py-0.5 rounded text-[11px] font-bold font-mono bg-emerald-950 border border-emerald-800 text-emerald-300";
+      document.getElementById('narrative-subtext').textContent = "Clean water delivery serving 125,000 citizens";
+      document.getElementById('narrative-headline').textContent = "Safe, Continuous Municipal Water Distribution";
+      document.getElementById('narrative-body').textContent = "The city's water filtration facility runs 24/7. Automated PLCs inject precise chlorine disinfectant (2.0 PPM). Public health is protected, water pressure is steady, and operations are peaceful.";
+
+      // Plant SVG
+      document.getElementById('pipe-intake').className = "water-pipe";
+      document.getElementById('pipe-outflow').className = "water-pipe";
+      document.getElementById('pipe-dosing').style.stroke = "#10b981";
+      document.getElementById('tank-water-fill').style.fill = "#0284c7";
+      document.getElementById('tank-water-surface').style.stroke = "#38bdf8";
+      document.getElementById('sensor-circle').style.stroke = "#10b981";
+      document.getElementById('sensor-circle').style.fill = "#022c22";
+      document.getElementById('chem-val').textContent = "2.0";
+      document.getElementById('chem-val').style.fill = "#34d399";
+      document.getElementById('dosing-pump-box').style.stroke = "#10b981";
+      document.getElementById('dosing-pump-box').style.fill = "#052e16";
+      document.getElementById('dosing-label').textContent = "CHLORINE: 2.0";
+      document.getElementById('dosing-label').style.fill = "#34d399";
+      document.getElementById('city-status').textContent = "SAFE WATER";
+      document.getElementById('city-status').style.fill = "#34d399";
+
+      // Callout & Badges
+      document.getElementById('physical-status-badge').textContent = "WATER PURE & SAFE";
+      document.getElementById('physical-status-badge').className = "px-2 py-0.5 rounded text-xs font-mono font-bold bg-emerald-950 text-emerald-300 border border-emerald-800";
+      document.getElementById('dial-readout').textContent = "Chlorine: 2.00 PPM (Optimal Taste & Microbial Safety)";
+      document.getElementById('dial-readout').className = "text-emerald-400 font-bold";
+      document.getElementById('dial-explanation').textContent = "Safe chlorine levels destroy bacteria without toxic chemical burns. Everything is in equilibrium.";
+
+      // Engine status
+      document.getElementById('defense-mode-pill').textContent = "PASSIVE MONITORING";
+      document.getElementById('defense-mode-pill').className = "text-[9px] px-2 py-0.5 rounded bg-emerald-950 border border-emerald-800 text-emerald-300 font-bold";
+      document.getElementById('hbl-status').textContent = "Scanning for Causal Patterns";
+      document.getElementById('hbl-status').className = "text-slate-200";
+      document.getElementById('elearn-status').textContent = "Operating in Normal Envelope";
+      document.getElementById('elearn-status').className = "text-emerald-400 font-bold";
+      document.getElementById('playbook-status').textContent = "Standby (0 Active Threats)";
+      document.getElementById('playbook-status').className = "text-slate-400";
+
+      document.getElementById('kpi-uptime').textContent = "100.0% ZERO TRIPS";
+      document.getElementById('kpi-uptime').className = "text-sm font-bold text-emerald-400";
+      document.getElementById('kpi-water').textContent = "SAFE & POTABLE";
+      document.getElementById('kpi-water').className = "text-sm font-bold text-cyan-400";
+
+      speakText("Welcome to OpenSEAL. Currently, the municipal water plant operates under nominal baseline conditions. Chlorine disinfectant is calibrated at 2 parts per million.");
+    }
+
+    function runAttackDemo() {
+      currentChapter = 2;
+      updateChapterDots();
+
+      // UI Text
+      document.getElementById('chapter-title').textContent = "2. The Cyber Attack Strikes (Oldsmar FL Scenario)";
+      document.getElementById('narrative-badge').textContent = "ADVERSARY INTRUSION ACTIVE";
+      document.getElementById('narrative-badge').className = "px-2.5 py-0.5 rounded text-[11px] font-bold font-mono bg-rose-950 border border-rose-800 text-rose-300";
+      document.getElementById('narrative-subtext').textContent = "Unauthorized remote access tampering with chemical setpoint";
+      document.getElementById('narrative-headline').textContent = "Attacker Dials Chlorine Dosing to 8.5 PPM (Toxic Overdose)";
+      document.getElementById('narrative-body').textContent = "An unauthorized adversary accesses the plant network remotely. Mirroring real-world attacks, they probe the controller diagnostics and force Register 1004 to 8.5 PPM — high enough to cause severe chemical burns and hospitalize citizens.";
+
+      // Plant SVG turns toxic / danger
+      document.getElementById('pipe-dosing').style.stroke = "#ef4444";
+      document.getElementById('tank-water-fill').style.fill = "#7f1d1d";
+      document.getElementById('tank-water-surface').style.stroke = "#ef4444";
+      document.getElementById('sensor-circle').style.stroke = "#ef4444";
+      document.getElementById('sensor-circle').style.fill = "#450a0a";
+      document.getElementById('chem-val').textContent = "8.5";
+      document.getElementById('chem-val').style.fill = "#f87171";
+      document.getElementById('dosing-pump-box').style.stroke = "#ef4444";
+      document.getElementById('dosing-pump-box').style.fill = "#450a0a";
+      document.getElementById('dosing-label').textContent = "CHLORINE: 8.5 [CRITICAL]";
+      document.getElementById('dosing-label').style.fill = "#f87171";
+
+      document.getElementById('physical-status-badge').textContent = "DANGER: TOXIC CHEMICAL OVERDOSE";
+      document.getElementById('physical-status-badge').className = "px-2 py-0.5 rounded text-xs font-mono font-bold bg-rose-950 text-rose-300 border border-rose-700 animate-pulse";
+      document.getElementById('dial-readout').textContent = "Chlorine: 8.50 PPM (SEVERE PUBLIC SAFETY THREAT)";
+      document.getElementById('dial-readout').className = "text-rose-400 font-bold";
+      document.getElementById('dial-explanation').textContent = "CRITICAL: Corrosive chlorine water is about to contaminate municipal pipes if not mitigated immediately.";
+
+      document.getElementById('kpi-water').textContent = "CRITICAL CONTAMINATION";
+      document.getElementById('kpi-water').className = "text-sm font-bold text-rose-400 animate-pulse";
+
+      speakText("Alert. A remote cyber attack has compromised the plant controller. The adversary is forcing chlorine dosing to 8.5 parts per million, threatening public safety.");
+    }
+
+    function showDetection() {
+      currentChapter = 3;
+      updateChapterDots();
+
+      document.getElementById('chapter-title').textContent = "3. OpenSEAL Detects the Causal Attack Chain in Real-Time";
+      document.getElementById('narrative-badge').textContent = "HBL CAUSALITY DETECTED";
+      document.getElementById('narrative-badge').className = "px-2.5 py-0.5 rounded text-[11px] font-bold font-mono bg-purple-950 border border-purple-800 text-purple-300";
+      document.getElementById('narrative-headline').textContent = "Happened-Before Language (HBL™) Catches the Sequence";
+      document.getElementById('narrative-body').textContent = "Traditional antivirus missed the attack because Modbus commands look normal. But OpenSEAL's HBL Engine recognized the causal sequence: a diagnostic probe followed immediately by a dangerous setpoint write within 12 seconds. It verified the threat instantly.";
+
+      document.getElementById('defense-mode-pill').textContent = "THREAT CAUGHT (HBL-WP-001)";
+      document.getElementById('defense-mode-pill').className = "text-[9px] px-2 py-0.5 rounded bg-purple-950 border border-purple-800 text-purple-300 font-bold";
+      document.getElementById('hbl-status').textContent = "Watchpoint Match: E1 (Recon) -> E2 (Read) -> E3 (Toxic Write)";
+      document.getElementById('hbl-status').className = "text-rose-400 font-bold";
+      document.getElementById('elearn-status').textContent = "Boundary Violated: +12.4 Sigma Drift";
+      document.getElementById('elearn-status').className = "text-rose-400 font-bold";
+      document.getElementById('playbook-status').textContent = "EdgeReactor Playbook PB-ICS-SETPOINT-01 Dispatched";
+      document.getElementById('playbook-status').className = "text-amber-300 font-bold";
+
+      speakText("OpenSEAL's Happened-Before Language caught the multi-stage attack. It immediately dispatched a non-disruptive response playbook to the control room operator.");
+    }
+
+    function showResolution() {
+      currentChapter = 4;
+      updateChapterDots();
+
+      document.getElementById('chapter-title').textContent = "4. Zero-Disruption Mitigation (Plant Protected & Running)";
+      document.getElementById('narrative-badge').textContent = "INCIDENT NEUTRALIZED";
+      document.getElementById('narrative-badge').className = "px-2.5 py-0.5 rounded text-[11px] font-bold font-mono bg-emerald-950 border border-emerald-800 text-emerald-300";
+      document.getElementById('narrative-headline').textContent = "Physical Keyswitch Locked & Rogue Conduit Isolated (0s Downtime)";
+      document.getElementById('narrative-body').textContent = "Following the EdgeReactor playbook, the operator confirmed the dial, turned the PLC hardware key switch to MEMORY PROTECT, and had the industrial firewall block the rogue IP. The pump never stopped, water pressure never dropped, and safe setpoints were restored.";
+
+      // Restore plant visually
+      document.getElementById('pipe-dosing').style.stroke = "#10b981";
+      document.getElementById('tank-water-fill').style.fill = "#0284c7";
+      document.getElementById('tank-water-surface').style.stroke = "#38bdf8";
+      document.getElementById('sensor-circle').style.stroke = "#10b981";
+      document.getElementById('sensor-circle').style.fill = "#022c22";
+      document.getElementById('chem-val').textContent = "2.0";
+      document.getElementById('chem-val').style.fill = "#34d399";
+      document.getElementById('dosing-pump-box').style.stroke = "#10b981";
+      document.getElementById('dosing-pump-box').style.fill = "#052e16";
+      document.getElementById('dosing-label').textContent = "CHLORINE: 2.0 (RESTORED)";
+      document.getElementById('dosing-label').style.fill = "#34d399";
+      document.getElementById('city-status').textContent = "WATER SAFE (100% PURE)";
+      document.getElementById('city-status').style.fill = "#34d399";
+
+      document.getElementById('physical-status-badge').textContent = "INCIDENT MITIGATED - ZERO OUTAGE";
+      document.getElementById('physical-status-badge').className = "px-2 py-0.5 rounded text-xs font-mono font-bold bg-emerald-950 text-emerald-300 border border-emerald-800";
+      document.getElementById('dial-readout').textContent = "Chlorine: 2.00 PPM (Restored via Authorized HMI)";
+      document.getElementById('dial-readout').className = "text-emerald-400 font-bold";
+      document.getElementById('dial-explanation').textContent = "SUCCESS: Threat neutralized in seconds. Plant maintained 100% uptime with zero boil-water notices or regulatory violations.";
+
+      document.getElementById('kpi-uptime').textContent = "100.0% ZERO DOWNTIME";
+      document.getElementById('kpi-water').textContent = "PURE & COMPLIANT";
+      document.getElementById('kpi-water').className = "text-sm font-bold text-emerald-400";
+      document.getElementById('kpi-savings').textContent = "$2.4M SAVED (NO TRIPS)";
+
+      document.getElementById('defense-mode-pill').textContent = "RESOLVED & HARDENED";
+      document.getElementById('defense-mode-pill').className = "text-[9px] px-2 py-0.5 rounded bg-emerald-950 border border-emerald-800 text-emerald-300 font-bold";
+      document.getElementById('hbl-status').textContent = "All Conduits Clean & Verified";
+      document.getElementById('hbl-status').className = "text-emerald-400 font-bold";
+      document.getElementById('elearn-status').textContent = "Telemetry Restabilized in Normal Bounds";
+      document.getElementById('elearn-status').className = "text-emerald-400 font-bold";
+      document.getElementById('playbook-status').textContent = "Playbook Steps 1-4 Complete (Verified)";
+      document.getElementById('playbook-status').className = "text-emerald-400 font-bold";
+
+      speakText("Incident successfully mitigated. The operator followed the playbook, isolated the rogue connection, and restored safe chemical levels with zero seconds of plant downtime.");
+    }
+
+    // Play automated executive storytelling walkthrough
+    function startExecutiveBriefing() {
+      if (isStoryPlaying) {
+        clearTimeout(storyStepTimeout);
+        isStoryPlaying = false;
+        document.getElementById('briefing-btn-text').textContent = "▶ Play Executive Story (2 Min)";
+        resetToNormal();
+        return;
+      }
+
+      isStoryPlaying = true;
+      document.getElementById('briefing-btn-text').textContent = "⏹ Stop Executive Briefing";
+
+      // Chapter 1
+      jumpToChapter(1);
+
+      // Chapter 2 after 7 seconds
+      storyStepTimeout = setTimeout(() => {
+        jumpToChapter(2);
+
+        // Chapter 3 after 6 seconds
+        storyStepTimeout = setTimeout(() => {
+          jumpToChapter(3);
+
+          // Chapter 4 after 6 seconds
+          storyStepTimeout = setTimeout(() => {
+            jumpToChapter(4);
+            isStoryPlaying = false;
+            document.getElementById('briefing-btn-text').textContent = "▶ Replay Executive Story";
+          }, 6500);
+
+        }, 6000);
+
+      }, 7000);
+    }
+
+    document.getElementById('btn-start-briefing').onclick = startExecutiveBriefing;
+
+    lucide.createIcons();
+  </script>
+</body>
+</html>
