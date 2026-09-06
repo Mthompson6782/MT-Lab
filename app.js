@@ -325,8 +325,8 @@ function renderHeroBillboard(project) {
       <p class="hero-synopsis">${project.synopsis}</p>
       <div class="hero-action-row">
         ${hasLiveUrl ? `
-          <a href="${project.liveUrl}" target="_blank" rel="noopener noreferrer" class="btn-netflix btn-play" title="Launch Live Website">
-            <span>🚀</span> <span>Launch Live Website</span>
+          <a href="${project.liveUrl}" target="_blank" rel="noopener noreferrer" class="btn-netflix btn-play" title="${project.isDemo ? 'Play Interactive Demo' : 'Launch Live Website'}" ${project.isDemo ? 'style="background: linear-gradient(135deg, #00f2fe 0%, #0284c7 100%); color: #000000; font-weight: 700;"' : ''}>
+            <span>${project.isDemo ? '🎮' : '🚀'}</span> <span>${project.isDemo ? 'Play Interactive Demo' : 'Launch Live Website'}</span>
           </a>
           <a href="${project.repoUrl}" target="_blank" rel="noopener noreferrer" class="btn-netflix btn-info" title="View Code on GitHub">
             <span>💻</span> <span>View Code</span>
@@ -404,8 +404,8 @@ function renderTop10Row() {
               <div class="card-fallback-art" style="background: ${p.posterGradient};">
                 <div class="card-badge-top">${p.category}</div>
                 ${p.liveUrl ? `
-                  <a href="${p.liveUrl}" target="_blank" rel="noopener noreferrer" class="card-live-pill" onclick="event.stopPropagation();" title="Launch Live Website ↗">
-                    <span class="live-dot"></span> LIVE ↗
+                  <a href="${p.liveUrl}" target="_blank" rel="noopener noreferrer" class="${p.isDemo ? 'card-demo-pill' : 'card-live-pill'}" onclick="event.stopPropagation();" title="${p.isDemo ? 'Play Interactive Demo ↗' : 'Launch Live Website ↗'}">
+                    <span class="${p.isDemo ? 'demo-dot' : 'live-dot'}"></span> ${p.isDemo ? 'DEMO ↗' : 'LIVE ↗'}
                   </a>
                 ` : ''}
                 <div class="card-title-bottom">${p.title}</div>
@@ -462,8 +462,8 @@ function createCardHTML(p) {
           <div class="card-vignette"></div>
           <div class="card-badge-top">${p.rating}</div>
           ${hasLiveUrl ? `
-            <a href="${p.liveUrl}" target="_blank" rel="noopener noreferrer" class="card-live-pill" onclick="event.stopPropagation();" title="Launch Live Website ↗">
-              <span class="live-dot"></span> LIVE ↗
+            <a href="${p.liveUrl}" target="_blank" rel="noopener noreferrer" class="${p.isDemo ? 'card-demo-pill' : 'card-live-pill'}" onclick="event.stopPropagation();" title="${p.isDemo ? 'Play Interactive Demo ↗' : 'Launch Live Website ↗'}">
+              <span class="${p.isDemo ? 'demo-dot' : 'live-dot'}"></span> ${p.isDemo ? 'DEMO ↗' : 'LIVE ↗'}
             </a>
           ` : ''}
           <div class="card-title-bottom">${p.title}</div>
@@ -476,8 +476,8 @@ function createCardHTML(p) {
           <div class="card-vignette"></div>
           <div class="card-badge-top">${p.category}</div>
           ${hasLiveUrl ? `
-            <a href="${p.liveUrl}" target="_blank" rel="noopener noreferrer" class="card-live-pill" onclick="event.stopPropagation();" title="Launch Live Website ↗">
-              <span class="live-dot"></span> LIVE WEB ↗
+            <a href="${p.liveUrl}" target="_blank" rel="noopener noreferrer" class="${p.isDemo ? 'card-demo-pill' : 'card-live-pill'}" onclick="event.stopPropagation();" title="${p.isDemo ? 'Play Interactive Demo ↗' : 'Launch Live Website ↗'}">
+              <span class="${p.isDemo ? 'demo-dot' : 'live-dot'}"></span> ${p.isDemo ? 'LIVE DEMO ↗' : 'LIVE WEB ↗'}
             </a>
           ` : ''}
           <div class="card-title-bottom" style="font-size: 1.1rem;">${p.title}</div>
@@ -486,8 +486,8 @@ function createCardHTML(p) {
           <div class="hover-controls">
             <div class="hover-btn-group-left">
               ${hasLiveUrl ? `
-                <a href="${p.liveUrl}" target="_blank" rel="noopener noreferrer" class="circle-btn live-btn" title="Launch Live Website (Opens in new tab)" onclick="event.stopPropagation();">
-                  🌐
+                <a href="${p.liveUrl}" target="_blank" rel="noopener noreferrer" class="circle-btn ${p.isDemo ? 'demo-btn' : 'live-btn'}" title="${p.isDemo ? 'Play Interactive Demo' : 'Launch Live Website (Opens in new tab)'}" onclick="event.stopPropagation();">
+                  ${p.isDemo ? '🎮' : '🌐'}
                 </a>
               ` : ''}
               <a href="${p.repoUrl}" target="_blank" rel="noopener noreferrer" class="circle-btn play-btn" title="View Source Code on GitHub" onclick="event.stopPropagation();">
@@ -508,8 +508,8 @@ function createCardHTML(p) {
           <!-- Direct Action Buttons for Cards -->
           <div class="card-action-bar">
             ${hasLiveUrl ? `
-              <a href="${p.liveUrl}" target="_blank" rel="noopener noreferrer" class="card-action-link live-link" onclick="event.stopPropagation();">
-                <span>🚀</span> <strong>Live Site ↗</strong>
+              <a href="${p.liveUrl}" target="_blank" rel="noopener noreferrer" class="card-action-link ${p.isDemo ? 'demo-link' : 'live-link'}" onclick="event.stopPropagation();">
+                <span>${p.isDemo ? '🎮' : '🚀'}</span> <strong>${p.isDemo ? 'Interactive Demo ↗' : 'Live Site ↗'}</strong>
               </a>
               <a href="${p.repoUrl}" target="_blank" rel="noopener noreferrer" class="card-action-link code-link" onclick="event.stopPropagation();" title="GitHub Code">
                 <span>💻</span> <strong>Code ↗</strong>
@@ -595,6 +595,16 @@ function openDetailsModal(projectId) {
     if (project.liveUrl) {
       liveBtn.style.display = 'inline-flex';
       liveBtn.href = project.liveUrl;
+      liveBtn.innerHTML = project.isDemo ? '<span>🎮</span> <span>Play Interactive Demo ↗</span>' : '<span>🚀</span> <span>Launch Live Website ↗</span>';
+      if (project.isDemo) {
+        liveBtn.style.background = 'linear-gradient(135deg, #00f2fe 0%, #0284c7 100%)';
+        liveBtn.style.color = '#000000';
+        liveBtn.style.fontWeight = '700';
+      } else {
+        liveBtn.style.background = '#46d369';
+        liveBtn.style.color = '#000000';
+        liveBtn.style.fontWeight = '700';
+      }
     } else {
       liveBtn.style.display = 'none';
     }

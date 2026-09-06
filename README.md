@@ -90,7 +90,7 @@ A mission-critical Node.js cyber safety hub designed for parents to manage real-
 
 | #1 | #2 | #3 | #4 | #5 | #6 |
 | :---: | :---: | :---: | :---: | :---: | :---: |
-| [**OpenSEAL (Cyber SEAL)**](cyberseal-ot)<br/>`[🛡️ OT Defense]` | [**Leo Lockdown**](https://operation-leo-lockdown.onrender.com)<br/>`[🚀 Live App]` | [**Cindy's Planner**](https://cindys-homeschool-planner.vercel.app)<br/>`[🚀 Live App]` | [**Improbability**](https://mthompson6782.github.io/Autobiography/)<br/>`[📖 Live Memoir]` | [**Voice Cloner**](https://github.com/Mthompson6782/MT-Lab)<br/>`[AI Studio]` | [**Agent Engine**](https://github.com/Mthompson6782/MT-Lab)<br/>`[DAG Engine]` |
+| [**OpenSEAL (Cyber SEAL)**](https://mthompson6782.github.io/MT-Lab/cyberseal-demo.html)<br/>`[🎮 Live Demo]` | [**Leo Lockdown**](https://operation-leo-lockdown.onrender.com)<br/>`[🚀 Live App]` | [**Cindy's Planner**](https://cindys-homeschool-planner.vercel.app)<br/>`[🚀 Live App]` | [**Improbability**](https://mthompson6782.github.io/Autobiography/)<br/>`[📖 Live Memoir]` | [**Voice Cloner**](https://github.com/Mthompson6782/MT-Lab)<br/>`[AI Studio]` | [**Agent Engine**](https://github.com/Mthompson6782/MT-Lab)<br/>`[DAG Engine]` |
 
 </div>
 
@@ -118,7 +118,7 @@ An open-source clone of **MITRE Cyber SEAL™** (commercialized as **iolite secu
 
 <br/>
 
-[**💻 Explore Source Code in MT-Lab ↗**](cyberseal-ot) &nbsp;&nbsp;|&nbsp;&nbsp; [**📖 Architecture Docs ↗**](cyberseal-ot#readme)
+[**🎮 Launch Live Animated Demo ↗**](https://mthompson6782.github.io/MT-Lab/cyberseal-demo.html) &nbsp;&nbsp;|&nbsp;&nbsp; [**💻 View Source Code in MT-Lab ↗**](cyberseal-ot) &nbsp;&nbsp;|&nbsp;&nbsp; [**📖 Architecture Docs ↗**](cyberseal-ot#readme)
 
 </td>
 <td width="45%" align="center" valign="middle">
@@ -132,9 +132,10 @@ An open-source clone of **MITRE Cyber SEAL™** (commercialized as **iolite secu
 |  [ EFFECTS LANGUAGE   ] ====> ATT&CK FOR ICS READY    |
 |  [ EDGEREACTOR GUI    ] ====> ZERO-DISRUPTION PB      |
 |                                                       |
-|  [🛡️ RUN EDGEREACTOR]       [💻 VIEW SOURCE]          |
+|  [🎮 PLAY LIVE DEMO]        [💻 VIEW SOURCE]          |
 +-------------------------------------------------------+
 ```
+[![Live Demo](https://img.shields.io/badge/DEMO-INTERACTIVE_SIMULATION-00F2FE?style=flat-square&logoColor=black)](https://mthompson6782.github.io/MT-Lab/cyberseal-demo.html)
 [![OT Security](https://img.shields.io/badge/SECURITY-OT_ICS_CRITICAL_INFRASTRUCTURE-064E3B?style=flat-square&logoColor=white)](cyberseal-ot)
 [![MITRE](https://img.shields.io/badge/MITRE-CYBER_SEAL_CLONE-0284C7?style=flat-square)](cyberseal-ot)
 [![Python](https://img.shields.io/badge/Language-Python_3.13-3776AB?logo=python&logoColor=white)](cyberseal-ot)
