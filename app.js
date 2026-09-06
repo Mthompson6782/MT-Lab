@@ -602,6 +602,7 @@ function openDetailsModal(projectId) {
     <div class="modal-meta-field"><strong>Status:</strong> <span>${project.stats.status}</span></div>
     ${project.liveUrl ? `<div class="modal-meta-field"><strong>${project.isDemo ? 'Technical Console' : 'Live Website'}:</strong> <a href="${project.liveUrl}" target="_blank" rel="noopener noreferrer" style="color: #46d369; text-decoration: underline; font-weight: 600;">${project.liveUrl} ↗</a></div>` : ''}
     ${project.executiveUrl ? `<div class="modal-meta-field"><strong>Executive Briefing:</strong> <a href="${project.executiveUrl}" target="_blank" rel="noopener noreferrer" style="color: #fbbf24; text-decoration: underline; font-weight: 600;">Launch Leadership Showcase ↗</a></div>` : ''}
+    ${project.vercelUrl ? `<div class="modal-meta-field"><strong>Edge Dashboard (Vercel):</strong> <a href="${project.vercelUrl}" target="_blank" rel="noopener noreferrer" style="color: #38bdf8; text-decoration: underline; font-weight: 600;">Live Cloud Instance ↗</a></div>` : ''}
     <div class="modal-meta-field"><strong>Repository:</strong> <a href="${project.repoUrl}" target="_blank" rel="noopener noreferrer" style="color: #60a5fa; text-decoration: underline;">GitHub ↗</a></div>
   `;
 

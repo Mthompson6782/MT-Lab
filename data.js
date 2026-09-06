@@ -19,6 +19,7 @@ const PROJECTS_DATA = [
     repoUrl: "https://github.com/Mthompson6782/MT-Lab/tree/main/halberd-ot",
     liveUrl: "halberd-demo.html",
     executiveUrl: "halberd-executive.html",
+    vercelUrl: "https://halberd-ot.vercel.app",
     isDemo: true,
     synopsis: "An open-source, low-SWaP OT/ICS cybersecurity platform. Engineered for industrial control systems (ICS) and critical infrastructure to deliver real-time attack detection, threat emulation, and non-disruptive operator response.",
     longDescription: `HALBERD (Happened-before Analytics & Logic Baseline for Edge Response & Defense) is a high-performance, low-SWaP operational technology cybersecurity platform engineered for industrial control systems (ICS), SCADA, and critical infrastructure edge environments.
