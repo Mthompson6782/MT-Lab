@@ -12,7 +12,7 @@ from seal.core import system
 def main():
     parser = argparse.ArgumentParser(
         prog="halberd",
-        description="HALBERD: Happened-Before Analytics & Logic Baseline for Edge Response & Defense (MITRE Cyber SEAL / iolite clone)",
+        description="HALBERD: Happened-Before Analytics & Logic Baseline for Edge Response & Defense",
     )
     subparsers = parser.add_subparsers(dest="command", help="HALBERD commands")
 
@@ -43,7 +43,7 @@ def main():
         host = getattr(args, "host", config.host)
         port = getattr(args, "port", config.port)
         print(f"\n==================================================================")
-        print(f"  HALBERD - MITRE Cyber SEAL™ / iolite secure Clone")
+        print(f"  HALBERD: OT/ICS Cybersecurity Defense Suite")
         print(f"  Happened-Before Analytics & Logic Baseline for Edge Response & Defense")
         print(f"==================================================================")
         print(f"  [+] Node ID:           {config.node_id}")

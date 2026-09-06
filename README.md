@@ -90,7 +90,7 @@ A mission-critical Node.js cyber safety hub designed for parents to manage real-
 
 | #1 | #2 | #3 | #4 | #5 | #6 |
 | :---: | :---: | :---: | :---: | :---: | :---: |
-| [**HALBERD (Cyber SEAL)**](https://mthompson6782.github.io/MT-Lab/halberd-executive.html)<br/>`[👔 Exec]` • `[🎮 Tech]` | [**Leo Lockdown**](https://operation-leo-lockdown.onrender.com)<br/>`[🚀 Live App]` | [**Cindy's Planner**](https://cindys-homeschool-planner.vercel.app)<br/>`[🚀 Live App]` | [**Improbability**](https://mthompson6782.github.io/Autobiography/)<br/>`[📖 Live Memoir]` | [**Voice Cloner**](https://github.com/Mthompson6782/MT-Lab)<br/>`[AI Studio]` | [**Agent Engine**](https://github.com/Mthompson6782/MT-Lab)<br/>`[DAG Engine]` |
+| [**HALBERD**](https://mthompson6782.github.io/MT-Lab/halberd-executive.html)<br/>`[👔 Exec]` • `[🎮 Tech]` | [**Leo Lockdown**](https://operation-leo-lockdown.onrender.com)<br/>`[🚀 Live App]` | [**Cindy's Planner**](https://cindys-homeschool-planner.vercel.app)<br/>`[🚀 Live App]` | [**Improbability**](https://mthompson6782.github.io/Autobiography/)<br/>`[📖 Live Memoir]` | [**Voice Cloner**](https://github.com/Mthompson6782/MT-Lab)<br/>`[AI Studio]` | [**Agent Engine**](https://github.com/Mthompson6782/MT-Lab)<br/>`[DAG Engine]` |
 
 </div>
 
@@ -103,16 +103,16 @@ A mission-critical Node.js cyber safety hub designed for parents to manage real-
 <td width="55%" valign="top">
 
 ### 🔴 N ORIGINAL DEFENSE SUITE
-# **HALBERD (MITRE CYBER SEAL™ / IOLITE CLONE)**
+# **HALBERD**
 #### *Happened-Before Analytics & Logic Baseline for Edge Response & Defense*
 
 `99% Match` &nbsp; `TV-MA` &nbsp; `2026` &nbsp; `Edge Security` &nbsp; `Modbus / HBL / EL`
 
-An open-source clone of **MITRE Cyber SEAL™** (commercialized as **iolite secure**). Engineered specifically for Operational Technology (OT), SCADA, and critical infrastructure to deliver real-time cyber-physical threat detection, adversary emulation, and non-disruptive response.
+An open-source, low-SWaP cybersecurity platform engineered specifically for Operational Technology (OT), SCADA, and critical infrastructure to deliver real-time cyber-physical threat detection, adversary emulation, and non-disruptive response.
 
 * **Happened-Before Language (HBL™):** Evaluates Lamport temporal causality across Modbus TCP and sensor streams with multi-event state machines.
 * **eLEARN™ Baseline Engine:** Online Welford variance, EWMA, and CUSUM drift detection without heavy ML overhead.
-* **Effects Language (EL™) Emulation:** Multi-stage adversary campaign orchestration mapped to MITRE ATT&CK for ICS (`T0836`, `T0855`, `T0846`, `T0888`).
+* **Effects Language (EL™) Emulation:** Multi-stage adversary campaign orchestration mapped to ATT&CK for ICS (`T0836`, `T0855`, `T0846`, `T0888`).
 * **EdgeReactor™ Tactical Console:** Dynamic Purdue Model architecture map and deterministic non-disruptive operator response playbooks.
 * **Cyber-Physical Simulator:** Built-in municipal water treatment plant simulation and Modbus TCP PLC server for risk-free verification.
 
@@ -125,7 +125,7 @@ An open-source clone of **MITRE Cyber SEAL™** (commercialized as **iolite secu
 
 ```
 +-------------------------------------------------------+
-|  🛡️  HALBERD / MITRE CYBER SEAL™                     |
+|  🛡️  HALBERD: OT CYBER DEFENSE                      |
 |                                                       |
 |  [ HBL TEMPORAL LOGIC ] ====> CAUSALITY VERIFIED      |
 |  [ eLEARN PROFILER    ] ====> ENVELOPE MONITORED      |
@@ -138,7 +138,7 @@ An open-source clone of **MITRE Cyber SEAL™** (commercialized as **iolite secu
 [![Executive Briefing](https://img.shields.io/badge/LEADERSHIP-EXECUTIVE_BRIEFING-F59E0B?style=flat-square&logoColor=black)](https://mthompson6782.github.io/MT-Lab/halberd-executive.html)
 [![Live Demo](https://img.shields.io/badge/DEMO-TECHNICAL_CONSOLE-00F2FE?style=flat-square&logoColor=black)](https://mthompson6782.github.io/MT-Lab/halberd-demo.html)
 [![OT Security](https://img.shields.io/badge/SECURITY-OT_ICS_CRITICAL_INFRASTRUCTURE-064E3B?style=flat-square&logoColor=white)](halberd-ot)
-[![MITRE](https://img.shields.io/badge/MITRE-CYBER_SEAL_CLONE-0284C7?style=flat-square)](halberd-ot)
+[![Blade Fleet](https://img.shields.io/badge/BLADE_FLEET-HALBERD-0284C7?style=flat-square)](halberd-ot)
 [![Python](https://img.shields.io/badge/Language-Python_3.13-3776AB?logo=python&logoColor=white)](halberd-ot)
 
 </td>

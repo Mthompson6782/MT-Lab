@@ -2,7 +2,7 @@
 const PROJECTS_DATA = [
   {
     id: "halberd-ot",
-    title: "HALBERD (MITRE Cyber SEAL / iolite)",
+    title: "HALBERD",
     subtitle: "Happened-Before Analytics & Logic Baseline for Edge Response & Defense",
     featured: true,
     bannerImage: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&q=80",
@@ -20,16 +20,16 @@ const PROJECTS_DATA = [
     liveUrl: "halberd-demo.html",
     executiveUrl: "halberd-executive.html",
     isDemo: true,
-    synopsis: "An open-source, low-SWaP clone of MITRE Cyber SEAL™ / iolite secure. Engineered for industrial control systems (ICS) and critical infrastructure to deliver real-time attack detection, threat emulation, and non-disruptive operator response.",
-    longDescription: `HALBERD (Happened-before Analytics & Logic Baseline for Edge Response & Defense) is a high-performance, low-SWaP operational technology cybersecurity platform modeled after MITRE's Cyber SEAL suite and iolite secure.
+    synopsis: "An open-source, low-SWaP OT/ICS cybersecurity platform. Engineered for industrial control systems (ICS) and critical infrastructure to deliver real-time attack detection, threat emulation, and non-disruptive operator response.",
+    longDescription: `HALBERD (Happened-before Analytics & Logic Baseline for Edge Response & Defense) is a high-performance, low-SWaP operational technology cybersecurity platform engineered for industrial control systems (ICS), SCADA, and critical infrastructure edge environments.
 
 Key Architecture & Capabilities:
 • Happened-Before Language (HBL™): Real-time temporal logic engine evaluating distributed causality across Modbus TCP and sensor streams with multi-event state machines and causality chains.
 • eLEARN™ Baseline Engine: Deterministic statistical profiler learning authorized communication matrices and process tag envelopes (Welford variance, EWMA, CUSUM drift).
-• Effects Language (EL™) Threat Emulation: Orchestrates multi-stage adversary campaigns mapped to MITRE ATT&CK for ICS (T0836, T0855, T0846, T0888) with lazy precondition evaluation.
+• Effects Language (EL™) Threat Emulation: Orchestrates multi-stage adversary campaigns mapped to ATT&CK for ICS (T0836, T0855, T0846, T0888) with lazy precondition evaluation.
 • EdgeReactor™ Tactical Console: Intuitive Purdue Model architecture visualizer and deterministic non-disruptive response playbooks designed for non-cyber-savvy plant operators.
 • Cyber-Physical Simulator: Municipal water treatment plant physics model and asynchronous Modbus TCP PLC server for zero-risk validation.`,
-    tags: ["OT Cybersecurity", "HALBERD", "MITRE Cyber SEAL", "HBL", "Effects Language", "Modbus TCP", "ICS/SCADA", "Python", "FastAPI", "WebSockets"],
+    tags: ["OT Cybersecurity", "HALBERD", "HBL", "Effects Language", "Modbus TCP", "ICS/SCADA", "Python", "FastAPI", "WebSockets"],
     stats: { stars: 1, forks: 0, status: "Active System" },
     icon: "shield-alert"
   },
