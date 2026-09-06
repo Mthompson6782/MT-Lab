@@ -73,10 +73,13 @@ A low-friction tactical interface tailored for **non-cyber-savvy plant operators
 ## Project Structure
 
 ```
-cyberseal-ot/
+halberd-ot/
+├── Dockerfile                    # Isolated container recipe
+├── docker-compose.yml            # 1-command container deployment
+├── start.sh / start.bat          # Native 1-click startup scripts
 ├── seal/
 │   ├── config.py                 # Low-SWaP memory limits, timeouts, ports
-│   ├── core.py                   # Central OpenSEAL system coordinator
+│   ├── core.py                   # Central HALBERD system coordinator
 │   ├── cli.py                    # Unified command-line interface
 │   ├── topology_manager.py       # Purdue model asset & conduit graph
 │   ├── models/                   # Pydantic schemas (events, alerts, playbooks, assets)
@@ -92,23 +95,35 @@ cyberseal-ot/
 
 ---
 
-## Quick Start
+## ⚡ 1-Command Replication Kit
 
-### 1. Installation
-Ensure Python 3.10+ is installed:
-```powershell
+You can replicate and spin up the complete HALBERD stack using any of the following methods:
+
+### Option A: Docker (Zero Configuration - Recommended)
+Runs the Modbus TCP server (port `5020`) and EdgeReactor console (port `8080`) in an isolated container:
+```bash
+git clone https://github.com/Mthompson6782/MT-Lab.git
+cd MT-Lab/halberd-ot
+docker compose up
+```
+Open **`http://localhost:8080`** in your browser.
+
+---
+
+### Option B: 1-Click Native Launcher
+- **Windows:** Double-click `start.bat` (or run `./start.bat`)
+- **Linux / macOS:** Run `./start.sh`
+
+---
+
+### Option C: Manual Python Setup
+```bash
+git clone https://github.com/Mthompson6782/MT-Lab.git
+cd MT-Lab/halberd-ot
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 pip install -r requirements.txt
-```
-
-### 2. Run Test Suite
-Run the automated unit and integration tests:
-```powershell
 python -m pytest tests/ -v
-```
-
-### 3. Launch EdgeReactor™ Dashboard
-Start HALBERD with the virtual plant simulator:
-```powershell
 python -m seal.cli start --port 8080
 ```
 Open your browser to: **`http://localhost:8080`**

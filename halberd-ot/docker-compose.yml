@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  halberd:
+    build: .
+    container_name: halberd-edge-defense
+    ports:
+      - "8080:8080"   # EdgeReactor Operator Dashboard
+      - "5020:5020"   # Virtual Modbus TCP Server (PLC-01)
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+
