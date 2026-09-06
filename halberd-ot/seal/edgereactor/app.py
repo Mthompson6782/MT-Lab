@@ -40,25 +40,31 @@ manager = WebSocketConnectionManager()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Startup: subscribe manager to OpenSEAL system event stream
-    loop = asyncio.get_running_loop()
+    # Startup: subscribe manager to HALBERD system event stream
+    try:
+        loop = asyncio.get_running_loop()
 
-    def sync_broadcast(msg: dict):
-        asyncio.run_coroutine_threadsafe(manager.broadcast_json(msg), loop)
+        def sync_broadcast(msg: dict):
+            asyncio.run_coroutine_threadsafe(manager.broadcast_json(msg), loop)
 
-    system.subscribe_ui(sync_broadcast)
+        system.subscribe_ui(sync_broadcast)
 
-    # Start plant simulator and Modbus server
-    await system.start(start_simulator=True)
+        # Start plant simulator and Modbus server (safely ignore socket errors in serverless/cloud environments)
+        await system.start(start_simulator=True)
+    except Exception as e:
+        print(f"[!] Warning during EdgeReactor startup: {e}")
     yield
     # Shutdown
-    await system.stop()
+    try:
+        await system.stop()
+    except Exception:
+        pass
 
 
 app = FastAPI(
-    title="EdgeReactor™ - MITRE Cyber SEAL OT Interface",
+    title="EdgeReactor™ - HALBERD OT Interface",
     version="1.0.0",
-    description="Tactical Edge Operator Console for Cyber Streaming Effects and Analytic Languages",
+    description="Tactical Edge Operator Console for Happened-Before Analytics & Logic Baseline for Edge Response & Defense",
     lifespan=lifespan,
 )
 
