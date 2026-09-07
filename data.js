@@ -1,6 +1,41 @@
 // MT-FLIX Project Catalog Data
 const PROJECTS_DATA = [
   {
+    id: "walmart-resilience",
+    title: "Walmart Resilience Dashboard",
+    subtitle: "Engineered Controls & Framework Explorer",
+    featured: false,
+    bannerImage: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1600&q=80",
+    posterGradient: "linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #0072ce 100%)",
+    category: "Security & Full Stack",
+    rows: ["Security & Full Stack", "Top 10 in Tech Today"],
+    top10Rank: 5,
+    rating: "TV-14",
+    matchScore: 98,
+    year: "2026",
+    duration: "Dashboard",
+    quality: "Interactive",
+    audio: "Data Viz",
+    repoUrl: "https://github.com/Mthompson6782/MT-Lab/tree/main/walmart-dashboard",
+    liveUrl: "walmart-dashboard/walmart_dashboard.html",
+    executiveUrl: "",
+    vercelUrl: "",
+    isDemo: true,
+    synopsis: "A specialized interactive dashboard customized for Walmart to explore cyber-physical engineered controls, taxonomy, and the NIST resilience framework.",
+    longDescription: "This standalone, browser-based dashboard provides an interactive way to navigate Walmart's infrastructure taxonomy and cyber-physical security controls.
+
+Key Capabilities:
+• Customized Taxonomy Browser: Drill down through Division, Facility, Department, System, and Component levels.
+• NIST CSF Alignment: Controls are tagged and visualized by core functions (Identify, Protect, Detect, Respond, Recover).
+• Recursive Analytics: Live charts showing control distribution and resilience framework coverage.
+• Self-Contained Architecture: Operates entirely in the browser with no backend infrastructure required.
+
+Originally adapted from the DHS/CIE Engineered Controls Explorer, tailored for Walmart's operational context.",
+    tags: ["Resilience", "Dashboard", "Cyber-Physical", "Walmart", "NIST CSF", "React"],
+    stats: { stars: 1, forks: 0, status: "Active System" },
+    icon: "shield-alert"
+  },
+  {
     id: "halberd-ot",
     title: "HALBERD",
     subtitle: "Happened-Before Analytics & Logic Baseline for Edge Response & Defense",
@@ -353,3 +388,4 @@ const USER_PROFILES = [
     tagline: "Reviewing strategic vision, leadership & publications"
   }
 ];
+
