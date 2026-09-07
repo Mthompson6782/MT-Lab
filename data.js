@@ -35,6 +35,36 @@ Key Architecture & Capabilities:
     icon: "shield-alert"
   },
   {
+    id: "shank-ot",
+    title: "SHANK",
+    subtitle: "SCADA & Hardware Asset Network Knowledge",
+    featured: true,
+    bannerImage: "https://images.unsplash.com/photo-1581092334651-ddf26d9a09d0?auto=format&fit=crop&w=1600&q=80",
+    posterGradient: "linear-gradient(135deg, #450a0a 0%, #7f1d1d 50%, #dc2626 100%)",
+    category: "OT Cybersecurity & Asset Intelligence",
+    rows: ["Trending Originals", "Security & Full Stack", "Top 10 in Tech Today"],
+    top10Rank: 2,
+    rating: "TV-MA",
+    matchScore: 98,
+    year: "2026",
+    duration: "Asset Intelligence",
+    quality: "Deep Inspection",
+    audio: "Passive Sniffer",
+    repoUrl: "https://github.com/Mthompson6782/shank-ot",
+    liveUrl: null,
+    synopsis: "A high-fidelity Operational Technology (OT) asset management platform. Part of the Blade Fleet, delivering silent, surgical asset intelligence directly into physical backplane slots and firmware revisions.",
+    longDescription: `SHANK (SCADA & Hardware Asset Network Knowledge) is an advanced OT asset management and cybersecurity platform inspired by Langner OT-BASE. Operating silently alongside HALBERD as part of the Blade Fleet, it delivers non-intrusive, deep-hardware analytics.
+
+Key Architecture & Capabilities:
+• Purdue & ISA/IEC 62443 Segmentation: Multi-level PERA modeling and automated conduit audits to detect dual-homed multi-NIC bridges.
+• Deep Backplane Architecture: Slot-by-slot hardware modeling (ControlLogix, S7-1500) with animated diagnostic status LEDs and module-level CVE correlation.
+• Contextual OT Risk Engine: Dynamic risk scoring with CVSS, Purdue exposure, criticality, compensating controls, and physical key switch discounts.
+• Multi-Format Ingestion: Parses Inductive Automation Ignition Gateway backups, Rockwell .L5X, Siemens .aml, and simulated passive broadcast probes.`,
+    tags: ["OT Cybersecurity", "Asset Management", "ISA/IEC 62443", "Ignition", "Rockwell", "Python", "Blade Fleet"],
+    stats: { stars: 1, forks: 0, status: "Active System" },
+    icon: "database"
+  },
+  {
     id: "operation-leo-lockdown",
     title: "Operation Leo Lockdown",
     subtitle: "Cloud Server & Parental Cyber Safety Hub",
