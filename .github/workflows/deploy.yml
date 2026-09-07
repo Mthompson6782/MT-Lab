@@ -1,4 +1,4 @@
-name: Deploy MT-FLIX to GitHub Pages
+name: Deploy OT Labs to GitHub Pages
 
 on:
   push:
