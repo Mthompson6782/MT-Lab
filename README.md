@@ -21,7 +21,7 @@
   ██      ██    ██          ██      ███████ ██ ██   ██ 
 ```
 
-**Welcome to MT LABS & OT Labs.** Browse Michael Thompson's full ecosystem of full-stack platforms, autonomous AI systems, industrial cybersecurity architecture, and published memoirs — organized like your favorite streaming service.
+**Welcome to OT Labs & OT Labs.** Browse Michael Thompson's full ecosystem of full-stack platforms, autonomous AI systems, industrial cybersecurity architecture, and published memoirs — organized like your favorite streaming service.
 
 ---
 
