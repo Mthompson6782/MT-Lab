@@ -1,9 +1,9 @@
 <div align="center">
 
-# 🎬 OT Labs
-### *Michael Thompson's Streaming Engineering Laboratory*
+# 🎬 MT Labs
+### *Premium Engineering Studio*
 
-[![Stream on GitHub Pages](https://img.shields.io/badge/▶_LAUNCH_OT--Labs-LIVE_EXPERIENCE-E50914?style=for-the-badge&logo=netflix&logoColor=white)](https://mthompson6782.github.io/MT-Lab/)
+[![Stream on GitHub Pages](https://img.shields.io/badge/▶_LAUNCH_MT--Labs-LIVE_EXPERIENCE-E50914?style=for-the-badge&logo=netflix&logoColor=white)](https://mthompson6782.github.io/MT-Lab/)
 [![GitHub Profile](https://img.shields.io/badge/GITHUB-Mthompson6782-141414?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Mthompson6782)
 [![Active Status](https://img.shields.io/badge/STATUS-STREAMING_ACTIVE-46D369?style=for-the-badge)](https://github.com/Mthompson6782/MT-Lab)
 
@@ -21,7 +21,7 @@
   ██      ██    ██          ██      ███████ ██ ██   ██ 
 ```
 
-**Welcome to OT Labs & OT Labs.** Browse Michael Thompson's full ecosystem of full-stack platforms, autonomous AI systems, industrial cybersecurity architecture, and published memoirs — organized like your favorite streaming service.
+**Welcome to MT Labs.** Browse Michael Thompson's full ecosystem of full-stack platforms, autonomous AI systems, industrial cybersecurity architecture, and published memoirs — organized like your favorite streaming service.
 
 ---
 
@@ -155,7 +155,7 @@ An open-source, low-SWaP cybersecurity platform engineered specifically for Oper
 
 ### 🛡️ Operation Leo Lockdown
 [![Live Web](https://img.shields.io/badge/ONLINE-LIVE_SITE-46D369?style=flat-square)](https://operation-leo-lockdown.onrender.com)
-[![Leo Lockdown](https://img.shields.io/badge/OT--Labs-TOP_1-E50914?style=flat-square)](https://github.com/Mthompson6782/operation-leo-lockdown)
+[![Leo Lockdown](https://img.shields.io/badge/MT--Labs-TOP_1-E50914?style=flat-square)](https://github.com/Mthompson6782/operation-leo-lockdown)
 
 `99% Match` • `TV-MA` • `Node.js`
 
@@ -171,7 +171,7 @@ Parental cyber-safety platform with automated Discord archive parsing and threat
 
 ### 📚 Cindy's Homeschool Planner
 [![Live Web](https://img.shields.io/badge/ONLINE-LIVE_SITE-46D369?style=flat-square)](https://cindys-homeschool-planner.vercel.app)
-[![Cindy Planner](https://img.shields.io/badge/OT--Labs-TOP_2-E50914?style=flat-square)](https://github.com/Mthompson6782/cindys-homeschool-planner)
+[![Cindy Planner](https://img.shields.io/badge/MT--Labs-TOP_2-E50914?style=flat-square)](https://github.com/Mthompson6782/cindys-homeschool-planner)
 
 `98% Match` • `TV-PG` • `Next.js 19`
 
@@ -187,7 +187,7 @@ Interactive curriculum pacing, multi-child course tracking, and calendar schedul
 
 ### 📖 The Improbability of Me
 [![Live Web](https://img.shields.io/badge/ONLINE-LIVE_MEMOIR-46D369?style=flat-square)](https://mthompson6782.github.io/Autobiography/)
-[![Improbability of Me](https://img.shields.io/badge/OT--Labs-TOP_3-E50914?style=flat-square)](https://github.com/Mthompson6782/Autobiography)
+[![Improbability of Me](https://img.shields.io/badge/MT--Labs-TOP_3-E50914?style=flat-square)](https://github.com/Mthompson6782/Autobiography)
 
 `100% Match` • `TV-MA` • `Memoir`
 
@@ -237,7 +237,7 @@ Directed acyclic graph autonomous agent orchestration framework for error-resili
 <td width="33%" valign="top">
 
 ### 🔬 MT-Lab Core Sandbox
-[![MT-Lab](https://img.shields.io/badge/OT--Labs-CORE_HUB-E50914?style=flat-square)](https://github.com/Mthompson6782/MT-Lab)
+[![MT-Lab](https://img.shields.io/badge/MT--Labs-CORE_HUB-E50914?style=flat-square)](https://github.com/Mthompson6782/MT-Lab)
 `99% Match` • `TV-MA` • `Vanilla JS`
 
 The live interactive Netflix streaming interface and rapid experimental incubator.

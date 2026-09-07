@@ -1,4 +1,4 @@
-name: Deploy OT Labs to GitHub Pages
+name: Deploy MT Labs to GitHub Pages
 
 on:
   push:

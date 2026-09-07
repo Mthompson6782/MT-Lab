@@ -1,4 +1,4 @@
-// OT Labs Project Catalog Data
+// MT Labs Project Catalog Data
 const PROJECTS_DATA = [
   {
     id: "walmart-resilience",
@@ -350,7 +350,7 @@ Key Knowledge Domains:
     audio: "Interactive UI",
     repoUrl: "https://github.com/Mthompson6782/MT-Lab",
     liveUrl: "https://mthompson6782.github.io/MT-Lab/",
-    synopsis: "The heartbeat repository of Michael Thompson's engineering experiments. Houses the OT Labs streaming portfolio, experimental prototypes, and interactive systems.",
+    synopsis: "The heartbeat repository of Michael Thompson's engineering experiments. Houses the MT Labs streaming portfolio, experimental prototypes, and interactive systems.",
     longDescription: `MT-Lab is the primary open-source laboratory and creative coding sandbox where cutting-edge frontends, autonomous agents, and industrial software experiments are forged and showcased.`,
     tags: ["Interactive Web", "Netflix UI", "Open Source", "R&D", "Prototypes", "Vanilla JS"],
     stats: { stars: 1, forks: 0, status: "Active Hub" },

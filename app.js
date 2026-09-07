@@ -1,5 +1,5 @@
 // ==========================================================================
-// OT Labs & OT Labs: Application Logic with Cinematic Splash Experience
+// MT Labs: Application Logic with Cinematic Splash Experience
 // ==========================================================================
 
 let activeProfile = null;
@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ==========================================================================
-// 0. CINEMATIC OT Labs SPLASH SCREEN CONTROLLER
+// 0. CINEMATIC MT Labs SPLASH SCREEN CONTROLLER
 // ==========================================================================
 function initSplashScreen() {
   const splashScreen = document.getElementById('splash-screen');
