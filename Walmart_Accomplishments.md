@@ -34,6 +34,12 @@ Joined Walmart Global Tech in 2026 as Principal Engineer supporting the IoT/OT s
 - **CUTLASS** — Cyber Unified Threat Level Automated Site Survey. Automated IEC 62443-2 risk assessment engine that can be run against any site at any time. Ingests data from existing collection sources, then executes the full seven-step ZCR process end-to-end.
   - *Impact:* Turns a manual, periodic compliance exercise into continuous, on-demand risk assessment — scalable across the entire retail footprint without adding headcount.
 
+- **SABER** — Solution Security Plan Automated Evaluator & Report. Completely redefined how Walmart produces security solution plans for OT devices. SABER ingests incoming SSPs and performs a fully automated OT evaluation, replacing a manual five-hour review process with a ~25-minute report.
+  - *Time saved:* ~5 hours per report → ~25 minutes.
+  - *Meeting reduction:* Eliminated 2 recurring meetings per week (5 people × 2 hours each).
+  - *SLA impact:* OT task completion SLA rose from 21% to 94% completed within 7 days.
+  - *Impact:* One of the largest process transformations of the year — faster, more consistent OT security evaluations with dramatically less human overhead.
+
 ### Q2 2026
 
 - *(Add entries here as they occur.)*
@@ -50,6 +56,7 @@ Joined Walmart Global Tech in 2026 as Principal Engineer supporting the IoT/OT s
 2. **Resilience & Cyber-Informed Engineering** — Translating federal CIE frameworks into practical, Walmart-specific tooling and dashboards.
 3. **Non-Disruptive Defense** — Tools and approaches that protect operations without tripping lines or slowing the business.
 4. **Standards Authority** — Co-author of NIST SP 800-82 Rev 3; active on IEC 62443 / ISA 99 and ISA 84 committees — bringing external credibility to internal program decisions.
+5. **Process Automation & Efficiency** — Replacing manual, meeting-heavy OT workflows with automated evaluators that scale without headcount.
 
 ---
 
