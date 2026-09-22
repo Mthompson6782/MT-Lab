@@ -50,6 +50,13 @@ Joined Walmart Global Tech in 2026 as Principal Engineer supporting the IoT/OT s
 
 ---
 
+## Standards Leadership
+
+- **IEC 62443 Adoption** — Drove Walmart's shift away from NIST SP 800-82 as the OT cybersecurity standard of choice, moving the organization toward IEC 62443. Actively shaping existing standards and practices to reflect IEC 62443 principles.
+  - *Impact:* Strategic standards-level influence — sets the foundation for every OT security decision going forward, not just individual tools.
+
+---
+
 ## Impact Themes (for Review Narrative)
 
 1. **OT Visibility & Asset Intelligence** — Building the foundation to see and understand every OT/IoT asset across Walmart's footprint.
