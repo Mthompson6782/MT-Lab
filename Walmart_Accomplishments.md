@@ -31,6 +31,9 @@ Joined Walmart Global Tech in 2026 as Principal Engineer supporting the IoT/OT s
 - **SHANK OT Asset Intelligence** — Advanced OT asset management platform (part of the Blade Fleet) for deep, passive hardware and firmware inspection, Purdue/IEC 62443 segmentation audits, and contextual risk scoring. Complements HALBERD for full asset visibility.
   - *Impact:* Addresses the core OT challenge of knowing what is actually on the network — a prerequisite for any vulnerability management program.
 
+- **CUTLASS** — Cyber Unified Threat Level Automated Site Survey. Automated IEC 62443-2 risk assessment engine that can be run against any site at any time. Ingests data from existing collection sources, then executes the full seven-step ZCR process end-to-end.
+  - *Impact:* Turns a manual, periodic compliance exercise into continuous, on-demand risk assessment — scalable across the entire retail footprint without adding headcount.
+
 ### Q2 2026
 
 - *(Add entries here as they occur.)*
