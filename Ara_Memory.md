@@ -30,4 +30,12 @@ Persistent preferences and context for Ara (Grok voice assistant).
 
 ---
 
+## VA Disability
+
+- Current rating: **90%**
+- Monthly compensation: roughly **$2,990**
+- Updated: 2026-09-22
+
+---
+
 *Last updated: 2026-09-22*
