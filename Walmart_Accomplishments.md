@@ -40,6 +40,9 @@ Joined Walmart Global Tech in 2026 as Principal Engineer supporting the IoT/OT s
   - *SLA impact:* OT task completion SLA rose from 21% to 94% completed within 7 days.
   - *Impact:* One of the largest process transformations of the year — faster, more consistent OT security evaluations with dramatically less human overhead.
 
+- **EU Cyber Resilience Act (CRA) Leverage** — Identified and championed the EU Cyber Resilience Act as a lever Walmart can use to acquire SBOMs and HBOMs. Positioned the regulation as a practical acquisition pathway for software and hardware bill-of-materials data that strengthens OT/IoT supply-chain transparency and vulnerability management.
+  - *Impact:* Opens a regulatory-backed channel for critical supply-chain intelligence that would otherwise be difficult or costly to obtain — directly feeds asset intelligence and risk assessment programs.
+
 ### Q2 2026
 
 - *(Add entries here as they occur.)*
@@ -64,6 +67,7 @@ Joined Walmart Global Tech in 2026 as Principal Engineer supporting the IoT/OT s
 3. **Non-Disruptive Defense** — Tools and approaches that protect operations without tripping lines or slowing the business.
 4. **Standards Authority** — Co-author of NIST SP 800-82 Rev 3; active on IEC 62443 / ISA 99 and ISA 84 committees — bringing external credibility to internal program decisions.
 5. **Process Automation & Efficiency** — Replacing manual, meeting-heavy OT workflows with automated evaluators that scale without headcount.
+6. **Supply-Chain Transparency** — Using regulatory frameworks like the EU CRA to secure SBOMs and HBOMs for stronger OT/IoT vulnerability and risk management.
 
 ---
 
