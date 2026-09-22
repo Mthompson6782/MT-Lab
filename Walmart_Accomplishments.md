@@ -43,6 +43,9 @@ Joined Walmart Global Tech in 2026 as Principal Engineer supporting the IoT/OT s
 - **EU Cyber Resilience Act (CRA) Leverage** — Identified and championed the EU Cyber Resilience Act as a lever Walmart can use to acquire SBOMs and HBOMs. Positioned the regulation as a practical acquisition pathway for software and hardware bill-of-materials data that strengthens OT/IoT supply-chain transparency and vulnerability management.
   - *Impact:* Opens a regulatory-backed channel for critical supply-chain intelligence that would otherwise be difficult or costly to obtain — directly feeds asset intelligence and risk assessment programs.
 
+- **FEAR** — Find, Exploits, and Repair. Generates reasonable worst-case exploit scenarios from CUTLASS risk assessments and converts them into structured tabletop exercises. Teams practice the exact attack paths and failure modes before an adversary does, building muscle memory for detection, containment, and recovery.
+  - *Impact:* Closes the gap between knowing you're vulnerable and knowing how to respond — turns abstract risk scores into rehearsed, operational readiness.
+
 ### Q2 2026
 
 - *(Add entries here as they occur.)*
@@ -68,6 +71,7 @@ Joined Walmart Global Tech in 2026 as Principal Engineer supporting the IoT/OT s
 4. **Standards Authority** — Co-author of NIST SP 800-82 Rev 3; active on IEC 62443 / ISA 99 and ISA 84 committees — bringing external credibility to internal program decisions.
 5. **Process Automation & Efficiency** — Replacing manual, meeting-heavy OT workflows with automated evaluators that scale without headcount.
 6. **Supply-Chain Transparency** — Using regulatory frameworks like the EU CRA to secure SBOMs and HBOMs for stronger OT/IoT vulnerability and risk management.
+7. **Incident Readiness & Response** — Moving from static risk assessment to rehearsed response through automated scenario generation and tabletop exercises.
 
 ---
 
