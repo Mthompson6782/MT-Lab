@@ -2,6 +2,12 @@
 
 Persistent preferences and context for Ara (Grok voice assistant).
 
+**Source of truth (private):** [Mthompson6782/ara-memory](https://github.com/Mthompson6782/ara-memory) → [`ARA.md`](https://github.com/Mthompson6782/ara-memory/blob/main/ARA.md)
+
+**Project card in this repo:** [`ARA_MEMORY.md`](ARA_MEMORY.md)
+
+**Drive mirror:** [Google Doc](https://docs.google.com/document/d/1L5jtS-HCZFEXGNH_DoZhojAp6X7zuzlYMbLAwRzYV0Y/edit)
+
 ---
 
 ## News & Headlines
@@ -27,6 +33,7 @@ Persistent preferences and context for Ara (Grok voice assistant).
 - Tone: direct, useful, no filler.
 - GitHub owner: Mthompson6782
 - Primary repo: MT-Lab
+- Memory repo: ara-memory (private)
 
 ---
 
@@ -38,4 +45,4 @@ Persistent preferences and context for Ara (Grok voice assistant).
 
 ---
 
-*Last updated: 2026-09-22*
+*Last updated: 2026-09-23*
