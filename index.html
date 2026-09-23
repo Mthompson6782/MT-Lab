@@ -8,15 +8,11 @@
   <meta http-equiv="Expires" content="0">
   <title>MT Labs | Premium Engineering Studio</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎬</text></svg>">
-  <link rel="stylesheet" href="style.css?v=20260906-03">
+  <link rel="stylesheet" href="style.css?v=20260923-ara">
 </head>
 <body>
 
-  <!-- ========================================================================
-       0. CINEMATIC MT Labs SPLASH SCREEN
-       ======================================================================== -->
   <div id="splash-screen">
-    <!-- Cinematic Letterbox Aspect Bars -->
     <div class="letterbox-bar letterbox-top"></div>
     <div class="letterbox-bar letterbox-bottom"></div>
 
@@ -25,7 +21,6 @@
       <div class="dust-particles"></div>
     </div>
 
-    <!-- Pre-Click Initializer Gate -->
     <div class="splash-intro-card" id="splash-intro-card">
       <div class="studio-emblem">⚡</div>
       <div class="studio-supertitle">MICHAEL THOMPSON PRESENTS</div>
@@ -42,7 +37,6 @@
       </div>
     </div>
 
-    <!-- Post-Click Cinematic Impact Stage -->
     <div class="splash-stage" id="splash-stage">
       <div class="shockwave-ring" id="shockwave-ring"></div>
       <div class="flash-overlay" id="flash-overlay"></div>
@@ -66,34 +60,25 @@
       </div>
     </div>
 
-    <!-- Skip Intro Button -->
     <button class="skip-intro-btn" id="skip-intro-btn" title="Skip to Profiles">
       SKIP INTRO ❯
     </button>
   </div>
 
-  <!-- Audio Player for Cinematic Impact -->
   <audio id="splash-audio" src="cinematic-impact.mp3" preload="auto"></audio>
 
-  <!-- ========================================================================
-       1. "WHO'S WATCHING?" PROFILE GATE
-       ======================================================================== -->
   <div id="profile-gate" class="hidden">
     <div class="profile-container">
       <div class="profile-brand-logo">MT Labs</div>
       <h1 class="profile-title">Who's watching MT-Lab?</h1>
       
       <div class="profiles-grid" id="profiles-grid">
-        <!-- Injected via app.js from USER_PROFILES -->
       </div>
 
       <button id="enter-guest-btn" class="enter-as-guest-btn">Enter as Guest</button>
     </div>
   </div>
 
-  <!-- ========================================================================
-       2. STICKY NETFLIX NAVBAR
-       ======================================================================== -->
   <header class="netflix-navbar" id="netflix-navbar">
     <div class="nav-left">
       <a href="#" class="brand-logo">
@@ -129,39 +114,18 @@
     </div>
   </header>
 
-  <!-- ========================================================================
-       3. HERO BILLBOARD
-       ======================================================================== -->
   <section class="hero-billboard" id="hero-billboard">
-    <!-- Injected dynamically via app.js -->
   </section>
 
-  <!-- ========================================================================
-       4. CATALOG ROWS & CAROUSELS
-       ======================================================================== -->
   <main class="main-catalog" id="main-catalog">
-    <!-- Top 10 in Tech Today -->
     <section class="catalog-row" id="top10-row"></section>
-
-    <!-- Trending Now / Flagships -->
     <section class="catalog-row" id="trending-row"></section>
-
-    <!-- Web Apps & Full Stack -->
     <section class="catalog-row" id="web-row"></section>
-
-    <!-- AI & Deep Tech -->
     <section class="catalog-row" id="ai-row"></section>
-
-    <!-- Knowledge Vault & Second Brain -->
     <section class="catalog-row" id="knowledge-row"></section>
-
-    <!-- My List -->
     <section class="catalog-row" id="mylist-row"></section>
   </main>
 
-  <!-- ========================================================================
-       5. CINEMATIC DETAIL MODAL
-       ======================================================================== -->
   <div class="modal-overlay" id="details-modal">
     <div class="modal-dialog">
       <button class="modal-close-btn" onclick="closeDetailsModal()">✕</button>
@@ -213,13 +177,11 @@
     </div>
   </div>
 
-  <!-- ========================================================================
-       6. NETFLIX FOOTER
-       ======================================================================== -->
   <footer class="netflix-footer">
     <ul class="footer-links">
       <li><a href="https://github.com/Mthompson6782" target="_blank" rel="noopener">GitHub Profile</a></li>
       <li><a href="https://github.com/Mthompson6782/MT-Lab" target="_blank" rel="noopener">MT-Lab Repository</a></li>
+      <li><a href="https://github.com/Mthompson6782/ara-memory" target="_blank" rel="noopener">Ara Memory</a></li>
       <li><a href="https://github.com/Mthompson6782/Autobiography" target="_blank" rel="noopener">Autobiography Memoir</a></li>
       <li><a href="https://github.com/Mthompson6782/operation-leo-lockdown" target="_blank" rel="noopener">Leo Lockdown</a></li>
     </ul>
@@ -230,8 +192,7 @@
     <p>© 2026 Michael Thompson. MT Labs | Cinematic Software Studio. Built with pure web standards for high performance.</p>
   </footer>
 
-  <!-- Scripts with cache busting -->
-  <script src="data.js?v=20260907-01"></script>
-  <script src="app.js?v=20260907-01"></script>
+  <script src="data.js?v=20260923-ara"></script>
+  <script src="app.js?v=20260923-ara"></script>
 </body>
 </html>
