@@ -1,7 +1,7 @@
 # ISA/IEC 62443-3-2 Security Risk Assessment Report
 **Facility / System Under Consideration (SuC):** Walmart DC #6094 (Ambient & Cold Chain Operations)
 **Facility ID:** SUC-DC-6094 | **Facility Type:** Distribution Center
-**Assessment Date:** 2026-09-25 00:32:56 UTC
+**Assessment Date:** 2026-09-25 00:36:03 UTC
 **Target Security Level (Global):** SL-T 2
 **Facility SL-2 Compliance:** 33.3%
 **Overall Inherent Risk Score:** 8.75 / 25

@@ -128,7 +128,7 @@ def main():
         ui_dir = os.path.join(BASE_DIR, "ui")
         os.chdir(ui_dir)
         handler = http.server.SimpleHTTPRequestHandler
-        print(f"🚀 Serving Walmart 62443 Dashboard at http://localhost:{args.port}/ ...")
+        print(f"[SERVER] Serving Walmart 62443 Dashboard at http://localhost:{args.port}/ ...")
         with socketserver.TCPServer(("", args.port), handler) as httpd:
             try:
                 httpd.serve_forever()
