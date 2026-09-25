@@ -35,7 +35,7 @@ Infrastructure-centric OT asset intelligence platform that discovers, contextual
 1. Municipal Water Treatment Facility
 2. 500kV Electric Substation Alpha (SEL relays, NERC CIP)
 3. Petrochemical Continuous Refinery (Triconex SIL 3 SIS)
-4. **Walmart DC-6094** — Perishable Grocery & Cold Chain (ammonia refrigeration, Frick Quantum HD, Emerson Copeland E3, Det-Tronics EQP gas detection)
+4. **Distribution Center DC-6094** — Perishable Grocery & Cold Chain (ammonia refrigeration, Frick Quantum HD, Emerson Copeland E3, Det-Tronics EQP gas detection)
 
 ---
 
@@ -48,7 +48,7 @@ Infrastructure-centric OT asset intelligence platform that discovers, contextual
 
 ---
 
-## Why it matters (Walmart context)
+## Why it matters (Enterprise context)
 
 SHANK is the asset-intelligence half of the Blade Fleet — it answers *what is actually on the network, where it physically sits, and how risky it is*. It feeds CUTLASS (risk assessment) and SABER (solution security plans) with ground-truth inventory they can't get from passive DPI alone.
 

@@ -18,11 +18,11 @@ Joined Walmart Global Tech in 2026 as Principal Engineer supporting the IoT/OT s
 
 ### Q3 2026 (September – Present)
 
-- **Walmart Resilience Dashboard** — Built and deployed an interactive, browser-based dashboard (React + Chart.js) for navigating Walmart's infrastructure taxonomy and cyber-physical engineered controls. Adapted from the DHS/Idaho National Laboratory Cyber-Informed Engineering Engineered Controls Explorer and tailored to Walmart's operational context.
+- **Enterprise Resilience Dashboard** — Built and deployed an interactive, browser-based dashboard (React + Chart.js) for navigating enterprise infrastructure taxonomy and cyber-physical engineered controls. Adapted from the DHS/Idaho National Laboratory Cyber-Informed Engineering Engineered Controls Explorer and tailored to operational context.
   - Taxonomy browser: Division → Facility → Department → System → Component drill-down.
   - NIST CSF alignment: controls tagged and visualized across Identify, Protect, Detect, Respond, Recover.
   - Recursive analytics: live charts for control distribution and resilience coverage.
-  - Self-contained architecture — no backend required. Source in `MT-Lab/walmart-dashboard/`.
+  - Self-contained architecture — no backend required. Source in `MT-Lab/resilience-dashboard/`.
   - *Impact:* Gives security and operations teams a shared, visual language for OT resilience posture.
 
 - **HALBERD OT Defense Platform** — Continued development and demonstration of the open-source, low-SWaP OT/ICS cybersecurity platform (Happened-Before Language, eLEARN baseline engine, Effects Language threat emulation mapped to ATT&CK for ICS, EdgeReactor operator console). Positioned as a candidate tool for Walmart's OT visibility and non-disruptive response needs.

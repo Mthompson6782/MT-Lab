@@ -154,11 +154,11 @@ An open-source, low-SWaP cybersecurity platform engineered specifically for Oper
 ### 🔴 N ORIGINAL DEFENSE SUITE
 # **CUTLASS™**
 #### *Cyber Unified Threat Level Automated Site Survey*
-##### *Automated ISA/IEC 62443-3-2 Risk Assessment Platform for Walmart OT*
+##### *Automated ISA/IEC 62443-3-2 Risk Assessment Platform for Enterprise OT*
 
 `99% Match` &nbsp; `TV-MA` &nbsp; `2026` &nbsp; `Enterprise OT` &nbsp; `IEC 62443-3-2 / 3-3` &nbsp; `AI Copilot`
 
-An enterprise-scale automated risk assessment platform engineered for Walmart operational technology (Distribution Centers, Fulfillment Centers, Micro-Fulfillment, and Retail Store Cold-Chain facilities). **CUTLASS (Cyber Unified Threat Level Automated Site Survey)** bridges live Armis network telemetry, Walmart internal RUNE CVE intelligence, and corporate security policies into a continuous, audit-ready compliance engine targeting Security Level 2 (SL-T 2) across all operational zones.
+An enterprise-scale automated risk assessment platform engineered for modern operational technology (Distribution Centers, Fulfillment Centers, Micro-Fulfillment, and Retail Cold-Chain facilities). **CUTLASS (Cyber Unified Threat Level Automated Site Survey)** bridges live Armis network telemetry, internal RUNE CVE intelligence, and corporate security policies into a continuous, audit-ready compliance engine targeting Security Level 2 (SL-T 2) across all operational zones.
 
 * **Clause Z1-Z6 Automation:** End-to-end automation of System Under Consideration (SuC) scoping, Purdue model zoning (L0-L5), detailed likelihood x consequence scoring, and Cybersecurity Requirements Specifications (CRS).
 * **Live Ingestion Pipeline:** Normalizes Armis passive device discoveries, active protocols (CIP, Modbus, PROFINET, S7comm), and network conduits with RUNE CVE feeds.
@@ -168,7 +168,7 @@ An enterprise-scale automated risk assessment platform engineered for Walmart op
 
 <br/>
 
-[**🎮 Open Live CUTLASS Dashboard ↗**](http://localhost:8080/index.html) &nbsp;&nbsp;|&nbsp;&nbsp; [**💻 View Source Code in MT-Lab ↗**](walmart-62443-platform) &nbsp;&nbsp;|&nbsp;&nbsp; [**📑 View Sample Audit Report ↗**](walmart-62443-platform/reports/iec62443_3_2_audit_report.md) &nbsp;&nbsp;|&nbsp;&nbsp; [**📖 Architecture Docs ↗**](walmart-62443-platform#readme)
+[**🎮 Open Live CUTLASS Dashboard ↗**](http://localhost:8080/index.html) &nbsp;&nbsp;|&nbsp;&nbsp; [**💻 View Source Code in MT-Lab ↗**](cutlass-62443-platform) &nbsp;&nbsp;|&nbsp;&nbsp; [**📑 View Sample Audit Report ↗**](cutlass-62443-platform/reports/iec62443_3_2_audit_report.md) &nbsp;&nbsp;|&nbsp;&nbsp; [**📖 Architecture Docs ↗**](cutlass-62443-platform#readme)
 
 </td>
 <td width="45%" align="center" valign="middle">
@@ -186,10 +186,10 @@ An enterprise-scale automated risk assessment platform engineered for Walmart op
 |  [🎮 OPEN DASHBOARD]        [💻 VIEW CODE]            |
 +-------------------------------------------------------+
 ```
-[![CUTLASS](https://img.shields.io/badge/PLATFORM-CUTLASS-0071dc?style=flat-square&logo=shield)](walmart-62443-platform)
-[![Target SL](https://img.shields.io/badge/TARGET-SL--T_2_(GLOBAL)-F59E0B?style=flat-square&logoColor=black)](walmart-62443-platform)
-[![Standards](https://img.shields.io/badge/STANDARDS-IEC_62443--3--2_/_3--3-0071dc?style=flat-square&logoColor=white)](walmart-62443-platform)
-[![AI Engine](https://img.shields.io/badge/AI-HYBRID_LLM_COPILOT-9333EA?style=flat-square&logoColor=white)](walmart-62443-platform)
+[![CUTLASS](https://img.shields.io/badge/PLATFORM-CUTLASS-0071dc?style=flat-square&logo=shield)](cutlass-62443-platform)
+[![Target SL](https://img.shields.io/badge/TARGET-SL--T_2_(GLOBAL)-F59E0B?style=flat-square&logoColor=black)](cutlass-62443-platform)
+[![Standards](https://img.shields.io/badge/STANDARDS-IEC_62443--3--2_/_3--3-0071dc?style=flat-square&logoColor=white)](cutlass-62443-platform)
+[![AI Engine](https://img.shields.io/badge/AI-HYBRID_LLM_COPILOT-9333EA?style=flat-square&logoColor=white)](cutlass-62443-platform)
 
 </td>
 </tr>

@@ -34,19 +34,19 @@ const PROJECTS_DATA = [
 
     audio: "Armis / RUNE / AI",
 
-    repoUrl: "https://github.com/Mthompson6782/MT-Lab/tree/main/walmart-62443-platform",
+    repoUrl: "https://github.com/Mthompson6782/MT-Lab/tree/main/cutlass-62443-platform",
 
-    liveUrl: "walmart-62443-platform/ui/index.html",
+    liveUrl: "cutlass-62443-platform/ui/index.html",
 
-    executiveUrl: "walmart-62443-platform/reports/iec62443_3_2_audit_report.md",
+    executiveUrl: "cutlass-62443-platform/reports/iec62443_3_2_audit_report.md",
 
     vercelUrl: "",
 
     isDemo: true,
 
-    synopsis: "An automated ISA/IEC 62443-3-2 cyber-physical risk assessment platform engineered for Walmart Operational Technology. Ingests live telemetry from Armis, active CVEs from RUNE, targets SL-T 2 across all zones, and models multi-hop attack graphs with supply chain blast radius quantification.",
+    synopsis: "An automated ISA/IEC 62443-3-2 cyber-physical risk assessment platform engineered for Enterprise Operational Technology. Ingests live telemetry from Armis, active CVEs from RUNE, targets SL-T 2 across all zones, and models multi-hop attack graphs with supply chain blast radius quantification.",
 
-    longDescription: `CUTLASS™ (Cyber Unified Threat Level Automated Site Survey) is an enterprise-scale cyber-physical risk assessment platform engineered specifically for Walmart's operational technology footprint across Distribution Centers, Fulfillment Centers, Micro-Fulfillment, and Retail Cold-Chain facilities.
+    longDescription: `CUTLASS™ (Cyber Unified Threat Level Automated Site Survey) is an enterprise-scale cyber-physical risk assessment platform engineered specifically for modern operational technology footprints across Distribution Centers, Fulfillment Centers, Micro-Fulfillment, and Retail Cold-Chain facilities.
 
 
 
@@ -62,11 +62,11 @@ Key Architecture & Capabilities:
 
 • Mandated SL-T 2 Benchmark: Rigorously calculates the Achieved Security Level Vector (SL-V = [AC, UC, SI, DC, RDF, TRE, RA]) across all 7 Foundational Requirements for every operational zone.
 
-• Multi-Hop Attack Graphs & Blast Radius: Simulates lateral movement from IT/DMZ to physical PLCs and models real-world financial loss ($/hr) and supply chain ripple effects across hundreds of Walmart Supercenters.
+• Multi-Hop Attack Graphs & Blast Radius: Simulates lateral movement from IT/DMZ to physical PLCs and models real-world financial loss ($/hr) and supply chain ripple effects across hundreds of retail Supercenters.
 
 • AI Compensating Control Engine: Synthesizes OT-safe mitigations (DPI filtering, industrial switch ACLs) to maintain continuous operations without requiring high-risk mid-shift controller reboots.`,
 
-    tags: ["CUTLASS", "IEC 62443-3-2", "Walmart OT", "Armis", "RUNE CVE", "Purdue Model", "Attack Graphs", "Blast Radius", "Python", "Tailwind CSS", "Chart.js", "Blade Fleet"],
+    tags: ["CUTLASS", "IEC 62443-3-2", "Enterprise OT", "Armis", "RUNE CVE", "Purdue Model", "Attack Graphs", "Blast Radius", "Python", "Tailwind CSS", "Chart.js", "Blade Fleet"],
 
     stats: { stars: 1, forks: 0, status: "Active System" },
 
@@ -76,9 +76,9 @@ Key Architecture & Capabilities:
 
   {
 
-    id: "walmart-resilience",
+    id: "resilience-dashboard",
 
-    title: "Walmart Resilience Dashboard",
+    title: "Enterprise Resilience Dashboard",
 
     subtitle: "Engineered Controls & Framework Explorer",
 
@@ -106,9 +106,9 @@ Key Architecture & Capabilities:
 
     audio: "Data Viz",
 
-    repoUrl: "https://github.com/Mthompson6782/MT-Lab/tree/main/walmart-dashboard",
+    repoUrl: "https://github.com/Mthompson6782/MT-Lab/tree/main/resilience-dashboard",
 
-    liveUrl: "walmart-dashboard/walmart_dashboard.html",
+    liveUrl: "resilience-dashboard/resilience_dashboard.html",
 
     executiveUrl: "",
 
@@ -116,9 +116,9 @@ Key Architecture & Capabilities:
 
     isDemo: true,
 
-    synopsis: "A specialized interactive dashboard customized for Walmart to explore cyber-physical engineered controls, taxonomy, and the NIST resilience framework.",
+    synopsis: "A specialized interactive dashboard customized for enterprise environments to explore cyber-physical engineered controls, taxonomy, and the NIST resilience framework.",
 
-    longDescription: `This standalone, browser-based dashboard provides an interactive way to navigate Walmart's infrastructure taxonomy and cyber-physical security controls.
+    longDescription: `This standalone, browser-based dashboard provides an interactive way to navigate enterprise infrastructure taxonomy and cyber-physical security controls.
 
 
 
@@ -134,9 +134,9 @@ Key Capabilities:
 
 
 
-Originally adapted from the DHS/CIE Engineered Controls Explorer, tailored for Walmart's operational context.`,
+Originally adapted from the DHS/CIE Engineered Controls Explorer, tailored for enterprise operational contexts.`,
 
-    tags: ["Resilience", "Dashboard", "Cyber-Physical", "Walmart", "NIST CSF", "React"],
+    tags: ["Resilience", "Dashboard", "Cyber-Physical", "Enterprise OT", "NIST CSF", "React"],
 
     stats: { stars: 1, forks: 0, status: "Active System" },
 
