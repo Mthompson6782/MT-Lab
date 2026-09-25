@@ -60,7 +60,7 @@
   <main class="flex-1 p-6 space-y-6 max-w-7xl mx-auto w-full">
 
     <!-- KPI Metric Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
       <div class="glass-card rounded-xl p-5 relative overflow-hidden">
         <div class="flex justify-between items-start">
           <div>
@@ -72,7 +72,7 @@
           </div>
         </div>
         <p class="text-xs text-gray-400 mt-3 flex items-center">
-          <span class="text-red-400 font-semibold mr-1" id="kpi-failing-zones">-- zones</span> non-compliant with SL-T 2
+          <span class="text-red-400 font-semibold mr-1" id="kpi-failing-zones">-- zones</span> non-compliant
         </p>
         <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 to-yellow-500"></div>
       </div>
@@ -80,15 +80,29 @@
       <div class="glass-card rounded-xl p-5 relative overflow-hidden">
         <div class="flex justify-between items-start">
           <div>
-            <p class="text-xs font-medium text-gray-400 uppercase tracking-wider">Inherent Cyber Risk Score</p>
+            <p class="text-xs font-medium text-gray-400 uppercase tracking-wider">Inherent Cyber Risk</p>
             <h3 class="text-3xl font-extrabold mt-1 text-red-400 mono" id="kpi-risk-score">-- / 25</h3>
           </div>
           <div class="w-10 h-10 rounded-lg bg-red-500/10 text-red-400 flex items-center justify-center text-lg">
             <i class="fa-solid fa-radiation"></i>
           </div>
         </div>
-        <p class="text-xs text-gray-400 mt-3">High inherent cyber-physical exposure</p>
+        <p class="text-xs text-gray-400 mt-3">Likelihood x Consequence</p>
         <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-red-600 to-rose-400"></div>
+      </div>
+
+      <div class="glass-card rounded-xl p-5 relative overflow-hidden border border-red-900/50">
+        <div class="flex justify-between items-start">
+          <div>
+            <p class="text-xs font-medium text-rose-300 uppercase tracking-wider">Financial Loss At Risk</p>
+            <h3 class="text-3xl font-extrabold mt-1 text-rose-400 mono" id="kpi-financial-loss">$4.41M</h3>
+          </div>
+          <div class="w-10 h-10 rounded-lg bg-rose-500/10 text-rose-400 flex items-center justify-center text-lg">
+            <i class="fa-solid fa-dollar-sign"></i>
+          </div>
+        </div>
+        <p class="text-xs text-gray-400 mt-3">3 Multi-Hop Attack Paths</p>
+        <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-rose-600 via-red-500 to-amber-500"></div>
       </div>
 
       <div class="glass-card rounded-xl p-5 relative overflow-hidden">
@@ -101,7 +115,7 @@
             <i class="fa-solid fa-server"></i>
           </div>
         </div>
-        <p class="text-xs text-gray-400 mt-3">Ingested from Armis passive telemetry</p>
+        <p class="text-xs text-gray-400 mt-3">Armis passive telemetry</p>
         <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-cyan-400"></div>
       </div>
 
@@ -115,7 +129,7 @@
             <i class="fa-solid fa-bug"></i>
           </div>
         </div>
-        <p class="text-xs text-gray-400 mt-3">Correlated from RUNE Internal Feed</p>
+        <p class="text-xs text-gray-400 mt-3">RUNE Vulnerability Feed</p>
         <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-500 to-yellow-300"></div>
       </div>
     </div>
@@ -168,6 +182,53 @@
         </div>
       </div>
 
+    </div>
+
+    <!-- Pillar 1: Multi-Hop Attack Graphs & Cyber-Physical Blast Radius -->
+    <div class="glass-card rounded-xl p-6 border-t-2 border-t-rose-500">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+        <div>
+          <div class="flex items-center space-x-2">
+            <span class="w-8 h-8 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center">
+              <i class="fa-solid fa-network-wired"></i>
+            </span>
+            <h3 class="text-lg font-bold text-white tracking-wide">Multi-Hop Attack Graphs & Cyber-Physical Blast Radius</h3>
+            <span class="text-xs px-2 py-0.5 rounded bg-rose-900/50 text-rose-300 border border-rose-700/50 mono font-semibold">PILLAR 1 ENGINE</span>
+          </div>
+          <p class="text-xs text-gray-400 mt-1">Simulates multi-stage lateral movement from IT/DMZ to physical PLCs with financial and supply chain loss modeling</p>
+        </div>
+        
+        <!-- Path Selection Tabs -->
+        <div class="flex items-center space-x-2 overflow-x-auto pb-1 md:pb-0" id="attack-path-tabs">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Active Path Overview Banner -->
+      <div class="p-4 rounded-xl bg-gray-900/80 border border-gray-800 mb-6" id="path-overview-banner">
+        <!-- Populated by JS -->
+      </div>
+
+      <!-- Blast Radius Metrics HUD Grid -->
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6" id="blast-radius-hud">
+        <!-- Populated by JS -->
+      </div>
+
+      <!-- Visual Hop-by-Hop Attack Progression Sequence -->
+      <div class="space-y-3 mb-6">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Attack Hop Sequence & Violated SL-2 Barriers</span>
+          <span class="text-xs text-rose-400 mono font-semibold" id="path-entry-point">Entry: Enterprise Corporate Subnet (L4)</span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3" id="attack-hops-container">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Cascading Supply Chain Impacts -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs" id="cascading-impacts-container">
+        <!-- Populated by JS -->
+      </div>
     </div>
 
     <!-- Detailed Risk Assessment (Z5) Threat Scenarios & Compensating Controls -->
@@ -370,6 +431,154 @@
           spec: "Enforce TLS 1.3 encryption on FactoryTalk HMI web portals; disable legacy SMBv1; enforce centralized Active Directory authentication with MFA.",
           team: "OT Systems Administration"
         }
+      ],
+      attack_paths: [
+        {
+          id: "PATH-AMMONIA-CATASTROPHIC-01",
+          tab_title: "Ammonia Refrigeration Bypass",
+          color: "rose",
+          badge_color: "bg-red-900/60 text-red-300 border-red-700",
+          title: "Enterprise DMZ Bypass to Ammonia Safety Release (Catastrophic Loop)",
+          adversary: "Opportunistic Cybercriminal or Ransomware Actor (IEC 62443 SL-2 Profile)",
+          entry: "Enterprise Corporate Subnet (L4)",
+          target: "DC6094-AMMONIA-COMP-PLC-01 (Johnson Controls Frick Quantum HD)",
+          loss_usd: "$4,410,000",
+          hourly_burn: "$145,000 / hr",
+          downtime: "18.0 Hours",
+          stores_impacted: "142 Stores",
+          safety_hazard: "Catastrophic Chemical Release (OSHA PSM / EPA RMP Evacuation)",
+          environmental: "High anhydrous ammonia vapor plume hazard; HazMat perimeter deployed",
+          hops: [
+            {
+              step: 1,
+              type: "Initial Access",
+              source: "Enterprise IT LAN (L4)",
+              target: "Rogue Conduit CND-06",
+              vector: "Adversary discovers unmonitored vendor diagnostics routing",
+              barrier: "FR 5.1 & WMT-OT-POL-01 (Strict Purdue L3.5 DMZ Enforcement)"
+            },
+            {
+              step: 2,
+              type: "Boundary Penetration",
+              source: "Rogue Conduit CND-06",
+              target: "Ammonia Control VLAN (L1)",
+              vector: "Unfiltered packet routing enters L1 VLAN without firewall inspection",
+              barrier: "FR 5.2 (Stateful Zone Boundary Filtering)"
+            },
+            {
+              step: 3,
+              type: "Control Hijack",
+              source: "Frick Quantum HD Web Server",
+              target: "Compressor Modbus Registers",
+              vector: "Exploits CVE-2021-32955 (Auth Bypass) over HTTP/Modbus-TCP",
+              barrier: "FR 1.1 (Human Identification) & FR 4.1 (Encrypted Transport)"
+            },
+            {
+              step: 4,
+              type: "Physical Sabotage",
+              source: "Frick Quantum HD Controller",
+              target: "Compressor Discharge Valves",
+              vector: "Overwrites high-pressure setpoints; commands emergency overpressure surge",
+              barrier: "FR 3.1 (Communication Integrity & Logic Validation)"
+            }
+          ],
+          cascades: {
+            upstream: ["Inbound refrigerated tractor-trailers re-routed to neighboring regional DCs", "Cold dock receiving doors 1-28 shuttered"],
+            downstream: ["142 retail Supercenters experience milk, produce, and fresh meat stockouts within 24h", "OSHA and EPA formal regulatory investigation initiated"]
+          }
+        },
+        {
+          id: "PATH-SORTATION-DISPATCH-02",
+          tab_title: "Sortation S7comm RCE",
+          color: "amber",
+          badge_color: "bg-amber-900/60 text-amber-300 border-amber-700",
+          title: "Supervisory EWS Pivot to Crossbelt Sorter S7comm-Plus RCE",
+          adversary: "Targeted Cybercriminal / Ransomware Operator with Industrial Tooling",
+          entry: "Supervisory HMI VLAN (L2)",
+          target: "DC6094-MAIN-CROSSBELT-SORTER-PLC (Siemens SIMATIC S7-1517F)",
+          loss_usd: "$1,098,000",
+          hourly_burn: "$88,000 / hr",
+          downtime: "8.5 Hours",
+          stores_impacted: "96 Stores",
+          safety_hazard: "Recordable Floor Hazard (High-speed package jams, belt slippage)",
+          environmental: "Minimal (Localized conveyor drive motor overheating)",
+          hops: [
+            {
+              step: 1,
+              type: "Privilege Escalation",
+              source: "DC6094-ENG-WORKSTATION-EWS-01",
+              target: "Windows SAM / LSASS",
+              vector: "Exploits CVE-2021-34444 (Windows RDP Escalation) via legacy SMBv1",
+              barrier: "FR 1.3 (Account Management) & FR 3.2 (Malware/EDR Protection)"
+            },
+            {
+              step: 2,
+              type: "Lateral Movement",
+              source: "Engineering Workstation",
+              target: "Conduit CND-05",
+              vector: "Transmits crafted S7comm-plus packets directly to TCP port 102",
+              barrier: "FR 5.2 (Stateful Conduit Deep Packet Inspection)"
+            },
+            {
+              step: 3,
+              type: "Remote Code Execution",
+              source: "CND-05 Conduit",
+              target: "SIMATIC S7-1517F PLC",
+              vector: "Exploits CISA KEV CVE-2023-3595 (S7comm-plus Memory Corruption)",
+              barrier: "FR 3.4 (Firmware & Memory Integrity)"
+            },
+            {
+              step: 4,
+              type: "Mechanical Sorter Halt",
+              source: "SIMATIC S7-1517F Controller",
+              target: "Crossbelt Diverter Vanes",
+              vector: "CPU enters permanent DEFECT stop state; conveyor belts freeze under load",
+              barrier: "FR 7.1 (Denial of Service Protection & Recovery)"
+            }
+          ],
+          cascades: {
+            upstream: ["ASRS halts buffering; warehouse aisles gridlocked", "Cross-dock queues back up across 3 miles of track"],
+            downstream: ["Trailer dispatch window missed for 48 outbound trailers", "96 Walmart Supercenters miss morning GM replenishment cutoff"]
+          }
+        },
+        {
+          id: "PATH-ASRS-CRANE-03",
+          tab_title: "ASRS High-Bay Crane DoS",
+          color: "blue",
+          badge_color: "bg-blue-900/60 text-blue-300 border-blue-700",
+          title: "Modbus DoS Injection against High-Bay ASRS Crane System",
+          adversary: "Generic Script / Low Motivation Attacker (IEC 62443 SL-2 Profile)",
+          entry: "Supervisory HMI Network (L2)",
+          target: "DC6094-ASRS-CRANE-CONTROLLER-01 (Beckhoff CX5140)",
+          loss_usd: "$255,000",
+          hourly_burn: "$45,000 / hr",
+          downtime: "4.0 Hours",
+          stores_impacted: "65 Stores",
+          safety_hazard: "None (Safety laser curtains active)",
+          environmental: "None",
+          hops: [
+            {
+              step: 1,
+              type: "Protocol Abuse",
+              source: "Supervisory Network (L2)",
+              target: "Beckhoff CX5140 Embedded PC",
+              vector: "Transmits malformed Modbus function code sequences over TCP port 502 (CVE-2020-5504)",
+              barrier: "FR 7.1 (DoS Protection & Protocol Validation)"
+            },
+            {
+              step: 2,
+              type: "Crane Stoppage",
+              source: "Beckhoff CX5140 Embedded PC",
+              target: "ASRS High-Bay Cranes 1-8",
+              vector: "Communication stack watchdog drops EtherCAT sync; cranes brake in mid-aisle",
+              barrier: "FR 7.3 (Control System Resiliency)"
+            }
+          ],
+          cascades: {
+            upstream: ["Pallet induction starved across all 8 high-bay aisles"],
+            downstream: ["Replenishment pallet drops delayed by 4 hours across 65 regional stores"]
+          }
+        }
       ]
     };
 
@@ -379,6 +588,106 @@
     document.getElementById("kpi-risk-score").innerText = ASSESSMENT_DATA.inherent_risk_score + " / 25";
     document.getElementById("kpi-assets").innerText = ASSESSMENT_DATA.total_assets;
     document.getElementById("kpi-cves").innerText = ASSESSMENT_DATA.total_cves;
+
+    // Render Attack Path Deck
+    let activePathIndex = 0;
+    function renderAttackPaths() {
+      const tabsContainer = document.getElementById("attack-path-tabs");
+      tabsContainer.innerHTML = "";
+      ASSESSMENT_DATA.attack_paths.forEach((p, idx) => {
+        const isActive = idx === activePathIndex;
+        const btn = document.createElement("button");
+        btn.className = `px-3 py-1.5 rounded-lg text-xs font-semibold transition border flex items-center space-x-1.5 whitespace-nowrap ${
+          isActive 
+            ? "bg-rose-600 text-white border-rose-500 shadow-lg shadow-rose-600/30" 
+            : "bg-gray-800/80 text-gray-300 border-gray-700 hover:bg-gray-700"
+        }`;
+        btn.innerHTML = `<i class="fa-solid fa-crosshairs text-[10px]"></i><span>${p.tab_title}</span>`;
+        btn.onclick = () => { activePathIndex = idx; renderAttackPaths(); };
+        tabsContainer.appendChild(btn);
+      });
+
+      const path = ASSESSMENT_DATA.attack_paths[activePathIndex];
+
+      // Overview Banner
+      document.getElementById("path-overview-banner").innerHTML = `
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="text-xs px-2 py-0.5 rounded border mono font-bold ${path.badge_color}">${path.id}</span>
+              <h4 class="font-bold text-sm text-white">${path.title}</h4>
+            </div>
+            <p class="text-xs text-gray-400 mt-1"><strong class="text-gray-300">Target Asset:</strong> <span class="mono text-rose-300">${path.target}</span> • <strong class="text-gray-300">Adversary:</strong> ${path.adversary}</p>
+          </div>
+          <div class="text-right">
+            <span class="text-xs text-gray-400">Total Financial Impact</span>
+            <div class="text-2xl font-black text-rose-400 mono">${path.loss_usd}</div>
+          </div>
+        </div>
+      `;
+
+      // HUD Metrics
+      document.getElementById("blast-radius-hud").innerHTML = `
+        <div class="p-3 rounded-lg bg-gray-900/60 border border-gray-800">
+          <span class="text-[10px] text-gray-400 uppercase font-semibold">Financial Loss Exposure</span>
+          <div class="text-lg font-black text-rose-400 mono mt-0.5">${path.loss_usd}</div>
+        </div>
+        <div class="p-3 rounded-lg bg-gray-900/60 border border-gray-800">
+          <span class="text-[10px] text-gray-400 uppercase font-semibold">Estimated Downtime</span>
+          <div class="text-lg font-black text-amber-400 mono mt-0.5">${path.downtime}</div>
+        </div>
+        <div class="p-3 rounded-lg bg-gray-900/60 border border-gray-800">
+          <span class="text-[10px] text-gray-400 uppercase font-semibold">Hourly Burn Rate</span>
+          <div class="text-lg font-black text-white mono mt-0.5">${path.hourly_burn}</div>
+        </div>
+        <div class="p-3 rounded-lg bg-gray-900/60 border border-gray-800">
+          <span class="text-[10px] text-gray-400 uppercase font-semibold">Stores Delayed</span>
+          <div class="text-lg font-black text-cyan-400 mono mt-0.5">${path.stores_impacted}</div>
+        </div>
+        <div class="p-3 rounded-lg bg-gray-900/60 border border-gray-800">
+          <span class="text-[10px] text-gray-400 uppercase font-semibold">Life Safety Hazard</span>
+          <div class="text-xs font-bold text-red-400 mt-1">${path.safety_hazard.split('(')[0]}</div>
+        </div>
+      `;
+
+      // Attack Hops Cards
+      document.getElementById("path-entry-point").innerText = `Entry Point: ${path.entry}`;
+      const hopsContainer = document.getElementById("attack-hops-container");
+      hopsContainer.innerHTML = "";
+      path.hops.forEach(h => {
+        hopsContainer.innerHTML += `
+          <div class="p-3.5 rounded-lg bg-gray-900/80 border border-gray-800 relative hover:border-rose-500/50 transition">
+            <div class="flex items-center justify-between text-xs mb-1.5">
+              <span class="font-bold px-2 py-0.5 rounded bg-gray-800 text-rose-300 mono">Hop ${h.step}: ${h.type}</span>
+              <i class="fa-solid fa-arrow-right text-gray-600 text-xs"></i>
+            </div>
+            <div class="text-xs font-semibold text-white mb-1"><span class="text-gray-400">From:</span> ${h.source}</div>
+            <div class="text-xs font-semibold text-rose-300 mb-2"><span class="text-gray-400">To:</span> ${h.target}</div>
+            <p class="text-[11px] text-gray-300 mb-2 leading-tight">${h.vector}</p>
+            <div class="pt-2 border-t border-gray-800 text-[10px] text-amber-400 font-medium">
+              <i class="fa-solid fa-shield-halved mr-1"></i> ${h.barrier}
+            </div>
+          </div>
+        `;
+      });
+
+      // Cascading Impacts
+      document.getElementById("cascading-impacts-container").innerHTML = `
+        <div class="p-3.5 rounded-lg bg-red-950/20 border border-red-900/40">
+          <span class="font-bold text-red-400 flex items-center mb-1.5"><i class="fa-solid fa-arrow-up mr-1.5"></i> Upstream Operational Cascade</span>
+          <ul class="space-y-1 text-gray-300 list-disc list-inside">
+            ${path.cascades.upstream.map(u => `<li>${u}</li>`).join("")}
+          </ul>
+        </div>
+        <div class="p-3.5 rounded-lg bg-amber-950/20 border border-amber-900/40">
+          <span class="font-bold text-amber-400 flex items-center mb-1.5"><i class="fa-solid fa-arrow-down mr-1.5"></i> Downstream Supply Chain Cascade</span>
+          <ul class="space-y-1 text-gray-300 list-disc list-inside">
+            ${path.cascades.downstream.map(d => `<li>${d}</li>`).join("")}
+          </ul>
+        </div>
+      `;
+    }
+    renderAttackPaths();
 
     // Populate Executive Summary
     document.getElementById("executive-summary-content").innerHTML = `

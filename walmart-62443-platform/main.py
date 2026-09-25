@@ -21,6 +21,7 @@ if BASE_DIR not in sys.path:
 from ai.llm_analyzer import LLMAnalyzer
 from connectors.armis_connector import ArmisConnector
 from connectors.rune_connector import RuneCveConnector
+from core.attack_graph import AttackGraphEngine
 from core.crs_generator import CRSGenerator
 from core.risk_engine import RiskEngine
 from core.sl_evaluator import SecurityLevelEvaluator
@@ -74,6 +75,13 @@ def run_pipeline(
     suc = risk_engine.evaluate_suc_risk(suc)
     logger.info(f"SuC Overall Inherent Risk Score: {suc.overall_risk_score} / 25")
 
+    # 3.5. Attack Graph & Cyber-Physical Blast Radius Modeling
+    logger.info("Computing Multi-Hop Attack Paths & Supply Chain Blast Radius...")
+    attack_graph_engine = AttackGraphEngine()
+    suc = attack_graph_engine.compute_attack_paths_and_blast_radius(suc)
+    logger.info(f"Identified {len(suc.attack_paths)} critical multi-hop attack paths.")
+    logger.info(f"Total Facility Financial Loss Exposure: ${suc.total_financial_loss_exposure_usd:,.2f}")
+
     # 4. Security Level (SL-T 2 vs SL-A) Gap Evaluation (IEC 62443-3-3 FR 1-7)
     logger.info("Evaluating Achieved Security Levels (SL-A) against Mandated SL-T 2...")
     sl_evaluator = SecurityLevelEvaluator()
@@ -98,12 +106,14 @@ def run_pipeline(
     md_path = report_gen.generate_markdown_report(suc, exec_summary, crs_doc)
 
     print("\n" + "-"*80)
-    print("[SUCCESS] ASSESSMENT COMPLETE:")
+    print("[SUCCESS] CUTLASS ASSESSMENT COMPLETE:")
     print(f"   * Audit Markdown Report : {md_path}")
     print(f"   * Machine JSON Data     : {json_path}")
     print(f"   * Interactive Dashboard : {os.path.join(BASE_DIR, 'ui', 'index.html')}")
     print(f"   * SL-2 Compliance Rate  : {suc.sl2_compliance_percentage}%")
     print(f"   * Inherent Risk Score   : {suc.overall_risk_score} / 25")
+    print(f"   * Attack Paths Modeled  : {len(suc.attack_paths)} Critical Chains")
+    print(f"   * Financial Loss At Risk: ${suc.total_financial_loss_exposure_usd:,.2f}")
     print("-"*80 + "\n")
 
     return suc

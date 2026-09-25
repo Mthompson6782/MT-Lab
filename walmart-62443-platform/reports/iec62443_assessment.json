@@ -811,9 +811,191 @@
     }
   },
   "target_security_level_global": 2,
-  "assessment_timestamp": "2026-09-25 00:39:39 UTC",
+  "assessment_timestamp": "2026-09-25 00:45:56 UTC",
   "overall_risk_score": 8.75,
   "sl2_compliance_percentage": 33.3,
   "total_assets": 8,
-  "total_cves": 9
+  "total_cves": 9,
+  "attack_paths": [
+    {
+      "path_id": "PATH-AMMONIA-CATASTROPHIC-01",
+      "title": "Enterprise DMZ Bypass to Ammonia Safety Release (Catastrophic Path)",
+      "adversary_profile": "Opportunistic Cybercriminal or Ransomware Actor (IEC 62443 SL-2 Profile)",
+      "entry_point": "Enterprise Corporate Subnet (L4)",
+      "target_asset": "DC6094-AMMONIA-COMP-PLC-01",
+      "target_zone": "ZONE-AMMONIA-REFRIG",
+      "hops": [
+        {
+          "step_number": 1,
+          "source_node": "Enterprise IT LAN (L4)",
+          "target_node": "Rogue Diagnostics Conduit (CND-06)",
+          "action_type": "Initial Access",
+          "vector": "Adversary on corporate network discovers unmonitored vendor diagnostics routing",
+          "cve_id": null,
+          "violated_sl2_barrier": "FR 5.1 & WMT-OT-POL-01 (Strict Purdue L3.5 DMZ Enforcement)"
+        },
+        {
+          "step_number": 2,
+          "source_node": "Rogue Diagnostics Conduit (CND-06)",
+          "target_node": "DC6094-AMMONIA-COMP-PLC-01 (10.142.12.10)",
+          "action_type": "Direct Boundary Penetration",
+          "vector": "Unfiltered routing directly enters Level 1 Ammonia Control VLAN without firewall inspection",
+          "cve_id": null,
+          "violated_sl2_barrier": "FR 5.2 (Stateful Zone Boundary Filtering)"
+        },
+        {
+          "step_number": 3,
+          "source_node": "DC6094-AMMONIA-COMP-PLC-01",
+          "target_node": "Frick Quantum HD Web Server & Modbus Engine",
+          "action_type": "Control Hijack",
+          "vector": "Exploits CVE-2021-32955 (Authentication Bypass) over unencrypted HTTP/Modbus-TCP",
+          "cve_id": "CVE-2021-32955",
+          "violated_sl2_barrier": "FR 1.1 (Human Identification) & FR 4.1 (Encrypted Transport)"
+        },
+        {
+          "step_number": 4,
+          "source_node": "Frick Quantum HD Controller",
+          "target_node": "Ammonia Compressor Discharge Valves & High-Stage Suction",
+          "action_type": "Physical Process Sabotage",
+          "vector": "Overwrites high-pressure setpoints; commands compressor into unrecoverable emergency overpressure surge",
+          "cve_id": null,
+          "violated_sl2_barrier": "FR 3.1 (Communication Integrity & Logic Validation)"
+        }
+      ],
+      "likelihood_rank": "Critical",
+      "cisa_kev_present": false,
+      "blast_radius": {
+        "physical_process": "Ammonia Cold-Chain Refrigeration (Rooms A, B, Cold Dock, Freezer)",
+        "primary_failure_mode": "Emergency Pressure Relief & System Lockdown; Perishable Temperature Excursion",
+        "estimated_downtime_hours": 18.0,
+        "hourly_financial_burn_usd": 145000.0,
+        "total_loss_exposure_usd": 4410000.0,
+        "safety_hazard_level": "Catastrophic Chemical Release (OSHA PSM / EPA RMP Mandated Evacuation)",
+        "environmental_impact": "High potential anhydrous ammonia vapor plume hazard; HazMat team deployment",
+        "affected_supply_chain_stores": 142,
+        "cascading_upstream_impact": [
+          "Inbound refrigerated tractor-trailers turned away / re-routed to neighboring regional DCs",
+          "Cold dock receiving doors 1-28 shuttered"
+        ],
+        "cascading_downstream_impact": [
+          "142 retail Supercenters experience milk, produce, and fresh meat stockouts within 24 hours",
+          "OSHA and EPA formal regulatory investigation and consent decree review"
+        ]
+      }
+    },
+    {
+      "path_id": "PATH-SORTATION-DISPATCH-02",
+      "title": "Supervisory EWS Pivot to Crossbelt Sorter S7comm-Plus RCE",
+      "adversary_profile": "Targeted Cybercriminal / Ransomware Operator with OT Tooling",
+      "entry_point": "Level 2 Supervisory HMI VLAN (VLAN-22)",
+      "target_asset": "DC6094-MAIN-CROSSBELT-SORTER-PLC",
+      "target_zone": "ZONE-SORTATION-CONVEYOR",
+      "hops": [
+        {
+          "step_number": 1,
+          "source_node": "Compromised Supervisory Workstation (DC6094-ENG-WORKSTATION-EWS-01)",
+          "target_node": "Local Windows SAM / LSASS Memory",
+          "action_type": "Privilege Escalation",
+          "vector": "Exploits CVE-2021-34444 (Windows RDP Privilege Escalation) via legacy SMBv1",
+          "cve_id": "CVE-2021-34444",
+          "violated_sl2_barrier": "FR 1.3 (Account Management) & FR 3.2 (Malware/EDR Protection)"
+        },
+        {
+          "step_number": 2,
+          "source_node": "DC6094-ENG-WORKSTATION-EWS-01",
+          "target_node": "Supervisory-to-Sortation Conduit (CND-05)",
+          "action_type": "Lateral Movement",
+          "vector": "Initiates crafted S7comm-plus packets across conduit directly targeting TCP port 102",
+          "cve_id": null,
+          "violated_sl2_barrier": "FR 5.2 (Stateful Conduit Deep Packet Inspection)"
+        },
+        {
+          "step_number": 3,
+          "source_node": "CND-05 Conduit",
+          "target_node": "DC6094-MAIN-CROSSBELT-SORTER-PLC (10.142.14.20)",
+          "action_type": "Remote Code Execution",
+          "vector": "Exploits CISA KEV CVE-2023-3595 (S7comm-plus Memory Corruption) to crash CPU execution",
+          "cve_id": "CVE-2023-3595",
+          "violated_sl2_barrier": "FR 3.4 (Firmware & Memory Integrity)"
+        },
+        {
+          "step_number": 4,
+          "source_node": "SIMATIC S7-1517F Controller",
+          "target_node": "Main Crossbelt Sortation Induction Motors & Diverter Vanes",
+          "action_type": "Physical Mechanical Halt",
+          "vector": "CPU enters permanent DEFECT stop state; conveyor belts freeze under full load",
+          "cve_id": null,
+          "violated_sl2_barrier": "FR 7.1 (Denial of Service Protection & Recovery)"
+        }
+      ],
+      "likelihood_rank": "High",
+      "cisa_kev_present": true,
+      "blast_radius": {
+        "physical_process": "High-Speed Crossbelt Sortation Loop (Outbound Shipping Grid)",
+        "primary_failure_mode": "S7 PLC Hard Fault; 400 Diverter Trays Locked under Load; Manual Package Clearing Required",
+        "estimated_downtime_hours": 8.5,
+        "hourly_financial_burn_usd": 88000.0,
+        "total_loss_exposure_usd": 1098000.0,
+        "safety_hazard_level": "Recordable Floor Hazard (High-speed package jams, belt slippage)",
+        "environmental_impact": "Minimal (Localized conveyor motor overheating)",
+        "affected_supply_chain_stores": 96,
+        "cascading_upstream_impact": [
+          "Automated Storage & Retrieval System (ASRS) halts buffering; warehouse aisles gridlocked",
+          "Internal cross-dock conveyor queues back up across 3 miles of track"
+        ],
+        "cascading_downstream_impact": [
+          "Trailer dispatch window missed for 48 outbound trailers",
+          "Demurrage and carrier retention penalties accrued across 18 regional trucking fleets",
+          "96 Walmart Supercenters miss morning GM replenishment cutoff"
+        ]
+      }
+    },
+    {
+      "path_id": "PATH-ASRS-CRANE-03",
+      "title": "Modbus DoS Injection against High-Bay ASRS Crane System",
+      "adversary_profile": "Generic Script / Low Motivation Attacker (SL-2 Profile)",
+      "entry_point": "Supervisory HMI Network (L2)",
+      "target_asset": "DC6094-ASRS-CRANE-CONTROLLER-01",
+      "target_zone": "ZONE-ASRS-PALLET",
+      "hops": [
+        {
+          "step_number": 1,
+          "source_node": "Supervisory HMI Network (L2)",
+          "target_node": "Beckhoff CX5140 Embedded PC (DC6094-ASRS-CRANE-CONTROLLER-01)",
+          "action_type": "Protocol Abuse",
+          "vector": "Transmits malformed Modbus function code sequences over TCP port 502",
+          "cve_id": "CVE-2020-5504",
+          "violated_sl2_barrier": "FR 7.1 (DoS Protection & Protocol Validation)"
+        },
+        {
+          "step_number": 2,
+          "source_node": "Beckhoff CX5140 Embedded PC",
+          "target_node": "ASRS High-Bay Storage Cranes 1-8",
+          "action_type": "Physical Crane Stoppage",
+          "vector": "Communication stack watchdog drops EtherCAT synchronization; cranes brake in mid-aisle",
+          "cve_id": null,
+          "violated_sl2_barrier": "FR 7.3 (Control System Resiliency)"
+        }
+      ],
+      "likelihood_rank": "Moderate",
+      "cisa_kev_present": false,
+      "blast_radius": {
+        "physical_process": "High-Bay Automated Storage and Retrieval System (ASRS)",
+        "primary_failure_mode": "EtherCAT Bus Desynchronization; Automated Cranes Frozen in Aisle",
+        "estimated_downtime_hours": 4.0,
+        "hourly_financial_burn_usd": 45000.0,
+        "total_loss_exposure_usd": 255000.0,
+        "safety_hazard_level": "None (Safety laser curtains active)",
+        "environmental_impact": "None",
+        "affected_supply_chain_stores": 65,
+        "cascading_upstream_impact": [
+          "Pallet induction starved across all 8 high-bay aisles"
+        ],
+        "cascading_downstream_impact": [
+          "Replenishment pallet drops delayed by 4 hours"
+        ]
+      }
+    }
+  ],
+  "total_financial_loss_exposure_usd": 5763000.0
 }

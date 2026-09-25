@@ -122,6 +122,42 @@ class Zone(BaseModel):
     zone_criticality: int = Field(default=3, ge=1, le=5)
 
 
+class AttackHop(BaseModel):
+    step_number: int
+    source_node: str
+    target_node: str
+    action_type: str  # "Initial Access", "Lateral Movement", "Privilege Escalation", "Control Hijack"
+    vector: str
+    cve_id: Optional[str] = None
+    violated_sl2_barrier: str  # e.g., "FR 5.1 DMZ Bypass", "FR 3.1 Unverified Firmware"
+
+
+class CyberPhysicalBlastRadius(BaseModel):
+    physical_process: str
+    primary_failure_mode: str
+    estimated_downtime_hours: float
+    hourly_financial_burn_usd: float
+    total_loss_exposure_usd: float
+    safety_hazard_level: str  # "None", "Recordable Floor Hazard", "Catastrophic Chemical Release"
+    environmental_impact: str
+    affected_supply_chain_stores: int
+    cascading_upstream_impact: List[str] = Field(default_factory=list)
+    cascading_downstream_impact: List[str] = Field(default_factory=list)
+
+
+class AttackPath(BaseModel):
+    path_id: str
+    title: str
+    adversary_profile: str
+    entry_point: str
+    target_asset: str
+    target_zone: str
+    hops: List[AttackHop] = Field(default_factory=list)
+    likelihood_rank: str  # "High", "Critical", "Moderate"
+    cisa_kev_present: bool = False
+    blast_radius: CyberPhysicalBlastRadius
+
+
 class SystemUnderConsideration(BaseModel):
     suc_id: str
     name: str
@@ -135,3 +171,5 @@ class SystemUnderConsideration(BaseModel):
     sl2_compliance_percentage: float = 0.0
     total_assets: int = 0
     total_cves: int = 0
+    attack_paths: List[AttackPath] = Field(default_factory=list)
+    total_financial_loss_exposure_usd: float = 0.0

@@ -94,9 +94,41 @@ class ReportGenerator:
                         md.append(f"  - {ctrl}")
                     md.append(f"- **Residual Risk Post-Mitigation:** Likelihood = {s.residual_likelihood}/5, Consequence = {s.residual_consequence}/5 ➔ **Score: {s.residual_risk_score} ({s.residual_risk_level})**\n")
 
+        # Attack Graphs & Blast Radius Section
+        md.append("\n---\n")
+        md.append("## 5. Multi-Hop Attack Graphs & Cyber-Physical Blast Radius Analysis")
+        md.append(f"**Total Facility Financial Loss Exposure:** **${suc.total_financial_loss_exposure_usd:,.2f} USD**\n")
+        md.append("| Attack Path ID | Path Name | Target Zone / Asset | Primary Failure Mode | Downtime (hrs) | Financial Loss ($) | Stores Impacted |")
+        md.append("| :--- | :--- | :--- | :--- | :---: | :---: | :---: |")
+        for p in suc.attack_paths:
+            br = p.blast_radius
+            md.append(
+                f"| `{p.path_id}` | {p.title} | `{p.target_asset}` | {br.primary_failure_mode[:45]}... | "
+                f"{br.estimated_downtime_hours}h | **${br.total_loss_exposure_usd:,.0f}** | {br.affected_supply_chain_stores} stores |"
+            )
+
+        for p in suc.attack_paths:
+            br = p.blast_radius
+            md.append(f"\n### ⚔️ Path Details: {p.title} (`{p.path_id}`)")
+            md.append(f"- **Adversary Profile:** {p.adversary_profile}")
+            md.append(f"- **Initial Access Entry Point:** {p.entry_point} ➔ **Target Asset:** `{p.target_asset}` ({p.target_zone})")
+            md.append(f"- **Safety Hazard Level:** {br.safety_hazard_level}")
+            md.append(f"- **Environmental Impact:** {br.environmental_impact}")
+            md.append(f"- **Financial Downtime Burn:** ${br.hourly_financial_burn_usd:,.0f}/hour | **Total Estimated Loss:** ${br.total_loss_exposure_usd:,.0f}")
+            md.append(f"- **Affected Walmart Retail Supercenters:** {br.affected_supply_chain_stores} Stores Delayed")
+            md.append("\n**Attack Hop Sequence & Barrier Breaches:**")
+            for h in p.hops:
+                cve_tag = f" (`{h.cve_id}`)" if h.cve_id else ""
+                md.append(f"  {h.step_number}. **[{h.action_type}]** `{h.source_node}` ➔ `{h.target_node}`")
+                md.append(f"     - *Vector:* {h.vector}{cve_tag}")
+                md.append(f"     - *Violated SL-2 Barrier:* {h.violated_sl2_barrier}")
+            md.append("\n**Cascading Supply Chain & Operational Gridlock:**")
+            md.append(f"  - **Upstream:** {'; '.join(br.cascading_upstream_impact)}")
+            md.append(f"  - **Downstream:** {'; '.join(br.cascading_downstream_impact)}")
+
         # Clause Z6 CRS
         md.append("\n---\n")
-        md.append("## 5. Cybersecurity Requirements Specification (CRS) (Clause Z6)")
+        md.append("## 6. Cybersecurity Requirements Specification (CRS) (Clause Z6)")
         md.append("| Req ID | Priority | Target Zone | Standard Requirement | Actionable Engineering Specification | Responsible Team |")
         md.append("| :--- | :--- | :--- | :--- | :--- | :--- |")
         for req in crs_doc.get("requirements", []):
