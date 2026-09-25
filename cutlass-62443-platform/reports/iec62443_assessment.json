@@ -811,7 +811,7 @@
     }
   },
   "target_security_level_global": 2,
-  "assessment_timestamp": "2026-09-25 01:07:48 UTC",
+  "assessment_timestamp": "2026-09-25 01:09:22 UTC",
   "overall_risk_score": 8.75,
   "sl2_compliance_percentage": 33.3,
   "total_assets": 8,

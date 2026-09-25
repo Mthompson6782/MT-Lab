@@ -2,7 +2,7 @@
 ### ISA/IEC 62443-3-2 & 62443-3-3 Detailed Cyber-Physical Risk Assessment
 **Facility / System Under Consideration (SuC):** Global Logistics DC #6094 (Ambient & Cold Chain Operations)
 **Facility ID:** SUC-DC-6094 | **Facility Type:** Distribution Center
-**Assessment Date:** 2026-09-25 01:07:48 UTC
+**Assessment Date:** 2026-09-25 01:09:22 UTC
 **Target Security Level (Global):** SL-T 2
 **Facility SL-2 Compliance:** 33.3%
 **Overall Inherent Risk Score:** 8.75 / 25
