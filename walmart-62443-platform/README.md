@@ -1,7 +1,8 @@
-# 🛡️ Walmart OT IEC 62443-3-2 Automated Risk Assessment Platform
+# ⚔️ CUTLASS™
+### *Cyber Unified Threat Level Automated Site Survey*
+**Automated ISA/IEC 62443-3-2 & 62443-3-3 Risk Platform for Walmart OT**
 
-An enterprise-grade, continuous **ISA/IEC 62443-3-2** and **IEC 62443-3-3** cyber risk assessment platform tailored for Walmart Operational Technology (Distribution Centers, Fulfillment Centers, Micro-Fulfillment Centers, and Retail Cold-Chain Facilities).
-
+[![CUTLASS](https://img.shields.io/badge/CUTLASS-CYBER_UNIFIED_THREAT_LEVEL_AUTOMATED_SITE_SURVEY-0071dc.svg?style=for-the-badge&logo=shield)](https://github.com/Mthompson6782/MT-Lab)
 [![Standards](https://img.shields.io/badge/STANDARDS-ISA%2FIEC%2062443--3--2%20%7C%2062443--3--3-blue.svg)](https://www.isa.org/)
 [![Target SL](https://img.shields.io/badge/TARGET%20SECURITY%20LEVEL-SL--T%202%20(GLOBAL)-amber.svg)]()
 [![Asset Source](https://img.shields.io/badge/TELEMETRY-ARMIS%20OT-0071dc.svg)]()
@@ -12,7 +13,7 @@ An enterprise-grade, continuous **ISA/IEC 62443-3-2** and **IEC 62443-3-3** cybe
 
 ## 📌 Executive Overview
 
-Manual, spreadsheet-driven risk assessments fail at Walmart scale across hundreds of industrial facilities and millions of OT devices. This platform automates the 62443-3-2 lifecycle by ingesting:
+**CUTLASS (Cyber Unified Threat Level Automated Site Survey)** is an enterprise-scale cyber-physical risk assessment platform engineered specifically for Walmart's operational technology environments. Manual, spreadsheet-driven risk assessments fail at Walmart scale across hundreds of industrial facilities and millions of OT devices. CUTLASS automates the 62443-3-2 lifecycle by ingesting:
 1. **Live Network Telemetry & OT Inventory from Armis** (Asset discovery, Purdue levels, MAC/IP, communication protocols, network boundaries).
 2. **Vulnerability Intelligence from Walmart's RUNE Engine** (Active CVEs, CVSS scores, CISA KEV status, OT exploitability rank).
 3. **Walmart Standards & Policies** (Policy-as-code YAML enforcement).

@@ -32,7 +32,8 @@ class ReportGenerator:
         filepath = os.path.join(self.output_dir, filename)
 
         md = []
-        md.append(f"# ISA/IEC 62443-3-2 Security Risk Assessment Report")
+        md.append(f"# ⚔️ CUTLASS: Cyber Unified Threat Level Automated Site Survey")
+        md.append(f"### ISA/IEC 62443-3-2 & 62443-3-3 Detailed Cyber-Physical Risk Assessment")
         md.append(f"**Facility / System Under Consideration (SuC):** {suc.name}")
         md.append(f"**Facility ID:** {suc.suc_id} | **Facility Type:** {suc.facility_type}")
         md.append(f"**Assessment Date:** {suc.assessment_timestamp}")

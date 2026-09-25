@@ -1,6 +1,6 @@
 """
-Walmart ISA/IEC 62443-3-2 Automated Risk Assessment Platform.
-Main Orchestration Pipeline.
+CUTLASS | Cyber Unified Threat Level Automated Site Survey
+ISA/IEC 62443-3-2 Automated Risk Assessment Platform for Walmart OT.
 
 Usage:
     python main.py [--serve] [--port 8080]
@@ -28,7 +28,7 @@ from core.zone_partitioner import ZonePartitioner
 from reports.report_generator import ReportGenerator
 
 logging.basicConfig(level=logging.INFO, format="[%(levelname)s] %(message)s")
-logger = logging.getLogger("Walmart-62443")
+logger = logging.getLogger("CUTLASS")
 
 
 def run_pipeline(
@@ -38,7 +38,8 @@ def run_pipeline(
     output_dir: str
 ):
     print("\n" + "="*80)
-    print("   WALMART OT CYBER DEFENSE | IEC 62443-3-2 AUTOMATED RISK ENGINE")
+    print("   CUTLASS | Cyber Unified Threat Level Automated Site Survey")
+    print("   ISA/IEC 62443-3-2 Cyber-Physical Risk Platform • Walmart OT Cyber Defense")
     print("   Target Security Level: SL-T 2 (Across all OT Zones)")
     print("="*80 + "\n")
 
