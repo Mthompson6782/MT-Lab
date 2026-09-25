@@ -147,6 +147,54 @@ An open-source, low-SWaP cybersecurity platform engineered specifically for Oper
 
 ---
 
+<table>
+<tr>
+<td width="55%" valign="top">
+
+### 🔴 N ORIGINAL DEFENSE SUITE
+# **WALMART OT CYBER DEFENSE: IEC 62443-3-2 PLATFORM**
+#### *Automated Cyber-Physical Risk Engine • Armis Telemetry • RUNE CVE Intelligence • SL-T 2 Benchmark*
+
+`99% Match` &nbsp; `TV-MA` &nbsp; `2026` &nbsp; `Enterprise OT` &nbsp; `IEC 62443-3-2 / 3-3` &nbsp; `AI Copilot`
+
+An enterprise-scale automated risk assessment platform engineered for Walmart operational technology (Distribution Centers, Fulfillment Centers, Micro-Fulfillment, and Retail Store Cold-Chain facilities). Bridges live Armis network telemetry, Walmart internal RUNE CVE intelligence, and corporate security policies into a continuous, audit-ready compliance engine targeting Security Level 2 (SL-T 2) across all operational zones.
+
+* **Clause Z1-Z6 Automation:** End-to-end automation of System Under Consideration (SuC) scoping, Purdue model zoning (L0-L5), detailed likelihood x consequence scoring, and Cybersecurity Requirements Specifications (CRS).
+* **Live Ingestion Pipeline:** Normalizes Armis passive device discoveries, active protocols (CIP, Modbus, PROFINET, S7comm), and network conduits with RUNE CVE feeds.
+* **SL-T 2 Gap Evaluator:** Benchmarks every operational zone against all 7 Foundational Requirements (FR 1 to FR 7) and generates the Security Level Vector ($SL\text{-}V = [AC, UC, SI, DC, RDF, TRE, RA]$).
+* **AI / LLM Analysis Engine:** Hybrid architecture pairing deterministic risk mathematics with an LLM Copilot for contextual attack scenario synthesis, OT-safe compensating control generation, and automated CISO executive briefings.
+* **Interactive Tactical Console:** Standalone single-page command center with Purdue zone-conduit topology visualization, radar charts, and audit PDF/Markdown export.
+
+<br/>
+
+[**🎮 Open Interactive Dashboard ↗**](walmart-62443-platform/ui/index.html) &nbsp;&nbsp;|&nbsp;&nbsp; [**💻 View Source Code in MT-Lab ↗**](walmart-62443-platform) &nbsp;&nbsp;|&nbsp;&nbsp; [**📑 View Sample Audit Report ↗**](walmart-62443-platform/reports/iec62443_3_2_audit_report.md) &nbsp;&nbsp;|&nbsp;&nbsp; [**📖 Architecture Docs ↗**](walmart-62443-platform#readme)
+
+</td>
+<td width="45%" align="center" valign="middle">
+
+```
++-------------------------------------------------------+
+|  🛡️  WALMART OT: IEC 62443-3-2 PLATFORM               |
+|                                                       |
+|  [ ARMIS INGESTION    ] ====> ASSETS & CONDUITS SYNCED|
+|  [ RUNE CVE ENGINE    ] ====> ACTIVE THREAT INTELL    |
+|  [ TARGET LEVEL SL-T2 ] ====> GLOBAL OT BASELINE      |
+|  [ AI COPILOT ENGINE  ] ====> COMPENSATING CONTROLS   |
+|  [ CLAUSE Z6 CRS      ] ====> AUDIT-READY SPECS       |
+|                                                       |
+|  [🎮 OPEN DASHBOARD]        [💻 VIEW CODE]            |
++-------------------------------------------------------+
+```
+[![Target SL](https://img.shields.io/badge/TARGET-SL--T_2_(GLOBAL)-F59E0B?style=flat-square&logoColor=black)](walmart-62443-platform)
+[![Standards](https://img.shields.io/badge/STANDARDS-IEC_62443--3--2_/_3--3-0071dc?style=flat-square&logoColor=white)](walmart-62443-platform)
+[![AI Engine](https://img.shields.io/badge/AI-HYBRID_LLM_COPILOT-9333EA?style=flat-square&logoColor=white)](walmart-62443-platform)
+
+</td>
+</tr>
+</table>
+
+---
+
 ## 🍿 ROW 1: TRENDING ORIGINALS | FLAGSHIP APPLICATIONS
 
 <table>
