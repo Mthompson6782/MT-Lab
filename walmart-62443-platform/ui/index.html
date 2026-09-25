@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Walmart OT | IEC 62443-3-2 Risk Assessment Platform</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+    body { font-family: 'Inter', sans-serif; background-color: #0b0f19; color: #f1f5f9; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    .glass-card {
+      background: rgba(17, 24, 39, 0.75);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+    }
+    .accent-walmart { color: #0071dc; }
+    .badge-sl-pass { background-color: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); }
+    .badge-sl-fail { background-color: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.4); }
+    .badge-sl-warn { background-color: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- Top Navigation Bar -->
+  <header class="border-b border-gray-800 bg-gray-900/90 backdrop-blur sticky top-0 z-50 px-6 py-3.5 flex justify-between items-center">
+    <div class="flex items-center space-x-4">
+      <div class="w-10 h-10 rounded-lg bg-gradient-to-tr from-blue-700 to-yellow-500 flex items-center justify-center font-black text-xl text-white shadow-lg shadow-blue-500/20">
+        W
+      </div>
+      <div>
+        <div class="flex items-center space-x-2">
+          <span class="font-bold text-lg tracking-wide text-white">WALMART OT CYBER DEFENSE</span>
+          <span class="text-xs px-2 py-0.5 rounded bg-blue-900/60 text-blue-300 border border-blue-700/50 mono font-semibold">IEC 62443-3-2</span>
+        </div>
+        <p class="text-xs text-gray-400">Automated Risk Engine • Armis Telemetry • RUNE CVE Intelligence</p>
+      </div>
+    </div>
+    <div class="flex items-center space-x-4">
+      <div class="text-right hidden sm:block">
+        <div class="text-xs text-gray-400">Facility / System Under Consideration</div>
+        <div class="text-sm font-semibold text-white mono" id="facility-title">DC #6094 (Ambient & Cold Chain)</div>
+      </div>
+      <div class="px-3 py-1.5 rounded-lg bg-yellow-500/10 border border-yellow-500/30 text-yellow-400 text-xs font-semibold flex items-center space-x-1.5">
+        <i class="fa-solid fa-shield-halved"></i>
+        <span>TARGET SL-T: 2 (Global)</span>
+      </div>
+      <button onclick="window.print()" class="px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-medium transition shadow-md flex items-center space-x-1.5">
+        <i class="fa-solid fa-file-pdf"></i>
+        <span>Export Audit Report</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="flex-1 p-6 space-y-6 max-w-7xl mx-auto w-full">
+
+    <!-- KPI Metric Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div class="glass-card rounded-xl p-5 relative overflow-hidden">
+        <div class="flex justify-between items-start">
+          <div>
+            <p class="text-xs font-medium text-gray-400 uppercase tracking-wider">Facility SL-2 Compliance</p>
+            <h3 class="text-3xl font-extrabold mt-1 text-white mono" id="kpi-compliance">--%</h3>
+          </div>
+          <div class="w-10 h-10 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-lg">
+            <i class="fa-solid fa-chart-pie"></i>
+          </div>
+        </div>
+        <p class="text-xs text-gray-400 mt-3 flex items-center">
+          <span class="text-red-400 font-semibold mr-1" id="kpi-failing-zones">-- zones</span> non-compliant with SL-T 2
+        </p>
+        <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 to-yellow-500"></div>
+      </div>
+
+      <div class="glass-card rounded-xl p-5 relative overflow-hidden">
+        <div class="flex justify-between items-start">
+          <div>
+            <p class="text-xs font-medium text-gray-400 uppercase tracking-wider">Inherent Cyber Risk Score</p>
+            <h3 class="text-3xl font-extrabold mt-1 text-red-400 mono" id="kpi-risk-score">-- / 25</h3>
+          </div>
+          <div class="w-10 h-10 rounded-lg bg-red-500/10 text-red-400 flex items-center justify-center text-lg">
+            <i class="fa-solid fa-radiation"></i>
+          </div>
+        </div>
+        <p class="text-xs text-gray-400 mt-3">High inherent cyber-physical exposure</p>
+        <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-red-600 to-rose-400"></div>
+      </div>
+
+      <div class="glass-card rounded-xl p-5 relative overflow-hidden">
+        <div class="flex justify-between items-start">
+          <div>
+            <p class="text-xs font-medium text-gray-400 uppercase tracking-wider">Discovered OT Assets</p>
+            <h3 class="text-3xl font-extrabold mt-1 text-white mono" id="kpi-assets">--</h3>
+          </div>
+          <div class="w-10 h-10 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center text-lg">
+            <i class="fa-solid fa-server"></i>
+          </div>
+        </div>
+        <p class="text-xs text-gray-400 mt-3">Ingested from Armis passive telemetry</p>
+        <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-cyan-400"></div>
+      </div>
+
+      <div class="glass-card rounded-xl p-5 relative overflow-hidden">
+        <div class="flex justify-between items-start">
+          <div>
+            <p class="text-xs font-medium text-gray-400 uppercase tracking-wider">Active RUNE CVEs</p>
+            <h3 class="text-3xl font-extrabold mt-1 text-amber-400 mono" id="kpi-cves">--</h3>
+          </div>
+          <div class="w-10 h-10 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center text-lg">
+            <i class="fa-solid fa-bug"></i>
+          </div>
+        </div>
+        <p class="text-xs text-gray-400 mt-3">Correlated from RUNE Internal Feed</p>
+        <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-500 to-yellow-300"></div>
+      </div>
+    </div>
+
+    <!-- AI Executive Briefing Card -->
+    <div class="glass-card rounded-xl p-6 border-l-4 border-l-blue-500">
+      <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center space-x-2">
+          <span class="w-8 h-8 rounded-full bg-blue-600/20 text-blue-400 flex items-center justify-center">
+            <i class="fa-solid fa-robot"></i>
+          </span>
+          <h2 class="text-lg font-bold text-white tracking-wide">AI Executive Assessment & Threat Briefing</h2>
+          <span class="text-xs px-2 py-0.5 rounded bg-purple-900/50 text-purple-300 border border-purple-700/50 mono">OT AI Model v2.4</span>
+        </div>
+        <span class="text-xs text-gray-400 mono" id="assessment-timestamp">Generated: 2026-09-24</span>
+      </div>
+      <div class="prose prose-invert max-w-none text-sm text-gray-300 space-y-3 leading-relaxed" id="executive-summary-content">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+
+    <!-- Two-Column Chart & Topology Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+      <!-- IEC 62443-3-3 Radar Chart: SL-T 2 vs Achieved -->
+      <div class="glass-card rounded-xl p-6 flex flex-col">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h3 class="text-base font-bold text-white">Security Level Vector (SL-V) Radar</h3>
+            <p class="text-xs text-gray-400">Comparing Achieved SL-A against Target SL-T (2.0) across FR 1–7</p>
+          </div>
+          <span class="text-xs font-semibold px-2.5 py-1 rounded bg-gray-800 text-gray-300 mono">Clause Z5</span>
+        </div>
+        <div class="flex-1 min-h-[300px] flex items-center justify-center">
+          <canvas id="slRadarChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Purdue Model & Zone-Conduit Architecture Map -->
+      <div class="glass-card rounded-xl p-6 flex flex-col">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h3 class="text-base font-bold text-white">Purdue Model Zone & Conduit Topology</h3>
+            <p class="text-xs text-gray-400">Clause Z3: Logical boundaries & boundary conduit status</p>
+          </div>
+          <span class="text-xs font-semibold px-2.5 py-1 rounded bg-gray-800 text-gray-300 mono">Purdue L0-L5</span>
+        </div>
+        <div class="space-y-3 flex-1 overflow-y-auto max-h-[380px] pr-2" id="purdue-zone-tree">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Detailed Risk Assessment (Z5) Threat Scenarios & Compensating Controls -->
+    <div class="glass-card rounded-xl p-6">
+      <div class="flex items-center justify-between mb-4">
+        <div>
+          <h3 class="text-lg font-bold text-white">IEC 62443-3-2 Detailed Risk Register & Scenarios</h3>
+          <p class="text-xs text-gray-400">Evaluates Likelihood x Consequence on physical Walmart operations, with AI Compensating Controls</p>
+        </div>
+        <div class="flex items-center space-x-2">
+          <span class="text-xs px-2.5 py-1 rounded bg-red-900/40 text-red-300 border border-red-800 font-semibold mono">Unmitigated vs Residual</span>
+        </div>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm text-gray-300 border-collapse">
+          <thead>
+            <tr class="border-b border-gray-800 text-xs uppercase tracking-wider text-gray-400 bg-gray-900/60">
+              <th class="p-3">Scenario ID</th>
+              <th class="p-3">Target Zone & Asset</th>
+              <th class="p-3">RUNE CVE</th>
+              <th class="p-3 text-center">Unmitigated Risk</th>
+              <th class="p-3">Operational Impact Summary</th>
+              <th class="p-3">Recommended Compensating Controls</th>
+              <th class="p-3 text-center">Residual Risk</th>
+            </tr>
+          </thead>
+          <tbody id="risk-scenarios-body" class="divide-y divide-gray-800/60">
+            <!-- Dynamically populated -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Cybersecurity Requirements Specification (CRS) Table (Z6) -->
+    <div class="glass-card rounded-xl p-6">
+      <div class="flex items-center justify-between mb-4">
+        <div>
+          <h3 class="text-lg font-bold text-white">Cybersecurity Requirements Specification (CRS)</h3>
+          <p class="text-xs text-gray-400">Clause Z6: Formal engineering action items required to achieve SL-2 compliance</p>
+        </div>
+        <span class="text-xs px-2.5 py-1 rounded bg-blue-900/50 text-blue-300 border border-blue-700/50 font-semibold mono">Clause Z6 Output</span>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm text-gray-300 border-collapse">
+          <thead>
+            <tr class="border-b border-gray-800 text-xs uppercase tracking-wider text-gray-400 bg-gray-900/60">
+              <th class="p-3">Requirement ID</th>
+              <th class="p-3">Priority</th>
+              <th class="p-3">Target Zone</th>
+              <th class="p-3">Standard Requirement</th>
+              <th class="p-3">Actionable Engineering Specification</th>
+              <th class="p-3">Responsible Team</th>
+            </tr>
+          </thead>
+          <tbody id="crs-table-body" class="divide-y divide-gray-800/60">
+            <!-- Dynamically populated -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="border-t border-gray-800 bg-gray-900/80 px-6 py-4 text-center text-xs text-gray-500">
+    Walmart Operational Technology Cyber Defense Engineering • ISA/IEC 62443-3-2 Compliance Framework • MT Labs
+  </footer>
+
+  <script>
+    // Embedded Assessment Data Payload
+    const ASSESSMENT_DATA = {
+      facility_name: "Walmart DC #6094 (Ambient & Perishables)",
+      facility_type: "Distribution Center",
+      timestamp: "2026-09-24 19:30:00 UTC",
+      target_sl: 2.0,
+      compliance_percentage: 40.0,
+      inherent_risk_score: 16.4,
+      total_assets: 8,
+      total_cves: 5,
+      failing_zones_count: 3,
+      radar_labels: ["FR 1: IAC", "FR 2: UC", "FR 3: SI", "FR 4: DC", "FR 5: RDF", "FR 6: TRE", "FR 7: RA"],
+      target_vector: [2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0],
+      achieved_vector: [1.2, 2.0, 1.0, 1.0, 0.4, 2.0, 1.2],
+      zones: [
+        {
+          id: "ZONE-AMMONIA-REFRIG",
+          name: "Ammonia Refrigeration Control",
+          purdue: "L1 Basic Control",
+          criticality: 5,
+          achieved_sl: 0.0,
+          status: "FAIL",
+          badge: "badge-sl-fail",
+          assets: ["DC6094-AMMONIA-COMP-PLC-01", "DC6094-AMMONIA-SIS-PANEL-01"],
+          issues: "Direct bypass conduit from L4 Enterprise IT; unencrypted Modbus-TCP and HTTP setpoint control."
+        },
+        {
+          id: "ZONE-SORTATION-CONVEYOR",
+          name: "High-Speed Sortation Conveyor",
+          purdue: "L1 Basic Control",
+          criticality: 4,
+          achieved_sl: 1.0,
+          status: "DEFICIENT",
+          badge: "badge-sl-warn",
+          assets: ["DC6094-MAIN-CROSSBELT-SORTER-PLC"],
+          issues: "Vulnerable to CVE-2023-3595 (S7comm-plus RCE); lacks deep packet inspection."
+        },
+        {
+          id: "ZONE-SUPERVISORY-HMI",
+          name: "Supervisory Control & Workstations",
+          purdue: "L2 Supervisory",
+          criticality: 3,
+          achieved_sl: 1.0,
+          status: "DEFICIENT",
+          badge: "badge-sl-warn",
+          assets: ["DC6094-REFRIG-HMI-01", "DC6094-ENG-WORKSTATION-EWS-01"],
+          issues: "Active SMBv1 and uninspected RDP; unpatched privilege escalation CVE-2021-34444."
+        },
+        {
+          id: "ZONE-SITE-OPERATIONS",
+          name: "Site Operations & AGV Fleet",
+          purdue: "L3 Operations",
+          criticality: 3,
+          achieved_sl: 2.0,
+          status: "COMPLIANT",
+          badge: "badge-sl-pass",
+          assets: ["DC6094-AGV-FLEET-SRV-01"],
+          issues: "Encrypted mTLS and gRPC; passing SL-2 requirements."
+        },
+        {
+          id: "ZONE-OT-DMZ",
+          name: "Industrial DMZ (IDMZ)",
+          purdue: "L3.5 OT DMZ",
+          criticality: 3,
+          achieved_sl: 2.0,
+          status: "COMPLIANT",
+          badge: "badge-sl-pass",
+          assets: ["DC6094-OT-DMZ-JUMPBOX-01"],
+          issues: "CyberArk bastion jump host; strict TLS termination; passing SL-2."
+        }
+      ],
+      scenarios: [
+        {
+          id: "TS-AMMONIA-01",
+          zone_name: "Ammonia Refrigeration",
+          asset: "DC6094-AMMONIA-COMP-PLC-01",
+          cve: "CVE-2021-32955 (CVSS 8.8)",
+          unmitigated_score: 25,
+          unmitigated_badge: "bg-red-900/60 text-red-300",
+          impact: "Catastrophic life safety hazard: Unauthorized modification of compressor pressure setpoints via unauthenticated HTTP causing ammonia pressure release, OSHA/EPA violation, and full plant evacuation.",
+          controls: "Immediately terminate direct conduit CND-06; enforce traffic through L3.5 DMZ; apply DPI filter blocking external HTTP calls.",
+          residual_score: 5,
+          residual_badge: "bg-emerald-900/60 text-emerald-300"
+        },
+        {
+          id: "TS-SORTATION-01",
+          zone_name: "Sortation Conveyor",
+          asset: "DC6094-MAIN-CROSSBELT-SORTER-PLC",
+          cve: "CVE-2023-3595 (CVSS 9.8)",
+          unmitigated_score: 20,
+          unmitigated_badge: "bg-red-900/60 text-red-300",
+          impact: "Supply chain halt: Memory corruption via crafted S7comm-plus packets crashes Siemens PLC, halting primary crossbelt sorter. Dispatches delayed >4 hours; ~$1.5M regional impact.",
+          controls: "Deploy Siemens S7comm-plus DPI rule on boundary firewall; restrict port 102/tcp to authorized EWS only; schedule firmware patch in next downtime.",
+          residual_score: 8,
+          residual_badge: "bg-amber-900/60 text-amber-300"
+        },
+        {
+          id: "TS-SUPERVISORY-01",
+          zone_name: "Supervisory HMI",
+          asset: "DC6094-ENG-WORKSTATION-EWS-01",
+          cve: "CVE-2021-34444 (CVSS 7.8)",
+          unmitigated_score: 12,
+          unmitigated_badge: "bg-amber-900/60 text-amber-300",
+          impact: "Supervisory compromise: Attacker gains local SYSTEM rights via RDP escalation and modifies Studio 5000 ladder logic offline before pushing to production PLCs.",
+          controls: "Disable legacy SMBv1; enforce MFA on jumpbox sessions; deploy Carbon Black application whitelisting.",
+          residual_score: 3,
+          residual_badge: "bg-emerald-900/60 text-emerald-300"
+        }
+      ],
+      crs_requirements: [
+        {
+          id: "CRS-DC6094-001",
+          priority: "P0 - Emergency Safety Block",
+          zone: "Ammonia Refrigeration Control",
+          std: "FR 5: Restricted Data Flow (SR 5.1, SR 5.2)",
+          spec: "Physically and logically sever direct conduit CND-06 connecting Enterprise IT to the Frick Quantum HD Ammonia PLC. Enforce all connections through L3.5 IDMZ.",
+          team: "Walmart OT Network Engineering"
+        },
+        {
+          id: "CRS-DC6094-002",
+          priority: "P1 - Critical",
+          zone: "Sortation Conveyor",
+          std: "FR 3: System Integrity & FR 7: Resource Availability",
+          spec: "Deploy Deep Packet Inspection (DPI) rule on Dematic cell firewall to drop malformed S7comm-plus and unauthenticated CIP firmware download commands.",
+          team: "Automation & Controls Engineering"
+        },
+        {
+          id: "CRS-DC6094-003",
+          priority: "P2 - High",
+          zone: "Supervisory Control & Workstations",
+          std: "FR 1: Identification & FR 4: Confidentiality",
+          spec: "Enforce TLS 1.3 encryption on FactoryTalk HMI web portals; disable legacy SMBv1; enforce centralized Active Directory authentication with MFA.",
+          team: "OT Systems Administration"
+        }
+      ]
+    };
+
+    // Populate Metrics
+    document.getElementById("kpi-compliance").innerText = ASSESSMENT_DATA.compliance_percentage + "%";
+    document.getElementById("kpi-failing-zones").innerText = ASSESSMENT_DATA.failing_zones_count + " zones";
+    document.getElementById("kpi-risk-score").innerText = ASSESSMENT_DATA.inherent_risk_score + " / 25";
+    document.getElementById("kpi-assets").innerText = ASSESSMENT_DATA.total_assets;
+    document.getElementById("kpi-cves").innerText = ASSESSMENT_DATA.total_cves;
+
+    // Populate Executive Summary
+    document.getElementById("executive-summary-content").innerHTML = `
+      <p>The automated <strong>ISA/IEC 62443-3-2</strong> risk assessment for <strong>${ASSESSMENT_DATA.facility_name}</strong> indicates an overall facility compliance of <strong>${ASSESSMENT_DATA.compliance_percentage}%</strong> against the mandated <strong>Target Security Level 2 (SL-T 2)</strong>.</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-2">
+        <div class="p-3 bg-red-950/40 border border-red-800/50 rounded-lg text-xs">
+          <strong class="text-red-400 flex items-center mb-1"><i class="fa-solid fa-triangle-exclamation mr-1.5"></i> Critical Safety Exposure</strong>
+          Armis telemetry detected a rogue, uninspected direct conduit (CND-06) linking Enterprise IT directly to the Ammonia Refrigeration PLC (Johnson Controls Frick Quantum HD). Coupled with RUNE CVE-2021-32955 (Auth Bypass), this represents an intolerable cyber-physical safety hazard.
+        </div>
+        <div class="p-3 bg-amber-950/40 border border-amber-800/50 rounded-lg text-xs">
+          <strong class="text-amber-400 flex items-center mb-1"><i class="fa-solid fa-conveyor-belt mr-1.5"></i> Logistics Throughput Risk</strong>
+          The Dematic S7-1517F sortation controller is exposed to unauthenticated remote code execution (CVE-2023-3595). Exploitation would shut down the entire DC dispatch sortation loop.
+        </div>
+      </div>
+      <p class="text-xs text-gray-400">Compensating controls (CRS-DC6094-001 through 003) have been synthesized to achieve SL-2 equivalence until scheduled maintenance patching windows.</p>
+    `;
+
+    // Populate Purdue Tree
+    const zoneContainer = document.getElementById("purdue-zone-tree");
+    ASSESSMENT_DATA.zones.forEach(z => {
+      zoneContainer.innerHTML += `
+        <div class="p-3.5 rounded-lg bg-gray-900/70 border border-gray-800 hover:border-gray-700 transition">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <span class="text-xs font-semibold px-2 py-0.5 rounded bg-gray-800 text-blue-300 mono">${z.purdue}</span>
+              <span class="font-bold text-sm text-white">${z.name}</span>
+            </div>
+            <span class="text-xs px-2 py-0.5 rounded font-bold mono ${z.badge}">SL-A: ${z.achieved_sl.toFixed(1)} / 2.0 (${z.status})</span>
+          </div>
+          <p class="text-xs text-gray-400 mt-2"><i class="fa-solid fa-server mr-1 text-gray-500"></i> Assets: <span class="mono text-gray-300">${z.assets.join(", ")}</span></p>
+          <p class="text-xs text-amber-400/90 mt-1"><i class="fa-solid fa-shield-virus mr-1"></i> ${z.issues}</p>
+        </div>
+      `;
+    });
+
+    // Populate Risk Scenarios Table
+    const scenarioTable = document.getElementById("risk-scenarios-body");
+    ASSESSMENT_DATA.scenarios.forEach(s => {
+      scenarioTable.innerHTML += `
+        <tr class="hover:bg-gray-800/40 transition">
+          <td class="p-3 font-semibold text-xs mono text-blue-400">${s.id}</td>
+          <td class="p-3 text-xs"><div class="font-bold text-white">${s.zone_name}</div><div class="text-gray-400 mono">${s.asset}</div></td>
+          <td class="p-3 text-xs mono text-amber-300">${s.cve}</td>
+          <td class="p-3 text-center"><span class="px-2 py-1 rounded text-xs font-bold mono ${s.unmitigated_badge}">${s.unmitigated_score} / 25</span></td>
+          <td class="p-3 text-xs text-gray-300 leading-snug">${s.impact}</td>
+          <td class="p-3 text-xs text-blue-300 font-medium">${s.controls}</td>
+          <td class="p-3 text-center"><span class="px-2 py-1 rounded text-xs font-bold mono ${s.residual_badge}">${s.residual_score} / 25</span></td>
+        </tr>
+      `;
+    });
+
+    // Populate CRS Table
+    const crsTable = document.getElementById("crs-table-body");
+    ASSESSMENT_DATA.crs_requirements.forEach(r => {
+      crsTable.innerHTML += `
+        <tr class="hover:bg-gray-800/40 transition">
+          <td class="p-3 font-semibold text-xs mono text-blue-400">${r.id}</td>
+          <td class="p-3 text-xs font-bold ${r.priority.includes('P0') ? 'text-red-400' : (r.priority.includes('P1') ? 'text-amber-400' : 'text-yellow-400')}">${r.priority}</td>
+          <td class="p-3 text-xs font-medium text-white">${r.zone}</td>
+          <td class="p-3 text-xs text-gray-300">${r.std}</td>
+          <td class="p-3 text-xs text-gray-200">${r.spec}</td>
+          <td class="p-3 text-xs font-medium text-blue-400">${r.team}</td>
+        </tr>
+      `;
+    });
+
+    // Initialize Radar Chart
+    const ctx = document.getElementById('slRadarChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'radar',
+      data: {
+        labels: ASSESSMENT_DATA.radar_labels,
+        datasets: [
+          {
+            label: 'Mandated Target (SL-T: 2.0)',
+            data: ASSESSMENT_DATA.target_vector,
+            borderColor: '#f59e0b',
+            backgroundColor: 'rgba(245, 158, 11, 0.1)',
+            borderWidth: 2,
+            borderDash: [4, 4],
+            pointBackgroundColor: '#f59e0b'
+          },
+          {
+            label: 'Achieved Level (SL-A)',
+            data: ASSESSMENT_DATA.achieved_vector,
+            borderColor: '#0071dc',
+            backgroundColor: 'rgba(0, 113, 220, 0.35)',
+            borderWidth: 2.5,
+            pointBackgroundColor: '#0071dc',
+            pointRadius: 4
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          r: {
+            angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
+            grid: { color: 'rgba(255, 255, 255, 0.08)' },
+            pointLabels: { color: '#94a3b8', font: { size: 11, family: 'Inter' } },
+            ticks: { display: true, stepSize: 1, max: 3, min: 0, color: '#64748b', backdropColor: 'transparent' },
+            suggestedMin: 0,
+            suggestedMax: 2.5
+          }
+        },
+        plugins: {
+          legend: {
+            labels: { color: '#cbd5e1', font: { family: 'Inter', size: 12 } }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,819 @@
+{
+  "suc_id": "SUC-DC-6094",
+  "name": "Walmart DC #6094 (Ambient & Cold Chain Operations)",
+  "facility_type": "Distribution Center",
+  "location": "Walmart Supply Chain Operations - DC-6094",
+  "zones": {
+    "ZONE-AMMONIA-REFRIG": {
+      "zone_id": "ZONE-AMMONIA-REFRIG",
+      "name": "Ammonia Refrig",
+      "facility_id": "DC-6094",
+      "purdue_level": "L1_BasicControl",
+      "target_sl": 2,
+      "achieved_sl_vector": {
+        "fr1_iac": 1.0,
+        "fr2_uc": 2.0,
+        "fr3_si": 1.0,
+        "fr4_dc": 1.0,
+        "fr5_rdf": 0.0,
+        "fr6_tre": 2.0,
+        "fr7_ra": 1.0
+      },
+      "overall_achieved_sl": 0.0,
+      "sl_gap": 2.0,
+      "assets": [
+        {
+          "asset_id": "ARMIS-WMT-001",
+          "name": "DC6094-AMMONIA-COMP-PLC-01",
+          "ip_address": "10.142.12.10",
+          "mac_address": "00:1D:9C:A1:42:01",
+          "purdue_level": "L1_BasicControl",
+          "zone_id": "ZONE-AMMONIA-REFRIG",
+          "facility_id": "DC-6094",
+          "device_type": "PLC",
+          "vendor": "Johnson Controls / Frick",
+          "model": "Quantum HD Compressor Controller",
+          "firmware_version": "v10.42",
+          "active_protocols": [
+            "Modbus-TCP",
+            "EtherNet/IP",
+            "HTTP"
+          ],
+          "is_safety_critical": true,
+          "vulnerabilities": [
+            {
+              "cve_id": "CVE-2021-32955",
+              "title": "Johnson Controls Frick Quantum HD Web Server Authentication Bypass",
+              "cvss_score": 8.8,
+              "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+              "epss_score": 0.52,
+              "cisa_kev": false,
+              "description": "Improper authentication in the web service of the Frick Quantum HD compressor controller allows an attacker with network access to bypass credentials and modify temperature setpoints, discharge pressures, and ammonia compressor run parameters.",
+              "affected_components": [
+                "Johnson Controls / Frick Quantum HD Compressor Controller"
+              ],
+              "remediation_patch_available": false,
+              "exploitability_in_ot_context": "High",
+              "rune_risk_rank": "P1_HIGH"
+            },
+            {
+              "cve_id": "CVE-2020-5504",
+              "title": "Modbus-TCP Stack Denial of Service and State Injection in Embedded Controller",
+              "cvss_score": 7.5,
+              "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "epss_score": 0.22,
+              "cisa_kev": false,
+              "description": "Sending an invalid Modbus function code sequence over TCP port 502 triggers an unhandled null-pointer dereference causing the PLC communication module to lock up and drop watchdog heartbeats.",
+              "affected_components": [
+                "Beckhoff Automation CX5140 Embedded PC",
+                "Johnson Controls / Frick Quantum HD Compressor Controller"
+              ],
+              "remediation_patch_available": true,
+              "exploitability_in_ot_context": "Medium",
+              "rune_risk_rank": "P2_MEDIUM"
+            }
+          ],
+          "armis_risk_score": 8.7,
+          "network_segment": "VLAN-12-REFRIG-L1"
+        },
+        {
+          "asset_id": "ARMIS-WMT-002",
+          "name": "DC6094-AMMONIA-SIS-PANEL-01",
+          "ip_address": "10.142.12.11",
+          "mac_address": "00:08:7C:B3:11:02",
+          "purdue_level": "L1_BasicControl",
+          "zone_id": "ZONE-AMMONIA-REFRIG",
+          "facility_id": "DC-6094",
+          "device_type": "Safety_PLC_SIS",
+          "vendor": "Rockwell Automation",
+          "model": "GuardLogix 1756-L73S",
+          "firmware_version": "v30.011",
+          "active_protocols": [
+            "CIP-Safety",
+            "EtherNet/IP"
+          ],
+          "is_safety_critical": true,
+          "vulnerabilities": [
+            {
+              "cve_id": "CVE-2022-3153",
+              "title": "Rockwell Automation GuardLogix/ControlLogix CIP Explicit Message Buffer Overflow",
+              "cvss_score": 9.8,
+              "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+              "epss_score": 0.84,
+              "cisa_kev": true,
+              "description": "A remote unauthenticated attacker can send crafted Common Industrial Protocol (CIP) packets to cause a buffer overflow, allowing arbitrary code execution or unhandled controller fault (Major Non-Recoverable Fault - MNFR) in Rockwell ControlLogix and GuardLogix controllers.",
+              "affected_components": [
+                "Rockwell Automation GuardLogix 1756-L73S",
+                "Rockwell Automation Studio 5000"
+              ],
+              "remediation_patch_available": true,
+              "exploitability_in_ot_context": "Critical",
+              "rune_risk_rank": "P0_CRITICAL"
+            },
+            {
+              "cve_id": "CVE-2021-34444",
+              "title": "Windows Remote Desktop Protocol Elevation of Privilege on Engineering Workstations",
+              "cvss_score": 7.8,
+              "cvss_vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+              "epss_score": 0.15,
+              "cisa_kev": false,
+              "description": "An elevation of privilege vulnerability in Windows RDP client allows local low-privileged users to execute code as SYSTEM on unpatched engineering workstations.",
+              "affected_components": [
+                "Dell / Rockwell Automation Studio 5000 / TIA Portal EWS"
+              ],
+              "remediation_patch_available": true,
+              "exploitability_in_ot_context": "Medium",
+              "rune_risk_rank": "P2_MEDIUM"
+            }
+          ],
+          "armis_risk_score": 5.2,
+          "network_segment": "VLAN-12-REFRIG-L1"
+        }
+      ],
+      "inbound_conduits": [
+        "CND-04-SUPERVISORY-TO-AMMONIA",
+        "CND-06-ROGUE-IT-TO-AMMONIA"
+      ],
+      "outbound_conduits": [],
+      "threat_scenarios": [
+        {
+          "scenario_id": "TS-ZONE-AMMONIA-REFRIG-01",
+          "title": "Exploit of CVE-2021-32955 on DC6094-AMMONIA-COMP-PLC-01 via Conduit",
+          "threat_actor": "Opportunistic Cybercriminal or Malicious Insider (IEC 62443 SL-2 Profile)",
+          "threat_vector": "Remote exploit via Modbus-TCP, EtherNet/IP, HTTP targeting Johnson Controls Frick Quantum HD Web Server Authentication Bypass",
+          "target_zone_id": "ZONE-AMMONIA-REFRIG",
+          "target_asset_ids": [
+            "ARMIS-WMT-001"
+          ],
+          "cve_reference": "CVE-2021-32955",
+          "unmitigated_likelihood": 5,
+          "unmitigated_consequence": 5,
+          "unmitigated_risk_score": 25,
+          "unmitigated_risk_level": "Critical",
+          "operational_impact_summary": "Catastrophic hazard: Compromise of DC6094-AMMONIA-COMP-PLC-01 risks uncontrolled ammonia discharge, emergency plant evacuation, OSHA/EPA violation, and full cold-chain perishables destruction.",
+          "recommended_compensating_controls": [
+            "Immediately sever uninspected/direct conduit bypass into zone; enforce traffic through L3.5 DMZ firewall.",
+            "Deploy Industrial Firewall Deep Packet Inspection (DPI) rule restricting 10.142.12.10 to authorized engineering workstation IPs only; block unauthorized firmware download function codes.",
+            "Configure Armis anomaly detection policy to alert on anomalous connection attempts to 10.142.12.10."
+          ],
+          "residual_likelihood": 3,
+          "residual_consequence": 5,
+          "residual_risk_score": 15,
+          "residual_risk_level": "High"
+        },
+        {
+          "scenario_id": "TS-ZONE-AMMONIA-REFRIG-02",
+          "title": "Exploit of CVE-2020-5504 on DC6094-AMMONIA-COMP-PLC-01 via Conduit",
+          "threat_actor": "Opportunistic Cybercriminal or Malicious Insider (IEC 62443 SL-2 Profile)",
+          "threat_vector": "Remote exploit via Modbus-TCP, EtherNet/IP, HTTP targeting Modbus-TCP Stack Denial of Service and State Injection in Embedded Controller",
+          "target_zone_id": "ZONE-AMMONIA-REFRIG",
+          "target_asset_ids": [
+            "ARMIS-WMT-001"
+          ],
+          "cve_reference": "CVE-2020-5504",
+          "unmitigated_likelihood": 4,
+          "unmitigated_consequence": 5,
+          "unmitigated_risk_score": 20,
+          "unmitigated_risk_level": "Critical",
+          "operational_impact_summary": "Catastrophic hazard: Compromise of DC6094-AMMONIA-COMP-PLC-01 risks uncontrolled ammonia discharge, emergency plant evacuation, OSHA/EPA violation, and full cold-chain perishables destruction.",
+          "recommended_compensating_controls": [
+            "Immediately sever uninspected/direct conduit bypass into zone; enforce traffic through L3.5 DMZ firewall.",
+            "Deploy Industrial Firewall Deep Packet Inspection (DPI) rule restricting 10.142.12.10 to authorized engineering workstation IPs only; block unauthorized firmware download function codes.",
+            "Configure Armis anomaly detection policy to alert on anomalous connection attempts to 10.142.12.10."
+          ],
+          "residual_likelihood": 2,
+          "residual_consequence": 5,
+          "residual_risk_score": 10,
+          "residual_risk_level": "High"
+        },
+        {
+          "scenario_id": "TS-ZONE-AMMONIA-REFRIG-03",
+          "title": "Exploit of CVE-2022-3153 on DC6094-AMMONIA-SIS-PANEL-01 via Conduit",
+          "threat_actor": "Opportunistic Cybercriminal or Malicious Insider (IEC 62443 SL-2 Profile)",
+          "threat_vector": "Remote exploit via CIP-Safety, EtherNet/IP targeting Rockwell Automation GuardLogix/ControlLogix CIP Explicit Message Buffer Overflow",
+          "target_zone_id": "ZONE-AMMONIA-REFRIG",
+          "target_asset_ids": [
+            "ARMIS-WMT-002"
+          ],
+          "cve_reference": "CVE-2022-3153",
+          "unmitigated_likelihood": 5,
+          "unmitigated_consequence": 5,
+          "unmitigated_risk_score": 25,
+          "unmitigated_risk_level": "Critical",
+          "operational_impact_summary": "Catastrophic hazard: Compromise of DC6094-AMMONIA-SIS-PANEL-01 risks uncontrolled ammonia discharge, emergency plant evacuation, OSHA/EPA violation, and full cold-chain perishables destruction.",
+          "recommended_compensating_controls": [
+            "Immediately sever uninspected/direct conduit bypass into zone; enforce traffic through L3.5 DMZ firewall.",
+            "Configure Armis anomaly detection policy to alert on anomalous connection attempts to 10.142.12.11."
+          ],
+          "residual_likelihood": 3,
+          "residual_consequence": 5,
+          "residual_risk_score": 15,
+          "residual_risk_level": "High"
+        },
+        {
+          "scenario_id": "TS-ZONE-AMMONIA-REFRIG-04",
+          "title": "Exploit of CVE-2021-34444 on DC6094-AMMONIA-SIS-PANEL-01 via Conduit",
+          "threat_actor": "Opportunistic Cybercriminal or Malicious Insider (IEC 62443 SL-2 Profile)",
+          "threat_vector": "Remote exploit via CIP-Safety, EtherNet/IP targeting Windows Remote Desktop Protocol Elevation of Privilege on Engineering Workstations",
+          "target_zone_id": "ZONE-AMMONIA-REFRIG",
+          "target_asset_ids": [
+            "ARMIS-WMT-002"
+          ],
+          "cve_reference": "CVE-2021-34444",
+          "unmitigated_likelihood": 4,
+          "unmitigated_consequence": 5,
+          "unmitigated_risk_score": 20,
+          "unmitigated_risk_level": "Critical",
+          "operational_impact_summary": "Catastrophic hazard: Compromise of DC6094-AMMONIA-SIS-PANEL-01 risks uncontrolled ammonia discharge, emergency plant evacuation, OSHA/EPA violation, and full cold-chain perishables destruction.",
+          "recommended_compensating_controls": [
+            "Immediately sever uninspected/direct conduit bypass into zone; enforce traffic through L3.5 DMZ firewall.",
+            "Configure Armis anomaly detection policy to alert on anomalous connection attempts to 10.142.12.11."
+          ],
+          "residual_likelihood": 2,
+          "residual_consequence": 5,
+          "residual_risk_score": 10,
+          "residual_risk_level": "High"
+        }
+      ],
+      "zone_criticality": 5
+    },
+    "ZONE-SUPERVISORY-HMI": {
+      "zone_id": "ZONE-SUPERVISORY-HMI",
+      "name": "Supervisory Hmi",
+      "facility_id": "DC-6094",
+      "purdue_level": "L2_SupervisoryControl",
+      "target_sl": 2,
+      "achieved_sl_vector": {
+        "fr1_iac": 1.0,
+        "fr2_uc": 2.0,
+        "fr3_si": 1.0,
+        "fr4_dc": 1.0,
+        "fr5_rdf": 0.0,
+        "fr6_tre": 2.0,
+        "fr7_ra": 2.0
+      },
+      "overall_achieved_sl": 0.0,
+      "sl_gap": 2.0,
+      "assets": [
+        {
+          "asset_id": "ARMIS-WMT-003",
+          "name": "DC6094-REFRIG-HMI-01",
+          "ip_address": "10.142.22.15",
+          "mac_address": "00:50:56:88:22:15",
+          "purdue_level": "L2_SupervisoryControl",
+          "zone_id": "ZONE-SUPERVISORY-HMI",
+          "facility_id": "DC-6094",
+          "device_type": "HMI",
+          "vendor": "Rockwell Automation",
+          "model": "FactoryTalk View SE Station",
+          "firmware_version": "v12.00",
+          "active_protocols": [
+            "RDP",
+            "SMB",
+            "EtherNet/IP",
+            "HTTP"
+          ],
+          "is_safety_critical": false,
+          "vulnerabilities": [
+            {
+              "cve_id": "CVE-2022-3153",
+              "title": "Rockwell Automation GuardLogix/ControlLogix CIP Explicit Message Buffer Overflow",
+              "cvss_score": 9.8,
+              "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+              "epss_score": 0.84,
+              "cisa_kev": true,
+              "description": "A remote unauthenticated attacker can send crafted Common Industrial Protocol (CIP) packets to cause a buffer overflow, allowing arbitrary code execution or unhandled controller fault (Major Non-Recoverable Fault - MNFR) in Rockwell ControlLogix and GuardLogix controllers.",
+              "affected_components": [
+                "Rockwell Automation GuardLogix 1756-L73S",
+                "Rockwell Automation Studio 5000"
+              ],
+              "remediation_patch_available": true,
+              "exploitability_in_ot_context": "Critical",
+              "rune_risk_rank": "P0_CRITICAL"
+            },
+            {
+              "cve_id": "CVE-2021-34444",
+              "title": "Windows Remote Desktop Protocol Elevation of Privilege on Engineering Workstations",
+              "cvss_score": 7.8,
+              "cvss_vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+              "epss_score": 0.15,
+              "cisa_kev": false,
+              "description": "An elevation of privilege vulnerability in Windows RDP client allows local low-privileged users to execute code as SYSTEM on unpatched engineering workstations.",
+              "affected_components": [
+                "Dell / Rockwell Automation Studio 5000 / TIA Portal EWS"
+              ],
+              "remediation_patch_available": true,
+              "exploitability_in_ot_context": "Medium",
+              "rune_risk_rank": "P2_MEDIUM"
+            }
+          ],
+          "armis_risk_score": 7.4,
+          "network_segment": "VLAN-22-SUPERVISORY-L2"
+        },
+        {
+          "asset_id": "ARMIS-WMT-007",
+          "name": "DC6094-ENG-WORKSTATION-EWS-01",
+          "ip_address": "10.142.22.40",
+          "mac_address": "00:50:56:99:40:22",
+          "purdue_level": "L2_SupervisoryControl",
+          "zone_id": "ZONE-SUPERVISORY-HMI",
+          "facility_id": "DC-6094",
+          "device_type": "Engineering_Workstation",
+          "vendor": "Dell / Rockwell Automation",
+          "model": "Studio 5000 / TIA Portal EWS",
+          "firmware_version": "Windows 10 Enterprise LTSC",
+          "active_protocols": [
+            "RDP",
+            "CIP",
+            "S7comm",
+            "SMBv1"
+          ],
+          "is_safety_critical": false,
+          "vulnerabilities": [
+            {
+              "cve_id": "CVE-2021-34444",
+              "title": "Windows Remote Desktop Protocol Elevation of Privilege on Engineering Workstations",
+              "cvss_score": 7.8,
+              "cvss_vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+              "epss_score": 0.15,
+              "cisa_kev": false,
+              "description": "An elevation of privilege vulnerability in Windows RDP client allows local low-privileged users to execute code as SYSTEM on unpatched engineering workstations.",
+              "affected_components": [
+                "Dell / Rockwell Automation Studio 5000 / TIA Portal EWS"
+              ],
+              "remediation_patch_available": true,
+              "exploitability_in_ot_context": "Medium",
+              "rune_risk_rank": "P2_MEDIUM"
+            }
+          ],
+          "armis_risk_score": 9.1,
+          "network_segment": "VLAN-22-SUPERVISORY-L2"
+        }
+      ],
+      "inbound_conduits": [
+        "CND-03-SITEOPS-TO-SUPERVISORY"
+      ],
+      "outbound_conduits": [
+        "CND-04-SUPERVISORY-TO-AMMONIA",
+        "CND-05-SUPERVISORY-TO-SORTATION"
+      ],
+      "threat_scenarios": [
+        {
+          "scenario_id": "TS-ZONE-SUPERVISORY-HMI-01",
+          "title": "Exploit of CVE-2022-3153 on DC6094-REFRIG-HMI-01 via Conduit",
+          "threat_actor": "Opportunistic Cybercriminal or Malicious Insider (IEC 62443 SL-2 Profile)",
+          "threat_vector": "Remote exploit via RDP, SMB, EtherNet/IP, HTTP targeting Rockwell Automation GuardLogix/ControlLogix CIP Explicit Message Buffer Overflow",
+          "target_zone_id": "ZONE-SUPERVISORY-HMI",
+          "target_asset_ids": [
+            "ARMIS-WMT-003"
+          ],
+          "cve_reference": "CVE-2022-3153",
+          "unmitigated_likelihood": 4,
+          "unmitigated_consequence": 3,
+          "unmitigated_risk_score": 12,
+          "unmitigated_risk_level": "High",
+          "operational_impact_summary": "Supervisory compromise: Malicious access to DC6094-REFRIG-HMI-01 enables unauthorized PLC program downloads, tampering with setpoints, and lateral movement across L2 OT conduits.",
+          "recommended_compensating_controls": [
+            "Disable unneeded legacy protocols (SMBv1, plaintext HTTP); enforce MFA on RDP/bastion jumpbox.",
+            "Configure Armis anomaly detection policy to alert on anomalous connection attempts to 10.142.22.15."
+          ],
+          "residual_likelihood": 2,
+          "residual_consequence": 3,
+          "residual_risk_score": 6,
+          "residual_risk_level": "Medium"
+        },
+        {
+          "scenario_id": "TS-ZONE-SUPERVISORY-HMI-02",
+          "title": "Exploit of CVE-2021-34444 on DC6094-REFRIG-HMI-01 via Conduit",
+          "threat_actor": "Opportunistic Cybercriminal or Malicious Insider (IEC 62443 SL-2 Profile)",
+          "threat_vector": "Remote exploit via RDP, SMB, EtherNet/IP, HTTP targeting Windows Remote Desktop Protocol Elevation of Privilege on Engineering Workstations",
+          "target_zone_id": "ZONE-SUPERVISORY-HMI",
+          "target_asset_ids": [
+            "ARMIS-WMT-003"
+          ],
+          "cve_reference": "CVE-2021-34444",
+          "unmitigated_likelihood": 2,
+          "unmitigated_consequence": 3,
+          "unmitigated_risk_score": 6,
+          "unmitigated_risk_level": "Medium",
+          "operational_impact_summary": "Supervisory compromise: Malicious access to DC6094-REFRIG-HMI-01 enables unauthorized PLC program downloads, tampering with setpoints, and lateral movement across L2 OT conduits.",
+          "recommended_compensating_controls": [
+            "Disable unneeded legacy protocols (SMBv1, plaintext HTTP); enforce MFA on RDP/bastion jumpbox.",
+            "Configure Armis anomaly detection policy to alert on anomalous connection attempts to 10.142.22.15."
+          ],
+          "residual_likelihood": 1,
+          "residual_consequence": 3,
+          "residual_risk_score": 3,
+          "residual_risk_level": "Low"
+        },
+        {
+          "scenario_id": "TS-ZONE-SUPERVISORY-HMI-03",
+          "title": "Exploit of CVE-2021-34444 on DC6094-ENG-WORKSTATION-EWS-01 via Conduit",
+          "threat_actor": "Opportunistic Cybercriminal or Malicious Insider (IEC 62443 SL-2 Profile)",
+          "threat_vector": "Remote exploit via RDP, CIP, S7comm, SMBv1 targeting Windows Remote Desktop Protocol Elevation of Privilege on Engineering Workstations",
+          "target_zone_id": "ZONE-SUPERVISORY-HMI",
+          "target_asset_ids": [
+            "ARMIS-WMT-007"
+          ],
+          "cve_reference": "CVE-2021-34444",
+          "unmitigated_likelihood": 2,
+          "unmitigated_consequence": 3,
+          "unmitigated_risk_score": 6,
+          "unmitigated_risk_level": "Medium",
+          "operational_impact_summary": "Supervisory compromise: Malicious access to DC6094-ENG-WORKSTATION-EWS-01 enables unauthorized PLC program downloads, tampering with setpoints, and lateral movement across L2 OT conduits.",
+          "recommended_compensating_controls": [
+            "Deploy Industrial Firewall Deep Packet Inspection (DPI) rule restricting 10.142.22.40 to authorized engineering workstation IPs only; block unauthorized firmware download function codes.",
+            "Disable unneeded legacy protocols (SMBv1, plaintext HTTP); enforce MFA on RDP/bastion jumpbox.",
+            "Configure Armis anomaly detection policy to alert on anomalous connection attempts to 10.142.22.40."
+          ],
+          "residual_likelihood": 1,
+          "residual_consequence": 3,
+          "residual_risk_score": 3,
+          "residual_risk_level": "Low"
+        }
+      ],
+      "zone_criticality": 3
+    },
+    "ZONE-SORTATION-CONVEYOR": {
+      "zone_id": "ZONE-SORTATION-CONVEYOR",
+      "name": "Sortation Conveyor",
+      "facility_id": "DC-6094",
+      "purdue_level": "L1_BasicControl",
+      "target_sl": 2,
+      "achieved_sl_vector": {
+        "fr1_iac": 2.0,
+        "fr2_uc": 2.0,
+        "fr3_si": 1.0,
+        "fr4_dc": 2.0,
+        "fr5_rdf": 2.0,
+        "fr6_tre": 2.0,
+        "fr7_ra": 2.0
+      },
+      "overall_achieved_sl": 1.0,
+      "sl_gap": 1.0,
+      "assets": [
+        {
+          "asset_id": "ARMIS-WMT-004",
+          "name": "DC6094-MAIN-CROSSBELT-SORTER-PLC",
+          "ip_address": "10.142.14.20",
+          "mac_address": "00:00:BC:44:91:04",
+          "purdue_level": "L1_BasicControl",
+          "zone_id": "ZONE-SORTATION-CONVEYOR",
+          "facility_id": "DC-6094",
+          "device_type": "Main_Sorter_PLC",
+          "vendor": "Dematic / Siemens",
+          "model": "SIMATIC S7-1517F-3 PN/DP",
+          "firmware_version": "v2.8.3",
+          "active_protocols": [
+            "PROFINET",
+            "S7comm-Plus",
+            "SNMPv2c",
+            "HTTP"
+          ],
+          "is_safety_critical": false,
+          "vulnerabilities": [
+            {
+              "cve_id": "CVE-2023-3595",
+              "title": "Siemens SIMATIC S7-1500 Remote Code Execution via S7comm-Plus Memory Corruption",
+              "cvss_score": 9.8,
+              "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+              "epss_score": 0.77,
+              "cisa_kev": true,
+              "description": "A vulnerability in the S7comm-plus protocol implementation allows an attacker to send crafted packets to port 102/tcp resulting in memory corruption and remote code execution with complete control over CPU execution.",
+              "affected_components": [
+                "Dematic / Siemens SIMATIC S7-1517F-3 PN/DP"
+              ],
+              "remediation_patch_available": true,
+              "exploitability_in_ot_context": "Critical",
+              "rune_risk_rank": "P0_CRITICAL"
+            }
+          ],
+          "armis_risk_score": 8.1,
+          "network_segment": "VLAN-14-SORTATION-L1"
+        }
+      ],
+      "inbound_conduits": [
+        "CND-05-SUPERVISORY-TO-SORTATION"
+      ],
+      "outbound_conduits": [],
+      "threat_scenarios": [
+        {
+          "scenario_id": "TS-ZONE-SORTATION-CONVEYOR-01",
+          "title": "Exploit of CVE-2023-3595 on DC6094-MAIN-CROSSBELT-SORTER-PLC via Conduit",
+          "threat_actor": "Opportunistic Cybercriminal or Malicious Insider (IEC 62443 SL-2 Profile)",
+          "threat_vector": "Remote exploit via PROFINET, S7comm-Plus, SNMPv2c, HTTP targeting Siemens SIMATIC S7-1500 Remote Code Execution via S7comm-Plus Memory Corruption",
+          "target_zone_id": "ZONE-SORTATION-CONVEYOR",
+          "target_asset_ids": [
+            "ARMIS-WMT-004"
+          ],
+          "cve_reference": "CVE-2023-3595",
+          "unmitigated_likelihood": 5,
+          "unmitigated_consequence": 2,
+          "unmitigated_risk_score": 10,
+          "unmitigated_risk_level": "High",
+          "operational_impact_summary": "Operational degradation: Compromise of DC6094-MAIN-CROSSBELT-SORTER-PLC causes localized telemetry outage.",
+          "recommended_compensating_controls": [
+            "Immediately sever uninspected/direct conduit bypass into zone; enforce traffic through L3.5 DMZ firewall.",
+            "Configure Armis anomaly detection policy to alert on anomalous connection attempts to 10.142.14.20."
+          ],
+          "residual_likelihood": 3,
+          "residual_consequence": 2,
+          "residual_risk_score": 6,
+          "residual_risk_level": "Medium"
+        }
+      ],
+      "zone_criticality": 3
+    },
+    "ZONE-ASRS-PALLET": {
+      "zone_id": "ZONE-ASRS-PALLET",
+      "name": "Asrs Pallet",
+      "facility_id": "DC-6094",
+      "purdue_level": "L1_BasicControl",
+      "target_sl": 2,
+      "achieved_sl_vector": {
+        "fr1_iac": 2.0,
+        "fr2_uc": 2.0,
+        "fr3_si": 2.0,
+        "fr4_dc": 2.0,
+        "fr5_rdf": 2.0,
+        "fr6_tre": 2.0,
+        "fr7_ra": 1.0
+      },
+      "overall_achieved_sl": 1.0,
+      "sl_gap": 1.0,
+      "assets": [
+        {
+          "asset_id": "ARMIS-WMT-005",
+          "name": "DC6094-ASRS-CRANE-CONTROLLER-01",
+          "ip_address": "10.142.14.35",
+          "mac_address": "00:1E:06:55:12:35",
+          "purdue_level": "L1_BasicControl",
+          "zone_id": "ZONE-ASRS-PALLET",
+          "facility_id": "DC-6094",
+          "device_type": "ASRS_Crane_Controller",
+          "vendor": "Beckhoff Automation",
+          "model": "CX5140 Embedded PC",
+          "firmware_version": "TwinCAT v3.1.4024",
+          "active_protocols": [
+            "ADS",
+            "EtherCAT",
+            "Modbus-TCP"
+          ],
+          "is_safety_critical": false,
+          "vulnerabilities": [
+            {
+              "cve_id": "CVE-2020-5504",
+              "title": "Modbus-TCP Stack Denial of Service and State Injection in Embedded Controller",
+              "cvss_score": 7.5,
+              "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "epss_score": 0.22,
+              "cisa_kev": false,
+              "description": "Sending an invalid Modbus function code sequence over TCP port 502 triggers an unhandled null-pointer dereference causing the PLC communication module to lock up and drop watchdog heartbeats.",
+              "affected_components": [
+                "Beckhoff Automation CX5140 Embedded PC",
+                "Johnson Controls / Frick Quantum HD Compressor Controller"
+              ],
+              "remediation_patch_available": true,
+              "exploitability_in_ot_context": "Medium",
+              "rune_risk_rank": "P2_MEDIUM"
+            }
+          ],
+          "armis_risk_score": 6.8,
+          "network_segment": "VLAN-14-ASRS-L1"
+        }
+      ],
+      "inbound_conduits": [],
+      "outbound_conduits": [],
+      "threat_scenarios": [
+        {
+          "scenario_id": "TS-ZONE-ASRS-PALLET-01",
+          "title": "Exploit of CVE-2020-5504 on DC6094-ASRS-CRANE-CONTROLLER-01 via Conduit",
+          "threat_actor": "Opportunistic Cybercriminal or Malicious Insider (IEC 62443 SL-2 Profile)",
+          "threat_vector": "Remote exploit via ADS, EtherCAT, Modbus-TCP targeting Modbus-TCP Stack Denial of Service and State Injection in Embedded Controller",
+          "target_zone_id": "ZONE-ASRS-PALLET",
+          "target_asset_ids": [
+            "ARMIS-WMT-005"
+          ],
+          "cve_reference": "CVE-2020-5504",
+          "unmitigated_likelihood": 2,
+          "unmitigated_consequence": 4,
+          "unmitigated_risk_score": 8,
+          "unmitigated_risk_level": "Medium",
+          "operational_impact_summary": "Critical logistics disruption: Compromise of DC6094-ASRS-CRANE-CONTROLLER-01 halts core DC sortation / ASRS cranes, causing multi-hour trailer backlog, regional store replenishment delays, and >$1M operational loss.",
+          "recommended_compensating_controls": [
+            "Deploy Industrial Firewall Deep Packet Inspection (DPI) rule restricting 10.142.14.35 to authorized engineering workstation IPs only; block unauthorized firmware download function codes.",
+            "Configure Armis anomaly detection policy to alert on anomalous connection attempts to 10.142.14.35."
+          ],
+          "residual_likelihood": 1,
+          "residual_consequence": 4,
+          "residual_risk_score": 4,
+          "residual_risk_level": "Low"
+        }
+      ],
+      "zone_criticality": 4
+    },
+    "ZONE-SITE-OPERATIONS": {
+      "zone_id": "ZONE-SITE-OPERATIONS",
+      "name": "Site Operations",
+      "facility_id": "DC-6094",
+      "purdue_level": "L3_SiteOperations",
+      "target_sl": 2,
+      "achieved_sl_vector": {
+        "fr1_iac": 2.0,
+        "fr2_uc": 2.0,
+        "fr3_si": 2.0,
+        "fr4_dc": 2.0,
+        "fr5_rdf": 2.0,
+        "fr6_tre": 2.0,
+        "fr7_ra": 2.0
+      },
+      "overall_achieved_sl": 2.0,
+      "sl_gap": 0.0,
+      "assets": [
+        {
+          "asset_id": "ARMIS-WMT-006",
+          "name": "DC6094-AGV-FLEET-SRV-01",
+          "ip_address": "10.142.30.12",
+          "mac_address": "00:50:56:A9:30:12",
+          "purdue_level": "L3_SiteOperations",
+          "zone_id": "ZONE-SITE-OPERATIONS",
+          "facility_id": "DC-6094",
+          "device_type": "AGV_Fleet_Controller",
+          "vendor": "Symbotic",
+          "model": "Symbotic Orchestration Node",
+          "firmware_version": "v6.4.1",
+          "active_protocols": [
+            "HTTPS",
+            "gRPC",
+            "MQTT",
+            "SSH"
+          ],
+          "is_safety_critical": false,
+          "vulnerabilities": [],
+          "armis_risk_score": 4.5,
+          "network_segment": "VLAN-30-SITEOPS-L3"
+        }
+      ],
+      "inbound_conduits": [
+        "CND-02-DMZ-TO-SITEOPS"
+      ],
+      "outbound_conduits": [
+        "CND-03-SITEOPS-TO-SUPERVISORY"
+      ],
+      "threat_scenarios": [],
+      "zone_criticality": 3
+    },
+    "ZONE-OT-DMZ": {
+      "zone_id": "ZONE-OT-DMZ",
+      "name": "Ot Dmz",
+      "facility_id": "DC-6094",
+      "purdue_level": "L3_5_OT_DMZ",
+      "target_sl": 2,
+      "achieved_sl_vector": {
+        "fr1_iac": 2.0,
+        "fr2_uc": 2.0,
+        "fr3_si": 2.0,
+        "fr4_dc": 2.0,
+        "fr5_rdf": 2.0,
+        "fr6_tre": 2.0,
+        "fr7_ra": 2.0
+      },
+      "overall_achieved_sl": 2.0,
+      "sl_gap": 0.0,
+      "assets": [
+        {
+          "asset_id": "ARMIS-WMT-008",
+          "name": "DC6094-OT-DMZ-JUMPBOX-01",
+          "ip_address": "10.142.35.5",
+          "mac_address": "00:50:56:FA:35:05",
+          "purdue_level": "L3_5_OT_DMZ",
+          "zone_id": "ZONE-OT-DMZ",
+          "facility_id": "DC-6094",
+          "device_type": "Secure_Jumpbox",
+          "vendor": "CyberArk / Microsoft",
+          "model": "Hardened Windows Server 2022",
+          "firmware_version": "Build 20348",
+          "active_protocols": [
+            "HTTPS",
+            "RDP-over-TLS",
+            "SSH"
+          ],
+          "is_safety_critical": false,
+          "vulnerabilities": [],
+          "armis_risk_score": 2.1,
+          "network_segment": "VLAN-35-DMZ-L35"
+        }
+      ],
+      "inbound_conduits": [
+        "CND-01-ENT-TO-DMZ"
+      ],
+      "outbound_conduits": [
+        "CND-02-DMZ-TO-SITEOPS"
+      ],
+      "threat_scenarios": [],
+      "zone_criticality": 3
+    }
+  },
+  "conduits": {
+    "CND-01-ENT-TO-DMZ": {
+      "conduit_id": "CND-01-ENT-TO-DMZ",
+      "name": "Enterprise IT to OT DMZ Conduit",
+      "from_zone_id": "ZONE-ENTERPRISE-L4",
+      "to_zone_id": "ZONE-OT-DMZ",
+      "allowed_protocols": [
+        "HTTPS",
+        "SSH",
+        "RDP-over-TLS"
+      ],
+      "is_encrypted": true,
+      "traverses_dmz": true,
+      "has_firewall_inspection": true,
+      "violates_policy": false,
+      "policy_violation_notes": "Complies with WMT-OT-POL-01 and FR 5.2"
+    },
+    "CND-02-DMZ-TO-SITEOPS": {
+      "conduit_id": "CND-02-DMZ-TO-SITEOPS",
+      "name": "OT DMZ to Site Operations Conduit",
+      "from_zone_id": "ZONE-OT-DMZ",
+      "to_zone_id": "ZONE-SITE-OPERATIONS",
+      "allowed_protocols": [
+        "HTTPS",
+        "gRPC",
+        "MQTT-TLS"
+      ],
+      "is_encrypted": true,
+      "traverses_dmz": true,
+      "has_firewall_inspection": true,
+      "violates_policy": false,
+      "policy_violation_notes": "Complies with WMT-OT-POL-01"
+    },
+    "CND-03-SITEOPS-TO-SUPERVISORY": {
+      "conduit_id": "CND-03-SITEOPS-TO-SUPERVISORY",
+      "name": "Site Ops to Supervisory HMI Conduit",
+      "from_zone_id": "ZONE-SITE-OPERATIONS",
+      "to_zone_id": "ZONE-SUPERVISORY-HMI",
+      "allowed_protocols": [
+        "RDP",
+        "SMBv2",
+        "HTTPS"
+      ],
+      "is_encrypted": true,
+      "traverses_dmz": false,
+      "has_firewall_inspection": true,
+      "violates_policy": false,
+      "policy_violation_notes": "Stateful firewall inspection active"
+    },
+    "CND-04-SUPERVISORY-TO-AMMONIA": {
+      "conduit_id": "CND-04-SUPERVISORY-TO-AMMONIA",
+      "name": "Supervisory HMI to Ammonia Refrigeration L1 Conduit",
+      "from_zone_id": "ZONE-SUPERVISORY-HMI",
+      "to_zone_id": "ZONE-AMMONIA-REFRIG",
+      "allowed_protocols": [
+        "Modbus-TCP",
+        "EtherNet/IP",
+        "HTTP"
+      ],
+      "is_encrypted": false,
+      "traverses_dmz": false,
+      "has_firewall_inspection": false,
+      "violates_policy": true,
+      "policy_violation_notes": "VIOLATION of FR 4.1 & FR 5.2: Unencrypted cleartext Modbus-TCP and HTTP directly into Ammonia Safety Loop without deep packet inspection."
+    },
+    "CND-05-SUPERVISORY-TO-SORTATION": {
+      "conduit_id": "CND-05-SUPERVISORY-TO-SORTATION",
+      "name": "Supervisory to Main Sortation Conveyor L1 Conduit",
+      "from_zone_id": "ZONE-SUPERVISORY-HMI",
+      "to_zone_id": "ZONE-SORTATION-CONVEYOR",
+      "allowed_protocols": [
+        "PROFINET",
+        "S7comm-Plus"
+      ],
+      "is_encrypted": false,
+      "traverses_dmz": false,
+      "has_firewall_inspection": true,
+      "violates_policy": false,
+      "policy_violation_notes": "Conduit monitored by Armis"
+    },
+    "CND-06-ROGUE-IT-TO-AMMONIA": {
+      "conduit_id": "CND-06-ROGUE-IT-TO-AMMONIA",
+      "name": "UNAUTHORIZED DIRECT CONDUIT: Enterprise IT to Ammonia Controller",
+      "from_zone_id": "ZONE-ENTERPRISE-L4",
+      "to_zone_id": "ZONE-AMMONIA-REFRIG",
+      "allowed_protocols": [
+        "HTTP",
+        "Modbus-TCP"
+      ],
+      "is_encrypted": false,
+      "traverses_dmz": false,
+      "has_firewall_inspection": false,
+      "violates_policy": true,
+      "policy_violation_notes": "CRITICAL VIOLATION of WMT-OT-POL-01, WMT-OT-POL-02, and FR 5.1: Dual-homed legacy vendor diagnostics connection bypasses DMZ straight into Ammonia compressor."
+    }
+  },
+  "target_security_level_global": 2,
+  "assessment_timestamp": "2026-09-25 00:32:56 UTC",
+  "overall_risk_score": 8.75,
+  "sl2_compliance_percentage": 33.3,
+  "total_assets": 8,
+  "total_cves": 9
+}

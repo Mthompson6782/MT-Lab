@@ -1,0 +1,98 @@
+# IEC 62443-3-3 / IEC 62443-3-2 Foundational Requirements (FR 1 to FR 7) at Security Level 2 (SL-2)
+# Protection against intentional violation using simple means with low resources, generic skills, low motivation.
+
+standard: "IEC 62443-3-3"
+target_security_level: 2
+
+foundational_requirements:
+  FR1:
+    name: "Identification and Authentication Control (IAC)"
+    description: "Enforce human and device identification and authentication across all OT interfaces."
+    sl2_requirements:
+      - id: "SR 1.1"
+        title: "Human User Identification and Authentication"
+        requirement: "Identify and authenticate all human users uniquely before granting access to the zone. Shared/generic accounts prohibited."
+      - id: "SR 1.2"
+        title: "Software Process and Device Identification"
+        requirement: "Identify and authenticate all software processes and external devices communicating across conduits into this zone."
+      - id: "SR 1.3"
+        title: "Account Management & Password Strength"
+        requirement: "Enforce centralized account management with complex passwords and automated lockout after consecutive failed attempts."
+      - id: "SR 1.7"
+        title: "Strength of Password Authentication"
+        requirement: "Enforce configurable password complexity and prevent default factory vendor credentials on PLCs/HMIs."
+
+  FR2:
+    name: "Use Control (UC)"
+    description: "Enforce assigned privileges to prevent unauthorized actions and protect control loops."
+    sl2_requirements:
+      - id: "SR 2.1"
+        title: "Authorization Enforcement (RBAC)"
+        requirement: "Enforce Role-Based Access Control on HMIs and Engineering Workstations. Restrict PLC logic download rights to authorized engineers."
+      - id: "SR 2.2"
+        title: "Wireless Use Control"
+        requirement: "Wireless connections into the control zone must enforce mutual authentication and encryption; unauthorized wireless rogue APs strictly prohibited."
+      - id: "SR 2.3"
+        title: "Portable Media & Mobile Code"
+        requirement: "Enforce physical or software controls preventing unauthorized USB flash drives on Level 2/3 HMIs and workstations."
+
+  FR3:
+    name: "System Integrity (SI)"
+    description: "Ensure the integrity of code, software, firmware, and communications against unauthorized tampering."
+    sl2_requirements:
+      - id: "SR 3.1"
+        title: "Communication Integrity"
+        requirement: "Detect communication tampering, replay attacks, or unauthorized protocol modification on inter-zone conduits."
+      - id: "SR 3.2"
+        title: "Malicious Code Protection"
+        requirement: "Implement endpoint protection/EDR or application whitelisting on Windows-based HMIs, SCADA servers, and Engineering Workstations."
+      - id: "SR 3.4"
+        title: "Software and Information Integrity"
+        requirement: "Validate digital signatures or hashes for all firmware updates and PLC ladder logic binaries prior to deployment."
+
+  FR4:
+    name: "Data Confidentiality (DC)"
+    description: "Ensure that sensitive operational information and credentials are not readable in transit or at rest."
+    sl2_requirements:
+      - id: "SR 4.1"
+        title: "Information Confidentiality in Transit"
+        requirement: "Encrypt all administrative credentials and sensitive supervisory traffic traversing conduits across zone boundaries (e.g. HTTPS, TLS, SSH; no plaintext Telnet/HTTP)."
+      - id: "SR 4.3"
+        title: "Use of Cryptography"
+        requirement: "Utilize vetted, standard cryptographic algorithms for session management and remote engineering sessions."
+
+  FR5:
+    name: "Restricted Data Flow (RDF)"
+    description: "Segment control system networks into zones and conduits to restrict unauthorized traffic."
+    sl2_requirements:
+      - id: "SR 5.1"
+        title: "Network Segmentation (Zones & Conduits)"
+        requirement: "Partition networks according to Purdue model. Direct communication between Enterprise IT (L4) and Field Control (L1/L0) is strictly blocked."
+      - id: "SR 5.2"
+        title: "Zone Boundary Protection (Firewalls & DMZ)"
+        requirement: "All inter-zone traffic must pass through an OT DMZ (Level 3.5) with stateful firewall inspection and explicit allow-lists."
+      - id: "SR 5.3"
+        title: "General Purpose Person-to-Person Communication"
+        requirement: "Email, web browsing, and general internet access are prohibited from within Level 2 and Level 1 zones."
+
+  FR6:
+    name: "Timely Response to Events (TRE)"
+    description: "Detect, log, and alert on unauthorized activities, network anomalies, and cyber incidents."
+    sl2_requirements:
+      - id: "SR 6.1"
+        title: "Audit Log Generation"
+        requirement: "Generate audit records for security events, login attempts, configuration changes, and PLC program modifications."
+      - id: "SR 6.2"
+        title: "Continuous Monitoring & Anomaly Detection"
+        requirement: "Deploy continuous network monitoring (e.g. Armis passive inspection) to detect unauthorized devices, protocol deviations, and CVE threats."
+
+  FR7:
+    name: "Resource Availability (RA)"
+    description: "Ensure resilience against Denial-of-Service (DoS) and maintain system availability under adverse conditions."
+    sl2_requirements:
+      - id: "SR 7.1"
+        title: "Denial of Service Protection"
+        requirement: "Mitigate network broadcast storms, packet floods, and resource starvation on industrial switches and PLC network interface cards."
+      - id: "SR 7.3"
+        title: "Control System Backup and Recovery"
+        requirement: "Maintain verified, offline/immutable backups of all PLC project files, HMI runtimes, and switch configurations."
