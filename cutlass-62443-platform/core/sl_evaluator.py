@@ -1,89 +1,121 @@
 """
-IEC 62443-3-3 / 3-2 Security Level (SL) Evaluator.
-Evaluates Achieved Security Level (SL-A) vs Target Security Level (SL-T = 2.0)
-across Foundational Requirements FR 1 to FR 7.
+IEC 62443-3-3 / 3-2 Security Level (SL) Evaluator - evidence based.
+
+SL-A per Foundational Requirement (FR) is established from evidence, never assumed:
+  * any SR observed_violation on a mandatory boundary (SR 5.1) -> SL-A 0
+  * any SR observed_violation / not_met / partial               -> SL-A 1 (deficient)
+  * otherwise any SR with no_evidence                           -> reported "Unverified (<=1)"
+  * all SL-2 SRs met                                            -> SL-A 2
+  * then capped by component SL-C (62443-4-2) unless an implemented compensating control covers it.
+
+Target: SL-T 2 is the enterprise floor for every OT zone. (Selected SL-3 REs for safety are
+handled as an overlay by the CRS, not by raising SL-T.)
 """
 
-from typing import Dict, List, Tuple
-from core.models import Conduit, SecurityLevelVector, SystemUnderConsideration, Zone
+from datetime import date
+from typing import Dict, List, Optional, Set
+
+from core.config_loader import (
+    load_component_capabilities,
+    load_sl2_requirements,
+    load_site_survey,
+)
+from core.evidence import EvidenceResolver
+from core.models import FRResult, SecurityLevelVector, SRResult, SystemUnderConsideration, Zone
+
+FR_FIELDS = {"FR1": "fr1_iac", "FR2": "fr2_uc", "FR3": "fr3_si", "FR4": "fr4_dc",
+             "FR5": "fr5_rdf", "FR6": "fr6_tre", "FR7": "fr7_ra"}
+
+
+def implemented_controls_for_zone(survey: Optional[Dict], zone_id: str) -> Set[str]:
+    out: Set[str] = set()
+    for c in (survey or {}).get("controls_implemented", []) or []:
+        zones = c.get("zones", [])
+        if "*" in zones or zone_id in zones:
+            out.add(c["control_id"])
+    return out
 
 
 class SecurityLevelEvaluator:
-    TARGET_SL: float = 2.0  # Enterprise standard mandated across the board
+    TARGET_SL: float = 2.0  # Enterprise floor across all OT zones
+
+    def __init__(self, facility_id: Optional[str] = None, survey: Optional[Dict] = None,
+                 sl2_requirements: Optional[Dict] = None, capabilities: Optional[Dict] = None,
+                 as_of: Optional[date] = None):
+        self.survey = survey if survey is not None else (load_site_survey(facility_id) if facility_id else None)
+        self.resolver = EvidenceResolver(sl2_requirements or load_sl2_requirements(), self.survey, as_of)
+        self.capabilities = (capabilities or load_component_capabilities()).get("components", [])
 
     def evaluate_suc_security_levels(self, suc: SystemUnderConsideration) -> SystemUnderConsideration:
-        """
-        Evaluates SL-A vector for each zone and overall facility SL-2 compliance.
-        """
-        compliant_zones = 0
-        total_zones = len(suc.zones)
+        compliant = 0
+        total_srs = 0
+        evidenced_srs = 0
 
-        for zone_id, zone in suc.zones.items():
-            sl_vector = self._evaluate_zone_vector(zone, suc.conduits)
-            zone.achieved_sl_vector = sl_vector
-            zone.overall_achieved_sl = sl_vector.min_level()  # IEC 62443 rules state zone SL is capped by its weakest FR
+        for zone in suc.zones.values():
+            sr_results = self.resolver.resolve_zone(zone, suc.zones, suc.conduits)
+            zone.sr_results = sr_results
+            zone.fr_results = self._fr_results(zone, sr_results)
+
+            vector = SecurityLevelVector(**{FR_FIELDS[fr]: r.sl_a for fr, r in zone.fr_results.items()})
+            zone.achieved_sl_vector = vector
+            zone.overall_achieved_sl = vector.min_level()   # zone summary = weakest FR (vector kept in report)
+            zone.sl_verified = all(r.verified for r in zone.fr_results.values())
             zone.sl_gap = max(0.0, round(self.TARGET_SL - zone.overall_achieved_sl, 2))
 
-            if zone.overall_achieved_sl >= self.TARGET_SL:
-                compliant_zones += 1
+            n_ev = sum(1 for r in sr_results if r.status != "no_evidence")
+            zone.evidence_coverage_pct = round(100.0 * n_ev / len(sr_results), 1) if sr_results else 0.0
+            zone.survey_worklist = [f"{r.sr_id} {r.title}" for r in sr_results if r.status == "no_evidence"]
+            total_srs += len(sr_results)
+            evidenced_srs += n_ev
 
-        suc.sl2_compliance_percentage = (
-            round((compliant_zones / total_zones) * 100, 1) if total_zones > 0 else 0.0
-        )
+            if zone.sl_verified and zone.overall_achieved_sl >= self.TARGET_SL:
+                compliant += 1
+
+        n = len(suc.zones)
+        suc.sl2_compliance_percentage = round(100.0 * compliant / n, 1) if n else 0.0
+        suc.evidence_coverage_percentage = round(100.0 * evidenced_srs / total_srs, 1) if total_srs else 0.0
+        suc.survey_source = (self.survey or {}).get("_path")
         return suc
 
-    def _evaluate_zone_vector(self, zone: Zone, conduits: Dict[str, Conduit]) -> SecurityLevelVector:
-        """
-        Calculates SL-A for FR 1 through FR 7.
-        Baseline is SL 2.0; deductions occur if vulnerabilities or conduit violations degrade the level.
-        """
-        fr1 = 2.0  # Identification & Authentication
-        fr2 = 2.0  # Use Control
-        fr3 = 2.0  # System Integrity
-        fr4 = 2.0  # Data Confidentiality
-        fr5 = 2.0  # Restricted Data Flow
-        fr6 = 2.0  # Timely Response to Events
-        fr7 = 2.0  # Resource Availability
+    # ------------------------------------------------------------------
+    def _fr_results(self, zone: Zone, sr_results: List[SRResult]) -> Dict[str, FRResult]:
+        implemented = implemented_controls_for_zone(self.survey, zone.zone_id)
+        out: Dict[str, FRResult] = {}
+        for fr in FR_FIELDS:
+            srs = [r for r in sr_results if r.fr == fr]
+            statuses = {r.status for r in srs}
 
-        # FR 5 (Restricted Data Flow) Evaluation
-        for c_id in zone.inbound_conduits + zone.outbound_conduits:
-            conduit = conduits.get(c_id)
-            if conduit:
-                if conduit.violates_policy:
-                    fr5 = min(fr5, 0.0)  # Complete boundary breakdown (e.g. direct DMZ bypass)
-                elif not conduit.has_firewall_inspection:
-                    fr5 = min(fr5, 1.0)
+            if any(r.status == "observed_violation" and r.sr_id == "SR 5.1" for r in srs):
+                sl, verified, status = 0.0, True, "deficient"
+            elif statuses & {"observed_violation", "not_met", "partial"}:
+                sl, verified, status = 1.0, True, "deficient"
+            elif "no_evidence" in statuses or not srs:
+                sl, verified, status = 1.0, False, "unverified"      # reported as <= 1
+            else:
+                sl, verified, status = 2.0, True, "achieved"
 
-                # FR 4 (Data Confidentiality) Evaluation
-                if not conduit.is_encrypted and any(p in ["HTTP", "Telnet", "Modbus-TCP"] for p in conduit.allowed_protocols):
-                    fr4 = min(fr4, 1.0)
+            ceiling, limiting = self._sl_c_ceiling(zone, fr, implemented)
+            if ceiling is not None and ceiling < sl:
+                sl = float(ceiling)
+                status = "deficient" if verified else status
+            else:
+                limiting = None          # only name a limiting asset when SL-C actually capped SL-A
+            out[fr] = FRResult(fr=fr, sl_a=sl, verified=verified, status=status,
+                               sl_c_ceiling=ceiling, sl_c_limiting_asset=limiting)
+        return out
 
-        # Assets & Vulnerabilities Impact on FR 1, FR 3, and FR 7
+    def _sl_c_ceiling(self, zone: Zone, fr: str, implemented: Set[str]):
+        ceiling, limiting = None, None
         for asset in zone.assets:
-            for vuln in asset.vulnerabilities:
-                # FR 3 (System Integrity) - Remote Code Execution / Memory Corruption
-                if vuln.cvss_score >= 9.0 or vuln.cisa_kev:
-                    fr3 = min(fr3, 1.0)
-
-                # FR 7 (Resource Availability) - Controller crash / DoS
-                if "Denial of Service" in vuln.title or "lock up" in vuln.description.lower():
-                    fr7 = min(fr7, 1.0)
-
-                # FR 1 (Authentication)
-                if "Authentication Bypass" in vuln.title or "unauthenticated" in vuln.description.lower():
-                    fr1 = min(fr1, 1.0)
-
-            # Check for legacy insecure protocols on asset
-            if "SMBv1" in asset.active_protocols:
-                fr3 = min(fr3, 1.0)
-                fr1 = min(fr1, 1.0)
-
-        return SecurityLevelVector(
-            fr1_iac=round(fr1, 1),
-            fr2_uc=round(fr2, 1),
-            fr3_si=round(fr3, 1),
-            fr4_dc=round(fr4, 1),
-            fr5_rdf=round(fr5, 1),
-            fr6_tre=round(fr6, 1),
-            fr7_ra=round(fr7, 1)
-        )
+            for comp in self.capabilities:
+                m = comp.get("match", {})
+                if m.get("vendor") == asset.vendor and m.get("model") == asset.model:
+                    val = comp.get("sl_c", {}).get(fr)
+                    if val is None:
+                        continue
+                    compensators = set((comp.get("compensable_by") or {}).get(fr, []))
+                    if compensators & implemented:
+                        continue                      # attested compensating control lifts the ceiling
+                    if ceiling is None or val < ceiling:
+                        ceiling, limiting = float(val), asset.name
+        return ceiling, limiting

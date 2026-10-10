@@ -38,7 +38,9 @@ class ReportGenerator:
         md.append(f"**Facility ID:** {suc.suc_id} | **Facility Type:** {suc.facility_type}")
         md.append(f"**Assessment Date:** {suc.assessment_timestamp}")
         md.append(f"**Target Security Level (Global):** SL-T {suc.target_security_level_global}")
-        md.append(f"**Facility SL-2 Compliance:** {suc.sl2_compliance_percentage}%")
+        md.append(f"**Facility SL-2 Compliance (verified zones):** {suc.sl2_compliance_percentage}%")
+        md.append(f"**SL-2 Evidence Coverage:** {suc.evidence_coverage_percentage}% of SRs have telemetry or survey evidence")
+        md.append(f"**Tolerable Risk (5x5 matrix):** {suc.tolerable_risk} | **Site Survey:** {suc.survey_source or 'NONE - all non-observable SRs unverified'}")
         md.append(f"**Overall Inherent Risk Score:** {suc.overall_risk_score} / 25")
         md.append("\n---\n")
 
@@ -53,7 +55,7 @@ class ReportGenerator:
         md.append("| :--- | :--- | :--- | :---: | :---: | :---: | :---: | :---: |")
         for z in suc.zones.values():
             md.append(
-                f"| `{z.zone_id}` | {z.name} | {z.purdue_level.value} | SL-{z.target_sl} | **SL-{z.overall_achieved_sl}** | "
+                f"| `{z.zone_id}` | {z.name} | {z.purdue_level.value} | SL-{z.target_sl} | **{self._zone_sl(z)}** | "
                 f"{'⚠️ Gap: ' + str(z.sl_gap) if z.sl_gap > 0 else '✅ Compliant'} | {len(z.assets)} | {z.zone_criticality}/5 |"
             )
         md.append("\n### Network Conduits Inventory")
@@ -69,13 +71,35 @@ class ReportGenerator:
 
         # Security Level Vector Table
         md.append("## 3. Security Level Vector Breakdown (Clause Z5 / IEC 62443-3-3)")
-        md.append("SL-T is set to **SL 2** across all Foundational Requirements (FR 1 to FR 7):\n")
-        md.append("| Zone Name | FR 1 (IAC) | FR 2 (UC) | FR 3 (SI) | FR 4 (DC) | FR 5 (RDF) | FR 6 (TRE) | FR 7 (RA) | SL-A Min | Status |")
-        md.append("| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :--- |")
+        md.append("SL-T 2 is the enterprise floor for every FR. SL-A is established from evidence only: "
+                  "`2` = all SL-2 SRs met, `1`/`0` = gap evidenced, `≤1?` = **unverified** (at least one SR has no evidence). "
+                  "`ᶜ` = capped by component SL-C.\n")
+        md.append("| Zone Name | FR 1 (IAC) | FR 2 (UC) | FR 3 (SI) | FR 4 (DC) | FR 5 (RDF) | FR 6 (TRE) | FR 7 (RA) | SL-A Min | Evidence | Status |")
+        md.append("| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :--- |")
         for z in suc.zones.values():
-            v = z.achieved_sl_vector
-            status = "✅ PASS" if z.overall_achieved_sl >= 2.0 else "❌ DEFICIENT"
-            md.append(f"| {z.name} | {v.fr1_iac} | {v.fr2_uc} | {v.fr3_si} | {v.fr4_dc} | {v.fr5_rdf} | {v.fr6_tre} | {v.fr7_ra} | **{z.overall_achieved_sl}** | {status} |")
+            cells = [self._fr_cell(z.fr_results.get(fr)) for fr in ("FR1", "FR2", "FR3", "FR4", "FR5", "FR6", "FR7")]
+            if z.sl_verified and z.overall_achieved_sl >= 2.0:
+                status = "✅ PASS"
+            elif any(r.status == "deficient" for r in z.fr_results.values()):
+                status = "❌ DEFICIENT"
+            else:
+                status = "❔ UNVERIFIED"
+            md.append(f"| {z.name} | {' | '.join(cells)} | **{self._zone_sl(z)}** | {z.evidence_coverage_pct}% | {status} |")
+
+        md.append("\n### SR Evidence Detail")
+        icon = {"met": "✅", "partial": "🟡", "not_met": "❌", "observed_violation": "🚨", "no_evidence": "❔"}
+        for z in suc.zones.values():
+            md.append(f"\n**{z.name}** (`{z.zone_id}`)\n")
+            md.append("| SR | Status | Source | Evidence |")
+            md.append("| :--- | :--- | :--- | :--- |")
+            for r in z.sr_results:
+                who = f" _(attested {r.attested_on}, expires {r.expires})_" if r.attested_on else ""
+                md.append(f"| {r.sr_id} {r.title} | {icon.get(r.status, '')} {r.status} | {r.source} | {r.detail}{who} |")
+
+        md.append("\n### Site-Survey Worklist (SRs with no evidence)")
+        for z in suc.zones.values():
+            if z.survey_worklist:
+                md.append(f"- **{z.name}:** " + "; ".join(z.survey_worklist))
         md.append("\n---\n")
 
         # Threat Scenarios & Detailed Risk Assessment
@@ -88,11 +112,20 @@ class ReportGenerator:
                     md.append(f"- **Vulnerability Reference:** `{s.cve_reference}`")
                     md.append(f"- **Threat Vector:** {s.threat_vector}")
                     md.append(f"- **Operational & Safety Consequence:** {s.operational_impact_summary}")
-                    md.append(f"- **Unmitigated Risk:** Likelihood = {s.unmitigated_likelihood}/5, Consequence = {s.unmitigated_consequence}/5 ➔ **Score: {s.unmitigated_risk_score} ({s.unmitigated_risk_level})**")
-                    md.append("- **Recommended Compensating Controls:**")
-                    for ctrl in s.recommended_compensating_controls:
-                        md.append(f"  - {ctrl}")
-                    md.append(f"- **Residual Risk Post-Mitigation:** Likelihood = {s.residual_likelihood}/5, Consequence = {s.residual_consequence}/5 ➔ **Score: {s.residual_risk_score} ({s.residual_risk_level})**\n")
+                    md.append(f"- **Attack Vectors:** {', '.join(s.threat_vectors)}")
+                    md.append(f"- **Unmitigated Risk:** L{s.unmitigated_likelihood} × C{s.unmitigated_consequence} ➔ **{s.unmitigated_risk_level}**")
+                    impl = [c for c in s.implemented_controls if c.likelihood_reduction > 0]
+                    md.append("- **Implemented Controls (verified, credited):** " +
+                              ("; ".join(f"`{c.control_id}` (−{c.likelihood_reduction} on {', '.join(c.covers_vectors)})" for c in impl) or "none"))
+                    tol = "tolerable" if s.residual_tolerable else "**NOT tolerable**"
+                    md.append(f"- **Current Residual Risk:** L{s.residual_likelihood} × C{s.residual_consequence} ➔ **{s.residual_risk_level}** ({tol})")
+                    md.append("- **Recommended Controls:**")
+                    for c in s.recommended_controls:
+                        credit = f"−{c.likelihood_reduction} on {', '.join(c.covers_vectors)}" if c.likelihood_reduction else "detective, no likelihood credit"
+                        md.append(f"  - `{c.control_id}`: {c.title} _({credit})_")
+                    ptol = "tolerable" if s.projected_residual_tolerable else "**still NOT tolerable → ZCR 7 risk acceptance required**"
+                    md.append(f"- **Projected Residual (if recommended controls implemented):** L{s.projected_residual_likelihood} × C{s.residual_consequence} ➔ "
+                              f"**{s.projected_residual_risk_level}** ({ptol})\n")
 
         # Attack Graphs & Blast Radius Section
         md.append("\n---\n")
@@ -138,3 +171,17 @@ class ReportGenerator:
             f.write("\n".join(md))
 
         return filepath
+
+    @staticmethod
+    def _fr_cell(r) -> str:
+        if r is None:
+            return "-"
+        cell = "≤1?" if not r.verified else f"{r.sl_a:g}"
+        if r.sl_c_limiting_asset:
+            cell += "ᶜ"
+        return cell
+
+    @staticmethod
+    def _zone_sl(z) -> str:
+        n_unv = sum(1 for r in z.fr_results.values() if not r.verified)
+        return f"SL-{z.overall_achieved_sl:g}" + (f" (+{n_unv} FR unverified)" if n_unv else "")

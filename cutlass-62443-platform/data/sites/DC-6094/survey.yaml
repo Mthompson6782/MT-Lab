@@ -1,0 +1,43 @@
+# CUTLASS Site-Survey Attestation - SAMPLE DATA
+# An assessor records evidence for SL-2 SRs that passive telemetry (Armis) cannot observe.
+# Each attestation needs who/when and expires; expired attestations revert to "no_evidence".
+# Status: met | partial | not_met
+
+facility: DC-6094
+surveyed_by: "Sample Assessor"
+survey_date: "2026-09-10"
+default_validity_days: 365
+
+facility_wide:                     # applies to every zone unless a zone entry overrides
+  "SR 6.1": {status: partial, evidence: "Windows hosts forward logs to SIEM; PLC program-change logging not enabled", attested_on: "2026-09-10"}
+  "SR 7.3": {status: met, evidence: "Weekly PLC/HMI project backups to offline vault; restore tested 2026-08", attested_on: "2026-09-10"}
+  "SR 5.3": {status: met, evidence: "Web/email proxy blocks for OT VLANs verified", attested_on: "2026-09-10"}
+
+zones:
+  ZONE-OT-DMZ:
+    "SR 1.1": {status: met, evidence: "Jump host: named AD accounts + MFA", attested_on: "2026-09-10"}
+    "SR 1.2": {status: met, evidence: "Device certs on jump host / brokers", attested_on: "2026-09-10"}
+    "SR 1.3": {status: met, evidence: "Central AD account mgmt", attested_on: "2026-09-10"}
+    "SR 1.7": {status: met, evidence: "AD password policy", attested_on: "2026-09-10"}
+    "SR 2.1": {status: met, evidence: "RBAC groups for vendor vs internal", attested_on: "2026-09-10"}
+    "SR 2.2": {status: met, evidence: "No wireless in DMZ", attested_on: "2026-09-10"}
+    "SR 2.3": {status: met, evidence: "USB blocked by GPO", attested_on: "2026-09-10"}
+    "SR 3.1": {status: met, evidence: "TLS on all DMZ sessions", attested_on: "2026-09-10"}
+    "SR 3.2": {status: met, evidence: "EDR deployed", attested_on: "2026-09-10"}
+    "SR 3.4": {status: met, evidence: "Signed software only", attested_on: "2026-09-10"}
+    "SR 4.3": {status: met, evidence: "FIPS-validated TLS", attested_on: "2026-09-10"}
+    "SR 6.1": {status: met, evidence: "Session recording + SIEM", attested_on: "2026-09-10"}
+    "SR 7.1": {status: met, evidence: "Firewall DoS protections", attested_on: "2026-09-10"}
+  ZONE-SUPERVISORY-HMI:
+    "SR 1.1": {status: partial, evidence: "HMI uses shared operator account on night shift", attested_on: "2026-09-10"}
+    "SR 2.1": {status: partial, evidence: "RBAC on HMI; none on EWS", attested_on: "2026-09-10"}
+    "SR 2.3": {status: not_met, evidence: "USB ports open on EWS", attested_on: "2026-09-10"}
+    "SR 3.2": {status: met, evidence: "Application allow-listing on HMI", attested_on: "2024-06-01", expires: "2025-06-01"}   # EXPIRED -> no_evidence
+  ZONE-SORTATION-CONVEYOR:
+    "SR 1.1": {status: met, evidence: "Controller access via EWS only; named accounts in TIA", attested_on: "2026-09-10"}
+    "SR 2.1": {status: met, evidence: "S7 protection level 3 (full access protection)", attested_on: "2026-09-10"}
+
+controls_implemented:              # verified controls earn likelihood credit in CURRENT residual
+  - {control_id: CC-ASSET-ALLOWLIST-ACL, zones: [ZONE-SORTATION-CONVEYOR, ZONE-ASRS-PALLET], verified_on: "2026-09-10", evidence: "Switch ACL export reviewed"}
+  - {control_id: CC-JUMPHOST-MFA, zones: [ZONE-OT-DMZ, ZONE-SITE-OPERATIONS], verified_on: "2026-09-10", evidence: "CyberArk policy reviewed"}
+  - {control_id: CC-ARMIS-ALERT, zones: ["*"], verified_on: "2026-09-10", evidence: "Armis policy set 'OT-new-conn'"}

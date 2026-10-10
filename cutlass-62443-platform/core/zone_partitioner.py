@@ -32,7 +32,7 @@ class ZonePartitioner:
                 criticality = 3
                 if asset.is_safety_critical or "AMMONIA" in z_id:
                     criticality = 5
-                elif "SORTER" in z_id or "ASRS" in z_id:
+                elif any(k in z_id for k in ("SORTER", "SORTATION", "ASRS")):
                     criticality = 4
                 elif asset.purdue_level == PurdueLevel.LEVEL_3_5:
                     criticality = 3

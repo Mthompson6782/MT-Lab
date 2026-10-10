@@ -22,6 +22,7 @@ from ai.llm_analyzer import LLMAnalyzer
 from connectors.armis_connector import ArmisConnector
 from connectors.rune_connector import RuneCveConnector
 from core.attack_graph import AttackGraphEngine
+from core.config_loader import load_site_survey
 from core.crs_generator import CRSGenerator
 from core.risk_engine import RiskEngine
 from core.sl_evaluator import SecurityLevelEvaluator
@@ -50,6 +51,9 @@ def run_pipeline(
     assets = armis.fetch_assets(local_json_path=armis_devices_file)
     conduits = armis.fetch_conduits(local_json_path=armis_boundaries_file)
     logger.info(f"Loaded {len(assets)} assets and {len(conduits)} conduits.")
+    if not conduits:
+        # Fail loudly: zero conduits would make every boundary look compliant (false assurance).
+        raise SystemExit("[FATAL] No conduits/flows ingested from Armis. Refusing to assess boundaries without data.")
 
     logger.info("Ingesting CVE intelligence from internal RUNE engine...")
     rune = RuneCveConnector()
@@ -60,7 +64,13 @@ def run_pipeline(
 
     # 2. Zone & Conduit Partitioning (Clause Z1 & Z3)
     logger.info("Partitioning System Under Consideration (SuC) into Purdue Zones & Conduits...")
-    partitioner = ZonePartitioner(facility_id="DC-6094", facility_type="Distribution Center")
+    facility_id = "DC-6094"
+    survey = load_site_survey(facility_id)
+    if survey:
+        logger.info(f"Loaded site-survey attestation: {survey['_path']} (surveyed {survey.get('survey_date')})")
+    else:
+        logger.warning("No site-survey attestation found: SRs without telemetry evidence will be UNVERIFIED.")
+    partitioner = ZonePartitioner(facility_id=facility_id, facility_type="Distribution Center")
     now_str = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
     suc = partitioner.build_system_under_consideration(
         name="Global Logistics DC #6094 (Ambient & Cold Chain Operations)",
@@ -71,7 +81,7 @@ def run_pipeline(
 
     # 3. Detailed Risk Assessment (Clause Z5: Likelihood x Consequence)
     logger.info("Executing Detailed Cyber-Physical Risk Assessment (Likelihood x Consequence)...")
-    risk_engine = RiskEngine()
+    risk_engine = RiskEngine(survey=survey)
     suc = risk_engine.evaluate_suc_risk(suc)
     logger.info(f"SuC Overall Inherent Risk Score: {suc.overall_risk_score} / 25")
 
@@ -84,9 +94,10 @@ def run_pipeline(
 
     # 4. Security Level (SL-T 2 vs SL-A) Gap Evaluation (IEC 62443-3-3 FR 1-7)
     logger.info("Evaluating Achieved Security Levels (SL-A) against Mandated SL-T 2...")
-    sl_evaluator = SecurityLevelEvaluator()
+    sl_evaluator = SecurityLevelEvaluator(survey=survey)
     suc = sl_evaluator.evaluate_suc_security_levels(suc)
-    logger.info(f"Facility SL-2 Compliance: {suc.sl2_compliance_percentage}%")
+    logger.info(f"Facility SL-2 Compliance (verified): {suc.sl2_compliance_percentage}% | "
+                f"Evidence coverage: {suc.evidence_coverage_percentage}%")
 
     # 5. AI / LLM Intelligence Engine
     logger.info("Invoking AI Analyzer for Contextual Threat Narratives & Compensating Controls...")
@@ -110,7 +121,8 @@ def run_pipeline(
     print(f"   * Audit Markdown Report : {md_path}")
     print(f"   * Machine JSON Data     : {json_path}")
     print(f"   * Interactive Dashboard : {os.path.join(BASE_DIR, 'ui', 'index.html')}")
-    print(f"   * SL-2 Compliance Rate  : {suc.sl2_compliance_percentage}%")
+    print(f"   * SL-2 Compliance Rate  : {suc.sl2_compliance_percentage}% (verified zones only)")
+    print(f"   * SL Evidence Coverage  : {suc.evidence_coverage_percentage}% of SL-2 SRs")
     print(f"   * Inherent Risk Score   : {suc.overall_risk_score} / 25")
     print(f"   * Attack Paths Modeled  : {len(suc.attack_paths)} Critical Chains")
     print(f"   * Financial Loss At Risk: ${suc.total_financial_loss_exposure_usd:,.2f}")

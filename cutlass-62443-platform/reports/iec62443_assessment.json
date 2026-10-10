@@ -12,15 +12,299 @@
       "target_sl": 2,
       "achieved_sl_vector": {
         "fr1_iac": 1.0,
-        "fr2_uc": 2.0,
+        "fr2_uc": 1.0,
         "fr3_si": 1.0,
-        "fr4_dc": 1.0,
+        "fr4_dc": 0.0,
         "fr5_rdf": 0.0,
-        "fr6_tre": 2.0,
+        "fr6_tre": 1.0,
         "fr7_ra": 1.0
       },
       "overall_achieved_sl": 0.0,
       "sl_gap": 2.0,
+      "sl_verified": false,
+      "fr_results": {
+        "FR1": {
+          "fr": "FR1",
+          "sl_a": 1.0,
+          "verified": true,
+          "status": "deficient",
+          "sl_c_ceiling": 1.0,
+          "sl_c_limiting_asset": null
+        },
+        "FR2": {
+          "fr": "FR2",
+          "sl_a": 1.0,
+          "verified": false,
+          "status": "unverified",
+          "sl_c_ceiling": 1.0,
+          "sl_c_limiting_asset": null
+        },
+        "FR3": {
+          "fr": "FR3",
+          "sl_a": 1.0,
+          "verified": false,
+          "status": "unverified",
+          "sl_c_ceiling": 1.0,
+          "sl_c_limiting_asset": null
+        },
+        "FR4": {
+          "fr": "FR4",
+          "sl_a": 0.0,
+          "verified": true,
+          "status": "deficient",
+          "sl_c_ceiling": 0.0,
+          "sl_c_limiting_asset": "DC6094-AMMONIA-COMP-PLC-01"
+        },
+        "FR5": {
+          "fr": "FR5",
+          "sl_a": 0.0,
+          "verified": true,
+          "status": "deficient",
+          "sl_c_ceiling": 2.0,
+          "sl_c_limiting_asset": null
+        },
+        "FR6": {
+          "fr": "FR6",
+          "sl_a": 1.0,
+          "verified": true,
+          "status": "deficient",
+          "sl_c_ceiling": 1.0,
+          "sl_c_limiting_asset": null
+        },
+        "FR7": {
+          "fr": "FR7",
+          "sl_a": 1.0,
+          "verified": false,
+          "status": "unverified",
+          "sl_c_ceiling": 1.0,
+          "sl_c_limiting_asset": null
+        }
+      },
+      "sr_results": [
+        {
+          "sr_id": "SR 1.1",
+          "fr": "FR1",
+          "title": "Human User Identification and Authentication",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 1.2",
+          "fr": "FR1",
+          "title": "Software Process and Device Identification",
+          "status": "partial",
+          "source": "observed",
+          "detail": "CND-04-SUPERVISORY-TO-AMMONIA: unauthenticated industrial protocol(s) EtherNet/IP, Modbus-TCP cross boundary; CND-06-ROGUE-IT-TO-AMMONIA: unauthenticated industrial protocol(s) Modbus-TCP cross boundary",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 1.3",
+          "fr": "FR1",
+          "title": "Account Management & Password Strength",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 1.7",
+          "fr": "FR1",
+          "title": "Strength of Password Authentication",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 2.1",
+          "fr": "FR2",
+          "title": "Authorization Enforcement (RBAC)",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 2.2",
+          "fr": "FR2",
+          "title": "Wireless Use Control",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 2.3",
+          "fr": "FR2",
+          "title": "Portable Media & Mobile Code",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 3.1",
+          "fr": "FR3",
+          "title": "Communication Integrity",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 3.2",
+          "fr": "FR3",
+          "title": "Malicious Code Protection",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 3.4",
+          "fr": "FR3",
+          "title": "Software and Information Integrity",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 4.1",
+          "fr": "FR4",
+          "title": "Information Confidentiality in Transit",
+          "status": "observed_violation",
+          "source": "observed",
+          "detail": "CND-04-SUPERVISORY-TO-AMMONIA: cleartext management (HTTP) crosses zone boundary; CND-06-ROGUE-IT-TO-AMMONIA: cleartext management (HTTP) crosses zone boundary",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 4.3",
+          "fr": "FR4",
+          "title": "Use of Cryptography",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 5.1",
+          "fr": "FR5",
+          "title": "Network Segmentation (Zones & Conduits)",
+          "status": "observed_violation",
+          "source": "observed",
+          "detail": "CND-06-ROGUE-IT-TO-AMMONIA: direct path from ZONE-ENTERPRISE-L4 into field zone without DMZ",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 5.2",
+          "fr": "FR5",
+          "title": "Zone Boundary Protection (Firewalls & DMZ)",
+          "status": "observed_violation",
+          "source": "observed",
+          "detail": "Uninspected inbound conduit(s): CND-04-SUPERVISORY-TO-AMMONIA, CND-06-ROGUE-IT-TO-AMMONIA",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 5.3",
+          "fr": "FR5",
+          "title": "General Purpose Person-to-Person Communication",
+          "status": "met",
+          "source": "attested",
+          "detail": "Web/email proxy blocks for OT VLANs verified",
+          "attested_by": "Sample Assessor",
+          "attested_on": "2026-09-10",
+          "expires": "2027-09-10"
+        },
+        {
+          "sr_id": "SR 6.1",
+          "fr": "FR6",
+          "title": "Audit Log Generation",
+          "status": "partial",
+          "source": "attested",
+          "detail": "Windows hosts forward logs to SIEM; PLC program-change logging not enabled",
+          "attested_by": "Sample Assessor",
+          "attested_on": "2026-09-10",
+          "expires": "2027-09-10"
+        },
+        {
+          "sr_id": "SR 6.2",
+          "fr": "FR6",
+          "title": "Continuous Monitoring & Anomaly Detection",
+          "status": "met",
+          "source": "observed",
+          "detail": "Armis passively monitors 2 asset(s) in zone",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 7.1",
+          "fr": "FR7",
+          "title": "Denial of Service Protection",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 7.3",
+          "fr": "FR7",
+          "title": "Control System Backup and Recovery",
+          "status": "met",
+          "source": "attested",
+          "detail": "Weekly PLC/HMI project backups to offline vault; restore tested 2026-08",
+          "attested_by": "Sample Assessor",
+          "attested_on": "2026-09-10",
+          "expires": "2027-09-10"
+        }
+      ],
+      "evidence_coverage_pct": 42.1,
+      "survey_worklist": [
+        "SR 1.1 Human User Identification and Authentication",
+        "SR 1.3 Account Management & Password Strength",
+        "SR 1.7 Strength of Password Authentication",
+        "SR 2.1 Authorization Enforcement (RBAC)",
+        "SR 2.2 Wireless Use Control",
+        "SR 2.3 Portable Media & Mobile Code",
+        "SR 3.1 Communication Integrity",
+        "SR 3.2 Malicious Code Protection",
+        "SR 3.4 Software and Information Integrity",
+        "SR 4.3 Use of Cryptography",
+        "SR 7.1 Denial of Service Protection"
+      ],
       "assets": [
         {
           "asset_id": "ARMIS-WMT-001",
@@ -151,15 +435,75 @@
           "unmitigated_risk_score": 25,
           "unmitigated_risk_level": "Critical",
           "operational_impact_summary": "Catastrophic hazard: Compromise of DC6094-AMMONIA-COMP-PLC-01 risks uncontrolled ammonia discharge, emergency plant evacuation, OSHA/EPA violation, and full cold-chain perishables destruction.",
-          "recommended_compensating_controls": [
-            "Immediately sever uninspected/direct conduit bypass into zone; enforce traffic through L3.5 DMZ firewall.",
-            "Deploy Industrial Firewall Deep Packet Inspection (DPI) rule restricting 10.142.12.10 to authorized engineering workstation IPs only; block unauthorized firmware download function codes.",
-            "Configure Armis anomaly detection policy to alert on anomalous connection attempts to 10.142.12.10."
+          "threat_vectors": [
+            "remote_access",
+            "network_exploit",
+            "logic_download"
           ],
-          "residual_likelihood": 3,
+          "recommended_compensating_controls": [
+            "CC-DMZ-ENFORCE: Sever direct/uninspected conduits; force all inter-zone traffic through L3.5 DMZ stateful firewall",
+            "CC-JUMPHOST-MFA: Vendor/remote engineering access only via MFA-enforced, session-recorded L3.5 jump host",
+            "CC-DPI-WRITE-BLOCK: Industrial DPI: block program download / write function codes (Modbus 05/06/15/16, CIP 0x4D/0x4E, S7 download) except from allow-listed EWS",
+            "CC-ASSET-ALLOWLIST-ACL: Controller-level ACL / micro-segmentation: only authorized HMI and EWS addresses may reach the controller"
+          ],
+          "implemented_controls": [
+            {
+              "control_id": "CC-ARMIS-ALERT",
+              "title": "Armis anomaly policy alerting on new/unauthorized connections to the asset",
+              "state": "implemented",
+              "covers_vectors": [],
+              "likelihood_reduction": 0
+            }
+          ],
+          "recommended_controls": [
+            {
+              "control_id": "CC-DMZ-ENFORCE",
+              "title": "Sever direct/uninspected conduits; force all inter-zone traffic through L3.5 DMZ stateful firewall",
+              "state": "recommended",
+              "covers_vectors": [
+                "remote_access"
+              ],
+              "likelihood_reduction": 2
+            },
+            {
+              "control_id": "CC-JUMPHOST-MFA",
+              "title": "Vendor/remote engineering access only via MFA-enforced, session-recorded L3.5 jump host",
+              "state": "recommended",
+              "covers_vectors": [
+                "remote_access",
+                "credential_abuse"
+              ],
+              "likelihood_reduction": 1
+            },
+            {
+              "control_id": "CC-DPI-WRITE-BLOCK",
+              "title": "Industrial DPI: block program download / write function codes (Modbus 05/06/15/16, CIP 0x4D/0x4E, S7 download) except from allow-listed EWS",
+              "state": "recommended",
+              "covers_vectors": [
+                "logic_download"
+              ],
+              "likelihood_reduction": 1
+            },
+            {
+              "control_id": "CC-ASSET-ALLOWLIST-ACL",
+              "title": "Controller-level ACL / micro-segmentation: only authorized HMI and EWS addresses may reach the controller",
+              "state": "recommended",
+              "covers_vectors": [
+                "network_exploit",
+                "logic_download"
+              ],
+              "likelihood_reduction": 1
+            }
+          ],
+          "residual_likelihood": 5,
           "residual_consequence": 5,
-          "residual_risk_score": 15,
-          "residual_risk_level": "High"
+          "residual_risk_score": 25,
+          "residual_risk_level": "Critical",
+          "residual_tolerable": false,
+          "projected_residual_likelihood": 2,
+          "projected_residual_risk_score": 10,
+          "projected_residual_risk_level": "High",
+          "projected_residual_tolerable": false
         },
         {
           "scenario_id": "TS-ZONE-AMMONIA-REFRIG-02",
@@ -176,15 +520,86 @@
           "unmitigated_risk_score": 20,
           "unmitigated_risk_level": "Critical",
           "operational_impact_summary": "Catastrophic hazard: Compromise of DC6094-AMMONIA-COMP-PLC-01 risks uncontrolled ammonia discharge, emergency plant evacuation, OSHA/EPA violation, and full cold-chain perishables destruction.",
-          "recommended_compensating_controls": [
-            "Immediately sever uninspected/direct conduit bypass into zone; enforce traffic through L3.5 DMZ firewall.",
-            "Deploy Industrial Firewall Deep Packet Inspection (DPI) rule restricting 10.142.12.10 to authorized engineering workstation IPs only; block unauthorized firmware download function codes.",
-            "Configure Armis anomaly detection policy to alert on anomalous connection attempts to 10.142.12.10."
+          "threat_vectors": [
+            "remote_access",
+            "network_exploit",
+            "logic_download"
           ],
-          "residual_likelihood": 2,
+          "recommended_compensating_controls": [
+            "CC-DMZ-ENFORCE: Sever direct/uninspected conduits; force all inter-zone traffic through L3.5 DMZ stateful firewall",
+            "CC-JUMPHOST-MFA: Vendor/remote engineering access only via MFA-enforced, session-recorded L3.5 jump host",
+            "CC-DPI-WRITE-BLOCK: Industrial DPI: block program download / write function codes (Modbus 05/06/15/16, CIP 0x4D/0x4E, S7 download) except from allow-listed EWS",
+            "CC-ASSET-ALLOWLIST-ACL: Controller-level ACL / micro-segmentation: only authorized HMI and EWS addresses may reach the controller",
+            "CC-PATCH-MAINT-WINDOW: Apply vendor-validated firmware/patch in next planned maintenance window"
+          ],
+          "implemented_controls": [
+            {
+              "control_id": "CC-ARMIS-ALERT",
+              "title": "Armis anomaly policy alerting on new/unauthorized connections to the asset",
+              "state": "implemented",
+              "covers_vectors": [],
+              "likelihood_reduction": 0
+            }
+          ],
+          "recommended_controls": [
+            {
+              "control_id": "CC-DMZ-ENFORCE",
+              "title": "Sever direct/uninspected conduits; force all inter-zone traffic through L3.5 DMZ stateful firewall",
+              "state": "recommended",
+              "covers_vectors": [
+                "remote_access"
+              ],
+              "likelihood_reduction": 2
+            },
+            {
+              "control_id": "CC-JUMPHOST-MFA",
+              "title": "Vendor/remote engineering access only via MFA-enforced, session-recorded L3.5 jump host",
+              "state": "recommended",
+              "covers_vectors": [
+                "remote_access",
+                "credential_abuse"
+              ],
+              "likelihood_reduction": 1
+            },
+            {
+              "control_id": "CC-DPI-WRITE-BLOCK",
+              "title": "Industrial DPI: block program download / write function codes (Modbus 05/06/15/16, CIP 0x4D/0x4E, S7 download) except from allow-listed EWS",
+              "state": "recommended",
+              "covers_vectors": [
+                "logic_download"
+              ],
+              "likelihood_reduction": 1
+            },
+            {
+              "control_id": "CC-ASSET-ALLOWLIST-ACL",
+              "title": "Controller-level ACL / micro-segmentation: only authorized HMI and EWS addresses may reach the controller",
+              "state": "recommended",
+              "covers_vectors": [
+                "network_exploit",
+                "logic_download"
+              ],
+              "likelihood_reduction": 1
+            },
+            {
+              "control_id": "CC-PATCH-MAINT-WINDOW",
+              "title": "Apply vendor-validated firmware/patch in next planned maintenance window",
+              "state": "recommended",
+              "covers_vectors": [
+                "network_exploit",
+                "local_access"
+              ],
+              "likelihood_reduction": 2
+            }
+          ],
+          "residual_likelihood": 4,
           "residual_consequence": 5,
-          "residual_risk_score": 10,
-          "residual_risk_level": "High"
+          "residual_risk_score": 20,
+          "residual_risk_level": "Critical",
+          "residual_tolerable": false,
+          "projected_residual_likelihood": 1,
+          "projected_residual_risk_score": 5,
+          "projected_residual_risk_level": "Moderate",
+          "projected_residual_tolerable": true
         },
         {
           "scenario_id": "TS-ZONE-AMMONIA-REFRIG-03",
@@ -201,14 +616,86 @@
           "unmitigated_risk_score": 25,
           "unmitigated_risk_level": "Critical",
           "operational_impact_summary": "Catastrophic hazard: Compromise of DC6094-AMMONIA-SIS-PANEL-01 risks uncontrolled ammonia discharge, emergency plant evacuation, OSHA/EPA violation, and full cold-chain perishables destruction.",
-          "recommended_compensating_controls": [
-            "Immediately sever uninspected/direct conduit bypass into zone; enforce traffic through L3.5 DMZ firewall.",
-            "Configure Armis anomaly detection policy to alert on anomalous connection attempts to 10.142.12.11."
+          "threat_vectors": [
+            "remote_access",
+            "network_exploit",
+            "logic_download"
           ],
-          "residual_likelihood": 3,
+          "recommended_compensating_controls": [
+            "CC-DMZ-ENFORCE: Sever direct/uninspected conduits; force all inter-zone traffic through L3.5 DMZ stateful firewall",
+            "CC-JUMPHOST-MFA: Vendor/remote engineering access only via MFA-enforced, session-recorded L3.5 jump host",
+            "CC-DPI-WRITE-BLOCK: Industrial DPI: block program download / write function codes (Modbus 05/06/15/16, CIP 0x4D/0x4E, S7 download) except from allow-listed EWS",
+            "CC-ASSET-ALLOWLIST-ACL: Controller-level ACL / micro-segmentation: only authorized HMI and EWS addresses may reach the controller",
+            "CC-PATCH-MAINT-WINDOW: Apply vendor-validated firmware/patch in next planned maintenance window"
+          ],
+          "implemented_controls": [
+            {
+              "control_id": "CC-ARMIS-ALERT",
+              "title": "Armis anomaly policy alerting on new/unauthorized connections to the asset",
+              "state": "implemented",
+              "covers_vectors": [],
+              "likelihood_reduction": 0
+            }
+          ],
+          "recommended_controls": [
+            {
+              "control_id": "CC-DMZ-ENFORCE",
+              "title": "Sever direct/uninspected conduits; force all inter-zone traffic through L3.5 DMZ stateful firewall",
+              "state": "recommended",
+              "covers_vectors": [
+                "remote_access"
+              ],
+              "likelihood_reduction": 2
+            },
+            {
+              "control_id": "CC-JUMPHOST-MFA",
+              "title": "Vendor/remote engineering access only via MFA-enforced, session-recorded L3.5 jump host",
+              "state": "recommended",
+              "covers_vectors": [
+                "remote_access",
+                "credential_abuse"
+              ],
+              "likelihood_reduction": 1
+            },
+            {
+              "control_id": "CC-DPI-WRITE-BLOCK",
+              "title": "Industrial DPI: block program download / write function codes (Modbus 05/06/15/16, CIP 0x4D/0x4E, S7 download) except from allow-listed EWS",
+              "state": "recommended",
+              "covers_vectors": [
+                "logic_download"
+              ],
+              "likelihood_reduction": 1
+            },
+            {
+              "control_id": "CC-ASSET-ALLOWLIST-ACL",
+              "title": "Controller-level ACL / micro-segmentation: only authorized HMI and EWS addresses may reach the controller",
+              "state": "recommended",
+              "covers_vectors": [
+                "network_exploit",
+                "logic_download"
+              ],
+              "likelihood_reduction": 1
+            },
+            {
+              "control_id": "CC-PATCH-MAINT-WINDOW",
+              "title": "Apply vendor-validated firmware/patch in next planned maintenance window",
+              "state": "recommended",
+              "covers_vectors": [
+                "network_exploit",
+                "local_access"
+              ],
+              "likelihood_reduction": 2
+            }
+          ],
+          "residual_likelihood": 5,
           "residual_consequence": 5,
-          "residual_risk_score": 15,
-          "residual_risk_level": "High"
+          "residual_risk_score": 25,
+          "residual_risk_level": "Critical",
+          "residual_tolerable": false,
+          "projected_residual_likelihood": 2,
+          "projected_residual_risk_score": 10,
+          "projected_residual_risk_level": "High",
+          "projected_residual_tolerable": false
         },
         {
           "scenario_id": "TS-ZONE-AMMONIA-REFRIG-04",
@@ -225,14 +712,86 @@
           "unmitigated_risk_score": 20,
           "unmitigated_risk_level": "Critical",
           "operational_impact_summary": "Catastrophic hazard: Compromise of DC6094-AMMONIA-SIS-PANEL-01 risks uncontrolled ammonia discharge, emergency plant evacuation, OSHA/EPA violation, and full cold-chain perishables destruction.",
-          "recommended_compensating_controls": [
-            "Immediately sever uninspected/direct conduit bypass into zone; enforce traffic through L3.5 DMZ firewall.",
-            "Configure Armis anomaly detection policy to alert on anomalous connection attempts to 10.142.12.11."
+          "threat_vectors": [
+            "remote_access",
+            "local_access",
+            "logic_download"
           ],
-          "residual_likelihood": 2,
+          "recommended_compensating_controls": [
+            "CC-DMZ-ENFORCE: Sever direct/uninspected conduits; force all inter-zone traffic through L3.5 DMZ stateful firewall",
+            "CC-JUMPHOST-MFA: Vendor/remote engineering access only via MFA-enforced, session-recorded L3.5 jump host",
+            "CC-DPI-WRITE-BLOCK: Industrial DPI: block program download / write function codes (Modbus 05/06/15/16, CIP 0x4D/0x4E, S7 download) except from allow-listed EWS",
+            "CC-ASSET-ALLOWLIST-ACL: Controller-level ACL / micro-segmentation: only authorized HMI and EWS addresses may reach the controller",
+            "CC-PATCH-MAINT-WINDOW: Apply vendor-validated firmware/patch in next planned maintenance window"
+          ],
+          "implemented_controls": [
+            {
+              "control_id": "CC-ARMIS-ALERT",
+              "title": "Armis anomaly policy alerting on new/unauthorized connections to the asset",
+              "state": "implemented",
+              "covers_vectors": [],
+              "likelihood_reduction": 0
+            }
+          ],
+          "recommended_controls": [
+            {
+              "control_id": "CC-DMZ-ENFORCE",
+              "title": "Sever direct/uninspected conduits; force all inter-zone traffic through L3.5 DMZ stateful firewall",
+              "state": "recommended",
+              "covers_vectors": [
+                "remote_access"
+              ],
+              "likelihood_reduction": 2
+            },
+            {
+              "control_id": "CC-JUMPHOST-MFA",
+              "title": "Vendor/remote engineering access only via MFA-enforced, session-recorded L3.5 jump host",
+              "state": "recommended",
+              "covers_vectors": [
+                "remote_access",
+                "credential_abuse"
+              ],
+              "likelihood_reduction": 1
+            },
+            {
+              "control_id": "CC-DPI-WRITE-BLOCK",
+              "title": "Industrial DPI: block program download / write function codes (Modbus 05/06/15/16, CIP 0x4D/0x4E, S7 download) except from allow-listed EWS",
+              "state": "recommended",
+              "covers_vectors": [
+                "logic_download"
+              ],
+              "likelihood_reduction": 1
+            },
+            {
+              "control_id": "CC-ASSET-ALLOWLIST-ACL",
+              "title": "Controller-level ACL / micro-segmentation: only authorized HMI and EWS addresses may reach the controller",
+              "state": "recommended",
+              "covers_vectors": [
+                "network_exploit",
+                "logic_download"
+              ],
+              "likelihood_reduction": 1
+            },
+            {
+              "control_id": "CC-PATCH-MAINT-WINDOW",
+              "title": "Apply vendor-validated firmware/patch in next planned maintenance window",
+              "state": "recommended",
+              "covers_vectors": [
+                "network_exploit",
+                "local_access"
+              ],
+              "likelihood_reduction": 2
+            }
+          ],
+          "residual_likelihood": 4,
           "residual_consequence": 5,
-          "residual_risk_score": 10,
-          "residual_risk_level": "High"
+          "residual_risk_score": 20,
+          "residual_risk_level": "Critical",
+          "residual_tolerable": false,
+          "projected_residual_likelihood": 1,
+          "projected_residual_risk_score": 5,
+          "projected_residual_risk_level": "Moderate",
+          "projected_residual_tolerable": true
         }
       ],
       "zone_criticality": 5
@@ -245,15 +804,297 @@
       "target_sl": 2,
       "achieved_sl_vector": {
         "fr1_iac": 1.0,
-        "fr2_uc": 2.0,
+        "fr2_uc": 1.0,
         "fr3_si": 1.0,
         "fr4_dc": 1.0,
-        "fr5_rdf": 0.0,
-        "fr6_tre": 2.0,
-        "fr7_ra": 2.0
+        "fr5_rdf": 2.0,
+        "fr6_tre": 1.0,
+        "fr7_ra": 1.0
       },
-      "overall_achieved_sl": 0.0,
-      "sl_gap": 2.0,
+      "overall_achieved_sl": 1.0,
+      "sl_gap": 1.0,
+      "sl_verified": false,
+      "fr_results": {
+        "FR1": {
+          "fr": "FR1",
+          "sl_a": 1.0,
+          "verified": true,
+          "status": "deficient",
+          "sl_c_ceiling": null,
+          "sl_c_limiting_asset": null
+        },
+        "FR2": {
+          "fr": "FR2",
+          "sl_a": 1.0,
+          "verified": true,
+          "status": "deficient",
+          "sl_c_ceiling": null,
+          "sl_c_limiting_asset": null
+        },
+        "FR3": {
+          "fr": "FR3",
+          "sl_a": 1.0,
+          "verified": false,
+          "status": "unverified",
+          "sl_c_ceiling": null,
+          "sl_c_limiting_asset": null
+        },
+        "FR4": {
+          "fr": "FR4",
+          "sl_a": 1.0,
+          "verified": true,
+          "status": "deficient",
+          "sl_c_ceiling": null,
+          "sl_c_limiting_asset": null
+        },
+        "FR5": {
+          "fr": "FR5",
+          "sl_a": 2.0,
+          "verified": true,
+          "status": "achieved",
+          "sl_c_ceiling": null,
+          "sl_c_limiting_asset": null
+        },
+        "FR6": {
+          "fr": "FR6",
+          "sl_a": 1.0,
+          "verified": true,
+          "status": "deficient",
+          "sl_c_ceiling": null,
+          "sl_c_limiting_asset": null
+        },
+        "FR7": {
+          "fr": "FR7",
+          "sl_a": 1.0,
+          "verified": false,
+          "status": "unverified",
+          "sl_c_ceiling": null,
+          "sl_c_limiting_asset": null
+        }
+      },
+      "sr_results": [
+        {
+          "sr_id": "SR 1.1",
+          "fr": "FR1",
+          "title": "Human User Identification and Authentication",
+          "status": "partial",
+          "source": "attested",
+          "detail": "HMI uses shared operator account on night shift",
+          "attested_by": "Sample Assessor",
+          "attested_on": "2026-09-10",
+          "expires": "2027-09-10"
+        },
+        {
+          "sr_id": "SR 1.2",
+          "fr": "FR1",
+          "title": "Software Process and Device Identification",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 1.3",
+          "fr": "FR1",
+          "title": "Account Management & Password Strength",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 1.7",
+          "fr": "FR1",
+          "title": "Strength of Password Authentication",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 2.1",
+          "fr": "FR2",
+          "title": "Authorization Enforcement (RBAC)",
+          "status": "partial",
+          "source": "attested",
+          "detail": "RBAC on HMI; none on EWS",
+          "attested_by": "Sample Assessor",
+          "attested_on": "2026-09-10",
+          "expires": "2027-09-10"
+        },
+        {
+          "sr_id": "SR 2.2",
+          "fr": "FR2",
+          "title": "Wireless Use Control",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 2.3",
+          "fr": "FR2",
+          "title": "Portable Media & Mobile Code",
+          "status": "not_met",
+          "source": "attested",
+          "detail": "USB ports open on EWS",
+          "attested_by": "Sample Assessor",
+          "attested_on": "2026-09-10",
+          "expires": "2027-09-10"
+        },
+        {
+          "sr_id": "SR 3.1",
+          "fr": "FR3",
+          "title": "Communication Integrity",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 3.2",
+          "fr": "FR3",
+          "title": "Malicious Code Protection",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "Attestation expired 2025-06-01 - re-survey required",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 3.4",
+          "fr": "FR3",
+          "title": "Software and Information Integrity",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 4.1",
+          "fr": "FR4",
+          "title": "Information Confidentiality in Transit",
+          "status": "partial",
+          "source": "observed",
+          "detail": "DC6094-REFRIG-HMI-01 exposes cleartext mgmt (HTTP, SMB); DC6094-ENG-WORKSTATION-EWS-01 exposes cleartext mgmt (SMBv1)",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 4.3",
+          "fr": "FR4",
+          "title": "Use of Cryptography",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 5.1",
+          "fr": "FR5",
+          "title": "Network Segmentation (Zones & Conduits)",
+          "status": "met",
+          "source": "observed",
+          "detail": "Observed conduits respect Purdue boundaries",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 5.2",
+          "fr": "FR5",
+          "title": "Zone Boundary Protection (Firewalls & DMZ)",
+          "status": "met",
+          "source": "observed",
+          "detail": "All inbound conduits pass stateful inspection",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 5.3",
+          "fr": "FR5",
+          "title": "General Purpose Person-to-Person Communication",
+          "status": "met",
+          "source": "attested",
+          "detail": "Web/email proxy blocks for OT VLANs verified",
+          "attested_by": "Sample Assessor",
+          "attested_on": "2026-09-10",
+          "expires": "2027-09-10"
+        },
+        {
+          "sr_id": "SR 6.1",
+          "fr": "FR6",
+          "title": "Audit Log Generation",
+          "status": "partial",
+          "source": "attested",
+          "detail": "Windows hosts forward logs to SIEM; PLC program-change logging not enabled",
+          "attested_by": "Sample Assessor",
+          "attested_on": "2026-09-10",
+          "expires": "2027-09-10"
+        },
+        {
+          "sr_id": "SR 6.2",
+          "fr": "FR6",
+          "title": "Continuous Monitoring & Anomaly Detection",
+          "status": "met",
+          "source": "observed",
+          "detail": "Armis passively monitors 2 asset(s) in zone",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 7.1",
+          "fr": "FR7",
+          "title": "Denial of Service Protection",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 7.3",
+          "fr": "FR7",
+          "title": "Control System Backup and Recovery",
+          "status": "met",
+          "source": "attested",
+          "detail": "Weekly PLC/HMI project backups to offline vault; restore tested 2026-08",
+          "attested_by": "Sample Assessor",
+          "attested_on": "2026-09-10",
+          "expires": "2027-09-10"
+        }
+      ],
+      "evidence_coverage_pct": 52.6,
+      "survey_worklist": [
+        "SR 1.2 Software Process and Device Identification",
+        "SR 1.3 Account Management & Password Strength",
+        "SR 1.7 Strength of Password Authentication",
+        "SR 2.2 Wireless Use Control",
+        "SR 3.1 Communication Integrity",
+        "SR 3.2 Malicious Code Protection",
+        "SR 3.4 Software and Information Integrity",
+        "SR 4.3 Use of Cryptography",
+        "SR 7.1 Denial of Service Protection"
+      ],
       "assets": [
         {
           "asset_id": "ARMIS-WMT-003",
@@ -373,14 +1214,66 @@
           "unmitigated_risk_score": 12,
           "unmitigated_risk_level": "High",
           "operational_impact_summary": "Supervisory compromise: Malicious access to DC6094-REFRIG-HMI-01 enables unauthorized PLC program downloads, tampering with setpoints, and lateral movement across L2 OT conduits.",
-          "recommended_compensating_controls": [
-            "Disable unneeded legacy protocols (SMBv1, plaintext HTTP); enforce MFA on RDP/bastion jumpbox.",
-            "Configure Armis anomaly detection policy to alert on anomalous connection attempts to 10.142.22.15."
+          "threat_vectors": [
+            "ot_internal",
+            "network_exploit",
+            "credential_abuse"
           ],
-          "residual_likelihood": 2,
+          "recommended_compensating_controls": [
+            "CC-DPI-WRITE-BLOCK: Industrial DPI: block program download / write function codes (Modbus 05/06/15/16, CIP 0x4D/0x4E, S7 download) except from allow-listed EWS",
+            "CC-WINDOWS-HARDEN: Harden HMI/EWS: disable SMBv1 and cleartext HTTP, application allow-listing, local admin removal",
+            "CC-PATCH-MAINT-WINDOW: Apply vendor-validated firmware/patch in next planned maintenance window"
+          ],
+          "implemented_controls": [
+            {
+              "control_id": "CC-ARMIS-ALERT",
+              "title": "Armis anomaly policy alerting on new/unauthorized connections to the asset",
+              "state": "implemented",
+              "covers_vectors": [],
+              "likelihood_reduction": 0
+            }
+          ],
+          "recommended_controls": [
+            {
+              "control_id": "CC-DPI-WRITE-BLOCK",
+              "title": "Industrial DPI: block program download / write function codes (Modbus 05/06/15/16, CIP 0x4D/0x4E, S7 download) except from allow-listed EWS",
+              "state": "recommended",
+              "covers_vectors": [
+                "logic_download"
+              ],
+              "likelihood_reduction": 1
+            },
+            {
+              "control_id": "CC-WINDOWS-HARDEN",
+              "title": "Harden HMI/EWS: disable SMBv1 and cleartext HTTP, application allow-listing, local admin removal",
+              "state": "recommended",
+              "covers_vectors": [
+                "credential_abuse",
+                "network_exploit",
+                "local_access"
+              ],
+              "likelihood_reduction": 1
+            },
+            {
+              "control_id": "CC-PATCH-MAINT-WINDOW",
+              "title": "Apply vendor-validated firmware/patch in next planned maintenance window",
+              "state": "recommended",
+              "covers_vectors": [
+                "network_exploit",
+                "local_access"
+              ],
+              "likelihood_reduction": 2
+            }
+          ],
+          "residual_likelihood": 4,
           "residual_consequence": 3,
-          "residual_risk_score": 6,
-          "residual_risk_level": "Medium"
+          "residual_risk_score": 12,
+          "residual_risk_level": "High",
+          "residual_tolerable": false,
+          "projected_residual_likelihood": 3,
+          "projected_residual_risk_score": 9,
+          "projected_residual_risk_level": "Moderate",
+          "projected_residual_tolerable": true
         },
         {
           "scenario_id": "TS-ZONE-SUPERVISORY-HMI-02",
@@ -395,16 +1288,68 @@
           "unmitigated_likelihood": 2,
           "unmitigated_consequence": 3,
           "unmitigated_risk_score": 6,
-          "unmitigated_risk_level": "Medium",
+          "unmitigated_risk_level": "Moderate",
           "operational_impact_summary": "Supervisory compromise: Malicious access to DC6094-REFRIG-HMI-01 enables unauthorized PLC program downloads, tampering with setpoints, and lateral movement across L2 OT conduits.",
-          "recommended_compensating_controls": [
-            "Disable unneeded legacy protocols (SMBv1, plaintext HTTP); enforce MFA on RDP/bastion jumpbox.",
-            "Configure Armis anomaly detection policy to alert on anomalous connection attempts to 10.142.22.15."
+          "threat_vectors": [
+            "ot_internal",
+            "local_access",
+            "credential_abuse"
           ],
-          "residual_likelihood": 1,
+          "recommended_compensating_controls": [
+            "CC-DPI-WRITE-BLOCK: Industrial DPI: block program download / write function codes (Modbus 05/06/15/16, CIP 0x4D/0x4E, S7 download) except from allow-listed EWS",
+            "CC-WINDOWS-HARDEN: Harden HMI/EWS: disable SMBv1 and cleartext HTTP, application allow-listing, local admin removal",
+            "CC-PATCH-MAINT-WINDOW: Apply vendor-validated firmware/patch in next planned maintenance window"
+          ],
+          "implemented_controls": [
+            {
+              "control_id": "CC-ARMIS-ALERT",
+              "title": "Armis anomaly policy alerting on new/unauthorized connections to the asset",
+              "state": "implemented",
+              "covers_vectors": [],
+              "likelihood_reduction": 0
+            }
+          ],
+          "recommended_controls": [
+            {
+              "control_id": "CC-DPI-WRITE-BLOCK",
+              "title": "Industrial DPI: block program download / write function codes (Modbus 05/06/15/16, CIP 0x4D/0x4E, S7 download) except from allow-listed EWS",
+              "state": "recommended",
+              "covers_vectors": [
+                "logic_download"
+              ],
+              "likelihood_reduction": 1
+            },
+            {
+              "control_id": "CC-WINDOWS-HARDEN",
+              "title": "Harden HMI/EWS: disable SMBv1 and cleartext HTTP, application allow-listing, local admin removal",
+              "state": "recommended",
+              "covers_vectors": [
+                "credential_abuse",
+                "network_exploit",
+                "local_access"
+              ],
+              "likelihood_reduction": 1
+            },
+            {
+              "control_id": "CC-PATCH-MAINT-WINDOW",
+              "title": "Apply vendor-validated firmware/patch in next planned maintenance window",
+              "state": "recommended",
+              "covers_vectors": [
+                "network_exploit",
+                "local_access"
+              ],
+              "likelihood_reduction": 2
+            }
+          ],
+          "residual_likelihood": 2,
           "residual_consequence": 3,
-          "residual_risk_score": 3,
-          "residual_risk_level": "Low"
+          "residual_risk_score": 6,
+          "residual_risk_level": "Moderate",
+          "residual_tolerable": true,
+          "projected_residual_likelihood": 1,
+          "projected_residual_risk_score": 3,
+          "projected_residual_risk_level": "Low",
+          "projected_residual_tolerable": true
         },
         {
           "scenario_id": "TS-ZONE-SUPERVISORY-HMI-03",
@@ -419,17 +1364,68 @@
           "unmitigated_likelihood": 2,
           "unmitigated_consequence": 3,
           "unmitigated_risk_score": 6,
-          "unmitigated_risk_level": "Medium",
+          "unmitigated_risk_level": "Moderate",
           "operational_impact_summary": "Supervisory compromise: Malicious access to DC6094-ENG-WORKSTATION-EWS-01 enables unauthorized PLC program downloads, tampering with setpoints, and lateral movement across L2 OT conduits.",
-          "recommended_compensating_controls": [
-            "Deploy Industrial Firewall Deep Packet Inspection (DPI) rule restricting 10.142.22.40 to authorized engineering workstation IPs only; block unauthorized firmware download function codes.",
-            "Disable unneeded legacy protocols (SMBv1, plaintext HTTP); enforce MFA on RDP/bastion jumpbox.",
-            "Configure Armis anomaly detection policy to alert on anomalous connection attempts to 10.142.22.40."
+          "threat_vectors": [
+            "ot_internal",
+            "local_access",
+            "credential_abuse"
           ],
-          "residual_likelihood": 1,
+          "recommended_compensating_controls": [
+            "CC-DPI-WRITE-BLOCK: Industrial DPI: block program download / write function codes (Modbus 05/06/15/16, CIP 0x4D/0x4E, S7 download) except from allow-listed EWS",
+            "CC-WINDOWS-HARDEN: Harden HMI/EWS: disable SMBv1 and cleartext HTTP, application allow-listing, local admin removal",
+            "CC-PATCH-MAINT-WINDOW: Apply vendor-validated firmware/patch in next planned maintenance window"
+          ],
+          "implemented_controls": [
+            {
+              "control_id": "CC-ARMIS-ALERT",
+              "title": "Armis anomaly policy alerting on new/unauthorized connections to the asset",
+              "state": "implemented",
+              "covers_vectors": [],
+              "likelihood_reduction": 0
+            }
+          ],
+          "recommended_controls": [
+            {
+              "control_id": "CC-DPI-WRITE-BLOCK",
+              "title": "Industrial DPI: block program download / write function codes (Modbus 05/06/15/16, CIP 0x4D/0x4E, S7 download) except from allow-listed EWS",
+              "state": "recommended",
+              "covers_vectors": [
+                "logic_download"
+              ],
+              "likelihood_reduction": 1
+            },
+            {
+              "control_id": "CC-WINDOWS-HARDEN",
+              "title": "Harden HMI/EWS: disable SMBv1 and cleartext HTTP, application allow-listing, local admin removal",
+              "state": "recommended",
+              "covers_vectors": [
+                "credential_abuse",
+                "network_exploit",
+                "local_access"
+              ],
+              "likelihood_reduction": 1
+            },
+            {
+              "control_id": "CC-PATCH-MAINT-WINDOW",
+              "title": "Apply vendor-validated firmware/patch in next planned maintenance window",
+              "state": "recommended",
+              "covers_vectors": [
+                "network_exploit",
+                "local_access"
+              ],
+              "likelihood_reduction": 2
+            }
+          ],
+          "residual_likelihood": 2,
           "residual_consequence": 3,
-          "residual_risk_score": 3,
-          "residual_risk_level": "Low"
+          "residual_risk_score": 6,
+          "residual_risk_level": "Moderate",
+          "residual_tolerable": true,
+          "projected_residual_likelihood": 1,
+          "projected_residual_risk_score": 3,
+          "projected_residual_risk_level": "Low",
+          "projected_residual_tolerable": true
         }
       ],
       "zone_criticality": 3
@@ -441,16 +1437,298 @@
       "purdue_level": "L1_BasicControl",
       "target_sl": 2,
       "achieved_sl_vector": {
-        "fr1_iac": 2.0,
-        "fr2_uc": 2.0,
+        "fr1_iac": 1.0,
+        "fr2_uc": 1.0,
         "fr3_si": 1.0,
-        "fr4_dc": 2.0,
+        "fr4_dc": 1.0,
         "fr5_rdf": 2.0,
-        "fr6_tre": 2.0,
-        "fr7_ra": 2.0
+        "fr6_tre": 1.0,
+        "fr7_ra": 1.0
       },
       "overall_achieved_sl": 1.0,
       "sl_gap": 1.0,
+      "sl_verified": false,
+      "fr_results": {
+        "FR1": {
+          "fr": "FR1",
+          "sl_a": 1.0,
+          "verified": true,
+          "status": "deficient",
+          "sl_c_ceiling": null,
+          "sl_c_limiting_asset": null
+        },
+        "FR2": {
+          "fr": "FR2",
+          "sl_a": 1.0,
+          "verified": false,
+          "status": "unverified",
+          "sl_c_ceiling": null,
+          "sl_c_limiting_asset": null
+        },
+        "FR3": {
+          "fr": "FR3",
+          "sl_a": 1.0,
+          "verified": false,
+          "status": "unverified",
+          "sl_c_ceiling": null,
+          "sl_c_limiting_asset": null
+        },
+        "FR4": {
+          "fr": "FR4",
+          "sl_a": 1.0,
+          "verified": true,
+          "status": "deficient",
+          "sl_c_ceiling": null,
+          "sl_c_limiting_asset": null
+        },
+        "FR5": {
+          "fr": "FR5",
+          "sl_a": 2.0,
+          "verified": true,
+          "status": "achieved",
+          "sl_c_ceiling": null,
+          "sl_c_limiting_asset": null
+        },
+        "FR6": {
+          "fr": "FR6",
+          "sl_a": 1.0,
+          "verified": true,
+          "status": "deficient",
+          "sl_c_ceiling": null,
+          "sl_c_limiting_asset": null
+        },
+        "FR7": {
+          "fr": "FR7",
+          "sl_a": 1.0,
+          "verified": false,
+          "status": "unverified",
+          "sl_c_ceiling": null,
+          "sl_c_limiting_asset": null
+        }
+      },
+      "sr_results": [
+        {
+          "sr_id": "SR 1.1",
+          "fr": "FR1",
+          "title": "Human User Identification and Authentication",
+          "status": "met",
+          "source": "attested",
+          "detail": "Controller access via EWS only; named accounts in TIA",
+          "attested_by": "Sample Assessor",
+          "attested_on": "2026-09-10",
+          "expires": "2027-09-10"
+        },
+        {
+          "sr_id": "SR 1.2",
+          "fr": "FR1",
+          "title": "Software Process and Device Identification",
+          "status": "partial",
+          "source": "observed",
+          "detail": "CND-05-SUPERVISORY-TO-SORTATION: unauthenticated industrial protocol(s) PROFINET cross boundary",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 1.3",
+          "fr": "FR1",
+          "title": "Account Management & Password Strength",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 1.7",
+          "fr": "FR1",
+          "title": "Strength of Password Authentication",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 2.1",
+          "fr": "FR2",
+          "title": "Authorization Enforcement (RBAC)",
+          "status": "met",
+          "source": "attested",
+          "detail": "S7 protection level 3 (full access protection)",
+          "attested_by": "Sample Assessor",
+          "attested_on": "2026-09-10",
+          "expires": "2027-09-10"
+        },
+        {
+          "sr_id": "SR 2.2",
+          "fr": "FR2",
+          "title": "Wireless Use Control",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 2.3",
+          "fr": "FR2",
+          "title": "Portable Media & Mobile Code",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 3.1",
+          "fr": "FR3",
+          "title": "Communication Integrity",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 3.2",
+          "fr": "FR3",
+          "title": "Malicious Code Protection",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 3.4",
+          "fr": "FR3",
+          "title": "Software and Information Integrity",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 4.1",
+          "fr": "FR4",
+          "title": "Information Confidentiality in Transit",
+          "status": "partial",
+          "source": "observed",
+          "detail": "DC6094-MAIN-CROSSBELT-SORTER-PLC exposes cleartext mgmt (HTTP, SNMPv2c)",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 4.3",
+          "fr": "FR4",
+          "title": "Use of Cryptography",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 5.1",
+          "fr": "FR5",
+          "title": "Network Segmentation (Zones & Conduits)",
+          "status": "met",
+          "source": "observed",
+          "detail": "Observed conduits respect Purdue boundaries",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 5.2",
+          "fr": "FR5",
+          "title": "Zone Boundary Protection (Firewalls & DMZ)",
+          "status": "met",
+          "source": "observed",
+          "detail": "All inbound conduits pass stateful inspection",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 5.3",
+          "fr": "FR5",
+          "title": "General Purpose Person-to-Person Communication",
+          "status": "met",
+          "source": "attested",
+          "detail": "Web/email proxy blocks for OT VLANs verified",
+          "attested_by": "Sample Assessor",
+          "attested_on": "2026-09-10",
+          "expires": "2027-09-10"
+        },
+        {
+          "sr_id": "SR 6.1",
+          "fr": "FR6",
+          "title": "Audit Log Generation",
+          "status": "partial",
+          "source": "attested",
+          "detail": "Windows hosts forward logs to SIEM; PLC program-change logging not enabled",
+          "attested_by": "Sample Assessor",
+          "attested_on": "2026-09-10",
+          "expires": "2027-09-10"
+        },
+        {
+          "sr_id": "SR 6.2",
+          "fr": "FR6",
+          "title": "Continuous Monitoring & Anomaly Detection",
+          "status": "met",
+          "source": "observed",
+          "detail": "Armis passively monitors 1 asset(s) in zone",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 7.1",
+          "fr": "FR7",
+          "title": "Denial of Service Protection",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 7.3",
+          "fr": "FR7",
+          "title": "Control System Backup and Recovery",
+          "status": "met",
+          "source": "attested",
+          "detail": "Weekly PLC/HMI project backups to offline vault; restore tested 2026-08",
+          "attested_by": "Sample Assessor",
+          "attested_on": "2026-09-10",
+          "expires": "2027-09-10"
+        }
+      ],
+      "evidence_coverage_pct": 52.6,
+      "survey_worklist": [
+        "SR 1.3 Account Management & Password Strength",
+        "SR 1.7 Strength of Password Authentication",
+        "SR 2.2 Wireless Use Control",
+        "SR 2.3 Portable Media & Mobile Code",
+        "SR 3.1 Communication Integrity",
+        "SR 3.2 Malicious Code Protection",
+        "SR 3.4 Software and Information Integrity",
+        "SR 4.3 Use of Cryptography",
+        "SR 7.1 Denial of Service Protection"
+      ],
       "assets": [
         {
           "asset_id": "ARMIS-WMT-004",
@@ -508,21 +1786,71 @@
           ],
           "cve_reference": "CVE-2023-3595",
           "unmitigated_likelihood": 5,
-          "unmitigated_consequence": 2,
-          "unmitigated_risk_score": 10,
-          "unmitigated_risk_level": "High",
-          "operational_impact_summary": "Operational degradation: Compromise of DC6094-MAIN-CROSSBELT-SORTER-PLC causes localized telemetry outage.",
-          "recommended_compensating_controls": [
-            "Immediately sever uninspected/direct conduit bypass into zone; enforce traffic through L3.5 DMZ firewall.",
-            "Configure Armis anomaly detection policy to alert on anomalous connection attempts to 10.142.14.20."
+          "unmitigated_consequence": 4,
+          "unmitigated_risk_score": 20,
+          "unmitigated_risk_level": "Critical",
+          "operational_impact_summary": "Critical logistics disruption: Compromise of DC6094-MAIN-CROSSBELT-SORTER-PLC halts core DC sortation / ASRS cranes, causing multi-hour trailer backlog, regional store replenishment delays, and >$1M operational loss.",
+          "threat_vectors": [
+            "ot_internal",
+            "network_exploit",
+            "logic_download"
           ],
-          "residual_likelihood": 3,
-          "residual_consequence": 2,
-          "residual_risk_score": 6,
-          "residual_risk_level": "Medium"
+          "recommended_compensating_controls": [
+            "CC-DPI-WRITE-BLOCK: Industrial DPI: block program download / write function codes (Modbus 05/06/15/16, CIP 0x4D/0x4E, S7 download) except from allow-listed EWS",
+            "CC-PATCH-MAINT-WINDOW: Apply vendor-validated firmware/patch in next planned maintenance window"
+          ],
+          "implemented_controls": [
+            {
+              "control_id": "CC-ARMIS-ALERT",
+              "title": "Armis anomaly policy alerting on new/unauthorized connections to the asset",
+              "state": "implemented",
+              "covers_vectors": [],
+              "likelihood_reduction": 0
+            },
+            {
+              "control_id": "CC-ASSET-ALLOWLIST-ACL",
+              "title": "Controller-level ACL / micro-segmentation: only authorized HMI and EWS addresses may reach the controller",
+              "state": "implemented",
+              "covers_vectors": [
+                "network_exploit",
+                "logic_download"
+              ],
+              "likelihood_reduction": 1
+            }
+          ],
+          "recommended_controls": [
+            {
+              "control_id": "CC-DPI-WRITE-BLOCK",
+              "title": "Industrial DPI: block program download / write function codes (Modbus 05/06/15/16, CIP 0x4D/0x4E, S7 download) except from allow-listed EWS",
+              "state": "recommended",
+              "covers_vectors": [
+                "logic_download"
+              ],
+              "likelihood_reduction": 1
+            },
+            {
+              "control_id": "CC-PATCH-MAINT-WINDOW",
+              "title": "Apply vendor-validated firmware/patch in next planned maintenance window",
+              "state": "recommended",
+              "covers_vectors": [
+                "network_exploit",
+                "local_access"
+              ],
+              "likelihood_reduction": 2
+            }
+          ],
+          "residual_likelihood": 4,
+          "residual_consequence": 4,
+          "residual_risk_score": 16,
+          "residual_risk_level": "High",
+          "residual_tolerable": false,
+          "projected_residual_likelihood": 3,
+          "projected_residual_risk_score": 12,
+          "projected_residual_risk_level": "High",
+          "projected_residual_tolerable": false
         }
       ],
-      "zone_criticality": 3
+      "zone_criticality": 4
     },
     "ZONE-ASRS-PALLET": {
       "zone_id": "ZONE-ASRS-PALLET",
@@ -531,16 +1859,304 @@
       "purdue_level": "L1_BasicControl",
       "target_sl": 2,
       "achieved_sl_vector": {
-        "fr1_iac": 2.0,
-        "fr2_uc": 2.0,
-        "fr3_si": 2.0,
-        "fr4_dc": 2.0,
-        "fr5_rdf": 2.0,
-        "fr6_tre": 2.0,
+        "fr1_iac": 1.0,
+        "fr2_uc": 1.0,
+        "fr3_si": 1.0,
+        "fr4_dc": 1.0,
+        "fr5_rdf": 1.0,
+        "fr6_tre": 1.0,
         "fr7_ra": 1.0
       },
       "overall_achieved_sl": 1.0,
       "sl_gap": 1.0,
+      "sl_verified": false,
+      "fr_results": {
+        "FR1": {
+          "fr": "FR1",
+          "sl_a": 1.0,
+          "verified": false,
+          "status": "unverified",
+          "sl_c_ceiling": null,
+          "sl_c_limiting_asset": null
+        },
+        "FR2": {
+          "fr": "FR2",
+          "sl_a": 1.0,
+          "verified": false,
+          "status": "unverified",
+          "sl_c_ceiling": 1.0,
+          "sl_c_limiting_asset": null
+        },
+        "FR3": {
+          "fr": "FR3",
+          "sl_a": 1.0,
+          "verified": false,
+          "status": "unverified",
+          "sl_c_ceiling": 2.0,
+          "sl_c_limiting_asset": null
+        },
+        "FR4": {
+          "fr": "FR4",
+          "sl_a": 1.0,
+          "verified": false,
+          "status": "unverified",
+          "sl_c_ceiling": 1.0,
+          "sl_c_limiting_asset": null
+        },
+        "FR5": {
+          "fr": "FR5",
+          "sl_a": 1.0,
+          "verified": false,
+          "status": "unverified",
+          "sl_c_ceiling": 2.0,
+          "sl_c_limiting_asset": null
+        },
+        "FR6": {
+          "fr": "FR6",
+          "sl_a": 1.0,
+          "verified": true,
+          "status": "deficient",
+          "sl_c_ceiling": 2.0,
+          "sl_c_limiting_asset": null
+        },
+        "FR7": {
+          "fr": "FR7",
+          "sl_a": 1.0,
+          "verified": false,
+          "status": "unverified",
+          "sl_c_ceiling": null,
+          "sl_c_limiting_asset": null
+        }
+      },
+      "sr_results": [
+        {
+          "sr_id": "SR 1.1",
+          "fr": "FR1",
+          "title": "Human User Identification and Authentication",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 1.2",
+          "fr": "FR1",
+          "title": "Software Process and Device Identification",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 1.3",
+          "fr": "FR1",
+          "title": "Account Management & Password Strength",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 1.7",
+          "fr": "FR1",
+          "title": "Strength of Password Authentication",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 2.1",
+          "fr": "FR2",
+          "title": "Authorization Enforcement (RBAC)",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 2.2",
+          "fr": "FR2",
+          "title": "Wireless Use Control",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 2.3",
+          "fr": "FR2",
+          "title": "Portable Media & Mobile Code",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 3.1",
+          "fr": "FR3",
+          "title": "Communication Integrity",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 3.2",
+          "fr": "FR3",
+          "title": "Malicious Code Protection",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 3.4",
+          "fr": "FR3",
+          "title": "Software and Information Integrity",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 4.1",
+          "fr": "FR4",
+          "title": "Information Confidentiality in Transit",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 4.3",
+          "fr": "FR4",
+          "title": "Use of Cryptography",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 5.1",
+          "fr": "FR5",
+          "title": "Network Segmentation (Zones & Conduits)",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 5.2",
+          "fr": "FR5",
+          "title": "Zone Boundary Protection (Firewalls & DMZ)",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 5.3",
+          "fr": "FR5",
+          "title": "General Purpose Person-to-Person Communication",
+          "status": "met",
+          "source": "attested",
+          "detail": "Web/email proxy blocks for OT VLANs verified",
+          "attested_by": "Sample Assessor",
+          "attested_on": "2026-09-10",
+          "expires": "2027-09-10"
+        },
+        {
+          "sr_id": "SR 6.1",
+          "fr": "FR6",
+          "title": "Audit Log Generation",
+          "status": "partial",
+          "source": "attested",
+          "detail": "Windows hosts forward logs to SIEM; PLC program-change logging not enabled",
+          "attested_by": "Sample Assessor",
+          "attested_on": "2026-09-10",
+          "expires": "2027-09-10"
+        },
+        {
+          "sr_id": "SR 6.2",
+          "fr": "FR6",
+          "title": "Continuous Monitoring & Anomaly Detection",
+          "status": "met",
+          "source": "observed",
+          "detail": "Armis passively monitors 1 asset(s) in zone",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 7.1",
+          "fr": "FR7",
+          "title": "Denial of Service Protection",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 7.3",
+          "fr": "FR7",
+          "title": "Control System Backup and Recovery",
+          "status": "met",
+          "source": "attested",
+          "detail": "Weekly PLC/HMI project backups to offline vault; restore tested 2026-08",
+          "attested_by": "Sample Assessor",
+          "attested_on": "2026-09-10",
+          "expires": "2027-09-10"
+        }
+      ],
+      "evidence_coverage_pct": 21.1,
+      "survey_worklist": [
+        "SR 1.1 Human User Identification and Authentication",
+        "SR 1.2 Software Process and Device Identification",
+        "SR 1.3 Account Management & Password Strength",
+        "SR 1.7 Strength of Password Authentication",
+        "SR 2.1 Authorization Enforcement (RBAC)",
+        "SR 2.2 Wireless Use Control",
+        "SR 2.3 Portable Media & Mobile Code",
+        "SR 3.1 Communication Integrity",
+        "SR 3.2 Malicious Code Protection",
+        "SR 3.4 Software and Information Integrity",
+        "SR 4.1 Information Confidentiality in Transit",
+        "SR 4.3 Use of Cryptography",
+        "SR 5.1 Network Segmentation (Zones & Conduits)",
+        "SR 5.2 Zone Boundary Protection (Firewalls & DMZ)",
+        "SR 7.1 Denial of Service Protection"
+      ],
       "assets": [
         {
           "asset_id": "ARMIS-WMT-005",
@@ -598,16 +2214,66 @@
           "unmitigated_likelihood": 2,
           "unmitigated_consequence": 4,
           "unmitigated_risk_score": 8,
-          "unmitigated_risk_level": "Medium",
+          "unmitigated_risk_level": "Moderate",
           "operational_impact_summary": "Critical logistics disruption: Compromise of DC6094-ASRS-CRANE-CONTROLLER-01 halts core DC sortation / ASRS cranes, causing multi-hour trailer backlog, regional store replenishment delays, and >$1M operational loss.",
+          "threat_vectors": [
+            "ot_internal",
+            "network_exploit",
+            "logic_download"
+          ],
           "recommended_compensating_controls": [
-            "Deploy Industrial Firewall Deep Packet Inspection (DPI) rule restricting 10.142.14.35 to authorized engineering workstation IPs only; block unauthorized firmware download function codes.",
-            "Configure Armis anomaly detection policy to alert on anomalous connection attempts to 10.142.14.35."
+            "CC-DPI-WRITE-BLOCK: Industrial DPI: block program download / write function codes (Modbus 05/06/15/16, CIP 0x4D/0x4E, S7 download) except from allow-listed EWS",
+            "CC-PATCH-MAINT-WINDOW: Apply vendor-validated firmware/patch in next planned maintenance window"
+          ],
+          "implemented_controls": [
+            {
+              "control_id": "CC-ARMIS-ALERT",
+              "title": "Armis anomaly policy alerting on new/unauthorized connections to the asset",
+              "state": "implemented",
+              "covers_vectors": [],
+              "likelihood_reduction": 0
+            },
+            {
+              "control_id": "CC-ASSET-ALLOWLIST-ACL",
+              "title": "Controller-level ACL / micro-segmentation: only authorized HMI and EWS addresses may reach the controller",
+              "state": "implemented",
+              "covers_vectors": [
+                "network_exploit",
+                "logic_download"
+              ],
+              "likelihood_reduction": 1
+            }
+          ],
+          "recommended_controls": [
+            {
+              "control_id": "CC-DPI-WRITE-BLOCK",
+              "title": "Industrial DPI: block program download / write function codes (Modbus 05/06/15/16, CIP 0x4D/0x4E, S7 download) except from allow-listed EWS",
+              "state": "recommended",
+              "covers_vectors": [
+                "logic_download"
+              ],
+              "likelihood_reduction": 1
+            },
+            {
+              "control_id": "CC-PATCH-MAINT-WINDOW",
+              "title": "Apply vendor-validated firmware/patch in next planned maintenance window",
+              "state": "recommended",
+              "covers_vectors": [
+                "network_exploit",
+                "local_access"
+              ],
+              "likelihood_reduction": 2
+            }
           ],
           "residual_likelihood": 1,
           "residual_consequence": 4,
           "residual_risk_score": 4,
-          "residual_risk_level": "Low"
+          "residual_risk_level": "Moderate",
+          "residual_tolerable": true,
+          "projected_residual_likelihood": 1,
+          "projected_residual_risk_score": 4,
+          "projected_residual_risk_level": "Moderate",
+          "projected_residual_tolerable": true
         }
       ],
       "zone_criticality": 4
@@ -619,16 +2285,301 @@
       "purdue_level": "L3_SiteOperations",
       "target_sl": 2,
       "achieved_sl_vector": {
-        "fr1_iac": 2.0,
-        "fr2_uc": 2.0,
-        "fr3_si": 2.0,
-        "fr4_dc": 2.0,
+        "fr1_iac": 1.0,
+        "fr2_uc": 1.0,
+        "fr3_si": 1.0,
+        "fr4_dc": 1.0,
         "fr5_rdf": 2.0,
-        "fr6_tre": 2.0,
-        "fr7_ra": 2.0
+        "fr6_tre": 1.0,
+        "fr7_ra": 1.0
       },
-      "overall_achieved_sl": 2.0,
-      "sl_gap": 0.0,
+      "overall_achieved_sl": 1.0,
+      "sl_gap": 1.0,
+      "sl_verified": false,
+      "fr_results": {
+        "FR1": {
+          "fr": "FR1",
+          "sl_a": 1.0,
+          "verified": false,
+          "status": "unverified",
+          "sl_c_ceiling": null,
+          "sl_c_limiting_asset": null
+        },
+        "FR2": {
+          "fr": "FR2",
+          "sl_a": 1.0,
+          "verified": false,
+          "status": "unverified",
+          "sl_c_ceiling": null,
+          "sl_c_limiting_asset": null
+        },
+        "FR3": {
+          "fr": "FR3",
+          "sl_a": 1.0,
+          "verified": false,
+          "status": "unverified",
+          "sl_c_ceiling": null,
+          "sl_c_limiting_asset": null
+        },
+        "FR4": {
+          "fr": "FR4",
+          "sl_a": 1.0,
+          "verified": false,
+          "status": "unverified",
+          "sl_c_ceiling": null,
+          "sl_c_limiting_asset": null
+        },
+        "FR5": {
+          "fr": "FR5",
+          "sl_a": 2.0,
+          "verified": true,
+          "status": "achieved",
+          "sl_c_ceiling": null,
+          "sl_c_limiting_asset": null
+        },
+        "FR6": {
+          "fr": "FR6",
+          "sl_a": 1.0,
+          "verified": true,
+          "status": "deficient",
+          "sl_c_ceiling": null,
+          "sl_c_limiting_asset": null
+        },
+        "FR7": {
+          "fr": "FR7",
+          "sl_a": 1.0,
+          "verified": false,
+          "status": "unverified",
+          "sl_c_ceiling": null,
+          "sl_c_limiting_asset": null
+        }
+      },
+      "sr_results": [
+        {
+          "sr_id": "SR 1.1",
+          "fr": "FR1",
+          "title": "Human User Identification and Authentication",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 1.2",
+          "fr": "FR1",
+          "title": "Software Process and Device Identification",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 1.3",
+          "fr": "FR1",
+          "title": "Account Management & Password Strength",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 1.7",
+          "fr": "FR1",
+          "title": "Strength of Password Authentication",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 2.1",
+          "fr": "FR2",
+          "title": "Authorization Enforcement (RBAC)",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 2.2",
+          "fr": "FR2",
+          "title": "Wireless Use Control",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 2.3",
+          "fr": "FR2",
+          "title": "Portable Media & Mobile Code",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 3.1",
+          "fr": "FR3",
+          "title": "Communication Integrity",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 3.2",
+          "fr": "FR3",
+          "title": "Malicious Code Protection",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 3.4",
+          "fr": "FR3",
+          "title": "Software and Information Integrity",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 4.1",
+          "fr": "FR4",
+          "title": "Information Confidentiality in Transit",
+          "status": "met",
+          "source": "observed",
+          "detail": "All inbound conduits encrypted; no cleartext management observed",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 4.3",
+          "fr": "FR4",
+          "title": "Use of Cryptography",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 5.1",
+          "fr": "FR5",
+          "title": "Network Segmentation (Zones & Conduits)",
+          "status": "met",
+          "source": "observed",
+          "detail": "Observed conduits respect Purdue boundaries",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 5.2",
+          "fr": "FR5",
+          "title": "Zone Boundary Protection (Firewalls & DMZ)",
+          "status": "met",
+          "source": "observed",
+          "detail": "All inbound conduits pass stateful inspection",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 5.3",
+          "fr": "FR5",
+          "title": "General Purpose Person-to-Person Communication",
+          "status": "met",
+          "source": "attested",
+          "detail": "Web/email proxy blocks for OT VLANs verified",
+          "attested_by": "Sample Assessor",
+          "attested_on": "2026-09-10",
+          "expires": "2027-09-10"
+        },
+        {
+          "sr_id": "SR 6.1",
+          "fr": "FR6",
+          "title": "Audit Log Generation",
+          "status": "partial",
+          "source": "attested",
+          "detail": "Windows hosts forward logs to SIEM; PLC program-change logging not enabled",
+          "attested_by": "Sample Assessor",
+          "attested_on": "2026-09-10",
+          "expires": "2027-09-10"
+        },
+        {
+          "sr_id": "SR 6.2",
+          "fr": "FR6",
+          "title": "Continuous Monitoring & Anomaly Detection",
+          "status": "met",
+          "source": "observed",
+          "detail": "Armis passively monitors 1 asset(s) in zone",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 7.1",
+          "fr": "FR7",
+          "title": "Denial of Service Protection",
+          "status": "no_evidence",
+          "source": "none",
+          "detail": "No telemetry or survey evidence",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 7.3",
+          "fr": "FR7",
+          "title": "Control System Backup and Recovery",
+          "status": "met",
+          "source": "attested",
+          "detail": "Weekly PLC/HMI project backups to offline vault; restore tested 2026-08",
+          "attested_by": "Sample Assessor",
+          "attested_on": "2026-09-10",
+          "expires": "2027-09-10"
+        }
+      ],
+      "evidence_coverage_pct": 36.8,
+      "survey_worklist": [
+        "SR 1.1 Human User Identification and Authentication",
+        "SR 1.2 Software Process and Device Identification",
+        "SR 1.3 Account Management & Password Strength",
+        "SR 1.7 Strength of Password Authentication",
+        "SR 2.1 Authorization Enforcement (RBAC)",
+        "SR 2.2 Wireless Use Control",
+        "SR 2.3 Portable Media & Mobile Code",
+        "SR 3.1 Communication Integrity",
+        "SR 3.2 Malicious Code Protection",
+        "SR 3.4 Software and Information Integrity",
+        "SR 4.3 Use of Cryptography",
+        "SR 7.1 Denial of Service Protection"
+      ],
       "assets": [
         {
           "asset_id": "ARMIS-WMT-006",
@@ -680,6 +2631,278 @@
       },
       "overall_achieved_sl": 2.0,
       "sl_gap": 0.0,
+      "sl_verified": true,
+      "fr_results": {
+        "FR1": {
+          "fr": "FR1",
+          "sl_a": 2.0,
+          "verified": true,
+          "status": "achieved",
+          "sl_c_ceiling": null,
+          "sl_c_limiting_asset": null
+        },
+        "FR2": {
+          "fr": "FR2",
+          "sl_a": 2.0,
+          "verified": true,
+          "status": "achieved",
+          "sl_c_ceiling": null,
+          "sl_c_limiting_asset": null
+        },
+        "FR3": {
+          "fr": "FR3",
+          "sl_a": 2.0,
+          "verified": true,
+          "status": "achieved",
+          "sl_c_ceiling": null,
+          "sl_c_limiting_asset": null
+        },
+        "FR4": {
+          "fr": "FR4",
+          "sl_a": 2.0,
+          "verified": true,
+          "status": "achieved",
+          "sl_c_ceiling": null,
+          "sl_c_limiting_asset": null
+        },
+        "FR5": {
+          "fr": "FR5",
+          "sl_a": 2.0,
+          "verified": true,
+          "status": "achieved",
+          "sl_c_ceiling": null,
+          "sl_c_limiting_asset": null
+        },
+        "FR6": {
+          "fr": "FR6",
+          "sl_a": 2.0,
+          "verified": true,
+          "status": "achieved",
+          "sl_c_ceiling": null,
+          "sl_c_limiting_asset": null
+        },
+        "FR7": {
+          "fr": "FR7",
+          "sl_a": 2.0,
+          "verified": true,
+          "status": "achieved",
+          "sl_c_ceiling": null,
+          "sl_c_limiting_asset": null
+        }
+      },
+      "sr_results": [
+        {
+          "sr_id": "SR 1.1",
+          "fr": "FR1",
+          "title": "Human User Identification and Authentication",
+          "status": "met",
+          "source": "attested",
+          "detail": "Jump host: named AD accounts + MFA",
+          "attested_by": "Sample Assessor",
+          "attested_on": "2026-09-10",
+          "expires": "2027-09-10"
+        },
+        {
+          "sr_id": "SR 1.2",
+          "fr": "FR1",
+          "title": "Software Process and Device Identification",
+          "status": "met",
+          "source": "attested",
+          "detail": "Device certs on jump host / brokers",
+          "attested_by": "Sample Assessor",
+          "attested_on": "2026-09-10",
+          "expires": "2027-09-10"
+        },
+        {
+          "sr_id": "SR 1.3",
+          "fr": "FR1",
+          "title": "Account Management & Password Strength",
+          "status": "met",
+          "source": "attested",
+          "detail": "Central AD account mgmt",
+          "attested_by": "Sample Assessor",
+          "attested_on": "2026-09-10",
+          "expires": "2027-09-10"
+        },
+        {
+          "sr_id": "SR 1.7",
+          "fr": "FR1",
+          "title": "Strength of Password Authentication",
+          "status": "met",
+          "source": "attested",
+          "detail": "AD password policy",
+          "attested_by": "Sample Assessor",
+          "attested_on": "2026-09-10",
+          "expires": "2027-09-10"
+        },
+        {
+          "sr_id": "SR 2.1",
+          "fr": "FR2",
+          "title": "Authorization Enforcement (RBAC)",
+          "status": "met",
+          "source": "attested",
+          "detail": "RBAC groups for vendor vs internal",
+          "attested_by": "Sample Assessor",
+          "attested_on": "2026-09-10",
+          "expires": "2027-09-10"
+        },
+        {
+          "sr_id": "SR 2.2",
+          "fr": "FR2",
+          "title": "Wireless Use Control",
+          "status": "met",
+          "source": "attested",
+          "detail": "No wireless in DMZ",
+          "attested_by": "Sample Assessor",
+          "attested_on": "2026-09-10",
+          "expires": "2027-09-10"
+        },
+        {
+          "sr_id": "SR 2.3",
+          "fr": "FR2",
+          "title": "Portable Media & Mobile Code",
+          "status": "met",
+          "source": "attested",
+          "detail": "USB blocked by GPO",
+          "attested_by": "Sample Assessor",
+          "attested_on": "2026-09-10",
+          "expires": "2027-09-10"
+        },
+        {
+          "sr_id": "SR 3.1",
+          "fr": "FR3",
+          "title": "Communication Integrity",
+          "status": "met",
+          "source": "attested",
+          "detail": "TLS on all DMZ sessions",
+          "attested_by": "Sample Assessor",
+          "attested_on": "2026-09-10",
+          "expires": "2027-09-10"
+        },
+        {
+          "sr_id": "SR 3.2",
+          "fr": "FR3",
+          "title": "Malicious Code Protection",
+          "status": "met",
+          "source": "attested",
+          "detail": "EDR deployed",
+          "attested_by": "Sample Assessor",
+          "attested_on": "2026-09-10",
+          "expires": "2027-09-10"
+        },
+        {
+          "sr_id": "SR 3.4",
+          "fr": "FR3",
+          "title": "Software and Information Integrity",
+          "status": "met",
+          "source": "attested",
+          "detail": "Signed software only",
+          "attested_by": "Sample Assessor",
+          "attested_on": "2026-09-10",
+          "expires": "2027-09-10"
+        },
+        {
+          "sr_id": "SR 4.1",
+          "fr": "FR4",
+          "title": "Information Confidentiality in Transit",
+          "status": "met",
+          "source": "observed",
+          "detail": "All inbound conduits encrypted; no cleartext management observed",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 4.3",
+          "fr": "FR4",
+          "title": "Use of Cryptography",
+          "status": "met",
+          "source": "attested",
+          "detail": "FIPS-validated TLS",
+          "attested_by": "Sample Assessor",
+          "attested_on": "2026-09-10",
+          "expires": "2027-09-10"
+        },
+        {
+          "sr_id": "SR 5.1",
+          "fr": "FR5",
+          "title": "Network Segmentation (Zones & Conduits)",
+          "status": "met",
+          "source": "observed",
+          "detail": "Observed conduits respect Purdue boundaries",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 5.2",
+          "fr": "FR5",
+          "title": "Zone Boundary Protection (Firewalls & DMZ)",
+          "status": "met",
+          "source": "observed",
+          "detail": "All inbound conduits pass stateful inspection",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 5.3",
+          "fr": "FR5",
+          "title": "General Purpose Person-to-Person Communication",
+          "status": "met",
+          "source": "attested",
+          "detail": "Web/email proxy blocks for OT VLANs verified",
+          "attested_by": "Sample Assessor",
+          "attested_on": "2026-09-10",
+          "expires": "2027-09-10"
+        },
+        {
+          "sr_id": "SR 6.1",
+          "fr": "FR6",
+          "title": "Audit Log Generation",
+          "status": "met",
+          "source": "attested",
+          "detail": "Session recording + SIEM",
+          "attested_by": "Sample Assessor",
+          "attested_on": "2026-09-10",
+          "expires": "2027-09-10"
+        },
+        {
+          "sr_id": "SR 6.2",
+          "fr": "FR6",
+          "title": "Continuous Monitoring & Anomaly Detection",
+          "status": "met",
+          "source": "observed",
+          "detail": "Armis passively monitors 1 asset(s) in zone",
+          "attested_by": null,
+          "attested_on": null,
+          "expires": null
+        },
+        {
+          "sr_id": "SR 7.1",
+          "fr": "FR7",
+          "title": "Denial of Service Protection",
+          "status": "met",
+          "source": "attested",
+          "detail": "Firewall DoS protections",
+          "attested_by": "Sample Assessor",
+          "attested_on": "2026-09-10",
+          "expires": "2027-09-10"
+        },
+        {
+          "sr_id": "SR 7.3",
+          "fr": "FR7",
+          "title": "Control System Backup and Recovery",
+          "status": "met",
+          "source": "attested",
+          "detail": "Weekly PLC/HMI project backups to offline vault; restore tested 2026-08",
+          "attested_by": "Sample Assessor",
+          "attested_on": "2026-09-10",
+          "expires": "2027-09-10"
+        }
+      ],
+      "evidence_coverage_pct": 100.0,
+      "survey_worklist": [],
       "assets": [
         {
           "asset_id": "ARMIS-WMT-008",
@@ -811,9 +3034,12 @@
     }
   },
   "target_security_level_global": 2,
-  "assessment_timestamp": "2026-09-25 01:09:22 UTC",
-  "overall_risk_score": 8.75,
-  "sl2_compliance_percentage": 33.3,
+  "assessment_timestamp": "2026-09-25 01:22:04 UTC",
+  "overall_risk_score": 10.42,
+  "sl2_compliance_percentage": 16.7,
+  "evidence_coverage_percentage": 50.9,
+  "survey_source": "/sessions/rcw-01c11s7efvmzpc4stejbfkhe/mnt/MT-Lab/cutlass-62443-platform/data/sites/DC-6094/survey.yaml",
+  "tolerable_risk": "Moderate",
   "total_assets": 8,
   "total_cves": 9,
   "attack_paths": [

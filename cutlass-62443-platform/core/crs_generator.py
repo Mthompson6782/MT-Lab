@@ -17,11 +17,14 @@ class CRSGenerator:
         req_id = 1
 
         for z_id, zone in suc.zones.items():
-            if zone.sl_gap > 0:
+            # Only DEFICIENT FRs (evidence of a gap) generate remediation requirements.
+            # UNVERIFIED FRs go to the site-survey worklist instead of generating findings.
+            deficient = {fr for fr, r in zone.fr_results.items() if r.status == "deficient"}
+            if deficient:
                 vector = zone.achieved_sl_vector
 
                 # Check FR 5
-                if vector.fr5_rdf < 2.0:
+                if "FR5" in deficient:
                     requirements.append({
                         "req_id": f"CRS-{suc.suc_id}-{req_id:03d}",
                         "target_zone": zone.name,
@@ -38,7 +41,7 @@ class CRSGenerator:
                     req_id += 1
 
                 # Check FR 3 & FR 7
-                if vector.fr3_si < 2.0 or vector.fr7_ra < 2.0:
+                if deficient & {"FR3", "FR7"}:
                     requirements.append({
                         "req_id": f"CRS-{suc.suc_id}-{req_id:03d}",
                         "target_zone": zone.name,
@@ -55,7 +58,7 @@ class CRSGenerator:
                     req_id += 1
 
                 # Check FR 1 & FR 4
-                if vector.fr1_iac < 2.0 or vector.fr4_dc < 2.0:
+                if deficient & {"FR1", "FR4"}:
                     requirements.append({
                         "req_id": f"CRS-{suc.suc_id}-{req_id:03d}",
                         "target_zone": zone.name,
@@ -70,7 +73,29 @@ class CRSGenerator:
                     })
                     req_id += 1
 
+            # FRs without a dedicated template above (e.g. FR2 Use Control, FR6 Timely Response):
+            # one requirement per deficient SR, carrying the evidence that triggered it.
+            for fr in sorted(deficient - {"FR1", "FR3", "FR4", "FR5", "FR7"}):
+                for r in zone.sr_results:
+                    if r.fr == fr and r.status in ("partial", "not_met", "observed_violation"):
+                        requirements.append({
+                            "req_id": f"CRS-{suc.suc_id}-{req_id:03d}",
+                            "target_zone": zone.name,
+                            "zone_id": z_id,
+                            "foundational_req": f"{fr}: {r.sr_id} {r.title}",
+                            "priority": "P2 - High",
+                            "specification": f"Close {r.sr_id} gap to SL-2 ({r.status.replace('_', ' ')}): {r.detail}",
+                            "responsible_team": "Enterprise OT Systems Administration & Cybersecurity Operations"
+                        })
+                        req_id += 1
+
+        worklist = [
+            {"zone_id": z.zone_id, "zone": z.name, "sr": item}
+            for z in suc.zones.values() for item in z.survey_worklist
+        ]
+
         return {
+            "verification_worklist": worklist,   # SRs with no evidence: survey before claiming SL-A
             "document_title": f"IEC 62443-3-2 Cybersecurity Requirements Specification (CRS) - {suc.name}",
             "facility_id": suc.suc_id,
             "target_sl": 2,

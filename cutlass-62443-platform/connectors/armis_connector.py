@@ -82,5 +82,8 @@ class ArmisConnector:
                 raw_conduits = json.load(f)
             return [Conduit(**c) for c in raw_conduits]
 
-        # Live Armis network flow endpoint
-        return []
+        # Live Armis network flow endpoint not yet implemented. Never return an empty list here:
+        # zero conduits would make every zone boundary look compliant.
+        raise NotImplementedError(
+            "Live Armis conduit/flow ingestion is not implemented; supply a boundaries JSON export."
+        )

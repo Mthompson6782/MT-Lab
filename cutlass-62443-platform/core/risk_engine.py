@@ -1,16 +1,27 @@
 """
 IEC 62443-3-2 Detailed Risk Assessment Engine.
-Calculates Unmitigated and Residual Cyber-Physical Risk (Likelihood x Consequence)
-tailored for enterprise OT operations (MHE, ASRS, AGVs, Ammonia Cold Chain).
+Calculates Unmitigated, Current Residual and Projected Residual cyber-physical risk
+on the 5x5 risk matrix (config/risk_matrix.yaml, tolerable = Moderate).
+
+Residual risk credits only controls verified as implemented in the site survey.
+Recommended controls produce a separately labelled PROJECTED residual.
+Consequence is unchanged by cyber controls (only engineered/non-digital bounds can lower it - CIE).
 """
 
-from typing import List, Tuple
+from typing import Dict, List, Optional, Tuple
+from core.config_loader import load_site_survey
+from core.control_credits import ControlCreditEngine, threat_vectors
 from core.models import Asset, Conduit, SystemUnderConsideration, ThreatScenario, Zone
+from core.risk_matrix import RiskMatrix
+from core.sl_evaluator import implemented_controls_for_zone
 
 
 class RiskEngine:
-    def __init__(self):
-        pass
+    def __init__(self, facility_id: Optional[str] = None, survey: Optional[Dict] = None,
+                 matrix: Optional[RiskMatrix] = None, credit_engine: Optional[ControlCreditEngine] = None):
+        self.survey = survey if survey is not None else (load_site_survey(facility_id) if facility_id else None)
+        self.matrix = matrix or RiskMatrix()
+        self.credits = credit_engine or ControlCreditEngine()
 
     def evaluate_suc_risk(self, suc: SystemUnderConsideration) -> SystemUnderConsideration:
         """
@@ -47,6 +58,7 @@ class RiskEngine:
         # Check inbound conduit posture
         has_insecure_conduit = False
         has_direct_bypass = False
+        has_uninspected_inbound = False
         for c_id in zone.inbound_conduits:
             c = conduits.get(c_id)
             if c:
@@ -54,6 +66,8 @@ class RiskEngine:
                     has_insecure_conduit = True
                 if c.violates_policy:
                     has_direct_bypass = True
+                if not c.has_firewall_inspection:
+                    has_uninspected_inbound = True
 
         scenario_counter = 1
         for asset in zone.assets:
@@ -88,7 +102,7 @@ class RiskEngine:
                         f"Catastrophic hazard: Compromise of {asset.name} risks uncontrolled ammonia discharge, "
                         "emergency plant evacuation, OSHA/EPA violation, and full cold-chain perishables destruction."
                     )
-                elif "SORTER" in zone.zone_id or "ASRS" in zone.zone_id:
+                elif any(k in zone.zone_id for k in ("SORTER", "SORTATION", "ASRS")):
                     consequence = 4  # Major operational downtime
                     impact_summary = (
                         f"Critical logistics disruption: Compromise of {asset.name} halts core DC sortation / ASRS cranes, "
@@ -106,16 +120,26 @@ class RiskEngine:
 
                 unmitigated_consequence = consequence
                 unmit_score = unmitigated_likelihood * unmitigated_consequence
-                unmit_level = self._risk_level(unmit_score)
+                unmit_level = self.matrix.level(unmitigated_consequence, unmitigated_likelihood)
 
-                # Compensating controls formulation
-                controls = self._generate_compensating_controls(asset, vuln, has_insecure_conduit)
+                # Controls: implemented (verified in site survey) vs recommended
+                remote_reachable = has_direct_bypass or has_uninspected_inbound
+                vectors = threat_vectors(asset, vuln, remote_reachable)
+                implemented_ids = implemented_controls_for_zone(self.survey, zone.zone_id)
+                implemented = self.credits.credits(sorted(implemented_ids), "implemented")
+                recommended = self.credits.credits(
+                    self.credits.recommend(asset, vuln, remote_reachable, implemented_ids), "recommended")
+                controls = [f"{c.control_id}: {c.title}" for c in recommended]
 
-                # Residual Risk (Likelihood drops significantly with compensating controls)
-                residual_likelihood = max(1, unmitigated_likelihood - 2)
-                residual_consequence = unmitigated_consequence  # Inherent consequence stays constant
+                # CURRENT residual: only implemented controls reduce likelihood
+                residual_consequence = unmitigated_consequence  # cyber controls never lower consequence
+                residual_likelihood = max(1, unmitigated_likelihood - self.credits.reduction(vectors, implemented))
                 residual_score = residual_likelihood * residual_consequence
-                residual_level = self._risk_level(residual_score)
+                residual_level = self.matrix.level(residual_consequence, residual_likelihood)
+
+                # PROJECTED residual: implemented + recommended
+                proj_likelihood = max(1, unmitigated_likelihood - self.credits.reduction(vectors, implemented + recommended))
+                proj_level = self.matrix.level(residual_consequence, proj_likelihood)
 
                 scenarios.append(
                     ThreatScenario(
@@ -135,35 +159,17 @@ class RiskEngine:
                         residual_likelihood=residual_likelihood,
                         residual_consequence=residual_consequence,
                         residual_risk_score=residual_score,
-                        residual_risk_level=residual_level
+                        residual_risk_level=residual_level,
+                        residual_tolerable=self.matrix.is_tolerable(residual_level),
+                        threat_vectors=vectors,
+                        implemented_controls=implemented,
+                        recommended_controls=recommended,
+                        projected_residual_likelihood=proj_likelihood,
+                        projected_residual_risk_score=proj_likelihood * residual_consequence,
+                        projected_residual_risk_level=proj_level,
+                        projected_residual_tolerable=self.matrix.is_tolerable(proj_level),
                     )
                 )
                 scenario_counter += 1
 
         return scenarios
-
-    def _risk_level(self, score: int) -> str:
-        if score >= 16:
-            return "Critical"
-        elif score >= 10:
-            return "High"
-        elif score >= 5:
-            return "Medium"
-        return "Low"
-
-    def _generate_compensating_controls(self, asset: Asset, vuln, has_insecure_conduit: bool) -> List[str]:
-        controls = []
-        if has_insecure_conduit:
-            controls.append("Immediately sever uninspected/direct conduit bypass into zone; enforce traffic through L3.5 DMZ firewall.")
-
-        if "CIP" in asset.active_protocols or "Modbus-TCP" in asset.active_protocols:
-            controls.append(
-                f"Deploy Industrial Firewall Deep Packet Inspection (DPI) rule restricting {asset.ip_address} "
-                "to authorized engineering workstation IPs only; block unauthorized firmware download function codes."
-            )
-
-        if asset.device_type in ["HMI", "Engineering_Workstation"]:
-            controls.append("Disable unneeded legacy protocols (SMBv1, plaintext HTTP); enforce MFA on RDP/bastion jumpbox.")
-
-        controls.append(f"Configure Armis anomaly detection policy to alert on anomalous connection attempts to {asset.ip_address}.")
-        return controls

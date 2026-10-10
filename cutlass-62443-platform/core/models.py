@@ -67,15 +67,15 @@ class Conduit(BaseModel):
 class SecurityLevelVector(BaseModel):
     """
     Security Level Vector across the 7 IEC 62443-3-3 Foundational Requirements.
-    Target SL is 2 across the board.
+    Target SL is 2 across the board. Defaults are 0.0: nothing is achieved until evidence says so.
     """
-    fr1_iac: float = 2.0  # Identification and Authentication Control
-    fr2_uc: float = 2.0   # Use Control
-    fr3_si: float = 2.0   # System Integrity
-    fr4_dc: float = 2.0   # Data Confidentiality
-    fr5_rdf: float = 2.0  # Restricted Data Flow
-    fr6_tre: float = 2.0  # Timely Response to Events
-    fr7_ra: float = 2.0   # Resource Availability
+    fr1_iac: float = 0.0  # Identification and Authentication Control
+    fr2_uc: float = 0.0   # Use Control
+    fr3_si: float = 0.0   # System Integrity
+    fr4_dc: float = 0.0   # Data Confidentiality
+    fr5_rdf: float = 0.0  # Restricted Data Flow
+    fr6_tre: float = 0.0  # Timely Response to Events
+    fr7_ra: float = 0.0   # Resource Availability
 
     def average(self) -> float:
         vals = [self.fr1_iac, self.fr2_uc, self.fr3_si, self.fr4_dc, self.fr5_rdf, self.fr6_tre, self.fr7_ra]
@@ -84,6 +84,37 @@ class SecurityLevelVector(BaseModel):
     def min_level(self) -> float:
         vals = [self.fr1_iac, self.fr2_uc, self.fr3_si, self.fr4_dc, self.fr5_rdf, self.fr6_tre, self.fr7_ra]
         return min(vals)
+
+
+class SRResult(BaseModel):
+    """Evidence-resolved status of one IEC 62443-3-3 System Requirement for one zone."""
+    sr_id: str                      # e.g. "SR 5.2"
+    fr: str                         # e.g. "FR5"
+    title: str
+    status: str                     # met | partial | not_met | observed_violation | no_evidence
+    source: str                     # observed | attested | capability | none
+    detail: str = ""
+    attested_by: Optional[str] = None
+    attested_on: Optional[str] = None
+    expires: Optional[str] = None
+
+
+class FRResult(BaseModel):
+    """Achieved SL for one Foundational Requirement, with how it was established."""
+    fr: str                         # "FR1" .. "FR7"
+    sl_a: float                     # numeric SL-A used for math (unverified is reported as 1.0, i.e. <= 1)
+    verified: bool                  # False => at least one SL-2 SR has no evidence
+    status: str                     # achieved | deficient | unverified
+    sl_c_ceiling: Optional[float] = None
+    sl_c_limiting_asset: Optional[str] = None
+
+
+class ControlCredit(BaseModel):
+    control_id: str
+    title: str
+    state: str                      # implemented | recommended
+    covers_vectors: List[str] = Field(default_factory=list)
+    likelihood_reduction: int = 0
 
 
 class ThreatScenario(BaseModel):
@@ -97,13 +128,23 @@ class ThreatScenario(BaseModel):
     unmitigated_likelihood: int = Field(..., ge=1, le=5)
     unmitigated_consequence: int = Field(..., ge=1, le=5)
     unmitigated_risk_score: int = Field(..., ge=1, le=25)
-    unmitigated_risk_level: str  # Low, Medium, High, Critical
+    unmitigated_risk_level: str  # Low, Moderate, High, Critical (5x5 matrix lookup)
     operational_impact_summary: str
+    threat_vectors: List[str] = Field(default_factory=list)  # e.g. remote_access, logic_download
     recommended_compensating_controls: List[str] = Field(default_factory=list)
+    implemented_controls: List[ControlCredit] = Field(default_factory=list)
+    recommended_controls: List[ControlCredit] = Field(default_factory=list)
+    # Current residual: credits ONLY controls verified as implemented (site survey / observed)
     residual_likelihood: int = Field(..., ge=1, le=5)
     residual_consequence: int = Field(..., ge=1, le=5)
     residual_risk_score: int = Field(..., ge=1, le=25)
     residual_risk_level: str
+    residual_tolerable: bool = False
+    # Projected residual: current + recommended controls (never presented as achieved)
+    projected_residual_likelihood: int = Field(default=1, ge=1, le=5)
+    projected_residual_risk_score: int = Field(default=1, ge=1, le=25)
+    projected_residual_risk_level: str = "Low"
+    projected_residual_tolerable: bool = True
 
 
 class Zone(BaseModel):
@@ -113,8 +154,13 @@ class Zone(BaseModel):
     purdue_level: PurdueLevel
     target_sl: int = 2  # Enterprise standard: SL-T 2 across all zones
     achieved_sl_vector: SecurityLevelVector = Field(default_factory=SecurityLevelVector)
-    overall_achieved_sl: float = 2.0
+    overall_achieved_sl: float = 0.0
     sl_gap: float = 0.0
+    sl_verified: bool = False            # True only if every SL-2 SR in every FR has evidence
+    fr_results: Dict[str, FRResult] = Field(default_factory=dict)
+    sr_results: List[SRResult] = Field(default_factory=list)
+    evidence_coverage_pct: float = 0.0   # % of SL-2 SRs with any evidence (met or not)
+    survey_worklist: List[str] = Field(default_factory=list)  # SRs needing site-survey evidence
     assets: List[Asset] = Field(default_factory=list)
     inbound_conduits: List[str] = Field(default_factory=list)
     outbound_conduits: List[str] = Field(default_factory=list)
@@ -168,7 +214,10 @@ class SystemUnderConsideration(BaseModel):
     target_security_level_global: int = 2
     assessment_timestamp: str
     overall_risk_score: float = 0.0
-    sl2_compliance_percentage: float = 0.0
+    sl2_compliance_percentage: float = 0.0       # zones with VERIFIED SL-A >= 2 on all FRs
+    evidence_coverage_percentage: float = 0.0
+    survey_source: Optional[str] = None
+    tolerable_risk: str = "Moderate"
     total_assets: int = 0
     total_cves: int = 0
     attack_paths: List[AttackPath] = Field(default_factory=list)

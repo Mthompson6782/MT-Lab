@@ -1,0 +1,19 @@
+# Component Security Capability (SL-C) per IEC 62443-4-2, keyed by vendor/model.
+# SL-C is a CEILING: a zone cannot achieve SL-A above the lowest SL-C of its in-scope components
+# for a given FR unless an attested compensating control covers that FR for that asset.
+#
+# !!! ILLUSTRATIVE PLACEHOLDERS !!!  Replace with values from vendor 62443-4-2 certificates
+# (ISASecure CSA / TUV / exida) or vendor security datasheets. Missing entry => SL-C unknown
+# (reported, not assumed). Do not cite these sample values as vendor claims.
+
+version: "1.0"
+components:
+  - match: {vendor: "Johnson Controls / Frick", model: "Quantum HD Compressor Controller"}
+    source: "ILLUSTRATIVE - legacy controller, no 62443-4-2 certification on file"
+    sl_c: {FR1: 1, FR2: 1, FR3: 1, FR4: 0, FR5: 2, FR6: 1, FR7: 1}
+    compensable_by: {FR1: [CC-JUMPHOST-MFA], FR4: [CC-DMZ-ENFORCE], FR3: [CC-DPI-WRITE-BLOCK]}
+
+  - match: {vendor: "Beckhoff Automation", model: "CX5140 Embedded PC"}
+    source: "ILLUSTRATIVE - no certificate on file"
+    sl_c: {FR1: 1, FR2: 1, FR3: 2, FR4: 1, FR5: 2, FR6: 2, FR7: 1}
+    compensable_by: {FR1: [CC-ASSET-ALLOWLIST-ACL], FR7: [CC-ASSET-ALLOWLIST-ACL]}
