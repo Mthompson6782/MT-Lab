@@ -357,10 +357,8 @@ function renderHeroBillboard(project) {
 // ==========================================================================
 function renderAllRows() {
   renderTop10Row();
-  renderCategoryRow("Trending Originals", "🍿 Trending Now | Flagship Applications", "trending-row");
-  renderCategoryRow("Web Applications & Full Stack", "⚡ Web Applications & Full Stack Systems", "web-row");
-  renderCategoryRow("AI & Deep Tech Originals", "🤖 AI, Autonomous Agents & Audio Studio", "ai-row");
-  renderCategoryRow("Knowledge & Systems Vault", "🧠 Second Brain, ICS Systems & Architecture Docs", "knowledge-row");
+  renderCategoryRow("Trending Originals", "🛡️ Flagship OT Cybersecurity Systems", "trending-row");
+  renderCategoryRow("IEC 62443 & Critical Infrastructure Defense", "⚔️ ISA/IEC 62443 & Critical Infrastructure Defense", "web-row");
   renderMyListRow();
 }
 
