@@ -20,7 +20,7 @@ class AttackGraphEngine:
 
     def compute_attack_paths_and_blast_radius(self, suc: SystemUnderConsideration) -> SystemUnderConsideration:
         """
-        Analyzes network conduits, RUNE CVEs, and physical dependencies to construct
+        Analyzes network conduits, CVE intelligence, and physical dependencies to construct
         multi-hop attack paths and quantify cyber-physical blast radius.
         """
         paths: List[AttackPath] = []
@@ -73,14 +73,14 @@ class AttackGraphEngine:
             AttackHop(
                 step_number=2,
                 source_node="Rogue Diagnostics Conduit (CND-06)",
-                target_node="DC6094-AMMONIA-COMP-PLC-01 (10.142.12.10)",
+                target_node="DC104-AMMONIA-COMP-PLC-01 (10.142.12.10)",
                 action_type="Direct Boundary Penetration",
                 vector="Unfiltered routing directly enters Level 1 Ammonia Control VLAN without firewall inspection",
                 violated_sl2_barrier="FR 5.2 (Stateful Zone Boundary Filtering)"
             ),
             AttackHop(
                 step_number=3,
-                source_node="DC6094-AMMONIA-COMP-PLC-01",
+                source_node="DC104-AMMONIA-COMP-PLC-01",
                 target_node="Frick Quantum HD Web Server & Modbus Engine",
                 action_type="Control Hijack",
                 vector="Exploits CVE-2021-32955 (Authentication Bypass) over unencrypted HTTP/Modbus-TCP",
@@ -116,7 +116,7 @@ class AttackGraphEngine:
                 "Cold dock receiving doors 1-28 shuttered"
             ],
             cascading_downstream_impact=[
-                "142 retail Supercenters experience milk, produce, and fresh meat stockouts within 24 hours",
+                "142 regional fulfillment facilities experience milk, produce, and fresh meat stockouts within 24 hours",
                 "OSHA and EPA formal regulatory investigation and consent decree review"
             ]
         )
@@ -126,7 +126,7 @@ class AttackGraphEngine:
             title="Enterprise DMZ Bypass to Ammonia Safety Release (Catastrophic Path)",
             adversary_profile="Opportunistic Cybercriminal or Ransomware Actor (IEC 62443 SL-2 Profile)",
             entry_point="Enterprise Corporate Subnet (L4)",
-            target_asset="DC6094-AMMONIA-COMP-PLC-01",
+            target_asset="DC104-AMMONIA-COMP-PLC-01",
             target_zone="ZONE-AMMONIA-REFRIG",
             hops=hops,
             likelihood_rank="Critical",
@@ -138,7 +138,7 @@ class AttackGraphEngine:
         hops = [
             AttackHop(
                 step_number=1,
-                source_node="Compromised Supervisory Workstation (DC6094-ENG-WORKSTATION-EWS-01)",
+                source_node="Compromised Supervisory Workstation (DC104-ENG-WORKSTATION-EWS-01)",
                 target_node="Local Windows SAM / LSASS Memory",
                 action_type="Privilege Escalation",
                 vector="Exploits CVE-2021-34444 (Windows RDP Privilege Escalation) via legacy SMBv1",
@@ -147,7 +147,7 @@ class AttackGraphEngine:
             ),
             AttackHop(
                 step_number=2,
-                source_node="DC6094-ENG-WORKSTATION-EWS-01",
+                source_node="DC104-ENG-WORKSTATION-EWS-01",
                 target_node="Supervisory-to-Sortation Conduit (CND-05)",
                 action_type="Lateral Movement",
                 vector="Initiates crafted S7comm-plus packets across conduit directly targeting TCP port 102",
@@ -156,7 +156,7 @@ class AttackGraphEngine:
             AttackHop(
                 step_number=3,
                 source_node="CND-05 Conduit",
-                target_node="DC6094-MAIN-CROSSBELT-SORTER-PLC (10.142.14.20)",
+                target_node="DC104-MAIN-CROSSBELT-SORTER-PLC (10.142.14.20)",
                 action_type="Remote Code Execution",
                 vector="Exploits CISA KEV CVE-2023-3595 (S7comm-plus Memory Corruption) to crash CPU execution",
                 cve_id="CVE-2023-3595",
@@ -193,7 +193,7 @@ class AttackGraphEngine:
             cascading_downstream_impact=[
                 "Trailer dispatch window missed for 48 outbound trailers",
                 "Demurrage and carrier retention penalties accrued across 18 regional trucking fleets",
-                "96 Retail Supercenters miss morning GM replenishment cutoff"
+                "96 Retail stores miss morning replenishment cutoff"
             ]
         )
 
@@ -202,7 +202,7 @@ class AttackGraphEngine:
             title="Supervisory EWS Pivot to Crossbelt Sorter S7comm-Plus RCE",
             adversary_profile="Targeted Cybercriminal / Ransomware Operator with OT Tooling",
             entry_point="Level 2 Supervisory HMI VLAN (VLAN-22)",
-            target_asset="DC6094-MAIN-CROSSBELT-SORTER-PLC",
+            target_asset="DC104-MAIN-CROSSBELT-SORTER-PLC",
             target_zone="ZONE-SORTATION-CONVEYOR",
             hops=hops,
             likelihood_rank="High",
@@ -215,7 +215,7 @@ class AttackGraphEngine:
             AttackHop(
                 step_number=1,
                 source_node="Supervisory HMI Network (L2)",
-                target_node="Beckhoff CX5140 Embedded PC (DC6094-ASRS-CRANE-CONTROLLER-01)",
+                target_node="Beckhoff CX5140 Embedded PC (DC104-ASRS-CRANE-CONTROLLER-01)",
                 action_type="Protocol Abuse",
                 vector="Transmits malformed Modbus function code sequences over TCP port 502",
                 cve_id="CVE-2020-5504",
@@ -253,7 +253,7 @@ class AttackGraphEngine:
             title="Modbus DoS Injection against High-Bay ASRS Crane System",
             adversary_profile="Generic Script / Low Motivation Attacker (SL-2 Profile)",
             entry_point="Supervisory HMI Network (L2)",
-            target_asset="DC6094-ASRS-CRANE-CONTROLLER-01",
+            target_asset="DC104-ASRS-CRANE-CONTROLLER-01",
             target_zone="ZONE-ASRS-PALLET",
             hops=hops,
             likelihood_rank="Moderate",

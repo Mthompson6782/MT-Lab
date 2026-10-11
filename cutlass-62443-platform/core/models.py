@@ -1,6 +1,6 @@
 """
 Core Data Models for CUTLASS IEC 62443-3-2 Risk Assessment Platform.
-Supports Armis telemetry, RUNE CVE feeds, Purdue segmentation, and SL-T 2 evaluation.
+Supports Armis telemetry, CVE intelligence feeds, Purdue segmentation, and SL-T 2 evaluation.
 """
 
 from enum import Enum
@@ -29,7 +29,7 @@ class Vulnerability(BaseModel):
     affected_components: List[str] = Field(default_factory=list)
     remediation_patch_available: bool = True
     exploitability_in_ot_context: str = "Medium"  # Low, Medium, High, Critical
-    rune_risk_rank: Optional[str] = "High"
+    cve_risk_rank: Optional[str] = "High"
 
 
 class Asset(BaseModel):
@@ -39,7 +39,7 @@ class Asset(BaseModel):
     mac_address: str
     purdue_level: PurdueLevel
     zone_id: str
-    facility_id: str  # e.g., "DC_6094"
+    facility_id: str  # e.g., "DC_104"
     device_type: str  # e.g., "PLC", "HMI", "Robotic_Sorter", "Ammonia_Compressor"
     vendor: str       # e.g., "Rockwell Automation", "Siemens", "Dematic", "Vilter"
     model: str        # e.g., "ControlLogix 1756-L83E"

@@ -20,7 +20,7 @@ if BASE_DIR not in sys.path:
 
 from ai.llm_analyzer import LLMAnalyzer
 from connectors.armis_connector import ArmisConnector
-from connectors.rune_connector import RuneCveConnector
+from connectors.cve_connector import CveIntelligenceConnector
 from core.attack_graph import AttackGraphEngine
 from core.config_loader import load_site_survey
 from core.crs_generator import CRSGenerator
@@ -36,7 +36,7 @@ logger = logging.getLogger("CUTLASS")
 def run_pipeline(
     armis_devices_file: str,
     armis_boundaries_file: str,
-    rune_feed_file: str,
+    cve_feed_file: str,
     output_dir: str
 ):
     print("\n" + "="*80)
@@ -45,7 +45,7 @@ def run_pipeline(
     print("   Target Security Level: SL-T 2 (Across all OT Zones)")
     print("="*80 + "\n")
 
-    # 1. Ingestion Layer (Armis + RUNE)
+    # 1. Ingestion Layer (Armis + CVE Intel)
     logger.info("Ingesting OT Asset telemetry from Armis...")
     armis = ArmisConnector()
     assets = armis.fetch_assets(local_json_path=armis_devices_file)
@@ -55,16 +55,16 @@ def run_pipeline(
         # Fail loudly: zero conduits would make every boundary look compliant (false assurance).
         raise SystemExit("[FATAL] No conduits/flows ingested from Armis. Refusing to assess boundaries without data.")
 
-    logger.info("Ingesting CVE intelligence from internal RUNE engine...")
-    rune = RuneCveConnector()
-    cves = rune.fetch_vulnerabilities(local_json_path=rune_feed_file)
-    enriched_assets = rune.enrich_assets(assets, cves)
+    logger.info("Ingesting CVE intelligence from vulnerability feed...")
+    cve_conn = CveIntelligenceConnector()
+    cves = cve_conn.fetch_vulnerabilities(local_json_path=cve_feed_file)
+    enriched_assets = cve_conn.enrich_assets(assets, cves)
     total_cves_mapped = sum(len(a.vulnerabilities) for a in enriched_assets)
-    logger.info(f"Mapped {total_cves_mapped} active CVEs from RUNE across discovered assets.")
+    logger.info(f"Mapped {total_cves_mapped} active CVEs across discovered assets.")
 
     # 2. Zone & Conduit Partitioning (Clause Z1 & Z3)
     logger.info("Partitioning System Under Consideration (SuC) into Purdue Zones & Conduits...")
-    facility_id = "DC-6094"
+    facility_id = "DC-104"
     survey = load_site_survey(facility_id)
     if survey:
         logger.info(f"Loaded site-survey attestation: {survey['_path']} (surveyed {survey.get('survey_date')})")
@@ -73,7 +73,7 @@ def run_pipeline(
     partitioner = ZonePartitioner(facility_id=facility_id, facility_type="Distribution Center")
     now_str = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
     suc = partitioner.build_system_under_consideration(
-        name="Global Logistics DC #6094 (Ambient & Cold Chain Operations)",
+        name="Global Logistics DC #104 (Ambient & Cold Chain Operations)",
         assets=enriched_assets,
         conduits=conduits,
         assessment_time=now_str
@@ -139,10 +139,10 @@ def main():
 
     armis_dev = os.path.join(BASE_DIR, "data", "sample_telemetry", "armis_dc_devices.json")
     armis_bnd = os.path.join(BASE_DIR, "data", "sample_telemetry", "armis_dc_boundaries.json")
-    rune_feed = os.path.join(BASE_DIR, "data", "sample_telemetry", "rune_cve_feed.json")
+    cve_feed = os.path.join(BASE_DIR, "data", "sample_telemetry", "cve_intelligence_feed.json")
     output_dir = os.path.join(BASE_DIR, "reports")
 
-    run_pipeline(armis_dev, armis_bnd, rune_feed, output_dir)
+    run_pipeline(armis_dev, armis_bnd, cve_feed, output_dir)
 
     if args.serve:
         import http.server

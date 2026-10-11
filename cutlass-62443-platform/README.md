@@ -6,7 +6,7 @@
 [![Standards](https://img.shields.io/badge/STANDARDS-ISA%2FIEC%2062443--3--2%20%7C%2062443--3--3-blue.svg)](https://www.isa.org/)
 [![Target SL](https://img.shields.io/badge/TARGET%20SECURITY%20LEVEL-SL--T%202%20(GLOBAL)-amber.svg)]()
 [![Asset Source](https://img.shields.io/badge/TELEMETRY-ARMIS%20OT-0071dc.svg)]()
-[![CVE Intelligence](https://img.shields.io/badge/VULN%20FEED-RUNE%20CVE%20ENGINE-red.svg)]()
+[![CVE Intelligence](https://img.shields.io/badge/VULN%20FEED-CVE%20INTEL%20FEED-red.svg)]()
 [![AI Engine](https://img.shields.io/badge/AI%20COPILOT-HYBRID%20LLM%20%2B%20DETERMINISTIC-purple.svg)]()
 
 ---
@@ -15,7 +15,7 @@
 
 **CUTLASS (Cyber Unified Threat Level Automated Site Survey)** is an enterprise-scale cyber-physical risk assessment platform engineered specifically for modern operational technology environments. Manual, spreadsheet-driven risk assessments fail at enterprise scale across hundreds of industrial facilities and millions of OT devices. CUTLASS automates the 62443-3-2 lifecycle by ingesting:
 1. **Live Network Telemetry & OT Inventory from Armis** (Asset discovery, Purdue levels, MAC/IP, communication protocols, network boundaries).
-2. **Vulnerability Intelligence from internal RUNE Engine** (Active CVEs, CVSS scores, CISA KEV status, OT exploitability rank).
+2. **Vulnerability Intelligence Feeds** (Active CVEs, CVSS scores, CISA KEV status, OT exploitability rank).
 3. **Enterprise Standards & Policies** (Policy-as-code YAML enforcement).
 4. **Mandated Target Security Level 2 (SL-T 2)** across all operational zones.
 
@@ -25,7 +25,7 @@
 
 | Clause | Standard Activity | Platform Automation |
 | :--- | :--- | :--- |
-| **Z1** | **Identify the System Under Consideration (SuC)** | Auto-groups assets into facility perimeters (e.g. DC #6094). |
+| **Z1** | **Identify the System Under Consideration (SuC)** | Auto-groups assets into facility perimeters (e.g. DC #104). |
 | **Z2** | **Initial Risk Assessment** | Calculates unmitigated cyber-physical consequence on plant operations. |
 | **Z3** | **Zone & Conduit Partitioning** | Purdue Model (L0-L5) boundary grouping & network conduit mapping. |
 | **Z4** | **Risk Assessment Threshold Screening** | Automatically routes high-criticality zones (Ammonia, Sorters) to detailed assessment. |
@@ -79,7 +79,7 @@ cutlass-62443-platform/
 │   └── consequence_matrix.yaml             # MHE, ASRS, Ammonia impact matrix
 ├── connectors/
 │   ├── armis_connector.py                  # Armis API & telemetry ingest
-│   └── rune_connector.py                   # Internal RUNE CVE engine client
+│   └── cve_connector.py                    # CVE intelligence feed client
 ├── core/
 │   ├── models.py                           # Pydantic data schemas
 │   ├── zone_partitioner.py                 # Purdue Zone & Conduit partitioner (Z1 & Z3)

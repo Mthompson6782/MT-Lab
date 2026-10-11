@@ -179,7 +179,7 @@ class LLMAnalyzer:
             f"#### 2. Key Findings & Operational Exposure\n"
             f"1. **Direct DMZ Bypass into Ammonia Refrigeration (Safety Loop Threat):** "
             f"Armis telemetry detected an uninspected direct conduit from Enterprise IT into the Ammonia Refrigeration PLC (Johnson Controls Frick Quantum HD). "
-            f"Combined with RUNE CVE-2021-32955 (Authentication Bypass), an attacker could alter setpoints or trigger an ammonia safety hazard without crossing the L3.5 DMZ.\n"
+            f"Combined with CVE-2021-32955 (Authentication Bypass), an attacker could alter setpoints or trigger an ammonia safety hazard without crossing the L3.5 DMZ.\n"
             f"2. **Sortation Core Controller Exposure:** "
             f"The Dematic S7-1517F sortation controller is exposed to CVE-2023-3595 (S7comm-plus RCE). A disruption to this controller stops outbound trailer dispatch.\n"
             f"3. **Engineering Workstation Hardening Deficiencies:** "

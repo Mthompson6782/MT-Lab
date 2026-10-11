@@ -68,7 +68,7 @@ CUTLASS automates the entire six-clause **ISA/IEC 62443-3-2** risk assessment li
 | **Z6** | **Cybersecurity Requirements (CRS)** | Auto-generates actionable engineering specifications and OT-safe compensating controls. |
 
 ### Technical Highlights
-- **Passive Ingestion**: Ingests live telemetry from Armis OT sensors and matches active vulnerabilities via internal RUNE CVE feeds.
+- **Passive Ingestion**: Ingests live telemetry from Armis OT sensors and matches active vulnerabilities via standard CVE & CISA KEV feeds.
 - **Multi-Hop Attack Graphs**: Traces adversary pivot paths from compromised enterprise DMZ jump boxes down into OT control rings.
 - **Supply Chain Blast Radius**: Models real-world financial loss ($/hour) and downstream logistics disruptions across distribution networks.
 - **OT-Safe Compensating Controls**: Synthesizes DPI filtering rules and switch ACLs so plant operations can maintain continuous runtime without requiring mid-shift controller reboots.
@@ -117,7 +117,7 @@ Together, **CUTLASS** and **HALBERD** deliver comprehensive defense-in-depth acr
 |                      |  Threat Scenario Synthesis   |  Audit & Compliance Reports  |
 +----------------------+------------------------------+------------------------------+
 |  Level 3             |  CUTLASS™                    |  Zone & Conduit Boundary     |
-|  Site Operations     |  Armis & RUNE Telemetry      |  Attack Graph Lateral Paths  |
+|  Site Operations     |  Armis & CVE Telemetry       |  Attack Graph Lateral Paths  |
 |  & Plant SCADA       |  Supply Chain Blast Radius   |  Compensating Controls       |
 +----------------------+------------------------------+------------------------------+
 |  Level 2             |  HALBERD™                    |  HMI / SCADA Link Security   |

@@ -2,7 +2,7 @@
 IEC 62443-3-2 Formal Report & Audit Deliverable Generator.
 Generates:
 1. Markdown Audit Report (Compliant with ISA/IEC 62443-3-2 documentation requirements)
-2. JSON Assessment Export (For SIEM, GRC tooling, and Armis/RUNE feedback loops)
+2. JSON Assessment Export (For SIEM, GRC tooling, and Armis/CVE feedback loops)
 """
 
 import json
@@ -148,7 +148,7 @@ class ReportGenerator:
             md.append(f"- **Safety Hazard Level:** {br.safety_hazard_level}")
             md.append(f"- **Environmental Impact:** {br.environmental_impact}")
             md.append(f"- **Financial Downtime Burn:** ${br.hourly_financial_burn_usd:,.0f}/hour | **Total Estimated Loss:** ${br.total_loss_exposure_usd:,.0f}")
-            md.append(f"- **Affected Retail Supercenters:** {br.affected_supply_chain_stores} Stores Delayed")
+            md.append(f"- **Affected Downstream Stores:** {br.affected_supply_chain_stores} Stores Delayed")
             md.append("\n**Attack Hop Sequence & Barrier Breaches:**")
             for h in p.hops:
                 cve_tag = f" (`{h.cve_id}`)" if h.cve_id else ""

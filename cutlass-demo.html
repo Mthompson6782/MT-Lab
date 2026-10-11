@@ -37,13 +37,13 @@
           <span class="text-xs px-2 py-0.5 rounded bg-blue-900/60 text-blue-300 border border-blue-700/50 mono font-semibold">IEC 62443-3-2</span>
           <span class="text-xs px-2 py-0.5 rounded bg-amber-900/40 text-amber-300 border border-amber-700/50 font-medium hidden md:inline">SITE SURVEY</span>
         </div>
-        <p class="text-xs text-gray-400">Cyber Unified Threat Level Automated Site Survey • Armis & RUNE Integration</p>
+        <p class="text-xs text-gray-400">Cyber Unified Threat Level Automated Site Survey • Armis & CVE Intelligence</p>
       </div>
     </div>
     <div class="flex items-center space-x-4">
       <div class="text-right hidden sm:block">
         <div class="text-xs text-gray-400">Facility / System Under Consideration</div>
-        <div class="text-sm font-semibold text-white mono" id="facility-title">DC #6094 (Ambient & Cold Chain)</div>
+        <div class="text-sm font-semibold text-white mono" id="facility-title">DC #104 (Ambient & Cold Chain)</div>
       </div>
       <div class="px-3 py-1.5 rounded-lg bg-yellow-500/10 border border-yellow-500/30 text-yellow-400 text-xs font-semibold flex items-center space-x-1.5">
         <i class="fa-solid fa-shield-halved"></i>
@@ -130,14 +130,14 @@
       <div class="glass-card rounded-xl p-5 relative overflow-hidden">
         <div class="flex justify-between items-start">
           <div>
-            <p class="text-xs font-medium text-gray-400 uppercase tracking-wider">Active RUNE CVEs</p>
+            <p class="text-xs font-medium text-gray-400 uppercase tracking-wider">Active Critical CVEs</p>
             <h3 class="text-3xl font-extrabold mt-1 text-amber-400 mono" id="kpi-cves">--</h3>
           </div>
           <div class="w-10 h-10 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center text-lg">
             <i class="fa-solid fa-bug"></i>
           </div>
         </div>
-        <p class="text-xs text-gray-400 mt-3">RUNE Vulnerability Feed</p>
+        <p class="text-xs text-gray-400 mt-3">CVE Intelligence Feed</p>
         <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-500 to-yellow-300"></div>
       </div>
     </div>
@@ -256,7 +256,7 @@
             <tr class="border-b border-gray-800 text-xs uppercase tracking-wider text-gray-400 bg-gray-900/60">
               <th class="p-3">Scenario ID</th>
               <th class="p-3">Target Zone & Asset</th>
-              <th class="p-3">RUNE CVE</th>
+              <th class="p-3">Active CVE</th>
               <th class="p-3 text-center">Unmitigated Risk</th>
               <th class="p-3">Operational Impact Summary</th>
               <th class="p-3">Recommended Compensating Controls</th>
@@ -307,7 +307,7 @@
   <script>
     // Embedded Assessment Data Payload
     const ASSESSMENT_DATA = {
-      facility_name: "Global Logistics DC #6094 (Ambient & Perishables)",
+      facility_name: "Global Logistics DC #104 (Ambient & Perishables)",
       facility_type: "Distribution Center",
       timestamp: "2026-09-24 19:30:00 UTC",
       target_sl: 2.0,
@@ -328,7 +328,7 @@
           achieved_sl: 0.0,
           status: "FAIL",
           badge: "badge-sl-fail",
-          assets: ["DC6094-AMMONIA-COMP-PLC-01", "DC6094-AMMONIA-SIS-PANEL-01"],
+          assets: ["DC104-AMMONIA-COMP-PLC-01", "DC104-AMMONIA-SIS-PANEL-01"],
           issues: "Direct bypass conduit from L4 Enterprise IT; unencrypted Modbus-TCP and HTTP setpoint control."
         },
         {
@@ -339,7 +339,7 @@
           achieved_sl: 1.0,
           status: "DEFICIENT",
           badge: "badge-sl-warn",
-          assets: ["DC6094-MAIN-CROSSBELT-SORTER-PLC"],
+          assets: ["DC104-MAIN-CROSSBELT-SORTER-PLC"],
           issues: "Vulnerable to CVE-2023-3595 (S7comm-plus RCE); lacks deep packet inspection."
         },
         {
@@ -350,7 +350,7 @@
           achieved_sl: 1.0,
           status: "DEFICIENT",
           badge: "badge-sl-warn",
-          assets: ["DC6094-REFRIG-HMI-01", "DC6094-ENG-WORKSTATION-EWS-01"],
+          assets: ["DC104-REFRIG-HMI-01", "DC104-ENG-WORKSTATION-EWS-01"],
           issues: "Active SMBv1 and uninspected RDP; unpatched privilege escalation CVE-2021-34444."
         },
         {
@@ -361,7 +361,7 @@
           achieved_sl: 2.0,
           status: "COMPLIANT",
           badge: "badge-sl-pass",
-          assets: ["DC6094-AGV-FLEET-SRV-01"],
+          assets: ["DC104-AGV-FLEET-SRV-01"],
           issues: "Encrypted mTLS and gRPC; passing SL-2 requirements."
         },
         {
@@ -372,7 +372,7 @@
           achieved_sl: 2.0,
           status: "COMPLIANT",
           badge: "badge-sl-pass",
-          assets: ["DC6094-OT-DMZ-JUMPBOX-01"],
+          assets: ["DC104-OT-DMZ-JUMPBOX-01"],
           issues: "CyberArk bastion jump host; strict TLS termination; passing SL-2."
         }
       ],
@@ -380,7 +380,7 @@
         {
           id: "TS-AMMONIA-01",
           zone_name: "Ammonia Refrigeration",
-          asset: "DC6094-AMMONIA-COMP-PLC-01",
+          asset: "DC104-AMMONIA-COMP-PLC-01",
           cve: "CVE-2021-32955 (CVSS 8.8)",
           unmitigated_score: 25,
           unmitigated_badge: "bg-red-900/60 text-red-300",
@@ -392,7 +392,7 @@
         {
           id: "TS-SORTATION-01",
           zone_name: "Sortation Conveyor",
-          asset: "DC6094-MAIN-CROSSBELT-SORTER-PLC",
+          asset: "DC104-MAIN-CROSSBELT-SORTER-PLC",
           cve: "CVE-2023-3595 (CVSS 9.8)",
           unmitigated_score: 20,
           unmitigated_badge: "bg-red-900/60 text-red-300",
@@ -404,7 +404,7 @@
         {
           id: "TS-SUPERVISORY-01",
           zone_name: "Supervisory HMI",
-          asset: "DC6094-ENG-WORKSTATION-EWS-01",
+          asset: "DC104-ENG-WORKSTATION-EWS-01",
           cve: "CVE-2021-34444 (CVSS 7.8)",
           unmitigated_score: 12,
           unmitigated_badge: "bg-amber-900/60 text-amber-300",
@@ -416,7 +416,7 @@
       ],
       crs_requirements: [
         {
-          id: "CRS-DC6094-001",
+          id: "CRS-DC104-001",
           priority: "P0 - Emergency Safety Block",
           zone: "Ammonia Refrigeration Control",
           std: "FR 5: Restricted Data Flow (SR 5.1, SR 5.2)",
@@ -424,7 +424,7 @@
           team: "Enterprise OT Network Engineering"
         },
         {
-          id: "CRS-DC6094-002",
+          id: "CRS-DC104-002",
           priority: "P1 - Critical",
           zone: "Sortation Conveyor",
           std: "FR 3: System Integrity & FR 7: Resource Availability",
@@ -432,7 +432,7 @@
           team: "Automation & Controls Engineering"
         },
         {
-          id: "CRS-DC6094-003",
+          id: "CRS-DC104-003",
           priority: "P2 - High",
           zone: "Supervisory Control & Workstations",
           std: "FR 1: Identification & FR 4: Confidentiality",
@@ -449,7 +449,7 @@
           title: "Enterprise DMZ Bypass to Ammonia Safety Release (Catastrophic Loop)",
           adversary: "Opportunistic Cybercriminal or Ransomware Actor (IEC 62443 SL-2 Profile)",
           entry: "Enterprise Corporate Subnet (L4)",
-          target: "DC6094-AMMONIA-COMP-PLC-01 (Johnson Controls Frick Quantum HD)",
+          target: "DC104-AMMONIA-COMP-PLC-01 (Johnson Controls Frick Quantum HD)",
           loss_usd: "$4,410,000",
           hourly_burn: "$145,000 / hr",
           downtime: "18.0 Hours",
@@ -492,7 +492,7 @@
           ],
           cascades: {
             upstream: ["Inbound refrigerated tractor-trailers re-routed to neighboring regional DCs", "Cold dock receiving doors 1-28 shuttered"],
-            downstream: ["142 retail Supercenters experience milk, produce, and fresh meat stockouts within 24h", "OSHA and EPA formal regulatory investigation initiated"]
+            downstream: ["142 regional fulfillment stores experience milk, produce, and fresh meat stockouts within 24h", "OSHA and EPA formal regulatory investigation initiated"]
           }
         },
         {
@@ -503,7 +503,7 @@
           title: "Supervisory EWS Pivot to Crossbelt Sorter S7comm-Plus RCE",
           adversary: "Targeted Cybercriminal / Ransomware Operator with Industrial Tooling",
           entry: "Supervisory HMI VLAN (L2)",
-          target: "DC6094-MAIN-CROSSBELT-SORTER-PLC (Siemens SIMATIC S7-1517F)",
+          target: "DC104-MAIN-CROSSBELT-SORTER-PLC (Siemens SIMATIC S7-1517F)",
           loss_usd: "$1,098,000",
           hourly_burn: "$88,000 / hr",
           downtime: "8.5 Hours",
@@ -514,7 +514,7 @@
             {
               step: 1,
               type: "Privilege Escalation",
-              source: "DC6094-ENG-WORKSTATION-EWS-01",
+              source: "DC104-ENG-WORKSTATION-EWS-01",
               target: "Windows SAM / LSASS",
               vector: "Exploits CVE-2021-34444 (Windows RDP Escalation) via legacy SMBv1",
               barrier: "FR 1.3 (Account Management) & FR 3.2 (Malware/EDR Protection)"
@@ -546,7 +546,7 @@
           ],
           cascades: {
             upstream: ["ASRS halts buffering; warehouse aisles gridlocked", "Cross-dock queues back up across 3 miles of track"],
-            downstream: ["Trailer dispatch window missed for 48 outbound trailers", "96 Retail Supercenters miss morning GM replenishment cutoff"]
+            downstream: ["Trailer dispatch window missed for 48 outbound trailers", "96 regional retail stores miss morning GM replenishment cutoff"]
           }
         },
         {
@@ -557,7 +557,7 @@
           title: "Modbus DoS Injection against High-Bay ASRS Crane System",
           adversary: "Generic Script / Low Motivation Attacker (IEC 62443 SL-2 Profile)",
           entry: "Supervisory HMI Network (L2)",
-          target: "DC6094-ASRS-CRANE-CONTROLLER-01 (Beckhoff CX5140)",
+          target: "DC104-ASRS-CRANE-CONTROLLER-01 (Beckhoff CX5140)",
           loss_usd: "$255,000",
           hourly_burn: "$45,000 / hr",
           downtime: "4.0 Hours",
@@ -703,14 +703,14 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-2">
         <div class="p-3 bg-red-950/40 border border-red-800/50 rounded-lg text-xs">
           <strong class="text-red-400 flex items-center mb-1"><i class="fa-solid fa-triangle-exclamation mr-1.5"></i> Critical Safety Exposure</strong>
-          Armis telemetry detected a rogue, uninspected direct conduit (CND-06) linking Enterprise IT directly to the Ammonia Refrigeration PLC (Johnson Controls Frick Quantum HD). Coupled with RUNE CVE-2021-32955 (Auth Bypass), this represents an intolerable cyber-physical safety hazard.
+          Armis telemetry detected a rogue, uninspected direct conduit (CND-06) linking Enterprise IT directly to the Ammonia Refrigeration PLC (Johnson Controls Frick Quantum HD). Coupled with CVE-2021-32955 (Auth Bypass), this represents an intolerable cyber-physical safety hazard.
         </div>
         <div class="p-3 bg-amber-950/40 border border-amber-800/50 rounded-lg text-xs">
           <strong class="text-amber-400 flex items-center mb-1"><i class="fa-solid fa-conveyor-belt mr-1.5"></i> Logistics Throughput Risk</strong>
           The Dematic S7-1517F sortation controller is exposed to unauthenticated remote code execution (CVE-2023-3595). Exploitation would shut down the entire DC dispatch sortation loop.
         </div>
       </div>
-      <p class="text-xs text-gray-400">Compensating controls (CRS-DC6094-001 through 003) have been synthesized to achieve SL-2 equivalence until scheduled maintenance patching windows.</p>
+      <p class="text-xs text-gray-400">Compensating controls (CRS-DC104-001 through 003) have been synthesized to achieve SL-2 equivalence until scheduled maintenance patching windows.</p>
     `;
 
     // Populate Purdue Tree

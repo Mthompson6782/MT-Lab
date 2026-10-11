@@ -19,20 +19,20 @@ const PROJECTS_DATA = [
     year: "2026",
     duration: "Automated 62443 Site Survey",
     quality: "SL-T 2 / Deterministic + LLM",
-    audio: "Armis / RUNE / Attack Graph",
+    audio: "Armis / CVE Intel / Attack Graph",
     repoUrl: "https://github.com/Mthompson6782/MT-Lab/tree/main/cutlass-62443-platform",
     liveUrl: "cutlass-demo.html",
     executiveUrl: "cutlass-demo.html",
     vercelUrl: "",
     isDemo: true,
-    synopsis: "An automated ISA/IEC 62443-3-2 cyber-physical risk assessment platform engineered for Enterprise Operational Technology. Ingests live telemetry from Armis, active CVEs from RUNE, targets SL-T 2 across all zones, and models multi-hop attack graphs with supply chain blast radius quantification.",
+    synopsis: "An automated ISA/IEC 62443-3-2 cyber-physical risk assessment platform engineered for Enterprise Operational Technology. Ingests live telemetry from Armis, active CVE intelligence, targets SL-T 2 across all zones, and models multi-hop attack graphs with supply chain blast radius quantification.",
     longDescription: `CUTLASS™ (Cyber Unified Threat Level Automated Site Survey) is an enterprise-scale cyber-physical risk assessment platform engineered specifically for modern operational technology footprints across Distribution Centers, Fulfillment Centers, Micro-Fulfillment, and Retail Cold-Chain facilities.
 
-Automating the rigorous ISA/IEC 62443-3-2 and 62443-3-3 standards, CUTLASS combines real-time passive network telemetry (Armis), internal vulnerability intelligence (RUNE), and corporate security policy into a continuous, audit-ready compliance engine.
+Automating the rigorous ISA/IEC 62443-3-2 and 62443-3-3 standards, CUTLASS combines real-time passive network telemetry (Armis), vulnerability intelligence feeds, and corporate security policy into a continuous, audit-ready compliance engine.
 
 Key Architecture & Capabilities:
 • End-to-End IEC 62443-3-2 Automation: Scopes the System Under Consideration (SuC), partitions Purdue Model zones & conduits (L0-L5), and auto-generates Clause Z6 Cybersecurity Requirements Specifications (CRS).
-• Live Armis & RUNE Telemetry Ingestion: Continuously monitors inter-zone conduits, active industrial protocols (CIP, Modbus-TCP, PROFINET, S7comm), and matches live vulnerability intelligence without intrusive plant scanning.
+• Live Armis & CVE Telemetry Ingestion: Continuously monitors inter-zone conduits, active industrial protocols (CIP, Modbus-TCP, PROFINET, S7comm), and matches live vulnerability intelligence without intrusive plant scanning.
 • Mandated SL-T 2 Benchmark: Rigorously calculates the Achieved Security Level Vector (SL-V = [AC, UC, SI, DC, RDF, TRE, RA]) across all 7 Foundational Requirements for every operational zone.
 • Multi-Hop Attack Graphs & Blast Radius: Simulates lateral movement from IT/DMZ to physical PLCs and models real-world financial loss ($/hr) and supply chain ripple effects across critical distribution networks.
 • AI Compensating Control Engine: Synthesizes OT-safe mitigations (DPI filtering, industrial switch ACLs) to maintain continuous operations without requiring high-risk mid-shift controller reboots.`,
@@ -42,7 +42,7 @@ Key Architecture & Capabilities:
       "IEC 62443-3-3",
       "Enterprise OT",
       "Armis Telemetry",
-      "RUNE CVE Feed",
+      "CVE Intel Feed",
       "Purdue Model (L0-L5)",
       "Attack Graphs",
       "Blast Radius",

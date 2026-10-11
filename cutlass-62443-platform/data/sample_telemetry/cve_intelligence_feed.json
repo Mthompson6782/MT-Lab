@@ -10,7 +10,7 @@
     "affected_components": ["Rockwell Automation GuardLogix 1756-L73S", "Rockwell Automation Studio 5000"],
     "remediation_patch_available": true,
     "exploitability_in_ot_context": "Critical",
-    "rune_risk_rank": "P0_CRITICAL"
+    "cve_risk_rank": "P0_CRITICAL"
   },
   {
     "cve_id": "CVE-2021-32955",
@@ -23,7 +23,7 @@
     "affected_components": ["Johnson Controls / Frick Quantum HD Compressor Controller"],
     "remediation_patch_available": false,
     "exploitability_in_ot_context": "High",
-    "rune_risk_rank": "P1_HIGH"
+    "cve_risk_rank": "P1_HIGH"
   },
   {
     "cve_id": "CVE-2023-3595",
@@ -36,7 +36,7 @@
     "affected_components": ["Dematic / Siemens SIMATIC S7-1517F-3 PN/DP"],
     "remediation_patch_available": true,
     "exploitability_in_ot_context": "Critical",
-    "rune_risk_rank": "P0_CRITICAL"
+    "cve_risk_rank": "P0_CRITICAL"
   },
   {
     "cve_id": "CVE-2020-5504",
@@ -49,7 +49,7 @@
     "affected_components": ["Beckhoff Automation CX5140 Embedded PC", "Johnson Controls / Frick Quantum HD Compressor Controller"],
     "remediation_patch_available": true,
     "exploitability_in_ot_context": "Medium",
-    "rune_risk_rank": "P2_MEDIUM"
+    "cve_risk_rank": "P2_MEDIUM"
   },
   {
     "cve_id": "CVE-2021-34444",
@@ -62,6 +62,6 @@
     "affected_components": ["Dell / Rockwell Automation Studio 5000 / TIA Portal EWS"],
     "remediation_patch_available": true,
     "exploitability_in_ot_context": "Medium",
-    "rune_risk_rank": "P2_MEDIUM"
+    "cve_risk_rank": "P2_MEDIUM"
   }
 ]

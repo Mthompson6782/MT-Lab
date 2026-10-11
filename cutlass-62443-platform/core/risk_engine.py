@@ -51,7 +51,7 @@ class RiskEngine:
         conduits: dict[str, Conduit]
     ) -> List[ThreatScenario]:
         """
-        Synthesizes threat scenarios based on assets, RUNE CVEs, and network reachability.
+        Synthesizes threat scenarios based on assets, CVE intelligence, and network reachability.
         """
         scenarios: List[ThreatScenario] = []
 

@@ -1,7 +1,7 @@
 """
-RUNE CVE Connector for CUTLASS IEC 62443-3-2 Platform.
+CVE Intelligence Connector for CUTLASS IEC 62443-3-2 Platform.
 Enriches OT assets with vulnerability records, CVSS scores, CISA KEV status,
-and OT-specific exploitability rankings from internal RUNE engine.
+and OT-specific exploitability rankings from vulnerability feeds.
 """
 
 import json
@@ -15,26 +15,26 @@ from core.models import Asset, Vulnerability
 logger = logging.getLogger(__name__)
 
 
-class RuneCveConnector:
-    def __init__(self, rune_api_endpoint: Optional[str] = None, auth_token: Optional[str] = None):
-        self.endpoint = rune_api_endpoint or os.getenv("RUNE_API_ENDPOINT")
-        self.auth_token = auth_token or os.getenv("RUNE_AUTH_TOKEN")
+class CveIntelligenceConnector:
+    def __init__(self, api_endpoint: Optional[str] = None, auth_token: Optional[str] = None):
+        self.endpoint = api_endpoint or os.getenv("CVE_API_ENDPOINT")
+        self.auth_token = auth_token or os.getenv("CVE_AUTH_TOKEN")
 
     def fetch_vulnerabilities(self, local_json_path: Optional[str] = None) -> List[Vulnerability]:
         """
-        Loads CVE intelligence from RUNE feed or local JSON cache.
+        Loads CVE intelligence from feed or local JSON cache.
         """
         if local_json_path and os.path.exists(local_json_path):
-            logger.info(f"Loading RUNE CVE intelligence from local feed: {local_json_path}")
+            logger.info(f"Loading CVE intelligence from local feed: {local_json_path}")
             with open(local_json_path, "r", encoding="utf-8") as f:
                 raw_cves = json.load(f)
             return [Vulnerability(**v) for v in raw_cves]
 
         if not self.endpoint:
-            logger.warning("RUNE endpoint not set; returning empty list.")
+            logger.warning("CVE feed endpoint not set; returning empty list.")
             return []
 
-        # Production RUNE REST API Call
+        # Production REST API Call
         headers = {
             "Authorization": f"Bearer {self.auth_token}",
             "Accept": "application/json",
@@ -49,7 +49,7 @@ class RuneCveConnector:
 
     def enrich_assets(self, assets: List[Asset], vulnerabilities: List[Vulnerability]) -> List[Asset]:
         """
-        Correlates RUNE CVEs with Armis assets based on vendor, model, firmware, and protocol indicators.
+        Correlates CVEs with Armis assets based on vendor, model, firmware, and protocol indicators.
         """
         for asset in assets:
             matched_vulns = []

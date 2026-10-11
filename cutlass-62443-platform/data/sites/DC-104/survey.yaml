@@ -3,7 +3,7 @@
 # Each attestation needs who/when and expires; expired attestations revert to "no_evidence".
 # Status: met | partial | not_met
 
-facility: DC-6094
+facility: DC-104
 surveyed_by: "Sample Assessor"
 survey_date: "2026-09-10"
 default_validity_days: 365

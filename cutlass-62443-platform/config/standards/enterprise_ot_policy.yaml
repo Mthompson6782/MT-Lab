@@ -34,7 +34,7 @@ policies:
     title: "Asset Visibility & Vulnerability Continuous Monitoring"
     iec_mapping: ["FR6.1", "FR6.2"]
     mandatory: true
-    rule: "All OT networks must be passively monitored via Armis appliances with 100% asset discovery coverage. Known vulnerabilities identified via RUNE must be assessed within 14 days."
+    rule: "All OT networks must be passively monitored via Armis appliances with 100% asset discovery coverage. Known vulnerabilities identified via CVE intelligence feeds must be assessed within 14 days."
 
   ENT-OT-POL-06:
     title: "Compensating Control Mandate for Unpatchable OT Hardware"
