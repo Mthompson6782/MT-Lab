@@ -1,0 +1,41 @@
+{
+  "playbook_id": "PB-ICS-COMM-02",
+  "name": "Unauthorized Rogue Host & Conduit Response",
+  "description": "Deterministic response procedure for unknown MAC/IP addresses communicating directly with Level 1 controllers across Purdue boundaries.",
+  "target_asset": "Level 1 Industrial Network",
+  "mitre_ics_technique": "T0855 - Unauthorized Command Message",
+  "recommended_recovery_action": "Verify physical switch port, quarantine rogue MAC address, and perform firmware integrity audit.",
+  "non_disruption_guarantee": "Only the unknown rogue MAC address is filtered. Core SCADA controllers remain undisturbed.",
+  "steps": [
+    {
+      "step_id": 1,
+      "title": "Identify Ingress Switch Port",
+      "action_type": "PHYSICAL_VERIFICATION",
+      "description": "Log into managed switch SW-OT-01 via out-of-band console to locate the physical RJ45 port associated with the rogue MAC address.",
+      "impact": "ZERO_DISRUPTION",
+      "safety_warning": null,
+      "verification_check": "Physical port number identified.",
+      "completed": false
+    },
+    {
+      "step_id": 2,
+      "title": "Port Quarantine / Lockout",
+      "action_type": "CONDUIT_ISOLATION",
+      "description": "Disable the identified switch port or place it into an isolated quarantine VLAN (VLAN 999).",
+      "impact": "MINIMAL_DISRUPTION",
+      "safety_warning": "Confirm port is not an uplink trunk carrying legitimate SCADA traffic before shutting down.",
+      "verification_check": "Port status reflects 'admin down / quarantined'.",
+      "completed": false
+    },
+    {
+      "step_id": 3,
+      "title": "Controller Memory & Baseline Audit",
+      "action_type": "EVIDENCE_COLLECTION",
+      "description": "Perform hash comparison of running PLC ladder logic against the verified engineering backup repository.",
+      "impact": "ZERO_DISRUPTION",
+      "safety_warning": null,
+      "verification_check": "Logic hashes match; no unauthorized program blocks detected.",
+      "completed": false
+    }
+  ]
+}

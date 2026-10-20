@@ -1,0 +1,27 @@
+# CUTLASS 5x5 cyber-physical risk matrix (IEC 62443-3-2 ZCR 2 / 4 / 5)
+# Cell lookup, not L x C arithmetic. Rows = consequence (1-5), columns = likelihood (1-5).
+version: "1.0"
+tolerable_risk: Moderate          # Low and Moderate are tolerable; High and Critical are not
+levels: [Low, Moderate, High, Critical]   # ordered, lowest to highest
+
+likelihood_scale:
+  1: {label: Rare,            criteria: "HCE-enabling asset not reachable from any entry point"}
+  2: {label: Unlikely,        criteria: "Reachable only via authenticated, inspected conduits"}
+  3: {label: Possible,        criteria: "Reachable across flat OT network"}
+  4: {label: Likely,          criteria: "Reachable from IT/remote access, or exploitable CVE on path"}
+  5: {label: Almost certain,  criteria: "Direct IT-to-L1 path, or CISA KEV CVE on HCE-enabling asset"}
+
+consequence_scale_ref: consequence_matrix.yaml   # severity 1-5 definitions
+
+matrix:            # likelihood:  1          2          3          4          5
+  5: [Moderate, High,     High,     Critical, Critical]
+  4: [Moderate, Moderate, High,     High,     Critical]
+  3: [Low,      Moderate, Moderate, High,     High]
+  2: [Low,      Low,      Moderate, Moderate, High]
+  1: [Low,      Low,      Low,      Moderate, Moderate]
+
+rules:
+  zcr4_detailed_assessment_if_initial_risk_at_or_above: High
+  zcr6_residual_target_at_or_below: Moderate
+  zcr7_requires_explicit_acceptance_if_residual_above: Moderate
+  safety_overlay_if_safety_consequence_at_or_above: 4   # applies regardless of tolerable risk

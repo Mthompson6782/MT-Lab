@@ -1,0 +1,73 @@
+# CUTLASS Control Catalog (likelihood credits for residual risk)
+#
+# Residual risk credits ONLY controls that are verified as implemented (site survey or observed).
+# Recommended-but-not-implemented controls feed the PROJECTED residual, never the current one.
+#
+# Attack model per threat scenario (two stages):
+#   access stage : how the adversary reaches the zone   -> remote_access | ot_internal
+#   action stage : what they do on the target (alternatives, adversary takes the easiest)
+#                  -> network_exploit | logic_download | credential_abuse | local_access
+# Likelihood reduction = best credit on the access stage
+#                      + weakest-covered action alternative (min over the scenario's action vectors)
+#                      capped at max_total_reduction; likelihood never drops below 1.
+# Detective controls (monitoring/alerting) earn NO likelihood credit. They support FR6 evidence only.
+
+version: "1.0"
+max_credit_per_stage: 2
+max_total_reduction: 3
+
+controls:
+  CC-DMZ-ENFORCE:
+    title: "Sever direct/uninspected conduits; force all inter-zone traffic through L3.5 DMZ stateful firewall"
+    type: preventive
+    covers_vectors: [remote_access]
+    likelihood_reduction: 2
+    recommend_if: {insecure_inbound_conduit: true}
+    satisfies_srs: ["SR 5.1", "SR 5.2"]
+
+  CC-JUMPHOST-MFA:
+    title: "Vendor/remote engineering access only via MFA-enforced, session-recorded L3.5 jump host"
+    type: preventive
+    covers_vectors: [remote_access, credential_abuse]
+    likelihood_reduction: 1
+    recommend_if: {insecure_inbound_conduit: true}
+    satisfies_srs: ["SR 1.1", "SR 2.1"]
+
+  CC-DPI-WRITE-BLOCK:
+    title: "Industrial DPI: block program download / write function codes (Modbus 05/06/15/16, CIP 0x4D/0x4E, S7 download) except from allow-listed EWS"
+    type: preventive
+    covers_vectors: [logic_download]
+    likelihood_reduction: 1
+    recommend_if: {protocols_any: ["Modbus-TCP", "EtherNet/IP", "CIP", "S7comm", "S7comm-Plus", "ADS"]}
+    satisfies_srs: ["SR 3.1"]
+
+  CC-ASSET-ALLOWLIST-ACL:
+    title: "Controller-level ACL / micro-segmentation: only authorized HMI and EWS addresses may reach the controller"
+    type: preventive
+    covers_vectors: [network_exploit, logic_download]
+    likelihood_reduction: 1
+    recommend_if: {device_types_any: ["PLC", "Safety_PLC_SIS", "Machine_Safety_PLC", "Main_Sorter_PLC", "ASRS_Crane_Controller"]}
+    satisfies_srs: ["SR 5.2"]
+
+  CC-WINDOWS-HARDEN:
+    title: "Harden HMI/EWS: disable SMBv1 and cleartext HTTP, application allow-listing, local admin removal"
+    type: preventive
+    covers_vectors: [credential_abuse, network_exploit, local_access]
+    likelihood_reduction: 1
+    recommend_if: {device_types_any: ["HMI", "Engineering_Workstation"]}
+    satisfies_srs: ["SR 3.2", "SR 4.1"]
+
+  CC-PATCH-MAINT-WINDOW:
+    title: "Apply vendor-validated firmware/patch in next planned maintenance window"
+    type: preventive
+    covers_vectors: [network_exploit, local_access]
+    likelihood_reduction: 2
+    recommend_if: {patch_available: true}
+
+  CC-ARMIS-ALERT:
+    title: "Armis anomaly policy alerting on new/unauthorized connections to the asset"
+    type: detective
+    covers_vectors: []
+    likelihood_reduction: 0          # detective: no likelihood credit (supports SR 6.2 evidence only)
+    recommend_if: {always: true}
+    satisfies_srs: ["SR 6.2"]

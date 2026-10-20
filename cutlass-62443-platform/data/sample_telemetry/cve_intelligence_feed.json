@@ -1,0 +1,67 @@
+[
+  {
+    "cve_id": "CVE-2022-3153",
+    "title": "Rockwell Automation GuardLogix/ControlLogix CIP Explicit Message Buffer Overflow",
+    "cvss_score": 9.8,
+    "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+    "epss_score": 0.84,
+    "cisa_kev": true,
+    "description": "A remote unauthenticated attacker can send crafted Common Industrial Protocol (CIP) packets to cause a buffer overflow, allowing arbitrary code execution or unhandled controller fault (Major Non-Recoverable Fault - MNFR) in Rockwell ControlLogix and GuardLogix controllers.",
+    "affected_components": ["Rockwell Automation GuardLogix 1756-L73S", "Rockwell Automation Studio 5000"],
+    "remediation_patch_available": true,
+    "exploitability_in_ot_context": "Critical",
+    "cve_risk_rank": "P0_CRITICAL"
+  },
+  {
+    "cve_id": "CVE-2021-32955",
+    "title": "Johnson Controls Frick Quantum HD Web Server Authentication Bypass",
+    "cvss_score": 8.8,
+    "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+    "epss_score": 0.52,
+    "cisa_kev": false,
+    "description": "Improper authentication in the web service of the Frick Quantum HD compressor controller allows an attacker with network access to bypass credentials and modify temperature setpoints, discharge pressures, and ammonia compressor run parameters.",
+    "affected_components": ["Johnson Controls / Frick Quantum HD Compressor Controller"],
+    "remediation_patch_available": false,
+    "exploitability_in_ot_context": "High",
+    "cve_risk_rank": "P1_HIGH"
+  },
+  {
+    "cve_id": "CVE-2023-3595",
+    "title": "Siemens SIMATIC S7-1500 Remote Code Execution via S7comm-Plus Memory Corruption",
+    "cvss_score": 9.8,
+    "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+    "epss_score": 0.77,
+    "cisa_kev": true,
+    "description": "A vulnerability in the S7comm-plus protocol implementation allows an attacker to send crafted packets to port 102/tcp resulting in memory corruption and remote code execution with complete control over CPU execution.",
+    "affected_components": ["Dematic / Siemens SIMATIC S7-1517F-3 PN/DP"],
+    "remediation_patch_available": true,
+    "exploitability_in_ot_context": "Critical",
+    "cve_risk_rank": "P0_CRITICAL"
+  },
+  {
+    "cve_id": "CVE-2020-5504",
+    "title": "Modbus-TCP Stack Denial of Service and State Injection in Embedded Controller",
+    "cvss_score": 7.5,
+    "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+    "epss_score": 0.22,
+    "cisa_kev": false,
+    "description": "Sending an invalid Modbus function code sequence over TCP port 502 triggers an unhandled null-pointer dereference causing the PLC communication module to lock up and drop watchdog heartbeats.",
+    "affected_components": ["Beckhoff Automation CX5140 Embedded PC", "Johnson Controls / Frick Quantum HD Compressor Controller"],
+    "remediation_patch_available": true,
+    "exploitability_in_ot_context": "Medium",
+    "cve_risk_rank": "P2_MEDIUM"
+  },
+  {
+    "cve_id": "CVE-2021-34444",
+    "title": "Windows Remote Desktop Protocol Elevation of Privilege on Engineering Workstations",
+    "cvss_score": 7.8,
+    "cvss_vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+    "epss_score": 0.15,
+    "cisa_kev": false,
+    "description": "An elevation of privilege vulnerability in Windows RDP client allows local low-privileged users to execute code as SYSTEM on unpatched engineering workstations.",
+    "affected_components": ["Dell / Rockwell Automation Studio 5000 / TIA Portal EWS"],
+    "remediation_patch_available": true,
+    "exploitability_in_ot_context": "Medium",
+    "cve_risk_rank": "P2_MEDIUM"
+  }
+]

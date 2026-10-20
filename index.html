@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>MT-Lab | Industrial & OT Cybersecurity Engineering Studio</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
+  <link rel="stylesheet" href="style.css?v=20261010-ot">
+</head>
+<body>
+
+  <div id="splash-screen">
+    <div class="letterbox-bar letterbox-top"></div>
+    <div class="letterbox-bar letterbox-bottom"></div>
+
+    <div class="cinematic-backdrop">
+      <div class="ambient-glow"></div>
+      <div class="dust-particles"></div>
+    </div>
+
+    <div class="splash-intro-card" id="splash-intro-card">
+      <div class="studio-emblem">⚡</div>
+      <div class="studio-supertitle">MICHAEL THOMPSON PRESENTS</div>
+      
+      <button class="initialize-btn" id="initialize-splash-btn">
+        <div class="btn-pulse-ring"></div>
+        <span class="init-play-icon">▶</span>
+        <span class="init-text">ENTER MT Labs</span>
+      </button>
+
+      <div class="sound-hint">
+        <span class="sound-wave-icon">🔊</span>
+        <span>Includes Cinematic Audio Impact • Click to Launch</span>
+      </div>
+    </div>
+
+    <div class="splash-stage" id="splash-stage">
+      <div class="shockwave-ring" id="shockwave-ring"></div>
+      <div class="flash-overlay" id="flash-overlay"></div>
+      <div class="lens-flare-beam" id="lens-flare-beam"></div>
+
+      <div class="title-container" id="title-container">
+        <div class="studio-presents">A MICHAEL THOMPSON PRODUCTION</div>
+        <h1 class="splash-brand-title" id="splash-brand-title">
+          <span class="title-word">MT</span> <span class="title-word highlight">LABS</span>
+        </h1>
+        <div class="latin-divider"></div>
+        <div class="latin-tagline" id="latin-tagline">
+          AUT VIAM INVENIAM AUT FACIAM
+        </div>
+        <div class="latin-translation" id="latin-translation">
+          "I Shall Either Find A Way Or Make One"
+        </div>
+        <div class="latin-secondary">
+          PER ASPERA AD ASTRA &nbsp;•&nbsp; RESURGO ET VINCO
+        </div>
+      </div>
+    </div>
+
+    <button class="skip-intro-btn" id="skip-intro-btn" title="Skip to Profiles">
+      SKIP INTRO ❯
+    </button>
+  </div>
+
+  <audio id="splash-audio" src="cinematic-impact.mp3" preload="auto"></audio>
+
+  <div id="profile-gate" class="hidden">
+    <div class="profile-container">
+      <div class="profile-brand-logo">MT-Lab | OT Cyber Studio</div>
+      <h1 class="profile-title">Select Your Engineering Role</h1>
+      
+      <div class="profiles-grid" id="profiles-grid">
+      </div>
+
+      <button id="enter-guest-btn" class="enter-as-guest-btn">Enter as Guest Engineer</button>
+    </div>
+  </div>
+
+  <header class="netflix-navbar" id="netflix-navbar">
+    <div class="nav-left">
+      <a href="#" class="brand-logo">
+        MT <span class="tag">LAB</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#" class="nav-link active">Home</a></li>
+        <li><a href="#trending-row" class="nav-link">Flagships</a></li>
+        <li><a href="cutlass-demo.html" class="nav-link">CUTLASS Console ↗</a></li>
+        <li><a href="halberd-demo.html" class="nav-link">HALBERD Console ↗</a></li>
+        <li><a href="OT-with-MT/" class="nav-link">OT with MT</a></li>
+                <li><a href="halberd-executive.html" class="nav-link">Executive Briefing ↗</a></li>
+        <li><a href="https://github.com/Mthompson6782/MT-Lab" target="_blank" rel="noopener noreferrer" class="nav-link">GitHub ↗</a></li>
+      </ul>
+    </div>
+
+    <div class="nav-right">
+      <button class="replay-intro-btn" id="replay-intro-btn" title="Replay Cinematic Splash Intro">
+        🎬 Intro
+      </button>
+
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="search-input" class="search-input" placeholder="Titles, tags, technologies...">
+      </div>
+
+      <button id="audio-toggle" class="audio-toggle-btn" title="Toggle Sound">
+        🔊
+      </button>
+
+      <div class="nav-profile" onclick="switchProfilePrompt()" title="Switch Profile">
+        <div class="nav-profile-avatar" id="nav-profile-avatar">👔</div>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero-billboard" id="hero-billboard">
+  </section>
+
+  <main class="main-catalog" id="main-catalog">
+    <section class="catalog-row" id="top10-row"></section>
+    <section class="catalog-row" id="trending-row"></section>
+    <section class="catalog-row" id="web-row"></section>
+    <section class="catalog-row" id="ai-row"></section>
+    <section class="catalog-row" id="knowledge-row"></section>
+    <section class="catalog-row" id="mylist-row"></section>
+  </main>
+
+  <div class="modal-overlay" id="details-modal">
+    <div class="modal-dialog">
+      <button class="modal-close-btn" onclick="closeDetailsModal()">✕</button>
+
+      <div class="modal-hero" id="modal-hero-media">
+        <div class="modal-hero-vignette"></div>
+        <div class="modal-hero-content">
+          <h2 class="modal-title" id="modal-title">Project Title</h2>
+          <p class="modal-subtitle" id="modal-subtitle">Project Subtitle</p>
+          <div class="modal-actions">
+            <a href="#" id="modal-live-btn" target="_blank" rel="noopener noreferrer" class="btn-netflix btn-play">
+              <span>🚀</span> <span>Launch Live Website</span>
+            </a>
+            <a href="#" id="modal-executive-btn" target="_blank" rel="noopener noreferrer" class="btn-netflix btn-play" style="display: none; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: #000000; font-weight: 700;">
+              <span>👔</span> <span>Executive Briefing</span>
+            </a>
+            <a href="#" id="modal-repo-btn" target="_blank" rel="noopener noreferrer" class="btn-netflix btn-info">
+              <span>💻</span> <span>Open GitHub Code</span>
+            </a>
+            <button id="modal-bookmark-btn" class="btn-netflix btn-info">
+              <span>➕ Add to My List</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <div class="modal-columns">
+          <div class="modal-left">
+            <div class="hero-meta-row" style="margin-bottom: 18px;">
+              <span class="match-badge" id="modal-match">99% Match</span>
+              <span class="rating-badge" id="modal-rating">TV-MA</span>
+              <span class="quality-badge" id="modal-year">2026</span>
+              <span class="quality-badge" id="modal-quality">4K Ultra HD</span>
+              <span class="quality-badge" id="modal-duration">Production</span>
+            </div>
+            <p id="modal-description"></p>
+          </div>
+
+          <div class="modal-right">
+            <div id="modal-stats"></div>
+            <div class="modal-meta-field" style="margin-top: 18px;">
+              <strong>Technologies & Tags:</strong>
+              <div id="modal-tags" style="margin-top: 8px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="netflix-footer">
+    <ul class="footer-links">
+      <li><a href="https://github.com/Mthompson6782" target="_blank" rel="noopener">GitHub Profile</a></li>
+      <li><a href="https://github.com/Mthompson6782/MT-Lab" target="_blank" rel="noopener">MT-Lab Repository</a></li>
+      <li><a href="https://github.com/Mthompson6782/MT-Lab/tree/main/cutlass-62443-platform" target="_blank" rel="noopener">CUTLASS 62443 Platform</a></li>
+      <li><a href="https://github.com/Mthompson6782/MT-Lab/tree/main/halberd-ot" target="_blank" rel="noopener">HALBERD Edge Defense</a></li>
+      <li><a href="https://www.isa.org/standards-and-publications/isa-standards/isa-standards-committees/isa62443" target="_blank" rel="noopener">ISA/IEC 62443 Standards</a></li>
+    </ul>
+    <div style="margin-bottom: 16px;">
+      <button class="service-code-btn" onclick="replaySplashScreen()" style="margin-right: 10px;">REPLAY MT-LAB SPLASH</button>
+      <button class="service-code-btn" onclick="playNetflixTaDum()">AUDIO CHIME TEST</button>
+    </div>
+    <p>© 2026 Michael Thompson. MT-Lab | Industrial & OT Cybersecurity Engineering Studio. Engineered for Critical Infrastructure Defense.</p>
+  </footer>
+
+  <script src="data.js?v=20261010-ot"></script>
+  <script src="app.js?v=20261010-ot"></script>
+</body>
+</html>
