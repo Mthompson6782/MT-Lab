@@ -100,6 +100,40 @@ Key Architecture & Capabilities:
     ],
     stats: { stars: 15, forks: 4, status: "Active Edge System" },
     icon: "shield-alert"
+  },
+  {
+    id: "standards-meet-steel",
+    title: "Standards Meet Steel",
+    subtitle: "University of Arkansas Guest Talk, November 2026 (38-slide HTML deck)",
+    featured: false,
+    bannerImage: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1600&q=80",
+    posterGradient: "linear-gradient(135deg, #1c1917 0%, #44403c 46%, #c2410c 100%)",
+    category: "OT Cybersecurity Talks & Presentations",
+    rows: ["IEC 62443 & Critical Infrastructure Defense"],
+    top10Rank: null,
+    rating: "Talk",
+    matchScore: 92,
+    year: "2026",
+    duration: "38-slide talk",
+    quality: "HTML Slide Deck",
+    audio: "Guest Lecture",
+    repoUrl: "https://github.com/Mthompson6782/presentations/blob/main/U-of-A-Talk/Standards_Meet_Steel.html",
+    liveUrl: "",
+    executiveUrl: "",
+    vercelUrl: "",
+    isDemo: false,
+    synopsis: "An OT cybersecurity talk on where security standards meet real industrial equipment, delivered at the University of Arkansas. The deck lives in the private presentations repo under U-of-A-Talk.",
+    longDescription: `Standards Meet Steel is a 38-slide HTML guest talk delivered at the University of Arkansas in November 2026. It covers where OT cybersecurity standards meet real industrial equipment.
+
+The deck is stored in the private presentations repository under U-of-A-Talk and is not published as a live page.`,
+    tags: [
+      "Talk",
+      "University of Arkansas",
+      "OT Cybersecurity",
+      "IEC 62443"
+    ],
+    stats: { stars: 0, forks: 0, status: "Talk Deck" },
+    icon: "shield-alert"
   }
 ];
 
