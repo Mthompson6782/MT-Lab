@@ -118,7 +118,7 @@ Key Architecture & Capabilities:
     quality: "HTML Slide Deck",
     audio: "Guest Lecture",
     repoUrl: "https://github.com/Mthompson6782/presentations/blob/main/U-of-A-Talk/Standards_Meet_Steel.html",
-    liveUrl: "",
+    liveUrl: "decks/standards-meet-steel.html",
     executiveUrl: "",
     vercelUrl: "",
     isDemo: false,
