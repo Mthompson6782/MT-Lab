@@ -1,0 +1,1492 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Standards Meet Steel — Michael Thompson</title>
+<meta name="author" content="Michael Thompson">
+<style>
+:root{
+  --bg:#080b10; --bg2:#0d121a; --panel:#111823; --panel2:#151e2b; --line:#233144; --line2:#2e405a;
+  --text:#e9eef4; --muted:#8c9cb1; --dim:#5a6b82;
+  --amber:#ffb000; --amber2:#ffcf5c; --cyan:#3fd2ff; --red:#ff4f5e; --green:#3ddc97; --violet:#a98bff;
+  --sans:"Segoe UI Variable Display","Segoe UI",Inter,"Helvetica Neue",Arial,system-ui,sans-serif;
+  --mono:"Cascadia Code","JetBrains Mono",Consolas,"SFMono-Regular",Menlo,monospace;
+  --ease:cubic-bezier(.2,.8,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;background:var(--bg);color:var(--text);font-family:var(--sans);overflow:hidden}
+body{cursor:default}
+body.hidecursor{cursor:none}
+
+/* ---------- ambient background ---------- */
+#bg{position:fixed;inset:0;z-index:0;
+  background:
+    radial-gradient(1200px 700px at 85% 10%, rgba(63,210,255,.07), transparent 60%),
+    radial-gradient(1000px 700px at 10% 100%, rgba(255,176,0,.07), transparent 60%),
+    var(--bg);}
+#bg:after{content:"";position:absolute;inset:0;
+  background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+  background-size:64px 64px;mask-image:radial-gradient(ellipse at center,#000 30%,transparent 85%)}
+
+/* ---------- stage ---------- */
+#stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:0 0;z-index:1}
+.slide{position:absolute;inset:0;padding:90px 140px 110px;display:flex;flex-direction:column;justify-content:center;opacity:0;visibility:hidden;
+  transform:translateX(60px) scale(.985);filter:blur(6px);
+  transition:opacity .6s var(--ease),transform .7s var(--ease),filter .6s var(--ease),visibility 0s .7s}
+.slide.past{transform:translateX(-60px) scale(.985)}
+.slide.active{opacity:1;visibility:visible;transform:none;filter:none;transition:opacity .6s var(--ease),transform .7s var(--ease),filter .6s var(--ease),visibility 0s}
+.slide aside.notes{display:none}
+
+/* overview */
+#stage.ov .slide{opacity:1;visibility:visible;filter:none;cursor:pointer;transition:transform .5s var(--ease);
+  outline:3px solid var(--line2);background:var(--bg2);border-radius:20px;overflow:hidden}
+#stage.ov .slide.active{outline:6px solid var(--amber)}
+#stage.ov .slide .f{opacity:1!important;transform:none!important}
+
+/* ---------- chrome ---------- */
+#progress{position:fixed;left:0;bottom:0;height:4px;background:linear-gradient(90deg,var(--amber),var(--cyan));z-index:5;transition:width .5s var(--ease);box-shadow:0 0 12px rgba(255,176,0,.6)}
+#footer{position:fixed;left:0;right:0;bottom:12px;z-index:4;display:flex;justify-content:space-between;align-items:center;padding:0 28px;font:600 13px/1 var(--mono);letter-spacing:.14em;color:var(--dim);text-transform:uppercase;pointer-events:none}
+#footer .mt{display:flex;align-items:center;gap:10px}
+#footer svg{width:26px;height:26px}
+#timer{position:fixed;top:16px;right:22px;z-index:6;font:700 22px var(--mono);color:var(--amber);background:rgba(8,11,16,.85);border:1px solid var(--line2);padding:8px 14px;border-radius:10px;display:none}
+#timer.on{display:block}
+#timer.warn{color:var(--red);border-color:var(--red)}
+#notesPanel{position:fixed;left:0;right:0;bottom:0;max-height:38vh;overflow:auto;z-index:7;background:rgba(10,14,20,.96);border-top:2px solid var(--amber);padding:18px 28px 28px;font:18px/1.5 var(--sans);color:#d6dde6;transform:translateY(100%);transition:transform .35s var(--ease)}
+#notesPanel.on{transform:none}
+#notesPanel h4{font:700 12px var(--mono);letter-spacing:.2em;color:var(--amber);margin-bottom:8px;text-transform:uppercase}
+#notesPanel ul{padding-left:22px} #notesPanel li{font-size:19px;line-height:1.5;color:#d6dde6;margin:4px 0}
+#help{position:fixed;inset:0;z-index:9;display:none;place-items:center;background:rgba(0,0,0,.7)}
+#help.on{display:grid}
+#help div{background:var(--panel);border:1px solid var(--line2);border-radius:16px;padding:28px 36px;font:18px/1.9 var(--mono);color:var(--text)}
+#help b{color:var(--amber);display:inline-block;min-width:150px}
+
+/* ---------- type ---------- */
+.kicker{font:700 22px/1 var(--mono);letter-spacing:.28em;text-transform:uppercase;color:var(--amber);margin-bottom:28px;display:flex;align-items:center;gap:16px}
+.kicker:before{content:"";width:46px;height:3px;background:var(--amber);display:inline-block}
+h1{font-size:118px;line-height:1.0;font-weight:800;letter-spacing:-.025em}
+h2{font-size:84px;line-height:1.04;font-weight:800;letter-spacing:-.02em;margin-bottom:34px}
+h3{font-size:44px;line-height:1.15;font-weight:700;letter-spacing:-.01em}
+p,li{font-size:36px;line-height:1.38;color:#cfd8e3}
+.muted{color:var(--muted)} .amber{color:var(--amber)} .cyan{color:var(--cyan)} .red{color:var(--red)} .green{color:var(--green)}
+.mono{font-family:var(--mono)}
+.big{font-size:52px;line-height:1.25;font-weight:700;color:var(--text)}
+.hl{background:linear-gradient(transparent 62%,rgba(255,176,0,.35) 62%);padding:0 4px}
+.tag{display:inline-block;font:700 18px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;padding:10px 14px;border-radius:8px;border:2px solid currentColor}
+.src{position:absolute;left:140px;bottom:56px;font:500 17px/1.4 var(--mono);color:var(--dim);max-width:1500px}
+.def{font:500 22px/1.4 var(--mono);color:var(--cyan);border-left:3px solid var(--cyan);padding:6px 0 6px 16px;margin-top:18px}
+
+/* ---------- fragments ---------- */
+.f{opacity:0;transform:translateY(26px);transition:opacity .55s var(--ease),transform .65s var(--ease)}
+.f.on{opacity:1;transform:none}
+.f.zoom{transform:scale(.8)} .f.zoom.on{transform:none}
+.f.left{transform:translateX(-60px)} .f.left.on{transform:none}
+.f.right{transform:translateX(60px)} .f.right.on{transform:none}
+.f.fade{transform:none}
+
+/* ---------- components ---------- */
+.card{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:22px;padding:36px 40px;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:36px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:28px}
+.row{display:flex;gap:40px;align-items:center}
+ul.clean{list-style:none}
+ul.clean li{padding-left:44px;position:relative;margin:10px 0}
+ul.clean li:before{content:"";position:absolute;left:4px;top:.55em;width:16px;height:16px;border:3px solid var(--amber);transform:rotate(45deg)}
+ul.clean.c li:before{border-color:var(--cyan)}
+ul.clean.r li:before{border-color:var(--red)}
+ul.clean.g li:before{border-color:var(--green)}
+
+/* section divider */
+.divider{display:flex;flex-direction:column;justify-content:center}
+.divider .num{font:800 300px/1 var(--mono);color:transparent;-webkit-text-stroke:2px rgba(255,176,0,.35);position:absolute;right:120px;top:120px}
+.divider h1{max-width:1400px}
+.divider .handoff{margin-top:40px;font:500 30px var(--mono);color:var(--muted)}
+.divider .handoff b{color:var(--cyan);font-weight:600}
+
+/* quote interstitial */
+.quote{display:flex;flex-direction:column;justify-content:center;align-items:flex-start}
+.quote .q{font:500 64px/1.3 Georgia,"Times New Roman",serif;color:var(--text);max-width:1500px;min-height:260px;position:relative;padding-left:70px}
+.quote .q:before{content:"“";position:absolute;left:-10px;top:-40px;font-size:200px;color:var(--amber);opacity:.85;line-height:1}
+.quote .who{margin-top:46px;padding-left:70px;font:700 26px var(--mono);letter-spacing:.18em;color:var(--amber);text-transform:uppercase}
+.quote .who span{color:var(--dim);letter-spacing:.06em;text-transform:none;font-weight:500;margin-left:16px}
+.type .caret{display:inline-block;width:.08em;height:.9em;background:var(--amber);margin-left:4px;vertical-align:-.08em;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* pulse dot */
+.live{display:inline-block;width:14px;height:14px;border-radius:50%;background:var(--red);box-shadow:0 0 0 0 rgba(255,79,94,.7);animation:pulse 1.6s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 18px rgba(255,79,94,0)}100%{box-shadow:0 0 0 0 rgba(255,79,94,0)}}
+
+/* pipes flow */
+.flow{stroke-dasharray:14 18;animation:flow 1.4s linear infinite}
+.flow.slow{animation-duration:3s}
+@keyframes flow{to{stroke-dashoffset:-64}}
+.draw{stroke-dasharray:var(--len,2000);stroke-dashoffset:var(--len,2000)}
+.slide.active .draw{animation:draw 2.2s var(--ease) forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+
+/* ---------- title slide ---------- */
+#s-title{padding:0}
+#s-title .pipes{position:absolute;inset:0;opacity:.55}
+#s-title .wrap{position:absolute;left:140px;top:170px;right:140px}
+#s-title h1{font-size:128px;max-width:1450px}
+#s-title h1 em{font-style:normal;color:var(--amber)}
+#s-title .sub{font-size:40px;color:var(--muted);margin-top:30px}
+#s-title .who{position:absolute;left:140px;bottom:120px;display:flex;gap:36px;align-items:center}
+#s-title .who .name{font-size:50px;font-weight:800}
+#s-title .who .cred{font:500 23px/1.5 var(--mono);color:var(--muted);letter-spacing:.04em}
+#s-title .event{position:absolute;right:140px;bottom:124px;text-align:right;font:600 22px/1.6 var(--mono);color:var(--dim);letter-spacing:.06em}
+#s-title .event b{color:var(--cyan);font-weight:700}
+.bubble text{font-family:var(--mono);font-weight:800;fill:var(--amber)}
+.slide.active .bubble{animation:bubbleIn 1.2s var(--ease) both}
+@keyframes bubbleIn{from{transform:scale(.4) rotate(-90deg);opacity:0}}
+
+/* ---------- slot reel ---------- */
+.slot{display:flex;align-items:center;gap:40px;margin-top:60px}
+.slot .lbl{font:700 34px var(--mono);color:var(--muted);letter-spacing:.1em}
+.reel{height:150px;width:1000px;overflow:hidden;border-radius:22px;border:2px solid var(--line2);background:linear-gradient(180deg,#05070a,#121a26 50%,#05070a);position:relative;box-shadow:inset 0 0 40px #000, 0 0 50px rgba(255,176,0,.12)}
+.reel:before,.reel:after{content:"";position:absolute;left:0;right:0;height:40px;z-index:2}
+.reel:before{top:0;background:linear-gradient(#05070a,transparent)}
+.reel:after{bottom:0;background:linear-gradient(transparent,#05070a)}
+.reel ul{list-style:none}
+.reel li{height:150px;display:flex;align-items:center;justify-content:center;font:800 70px var(--sans);color:var(--amber);letter-spacing:-.01em}
+.slide.active .reel.spin ul{animation:reelspin 2.1s linear infinite}
+@keyframes reelspin{to{transform:translateY(-1050px)}}
+.slide.active .reel.land ul{animation:reelland 3.2s cubic-bezier(.15,.7,.2,1) forwards}
+@keyframes reelland{from{transform:translateY(0)}to{transform:translateY(-1950px)}}
+
+/* ---------- incident case ---------- */
+.case{display:grid;grid-template-columns:1.05fr .95fr;gap:70px;align-items:start}
+.timeline{position:relative;padding-left:46px}
+.timeline:before{content:"";position:absolute;left:12px;top:12px;bottom:12px;width:3px;background:linear-gradient(var(--line2),var(--line))}
+.timeline .ev{position:relative;margin-bottom:34px}
+.timeline .ev:before{content:"";position:absolute;left:-44px;top:10px;width:22px;height:22px;border-radius:50%;background:var(--bg);border:4px solid var(--amber)}
+.timeline .ev.r:before{border-color:var(--red)} .timeline .ev.c:before{border-color:var(--cyan)} .timeline .ev.g:before{border-color:var(--green)}
+.timeline .d{font:700 22px var(--mono);color:var(--amber);letter-spacing:.1em}
+.timeline .ev.r .d{color:var(--red)} .timeline .ev.c .d{color:var(--cyan)} .timeline .ev.g .d{color:var(--green)}
+.timeline p{font-size:33px;margin-top:4px}
+.verdict{perspective:1400px;height:240px;margin-bottom:40px}
+.verdict .inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform 1s var(--ease)}
+.slide.flip .verdict .inner{transform:rotateX(180deg)}
+.verdict .face{position:absolute;inset:0;backface-visibility:hidden;border-radius:22px;display:flex;flex-direction:column;justify-content:center;padding:0 40px;border:3px solid}
+.verdict .face small{font:700 20px var(--mono);letter-spacing:.2em;opacity:.8;margin-bottom:10px}
+.verdict .face b{font-size:64px;font-weight:800;line-height:1.05}
+.verdict .front{color:var(--red);background:rgba(255,79,94,.08)}
+.verdict .back{color:var(--green);background:rgba(61,220,151,.08);transform:rotateX(180deg)}
+.verdict .back.amber{color:var(--amber);background:rgba(255,176,0,.08)}
+
+/* ---------- 2x2 matrix ---------- */
+.matrix{display:grid;grid-template-columns:120px 1fr 1fr;grid-template-rows:70px 280px 280px;gap:16px;width:1180px;flex:none}
+.matrix .ax{display:flex;align-items:center;justify-content:center;font:700 22px var(--mono);color:var(--muted);letter-spacing:.12em;text-transform:uppercase;text-align:center}
+.matrix .q{border-radius:18px;border:2px solid var(--line);background:var(--panel);padding:26px 30px;position:relative;overflow:hidden}
+.matrix .q h4{font:700 22px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.matrix .q p{font-size:28px;margin-top:8px}
+.matrix .q.bad{border-color:rgba(255,79,94,.5)}
+.matrix .pin{position:absolute;right:26px;bottom:24px;font:800 40px var(--sans);padding:12px 22px;border-radius:14px;background:var(--red);color:#170206;box-shadow:0 0 40px rgba(255,79,94,.5)}
+.matrix .pin.am{background:var(--amber);color:#1a1100;box-shadow:0 0 40px rgba(255,176,0,.5)}
+
+/* ---------- sympathy card ---------- */
+.sympathy{width:1020px;margin:0 auto;background:#f5efe3;color:#2a2318;border-radius:10px;padding:64px 80px;box-shadow:0 40px 100px rgba(0,0,0,.6);transform:rotate(-2deg);position:relative;font-family:Georgia,"Times New Roman",serif;text-align:center}
+.sympathy:before{content:"";position:absolute;inset:18px;border:2px solid #b9a77f;border-radius:4px;pointer-events:none}
+.sympathy .ins{font-size:30px;letter-spacing:.3em;text-transform:uppercase;color:#7b6a45}
+.sympathy h3{font:italic 400 76px/1.1 Georgia,serif;margin:16px 0 26px;color:#2a2318}
+.sympathy p{font:400 34px/1.45 Georgia,serif;color:#3a3122}
+.sympathy .lily{font-size:60px;margin-top:10px;color:#9b8a62}
+.slide.active .sympathy{animation:cardIn 1.2s var(--ease) both}
+@keyframes cardIn{from{transform:translateY(120px) rotate(6deg);opacity:0}}
+
+/* ---------- vendor chart ---------- */
+.chart{display:flex;align-items:flex-end;gap:22px;height:520px;padding:0 10px;border-bottom:3px solid var(--line2);position:relative}
+.chart .bar{flex:1;border-radius:10px 10px 0 0;background:linear-gradient(180deg,var(--red),rgba(255,79,94,.25));height:0;transition:height 1.1s var(--ease);position:relative}
+.slide.active .chart .bar{height:var(--h)}
+.chart .bar span{position:absolute;bottom:-46px;left:0;right:0;text-align:center;font:600 22px var(--mono);color:var(--dim)}
+.chart .arrow{position:absolute;right:-20px;top:-70px;font:800 110px var(--sans);color:var(--red);opacity:0;transform:translateY(30px);transition:all .8s .9s var(--ease)}
+.slide.active .chart .arrow{opacity:1;transform:none}
+.footnote{margin-top:80px;font:500 30px/1.4 var(--mono);color:var(--muted)}
+.footnote b{color:var(--amber)}
+
+/* ---------- malware timeline ---------- */
+.mtl{position:relative;height:420px;margin-top:40px}
+.mtl .axis{position:absolute;left:0;right:0;top:200px;height:4px;background:var(--line2)}
+.mtl .yr{position:absolute;top:350px;font:600 22px var(--mono);color:var(--dim);transform:translateX(-50%)}
+.mtl .m{position:absolute;transform:translateX(-50%);text-align:center;width:220px}
+.mtl .m .dot{width:30px;height:30px;border-radius:50%;background:var(--amber);margin:0 auto;box-shadow:0 0 24px var(--amber)}
+.mtl .m b{display:block;font-size:30px;font-weight:800}
+.mtl .m small{display:block;font:500 19px/1.3 var(--mono);color:var(--muted)}
+.mtl .m.up{top:20px} .mtl .m.up .dot{margin-top:14px}
+.mtl .m.dn{top:186px}
+.mtl .m.up b{margin-bottom:2px}
+.count{font:800 240px/1 var(--sans);color:var(--amber);text-shadow:0 0 60px rgba(255,176,0,.35)}
+
+/* ---------- archetypes ---------- */
+.arch{display:grid;grid-template-columns:1fr 1fr;gap:60px;position:relative}
+.arch .card{min-height:560px}
+.arch h3{margin:22px 0 18px}
+.stamp{position:absolute;right:30px;top:40px;font:900 40px var(--mono);color:var(--red);border:6px solid var(--red);padding:10px 22px;border-radius:12px;transform:rotate(12deg) scale(2.5);opacity:0;transition:all .45s cubic-bezier(.3,1.6,.5,1);letter-spacing:.06em;background:rgba(8,11,16,.6)}
+.slide.s2 .stamp{opacity:1;transform:rotate(12deg) scale(1)}
+.egg{width:120px;height:150px;position:relative}
+.egg .shell{position:absolute;inset:0;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:linear-gradient(135deg,#f6f1e6,#cbbfa6);transition:all .6s var(--ease)}
+.egg .top{clip-path:polygon(0 0,100% 0,100% 42%,82% 52%,64% 40%,46% 54%,28% 40%,12% 52%,0 42%)}
+.egg .bot{clip-path:polygon(0 42%,12% 52%,28% 40%,46% 54%,64% 40%,82% 52%,100% 42%,100% 100%,0 100%)}
+.slide.active .egg .top{animation:hatch 2.4s 1s var(--ease) forwards}
+@keyframes hatch{0%,20%{transform:rotate(0)}25%{transform:rotate(-8deg)}30%{transform:rotate(8deg)}35%{transform:rotate(-8deg)}60%,100%{transform:translate(-26px,-34px) rotate(-30deg);opacity:.9}}
+.egg .badge{position:absolute;left:50%;top:38%;transform:translate(-50%,0) scale(0);background:#0a66c2;color:#fff;font:800 22px var(--sans);padding:8px 12px;border-radius:8px;white-space:nowrap;transition:transform .5s var(--ease)}
+.slide.active .egg .badge{animation:pop .6s 2.6s var(--ease) forwards}
+@keyframes pop{to{transform:translate(-50%,-40px) scale(1)}}
+.vet{width:120px;height:150px;display:flex;align-items:center;justify-content:center}
+.middle{margin-top:46px;text-align:center}
+.middle .card{display:inline-block;border-color:var(--green);padding:28px 48px}
+.middle p{font-size:38px;color:var(--text)}
+
+/* ---------- hero aeolipile ---------- */
+.hero{display:grid;grid-template-columns:760px 1fr;gap:60px;align-items:center}
+.aeo .noz{transform-origin:380px 250px;animation:spinY 1.2s ease-in-out infinite alternate}
+@keyframes spinY{from{transform:scaleX(1)}to{transform:scaleX(-1)}}
+.aeo .steam circle{fill:#cfe7f5;opacity:0;animation:steam 2.4s ease-out infinite}
+.aeo .steam.l circle{animation-name:steamL}
+@keyframes steam{0%{opacity:.7;transform:translate(0,0) scale(.4)}100%{opacity:0;transform:translate(70px,-40px) scale(2)}}
+@keyframes steamL{0%{opacity:.7;transform:translate(0,0) scale(.4)}100%{opacity:0;transform:translate(-70px,40px) scale(2)}}
+.aeo .fire path{transform-origin:center bottom;animation:flicker .35s ease-in-out infinite alternate}
+.aeo .fire path:nth-child(2){animation-delay:.12s}.aeo .fire path:nth-child(3){animation-delay:.22s}
+@keyframes flicker{from{transform:scaleY(.82)}to{transform:scaleY(1.12)}}
+
+/* ---------- ICD 203 ---------- */
+.scale{display:flex;gap:6px;margin:30px 0 14px}
+.scale div{flex:1;height:120px;border-radius:12px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:6px;transform:scaleY(0);transform-origin:bottom;transition:transform .5s var(--ease)}
+.slide.active .scale div{transform:none}
+.scale b{font-size:24px;line-height:1.1;color:#0b0f14}
+.scale small{font:700 18px var(--mono);color:rgba(0,0,0,.65);margin-top:6px}
+.conf{display:flex;gap:18px;margin-top:20px}
+.conf span{flex:1;text-align:center;padding:22px;border-radius:14px;border:2px solid var(--cyan);font:700 30px var(--sans);color:var(--cyan)}
+.conf span:nth-child(1){opacity:.45}.conf span:nth-child(2){opacity:.7}
+.example{margin-top:40px;font:500 36px/1.45 Georgia,serif;color:var(--text);border-left:5px solid var(--amber);padding:10px 0 10px 30px}
+.example i{color:var(--amber);font-style:normal;font-weight:700}
+.example u{color:var(--cyan);text-decoration:none;font-weight:700}
+
+/* ---------- gauges ---------- */
+.gauges{display:flex;gap:30px;justify-content:space-between;margin:20px 0 40px}
+.gauge{text-align:center;width:260px}
+.gauge svg{width:240px;height:150px}
+.gauge .needle{transform-origin:120px 120px;transform:rotate(-90deg);transition:transform 1.6s cubic-bezier(.3,1.5,.5,1)}
+.slide.active .gauge .needle{transform:rotate(var(--a))}
+.gauge b{display:block;font-size:30px;margin-top:6px}
+.translate{display:grid;grid-template-columns:1fr 80px 1fr;align-items:center;gap:20px}
+.translate .say{font:500 32px/1.35 var(--mono);padding:26px 30px;border-radius:16px}
+.translate .no{background:rgba(255,79,94,.08);border:2px solid rgba(255,79,94,.5);color:#ffb3ba;text-decoration:line-through;text-decoration-color:rgba(255,79,94,.7)}
+.translate .yes{background:rgba(61,220,151,.08);border:2px solid rgba(61,220,151,.6);color:#bff5dd}
+.translate .ar{font-size:60px;color:var(--amber);text-align:center}
+
+/* ---------- binder (800-82) ---------- */
+.binder{width:460px;height:560px;border-radius:12px 22px 22px 12px;background:linear-gradient(90deg,#1b2a40 0,#24395a 12%,#1d2f4b 100%);border:2px solid #3a5480;position:relative;box-shadow:30px 30px 80px rgba(0,0,0,.5);padding:60px 40px 0 70px}
+.binder:before{content:"";position:absolute;left:18px;top:0;bottom:0;width:22px;background:repeating-linear-gradient(#0f1a2a 0 30px,#3a5480 30px 34px)}
+.binder .t{font:800 26px/1.25 var(--sans);color:#e8f0ff;max-width:300px}
+.binder .n{font:800 84px/1 var(--sans);color:#fff;margin-top:24px;white-space:nowrap}
+.binder .r{font:700 26px var(--mono);color:var(--cyan);margin-top:10px}
+.binder .pt{position:absolute;right:-56px;top:330px;background:var(--amber);color:#1a1100;font:900 40px var(--sans);padding:14px 26px;border-radius:10px;transform:rotate(14deg);box-shadow:0 10px 30px rgba(0,0,0,.4)}
+.binder .pt:before{content:"";position:absolute;left:-14px;top:50%;width:14px;height:14px;border-radius:50%;background:var(--bg);transform:translateY(-50%)}
+.binder .seal{position:absolute;left:70px;bottom:50px;font:700 20px var(--mono);color:#9fb6da;letter-spacing:.12em}
+.checks{display:grid;gap:20px}
+.checks .ck{display:grid;grid-template-columns:260px 1fr;align-items:center;gap:20px;font-size:36px}
+.checks .ck b{font-size:36px}
+.checks .ans{font:800 34px var(--mono)}
+
+/* ---------- SL ladder ---------- */
+.ladder{display:flex;flex-direction:column-reverse;gap:16px;width:1080px}
+.rung{display:grid;grid-template-columns:150px 1fr 330px;align-items:center;gap:30px;padding:24px 32px;border-radius:18px;border:2px solid var(--line);background:var(--panel)}
+.rung .lv{font:800 52px var(--mono)}
+.rung p{font-size:28px;line-height:1.3}
+.rung .who{font:700 22px/1.3 var(--mono);text-align:right;letter-spacing:.04em}
+.rung.l1 .lv{color:var(--dim)} .rung.l1 .who{color:var(--dim)}
+.rung.l2{border-color:rgba(255,176,0,.6)} .rung.l2 .lv,.rung.l2 .who{color:var(--amber)}
+.rung.l3{border-color:rgba(63,210,255,.6)} .rung.l3 .lv,.rung.l3 .who{color:var(--cyan)}
+.rung.l4 .lv,.rung.l4 .who{color:var(--violet)}
+.bracket{position:absolute;left:1110px;top:140px;width:420px;height:264px;border:4px solid var(--green);border-left:none;border-radius:0 30px 30px 0;display:flex;align-items:center;padding-left:50px}
+.bracket p{font-size:34px;color:var(--green);font-weight:700}
+
+/* ---------- MT floor ---------- */
+.floor{display:grid;grid-template-columns:1080px 1fr;gap:60px}
+.zones{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.zone{height:150px;border-radius:16px;border:2px solid var(--line);background:var(--panel);padding:18px 20px;display:flex;flex-direction:column;justify-content:space-between;transition:all .6s var(--ease);position:relative;overflow:hidden}
+.zone b{font-size:25px;line-height:1.15}
+.zone .sl{font:800 34px var(--mono);color:var(--dim);transition:color .5s}
+.zone .sl:after{content:"SL ?"}
+.slide.s1 .zone{border-color:rgba(255,176,0,.7);background:linear-gradient(180deg,rgba(255,176,0,.16),var(--panel));transition-delay:calc(var(--i)*70ms)}
+.slide.s1 .zone .sl{color:var(--amber)}
+.slide.s1 .zone .sl:after{content:"SL 2"}
+.slide.s2 .zone.up{border-color:var(--cyan);background:linear-gradient(180deg,rgba(63,210,255,.22),var(--panel));box-shadow:0 0 40px rgba(63,210,255,.25);transform:translateY(-10px)}
+.slide.s2 .zone.up .sl{color:var(--cyan)}
+.slide.s2 .zone.up .sl:after{content:"SL 3 ▲"}
+.mtbadge{display:inline-flex;align-items:center;gap:18px;margin-bottom:26px}
+.mtbadge svg{width:110px;height:110px}
+
+/* ---------- SIF / CIE ---------- */
+.sif{width:100%;height:330px}
+.sif .box{fill:var(--panel2);stroke:var(--line2);stroke-width:3}
+.sif text{font-family:var(--sans);fill:var(--text);font-weight:700}
+.wifi{opacity:0;transform:translateY(30px);transition:all .8s var(--ease);transform-box:fill-box;transform-origin:center}
+.slide.s1 .wifi{opacity:1;transform:none}
+.slide.s1 .wifi path{animation:wifiPulse 1.6s infinite}
+.wifi path:nth-child(2){animation-delay:.2s!important}.wifi path:nth-child(3){animation-delay:.4s!important}
+@keyframes wifiPulse{50%{opacity:.35}}
+.scalebal{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:10px}
+
+/* ---------- Purdue ---------- */
+.purdue{display:grid;grid-template-columns:900px 1fr;gap:60px;align-items:center}
+.lvls{position:relative}
+.lvl{height:76px;margin-bottom:10px;border-radius:12px;display:flex;align-items:center;padding:0 28px;font:700 28px var(--sans);border:2px solid var(--line2);background:var(--panel);gap:22px;transition:transform .6s var(--ease)}
+.lvl i{font:700 22px var(--mono);color:var(--amber);font-style:normal;width:70px}
+.lvl.dmz{border-style:dashed;border-color:var(--amber)}
+.slide.s1 .lvl:nth-child(odd){transform:translateX(-14px) rotate(-.6deg)}
+.slide.s1 .lvl:nth-child(even){transform:translateX(14px) rotate(.6deg)}
+.cut{position:absolute;inset:0;pointer-events:none}
+
+/* ---------- controllers ---------- */
+.ctrls{display:grid;grid-template-columns:1fr 1fr;gap:60px}
+.ctrls .card{padding:30px 40px}
+.ctrls svg{width:100%;height:210px;margin-bottom:10px}
+.ctrls h3 small{display:block;font:600 22px var(--mono);color:var(--muted);letter-spacing:.1em;margin-top:6px}
+.ctrls li{font-size:29px;margin:6px 0}
+.sliders{display:grid;gap:30px;margin-top:20px}
+.sld{display:grid;grid-template-columns:330px 1fr 330px;align-items:center;gap:30px;font:700 30px var(--sans)}
+.sld .l{text-align:right}
+.track{height:12px;border-radius:6px;background:linear-gradient(90deg,var(--amber),var(--line2) 50%,var(--cyan));position:relative}
+.knob{position:absolute;top:50%;left:50%;width:44px;height:44px;border-radius:50%;background:var(--text);border:6px solid var(--bg);box-shadow:0 0 0 3px var(--text),0 0 30px rgba(255,255,255,.4);transform:translate(-50%,-50%)}
+.slide.active .knob{animation:knob 4s ease-in-out infinite}
+.sld:nth-child(2) .knob{animation-delay:-1s!important}.sld:nth-child(3) .knob{animation-delay:-2s!important}.sld:nth-child(4) .knob{animation-delay:-3s!important}
+@keyframes knob{0%,100%{left:22%}50%{left:78%}}
+.comp{display:flex;gap:20px;flex-wrap:wrap;margin-top:40px}
+.comp span{font:700 26px var(--sans);padding:16px 24px;border-radius:12px;background:rgba(63,210,255,.1);border:2px solid rgba(63,210,255,.5);color:var(--cyan)}
+
+/* ---------- dependency web ---------- */
+.dep{display:grid;grid-template-columns:1020px 1fr;gap:50px;align-items:center}
+.dep svg{width:1020px;height:720px}
+.dep .node circle{fill:var(--panel2);stroke:var(--line2);stroke-width:3}
+.dep .node text{font:700 24px var(--sans);fill:var(--text);text-anchor:middle}
+.dep .spoke{stroke:var(--line2);stroke-width:3}
+.dep .atk{stroke:var(--red);stroke-width:6;fill:none;opacity:0;stroke-dasharray:16 14}
+.slide.s2 .dep .atk{opacity:1;animation:flow 1s linear infinite}
+.slide.s2 .dep .node.hit circle{stroke:var(--red);fill:rgba(255,79,94,.15);animation:hitp 1.2s infinite}
+@keyframes hitp{50%{stroke-width:8}}
+.slide.s2 .dep .wall{stroke:var(--green)}
+.dep .bounce{opacity:0}
+.slide.s1 .dep .bounce{opacity:1;animation:bounce 1.6s ease-in-out infinite}
+@keyframes bounce{0%{transform:translate(0,0)}50%{transform:translate(110px,-40px)}100%{transform:translate(0,0)}}
+
+/* ---------- defense tiles ---------- */
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:28px}
+.tile{border-radius:22px;border:2px solid var(--line);background:var(--panel);padding:32px 30px;min-height:560px;position:relative;overflow:hidden}
+.tile .ic{width:84px;height:84px;margin-bottom:22px}
+.tile h3{font-size:38px;margin-bottom:16px}
+.tile li{font-size:26px;line-height:1.35;margin:8px 0}
+.tile:after{content:"";position:absolute;left:0;right:0;top:0;height:6px;background:var(--c,var(--amber))}
+.callback{position:absolute;right:20px;bottom:20px;font:700 18px var(--mono);color:var(--red);border:2px solid var(--red);padding:6px 10px;border-radius:8px}
+
+/* ---------- IR ---------- */
+.ir{display:grid;grid-template-columns:560px 1fr;gap:90px;align-items:center}
+.playbook{height:600px;position:relative}
+.playbook .bk{position:absolute;left:60px;width:420px;height:70px;border-radius:6px;background:linear-gradient(90deg,#2a3546,#3a4a62);border:2px solid #4a5d7a;display:flex;align-items:center;padding-left:24px;font:700 22px var(--mono);color:#9fb0c8}
+.playbook .dust{position:absolute;inset:0;background:radial-gradient(circle at 30% 20%,rgba(200,200,200,.08),transparent 40%);pointer-events:none}
+.cardir{background:#fffdf4;color:#1c1a14;border-radius:14px;padding:40px 50px;box-shadow:0 30px 80px rgba(0,0,0,.55);transform:rotate(1.5deg);border-top:16px solid var(--red)}
+.cardir h3{color:#1c1a14;font-size:42px;margin-bottom:16px}
+.cardir ol{padding-left:44px}
+.cardir li{font:600 31px/1.35 var(--sans);color:#2a2720;margin:10px 0}
+.cardir li b{color:#b3141f}
+
+/* ---------- AI pipeline ---------- */
+.pipe{width:100%;height:420px}
+.pipe .st rect{fill:var(--panel2);stroke:var(--line2);stroke-width:3}
+.pipe .st text{font-family:var(--sans);fill:var(--text);font-weight:700;text-anchor:middle}
+.pipe .st .sub{font-family:var(--mono);font-weight:500;fill:var(--muted)}
+.pipe .human rect{stroke:var(--amber);stroke-width:4}
+
+/* toolkit */
+.repo{display:grid;grid-template-columns:1.25fr 1fr;gap:50px}
+.repo .gh{display:flex;align-items:center;gap:18px;font:700 28px var(--mono);color:var(--cyan);margin-bottom:18px;word-break:break-all}
+.prompt{font:500 24px/1.45 var(--mono);background:#05080c;border:1px solid var(--line2);border-radius:14px;padding:20px 24px;color:#cfe3f5;margin-bottom:18px}
+.prompt b{color:var(--amber)}
+
+/* crosswalk */
+.xw{display:grid;grid-template-columns:600px 1fr;gap:40px;height:720px}
+.xw .list{display:flex;flex-direction:column;gap:6px}
+.xw button{all:unset;cursor:pointer;display:grid;grid-template-columns:120px 1fr;gap:14px;padding:8px 16px;border-radius:12px;border:2px solid var(--line);background:var(--panel);font:600 22px var(--sans);color:#cfd8e3;transition:all .25s}
+.xw button i{font:700 21px var(--mono);font-style:normal;color:var(--amber)}
+.xw button:hover{border-color:var(--line2)}
+.xw button.sel{border-color:var(--amber);background:rgba(255,176,0,.12);color:#fff;transform:translateX(10px)}
+.xw .out{border-radius:22px;border:2px solid var(--line2);background:var(--panel);padding:36px 44px;position:relative}
+.xw .out h3{font-size:46px;margin-bottom:6px}
+.xw .out .srid{font:700 24px var(--mono);color:var(--amber);letter-spacing:.1em}
+.xw .maprow{display:grid;grid-template-columns:330px 1fr;gap:20px;padding:20px 0;border-bottom:1px solid var(--line);align-items:center}
+.xw .maprow span{font:700 20px var(--mono);color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+.xw .maprow b{font:700 32px var(--mono);color:var(--cyan)}
+.xw .maprow p{font-size:28px}
+.xw .cf{position:absolute;right:40px;top:36px;font:800 20px var(--mono);padding:10px 16px;border-radius:10px;letter-spacing:.1em}
+.xw .cf.High{background:rgba(61,220,151,.15);color:var(--green);border:2px solid var(--green)}
+.xw .cf.Moderate{background:rgba(255,176,0,.12);color:var(--amber);border:2px solid var(--amber)}
+.xw .anim{animation:xwIn .45s var(--ease)}
+@keyframes xwIn{from{opacity:0;transform:translateX(30px)}}
+
+/* guardrails */
+.rails{display:grid;grid-template-columns:1fr 1fr;gap:34px}
+.rail{display:grid;grid-template-columns:90px 1fr;gap:24px;align-items:start;padding:34px;border-radius:20px;background:var(--panel);border:2px solid var(--line)}
+.rail .n{font:800 64px/1 var(--mono);color:var(--amber)}
+.rail h3{font-size:38px;margin-bottom:8px}
+.rail p{font-size:28px}
+
+/* close */
+.monday{display:grid;gap:18px;margin-top:20px}
+.monday .it{display:grid;grid-template-columns:70px 1fr;gap:24px;align-items:center;padding:20px 28px;border-radius:16px;background:var(--panel);border:2px solid var(--line)}
+.monday .bx{width:52px;height:52px;border-radius:10px;border:4px solid var(--line2);position:relative;transition:all .4s}
+.monday .it.on .bx{border-color:var(--green);background:rgba(61,220,151,.15)}
+.monday .it.on .bx:after{content:"";position:absolute;left:14px;top:2px;width:14px;height:28px;border:solid var(--green);border-width:0 6px 6px 0;transform:rotate(45deg);animation:tick .4s var(--ease)}
+@keyframes tick{from{transform:rotate(45deg) scale(0)}}
+.monday p{font-size:33px;color:var(--text)}
+.qrs{display:flex;gap:70px;justify-content:center;margin-top:30px}
+.qr{text-align:center}
+.qr .box{width:330px;height:330px;background:#fff;border-radius:22px;padding:24px;box-shadow:0 0 70px rgba(255,176,0,.25)}
+.qr svg{width:100%;height:100%;fill:#0b0f14}
+.qr b{display:block;font-size:32px;margin-top:22px}
+.qr small{display:block;font:500 20px var(--mono);color:var(--muted);margin-top:6px}
+</style>
+</head>
+<body>
+<div id="bg"></div>
+<div id="stage">
+
+<!-- ================= 01 TITLE ================= -->
+<section class="slide" id="s-title" data-title="Title">
+  <svg class="pipes" viewBox="0 0 1920 1080" preserveAspectRatio="none">
+    <g fill="none" stroke-width="3">
+      <path d="M-20 1010 H420 V740 H760 V1010 H1940" stroke="#233144"/>
+      <path d="M-20 1010 H420 V740 H760 V1010 H1940" stroke="#ffb000" class="flow slow" opacity=".45"/>
+      <path d="M1940 120 H1500 V300 H1240 V60" stroke="#233144"/>
+      <path d="M1940 120 H1500 V300 H1240 V60" stroke="#3fd2ff" class="flow" opacity=".5"/>
+      <circle cx="420" cy="740" r="10" fill="#080b10" stroke="#ffb000"/>
+      <circle cx="760" cy="1010" r="10" fill="#080b10" stroke="#ffb000"/>
+      <circle cx="1500" cy="300" r="10" fill="#080b10" stroke="#3fd2ff"/>
+    </g>
+  </svg>
+  <div class="wrap">
+    <div class="kicker">CyberHogs Speaker Series</div>
+    <h1>Standards Meet <em>Steel</em></h1>
+    <p class="sub">Cybersecurity standards in OT environments — what actually works on the plant floor</p>
+  </div>
+  <div class="who">
+    <svg class="bubble" width="150" height="150" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="none" stroke="#ffb000" stroke-width="3"/><line x1="4" y1="50" x2="96" y2="50" stroke="#ffb000" stroke-width="3"/><text x="50" y="40" text-anchor="middle" font-size="26">MT</text><text x="50" y="78" text-anchor="middle" font-size="20">82</text></svg>
+    <div>
+      <div class="name">Michael Thompson</div>
+      <div class="cred">OT Cybersecurity Principal Engineer<br>Co-author, NIST SP 800-82r3 · USAF Veteran</div>
+    </div>
+  </div>
+  <div class="event">UA CyberHogs RSO &amp; IEEE Ozark / River Valley / Arkansas<br><b>University of Arkansas · Fayetteville</b><br>November 18, 2026</div>
+  <aside class="notes"><ul>
+    <li>Thank CyberHogs and the IEEE sections. Quick intro: FSE first, cyber second. USAF.</li>
+    <li>Promise: no theory tour. Field notes, honest takes on the standards, and a toolkit you can use Monday.</li>
+    <li>Set the tone: some of this will be blunt. Some of it is funny because it's true.</li>
+  </ul></aside>
+</section>
+
+<!-- ================= 02 HOOK ================= -->
+<section class="slide" data-title="Was it even a hack?">
+  <div class="kicker">01 · The hook</div>
+  <h1>Was it even a&nbsp;<span class="amber">hack?</span></h1>
+  <div class="slot">
+    <div class="lbl">ROOT&nbsp;CAUSE&nbsp;▸</div>
+    <div class="reel spin"><ul>
+      <li>Nation-state APT</li><li>Ransomware crew</li><li>Operator error</li><li>Bad VFD</li><li>Disgruntled insider</li><li>Firmware bug</li><li>Dave</li>
+      <li>Nation-state APT</li><li>Ransomware crew</li><li>Operator error</li><li>Bad VFD</li><li>Disgruntled insider</li><li>Firmware bug</li><li>Dave</li>
+    </ul></div>
+  </div>
+  <p class="f big" data-s="1" style="margin-top:70px">Two real incidents. Both got the cause wrong —<br><span class="amber">in opposite directions.</span></p>
+  <aside class="notes"><ul>
+    <li>Ask the room: when something weird happens in a plant, how do you know it's cyber?</li>
+    <li>Honest answer at most sites: you guess. And the guess is usually driven by whoever's loudest.</li>
+    <li>[Click] Two stories. One was called a hack and wasn't. One was called maintenance and wasn't.</li>
+  </ul></aside>
+</section>
+
+<!-- ================= 03 CLAUSEWITZ 1 ================= -->
+<section class="slide quote" data-title="Clausewitz — reports">
+  <div class="q type">Many intelligence reports in war are contradictory; even more are false, and most are uncertain.</div>
+  <div class="who">Carl von Clausewitz <span>On War, Book 1, Ch. 6</span></div>
+  <aside class="notes"><ul>
+    <li>Let it land. Clausewitz wrote this about cavalry scouts in 1830. It describes your alarm summary screen just as well.</li>
+    <li>First reports in an OT incident are almost always wrong. Plan for it.</li>
+  </ul></aside>
+</section>
+
+<!-- ================= 04 OLDSMAR ================= -->
+<section class="slide" data-title="Oldsmar" data-steps="3">
+  <div class="kicker">Case 1 · Oldsmar, Florida · Water treatment</div>
+  <div class="case">
+    <div>
+      <div class="verdict"><div class="inner">
+        <div class="face front"><small>FEB 2021 · THE HEADLINE</small><b>“Hacker tries to poison city water”</b></div>
+        <div class="face back amber"><small>APR 2023 · THE FOLLOW-UP</small><b>Most likely an employee error</b></div>
+      </div></div>
+      <div class="f" data-s="2">
+        <p class="big" style="font-size:44px">The attribution was wrong.<br><span class="amber">The findings were right.</span></p>
+        <ul class="clean r" style="margin-top:16px">
+          <li>Shared remote-access password</li>
+          <li>Unsupported Windows 7 workstations</li>
+          <li>Internet-reachable remote desktop</li>
+        </ul>
+      </div>
+    </div>
+    <div class="timeline">
+      <div class="ev r"><div class="d">FEB 5, 2021</div><p>Lye (NaOH) setpoint jumps from <b>100</b> to <b class="red">11,100 ppm</b>. Operator reverses it.</p></div>
+      <div class="ev r"><div class="d">DAYS LATER</div><p>Sheriff's press conference: remote intrusion. Global headlines.</p></div>
+      <div class="ev f" data-s="1"><div class="d">APR 2023</div><p>Former city manager: no intrusion — most likely an employee error. FBI: “not able to confirm … a targeted cyber intrusion.”</p></div>
+      <div class="ev g f" data-s="3"><div class="d">LESSON</div><p>Announce later. <span class="hl">Analyze first.</span></p></div>
+    </div>
+  </div>
+  <div class="src">Sources: Industrial Cyber (Apr 2023); ABC Action News I-Team (Apr 2023); Route Fifty (Mar 2023)</div>
+  <aside class="notes"><ul>
+    <li>Everyone in this room has heard Oldsmar as "the hack." It went around the world in 48 hours.</li>
+    <li>[Click] Two years later the former city manager said it was most likely an employee who clicked the wrong thing. Reporting says the FBI found no evidence of an intrusion.</li>
+    <li>[Click] Nuance — don't throw it all out: shared TeamViewer password, Windows 7, internet-facing remote access. The conditions for an attack were real. The attack probably wasn't.</li>
+    <li>[Click] Lesson: the press conference came before the analysis.</li>
+  </ul></aside>
+</section>
+
+<!-- ================= 05 PORT HUDSON ================= -->
+<section class="slide" data-title="Port Hudson" data-steps="3">
+  <div class="kicker">Case 2 · Georgia-Pacific Port Hudson · Paper mill, Louisiana</div>
+  <div class="case">
+    <div>
+      <div class="verdict"><div class="inner">
+        <div class="face front" style="color:var(--amber);background:rgba(255,176,0,.08)"><small>WHAT IT LOOKED LIKE</small><b>An equipment &amp; maintenance problem</b></div>
+        <div class="face back" style="color:var(--red);background:rgba(255,79,94,.08)"><small>WHAT IT WAS</small><b>A fired sysadmin still logging in</b></div>
+      </div></div>
+      <div class="f" data-s="2">
+        <p class="big" style="font-size:44px">Months chasing the wrong cause.</p>
+        <p class="muted" style="margin-top:14px">I came in at the tail end of this one.</p>
+      </div>
+    </div>
+    <div class="timeline">
+      <div class="ev"><div class="d">FEB 2014</div><p>Systems administrator is fired.</p></div>
+      <div class="ev r"><div class="d">AFTER TERMINATION</div><p>Keeps logging in over the VPN and sends commands to the mill's control systems.</p></div>
+      <div class="ev"><div class="d">THE PLANT SEES…</div><p>Upsets and disruptions. Treated as a maintenance problem.</p></div>
+      <div class="ev c f" data-s="3"><div class="d">2017</div><p>Sentenced: <b>34 months</b> in federal prison, <b>$1.1M</b> restitution.</p></div>
+    </div>
+  </div>
+  <div class="src">Source: U.S. Attorney's Office, Middle District of Louisiana (2017)</div>
+  <aside class="notes"><ul>
+    <li>Opposite failure mode. Everyone assumed equipment. Nobody asked "who still has access?"</li>
+    <li>[Click] It was a fired systems administrator, still logging in over the VPN.</li>
+    <li>[Click] We spent months on it. I came in at the tail end — tell the story briefly.</li>
+    <li>[Click] 34 months, $1.1M restitution. Hold this one — it comes back later.</li>
+  </ul></aside>
+</section>
+
+<!-- ================= 06 MATRIX ================= -->
+<section class="slide" data-title="Misattribution matrix">
+  <div class="kicker">The pattern</div>
+  <h2 style="font-size:70px;margin-bottom:26px">Misattribution cuts both ways</h2>
+  <div class="row" style="gap:60px;align-items:center"><div class="matrix">
+    <div></div><div class="ax">It was cyber</div><div class="ax">It was not cyber</div>
+    <div class="ax" style="writing-mode:vertical-rl;transform:rotate(180deg)">We said cyber</div>
+    <div class="q"><h4>Correct</h4><p>Rare, and usually late.</p></div>
+    <div class="q bad"><h4>False alarm</h4><p>Panic, press, wasted response.</p><div class="pin am f zoom" data-s="1">Oldsmar</div></div>
+    <div class="ax" style="writing-mode:vertical-rl;transform:rotate(180deg)">We said not cyber</div>
+    <div class="q bad"><h4>Missed attack</h4><p>Attacker keeps operating.</p><div class="pin f zoom" data-s="2">Port Hudson</div></div>
+    <div class="q"><h4>Normal Tuesday</h4><p>Most of your events live here.</p></div>
+  </div>
+  <p class="f big" data-s="3" style="font-size:46px">Do the analysis <span class="amber">before</span> you name the cause.</p></div>
+  <aside class="notes"><ul>
+    <li>Two failure modes, two costs. False alarms burn credibility. Misses let the attacker keep working.</li>
+    <li>[Click] Oldsmar. [Click] Port Hudson.</li>
+    <li>[Click] The fix is analysis: physics, logs, access records, change records — intent vs. incident. This is what my AIChE "Intent or Incident" work was about.</li>
+  </ul></aside>
+</section>
+
+<!-- ================= 06b TRIAGE CARD ================= -->
+<section class="slide" data-title="Intent or incident triage">
+  <div class="kicker">The method · Intent or incident?</div>
+  <h2 style="font-size:64px;margin-bottom:30px">Four checks <span class="amber">before</span> anyone says “hack.”</h2>
+  <div class="tiles">
+    <div class="tile f" style="--c:var(--cyan);min-height:auto"><h3><span style="font:800 30px var(--mono);color:var(--cyan)">01</span> Physics</h3><ul style="list-style:none">
+      <li>Is the change physically possible for this equipment?</li><li>Does it match a known failure mode (drift, stiction, bad VFD)?</li><li>Did the process respond the way the logic says it should?</li></ul></div>
+    <div class="tile f" style="--c:var(--amber);min-height:auto"><h3><span style="font:800 30px var(--mono);color:var(--amber)">02</span> Logs</h3><ul style="list-style:none">
+      <li>What do the historian and alarm journal say, in what order?</li><li>Does the HMI audit trail show a write, and from which station?</li><li>Any gaps, resets, or time jumps?</li></ul></div>
+    <div class="tile f" style="--c:var(--red);min-height:auto"><h3><span style="font:800 30px var(--mono);color:var(--red)">03</span> Access</h3><ul style="list-style:none">
+      <li>Who was logged in, locally or remotely?</li><li>Any VPN, vendor, or shared-account sessions at that time?</li><li>Any accounts that should be dead? <span class="amber">(Port Hudson)</span></li></ul></div>
+    <div class="tile f" style="--c:var(--green);min-height:auto"><h3><span style="font:800 30px var(--mono);color:var(--green)">04</span> Changes</h3><ul style="list-style:none">
+      <li>Any open MOC, work order, or logic download?</li><li>Did maintenance or a vendor touch it this week?</li><li>Does the running logic match the last known-good backup?</li></ul></div>
+  </div>
+  <p class="f big" style="font-size:38px;margin-top:40px">Then call it: <span class="cyan">equipment</span> · <span class="green">operator</span> · <span class="red">cyber</span>, with ICD 203 <span class="amber">likelihood + confidence.</span></p>
+  <aside class="notes"><ul>
+    <li>This is the actual method behind "do the analysis." Four buckets, any engineer can run them.</li>
+    <li>[Click] Physics first. Most weird events are equipment. Can the process even do this?</li>
+    <li>[Click] Logs. Historian, alarm journal, HMI audit trail. Order of events matters.</li>
+    <li>[Click] Access. Who was on, from where. This is the Port Hudson question nobody asked.</li>
+    <li>[Click] Changes. MOC, work orders, logic downloads. Compare running logic to the known-good backup.</li>
+    <li>[Click] Then make the call, labeled with likelihood and confidence. Tell the students: take a photo of this one.</li>
+  </ul></aside>
+</section>
+
+<!-- ================= 07 POOR HACKERS ================= -->
+<section class="slide" data-title="Poor hackers">
+  <div class="sympathy">
+    <div class="ins">With Deepest Sympathy</div>
+    <h3>To the hacker…</h3>
+    <p>…whose six months of careful recon was closed out in the CMMS as <b>“replaced bad VFD.”</b><br><br>Your hard work mattered. To someone. Probably.</p>
+    <div class="lily">❦</div>
+  </div>
+  <p class="f" data-s="1" style="text-align:center;margin-top:60px;font:600 34px var(--mono);color:var(--cyan)">So… who do you trust? ▸</p>
+  <aside class="notes"><ul>
+    <li>Have fun with this. I genuinely feel for the attackers out there. They do all this work and it gets logged as a maintenance ticket.</li>
+    <li>Real point under the joke: plants are noisy. Equipment fails all the time. That's great cover — for attackers and for bad analysis.</li>
+    <li>[Click] Hand-off: if first reports are wrong, who do you listen to?</li>
+  </ul></aside>
+</section>
+
+<!-- ================= 08 SECTION: NOISE ================= -->
+<section class="slide divider" data-title="Section: Filter the noise">
+  <div class="num">02</div>
+  <div class="kicker">Section 02</div>
+  <h1>Filter the noise</h1>
+  <p class="handoff">Vendors · insta-experts · grizzled veterans</p>
+  <aside class="notes"><ul><li>Three sources of noise you'll meet in this career. Students — this one's especially for you.</li></ul></aside>
+</section>
+
+<!-- ================= 09 VENDOR CHART ================= -->
+<section class="slide" data-title="Vendor stats" data-steps="1">
+  <div class="kicker">Exhibit A</div>
+  <h2>“OT attacks are up <span class="red">again</span> this year!”</h2>
+  <div class="chart" style="width:1400px">
+    <div class="bar" style="--h:7%"><span>’14</span></div><div class="bar" style="--h:9%"><span>’15</span></div><div class="bar" style="--h:11%"><span>’16</span></div>
+    <div class="bar" style="--h:14%"><span>’17</span></div><div class="bar" style="--h:18%"><span>’18</span></div><div class="bar" style="--h:23%"><span>’19</span></div>
+    <div class="bar" style="--h:30%"><span>’20</span></div><div class="bar" style="--h:39%"><span>’21</span></div><div class="bar" style="--h:50%"><span>’22</span></div>
+    <div class="bar" style="--h:63%"><span>’23</span></div><div class="bar" style="--h:79%"><span>’24</span></div><div class="bar" style="--h:100%"><span>’25</span></div>
+    <div class="arrow">↗</div>
+  </div>
+  <p class="footnote f" data-s="1">* Source: our annual threat report. <b>Also available: our product.</b></p>
+  <aside class="notes"><ul>
+    <li>Every year, every vendor report: up and to the right. (Illustrative chart — not anyone's real data.)</li>
+    <li>[Click] Of course it's going up. They sell OT security. Nobody publishes "things were quiet, maybe don't buy."</li>
+    <li>Watch the definitions: "attack" often means ransomware that hit a company that happens to own a plant — usually IT-side impact.</li>
+  </ul></aside>
+</section>
+
+<!-- ================= 10 REAL OT MALWARE ================= -->
+<section class="slide" data-title="What actually targets OT" data-steps="1">
+  <div class="kicker">Exhibit B · The actual record</div>
+  <div class="row" style="align-items:flex-end;gap:60px">
+    <div class="count" data-count="10">10</div>
+    <h2 style="font-size:64px;margin-bottom:30px">publicly known OT-specific<br>attack tools in ~15 years<small style="display:block;font-size:26px;color:var(--muted);font-weight:500;margin-top:10px">roughly 7–10, depending on who's counting</small></h2>
+  </div>
+  <div class="mtl">
+    <div class="axis"></div>
+    <div class="yr" style="left:0%">2010</div><div class="yr" style="left:35.7%">2015</div><div class="yr" style="left:71.4%">2020</div><div class="yr" style="left:100%">2024</div>
+    <div class="m up f" style="left:2%"><b>Stuxnet</b><small>2010 · centrifuges</small><div class="dot"></div></div>
+    <div class="m dn f" style="left:43%"><div class="dot"></div><b>Industroyer</b><small>2016 · Ukraine grid</small></div>
+    <div class="m up f" style="left:50%"><b>Triton</b><small>2017 · safety systems</small><div class="dot"></div></div>
+    <div class="m dn f" style="left:82%"><div class="dot"></div><b>Industroyer2</b><small>2022 · Ukraine grid</small></div>
+    <div class="m up f" style="left:82%"><b>Pipedream</b><small>2022 · caught before use</small><div class="dot"></div></div>
+    <div class="m up f" style="left:96%"><b>FrostyGoop</b><small>2024 · Modbus / heating</small><div class="dot"></div></div>
+    <div class="m dn f" style="left:96%"><div class="dot"></div><b>Fuxnet</b><small>2024 · sensor gateways</small></div>
+  </div>
+  <p class="f" data-s="8" style="font-size:34px;margin-top:-10px">Ransomware hitting a company that <i>owns</i> a plant ≠ an attack <span class="amber">on the plant.</span></p>
+  <div class="src">Also on most lists: Havex (2014), BlackEnergy 2 (2014), IOCONTROL (2024). Counts vary by source.</div>
+  <aside class="notes"><ul>
+    <li>Here's the counter-weight. OT-specific malware — tooling built to manipulate industrial processes — fits on one slide.</li>
+    <li>Not saying the risk is zero. Triton went after a safety system — that one should scare every FSE in the room.</li>
+    <li>Saying: be skeptical of the hockey stick. Ask "attack on what?"</li>
+  </ul></aside>
+</section>
+
+<!-- ================= 11 ARCHETYPES ================= -->
+<section class="slide" data-title="Insta-experts vs veterans" data-steps="3">
+  <div class="kicker">Exhibit C · People</div>
+  <div class="arch">
+    <div class="card f left" data-s="0">
+      <div class="egg"><div class="shell bot"></div><div class="shell top"></div><div class="badge">Thought Leader™</div></div>
+      <h3>The Insta-Expert</h3>
+      <ul class="clean"><li>Hatched on LinkedIn last quarter</li><li>Great brand, zero bench time</li><li>Never touched a piece of OT equipment</li></ul>
+      <div class="stamp">LIMITED VALUE</div>
+    </div>
+    <div class="card f right" data-s="1">
+      <div class="vet"><svg width="120" height="120" viewBox="0 0 120 120"><path d="M20 70 Q20 25 60 22 Q100 25 100 70 Z" fill="#ffb000"/><rect x="10" y="66" width="100" height="12" rx="6" fill="#d99400"/><rect x="52" y="22" width="16" height="44" fill="#d99400" opacity=".5"/></svg></div>
+      <h3>The Grizzled Veteran</h3>
+      <ul class="clean c"><li>30 years on the floor — real scars</li><li>“Ever touched a PLC? No? Next.”</li><li>Dismisses anyone who came up differently</li></ul>
+      <div class="stamp">LIMITED VALUE</div>
+    </div>
+  </div>
+  <div class="middle f" data-s="3"><div class="card"><p><span class="green">Be the middle:</span> has done the work · can explain the physics · still learns from people who haven't touched a PLC</p></div></div>
+  <aside class="notes"><ul>
+    <li>Insta-expert: builds a brand, posts daily, has never stood next to a running process.</li>
+    <li>[Click] Flip side: the veteran who won't hear anyone without PLC time. Also limited value — the field is changing faster than that attitude.</li>
+    <li>[Click] Both stamped. [Click] Students: this is the target. Get your hands dirty AND stay curious.</li>
+    <li>Hand-off: don't trust people by label. Trust better thinking.</li>
+  </ul></aside>
+</section>
+
+<!-- ================= 12 SECTION: THINKING ================= -->
+<section class="slide divider" data-title="Section: Steal better thinking">
+  <div class="num">03</div>
+  <div class="kicker">Section 03</div>
+  <h1>Don't trust labels.<br><span class="amber">Steal better thinking.</span></h1>
+  <p class="handoff">From Kodak · the intelligence community · and the plant manager</p>
+  <aside class="notes"><ul><li>If we can't trust the headline, the vendor, or the LinkedIn bio — borrow thinking tools that already work elsewhere.</li></ul></aside>
+</section>
+
+<!-- ================= 13 KODAK ================= -->
+<section class="slide" data-title="Kodak 1975" data-steps="3">
+  <style>
+  .kd{display:grid;grid-template-columns:720px 1fr;gap:60px;align-items:center}
+  .kd .flash{opacity:0;animation:kflash 3.2s ease-in-out infinite}
+  @keyframes kflash{0%,70%,100%{opacity:0}74%{opacity:1}80%{opacity:0}}
+  .kd .tape{transform-origin:center;transform-box:fill-box;animation:kspin 2.4s linear infinite}
+  @keyframes kspin{to{transform:rotate(360deg)}}
+  .kd .shelf{opacity:0;transform:translateY(-30px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+  .kd.s1 .shelf,.slide.active .kd .shelf.on{opacity:1;transform:none}
+  .kd .stamp{font:900 64px/1 var(--sans);fill:#ff4f5e;letter-spacing:.06em}
+  </style>
+  <div class="kd">
+    <svg viewBox="0 0 720 720" width="720" height="720">
+      <!-- 1975 prototype: boxy body, lens, cassette deck -->
+      <rect x="110" y="220" width="420" height="250" rx="18" fill="#1b2533" stroke="#2e405a" stroke-width="4"/>
+      <rect x="130" y="240" width="380" height="40" rx="8" fill="#233144"/>
+      <text x="320" y="268" text-anchor="middle" font-family="Cascadia Code,monospace" font-size="20" fill="#8c9cb1">PROTOTYPE · 1975</text>
+      <circle cx="250" cy="370" r="78" fill="#0d121a" stroke="#ffb000" stroke-width="6"/>
+      <circle cx="250" cy="370" r="46" fill="#111823" stroke="#3fd2ff" stroke-width="3"/>
+      <circle cx="232" cy="352" r="12" fill="#3fd2ff" opacity=".5"/>
+      <rect x="370" y="310" width="140" height="120" rx="10" fill="#0d121a" stroke="#2e405a" stroke-width="3"/>
+      <g class="tape"><circle cx="410" cy="370" r="22" fill="none" stroke="#ffcf5c" stroke-width="4"/><line x1="410" y1="348" x2="410" y2="392" stroke="#ffcf5c" stroke-width="3"/></g>
+      <g class="tape"><circle cx="470" cy="370" r="22" fill="none" stroke="#ffcf5c" stroke-width="4"/><line x1="448" y1="370" x2="492" y2="370" stroke="#ffcf5c" stroke-width="3"/></g>
+      <rect x="430" y="185" width="70" height="40" rx="6" fill="#233144"/>
+      <polygon class="flash" points="465,120 485,170 445,170" fill="#fff6c8"/>
+      <text x="320" y="520" text-anchor="middle" font-family="Cascadia Code,monospace" font-size="22" fill="#8c9cb1">0.01 MP · ~8 lb · 23 s per image</text>
+      <!-- shelf + stamp -->
+      <g class="shelf f" data-s="1">
+        <rect x="60" y="560" width="600" height="18" rx="4" fill="#5a6b82"/>
+        <rect x="90" y="578" width="16" height="80" fill="#5a6b82"/><rect x="614" y="578" width="16" height="80" fill="#5a6b82"/>
+        <g transform="rotate(-12 360 640)"><rect x="200" y="600" width="320" height="86" rx="10" fill="none" stroke="#ff4f5e" stroke-width="6"/><text class="stamp" x="360" y="664" text-anchor="middle">SHELVED</text></g>
+      </g>
+    </svg>
+    <div>
+      <div class="kicker">Kodak · Rochester, NY · 1975</div>
+      <h2 style="font-size:72px">Kodak built the first <span class="amber">digital camera.</span></h2>
+      <p class="f big" data-s="1" style="font-size:44px">Then shelved it to protect film. <span class="red">Bankrupt in 2012.</span></p>
+      <p class="f" data-s="2" style="margin-top:34px;font-size:38px;color:var(--text)">They had the breakthrough in hand.<br><b class="amber">They never put it to work.</b></p>
+      <div class="f" data-s="3" style="margin-top:44px;padding:22px 28px;border-left:4px solid var(--cyan);background:rgba(63,210,255,.06);border-radius:10px">
+        <p style="font-size:30px;color:var(--text)">Other fields borrow well: <b class="cyan">surgery stole the pilot's checklist</b> and cut complications.</p>
+        <p style="font-size:24px;color:var(--muted);margin-top:8px">So let's steal from the intelligence community next ▸</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes"><ul>
+    <li>1975, Kodak engineer Steve Sasson builds the first digital camera. Toaster-sized, about 8 pounds, 0.01 megapixels, recorded to cassette tape, 23 seconds per picture.</li>
+    <li>[Click] Management shelved it. Digital threatened the film business. Kodak filed for bankruptcy in 2012.</li>
+    <li>[Click] The lesson: having the tool isn't the same as applying it. Keep this in your pocket — we come back to it with AI.</li>
+    <li>[Click] The flip side: fields that borrow well win. Surgery adopted aviation's checklist and complications dropped. Hand-off: we're going to borrow from the intelligence community.</li>
+  </ul></aside>
+</section>
+
+<!-- ================= 14 CLAUSEWITZ 2 ================= -->
+
+<!-- ================= 15 ICD 203 ================= -->
+<section class="slide" data-title="ICD 203">
+  <div class="kicker">Borrowed from the intelligence community</div>
+  <h2 style="font-size:72px;margin-bottom:10px">Likelihood <span class="muted">≠</span> <span class="cyan">Confidence</span></h2>
+  <p class="def">ICD 203 — U.S. Intelligence Community Directive on Analytic Standards</p>
+  <p style="margin-top:26px;font-size:30px" class="muted">HOW LIKELY IS IT?</p>
+  <div class="scale">
+    <div style="background:#5b6b80;transition-delay:.05s"><b>Almost no chance</b><small>01–05%</small></div>
+    <div style="background:#7d8ea3;transition-delay:.12s"><b>Very unlikely</b><small>05–20%</small></div>
+    <div style="background:#a8b6c6;transition-delay:.19s"><b>Unlikely</b><small>20–45%</small></div>
+    <div style="background:#e6e9ee;transition-delay:.26s"><b>Roughly even</b><small>45–55%</small></div>
+    <div style="background:#ffd77a;transition-delay:.33s"><b>Likely</b><small>55–80%</small></div>
+    <div style="background:#ffbf3a;transition-delay:.40s"><b>Very likely</b><small>80–95%</small></div>
+    <div style="background:#ff9f1a;transition-delay:.47s"><b>Almost certain</b><small>95–99%</small></div>
+  </div>
+  <p class="f" data-s="1" style="margin-top:26px;font-size:30px;color:var(--cyan)">HOW GOOD IS OUR EVIDENCE? — a separate call</p>
+  <div class="conf f" data-s="1"><span>Low</span><span>Moderate</span><span>High</span></div>
+  <p class="example f" data-s="2">“We assess it is <i>likely</i> (55–80%) the setpoint change was operator error — <u>moderate confidence</u>, pending historian and login review.”</p>
+  <aside class="notes"><ul>
+    <li>Two separate questions engineers constantly mash together. How likely? And how good is the evidence behind that?</li>
+    <li>[Click] Confidence is about sources and evidence quality, not about probability.</li>
+    <li>[Click] Read the example. That sentence would have saved Oldsmar a press conference. It also tells the plant manager exactly what work is still open.</li>
+  </ul></aside>
+</section>
+
+<!-- ================= 16 PLANT MANAGER ================= -->
+<section class="slide" data-title="Think like the plant manager" data-steps="1">
+  <div class="kicker">Think like the plant manager</div>
+  <h2 style="font-size:68px">Nobody wakes up wanting “more security.”</h2>
+  <div class="gauges">
+    <div class="gauge" style="--a:55deg"><svg viewBox="0 0 240 140"><path d="M20 120 A100 100 0 0 1 220 120" fill="none" stroke="#233144" stroke-width="18" stroke-linecap="round"/><path d="M20 120 A100 100 0 0 1 220 120" fill="none" stroke="#3ddc97" stroke-width="18" stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="60"/><g class="needle"><line x1="120" y1="120" x2="120" y2="36" stroke="#e9eef4" stroke-width="6" stroke-linecap="round"/></g><circle cx="120" cy="120" r="10" fill="#e9eef4"/></svg><b>Safety</b></div>
+    <div class="gauge" style="--a:40deg"><svg viewBox="0 0 240 140"><path d="M20 120 A100 100 0 0 1 220 120" fill="none" stroke="#233144" stroke-width="18" stroke-linecap="round"/><path d="M20 120 A100 100 0 0 1 220 120" fill="none" stroke="#3fd2ff" stroke-width="18" stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="80"/><g class="needle"><line x1="120" y1="120" x2="120" y2="36" stroke="#e9eef4" stroke-width="6" stroke-linecap="round"/></g><circle cx="120" cy="120" r="10" fill="#e9eef4"/></svg><b>Uptime</b></div>
+    <div class="gauge" style="--a:20deg"><svg viewBox="0 0 240 140"><path d="M20 120 A100 100 0 0 1 220 120" fill="none" stroke="#233144" stroke-width="18" stroke-linecap="round"/><path d="M20 120 A100 100 0 0 1 220 120" fill="none" stroke="#ffb000" stroke-width="18" stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="110"/><g class="needle"><line x1="120" y1="120" x2="120" y2="36" stroke="#e9eef4" stroke-width="6" stroke-linecap="round"/></g><circle cx="120" cy="120" r="10" fill="#e9eef4"/></svg><b>Throughput</b></div>
+    <div class="gauge" style="--a:-15deg"><svg viewBox="0 0 240 140"><path d="M20 120 A100 100 0 0 1 220 120" fill="none" stroke="#233144" stroke-width="18" stroke-linecap="round"/><path d="M20 120 A100 100 0 0 1 220 120" fill="none" stroke="#ffb000" stroke-width="18" stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="170"/><g class="needle"><line x1="120" y1="120" x2="120" y2="36" stroke="#e9eef4" stroke-width="6" stroke-linecap="round"/></g><circle cx="120" cy="120" r="10" fill="#e9eef4"/></svg><b>Cost</b></div>
+    <div class="gauge" style="--a:30deg"><svg viewBox="0 0 240 140"><path d="M20 120 A100 100 0 0 1 220 120" fill="none" stroke="#233144" stroke-width="18" stroke-linecap="round"/><path d="M20 120 A100 100 0 0 1 220 120" fill="none" stroke="#a98bff" stroke-width="18" stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="95"/><g class="needle"><line x1="120" y1="120" x2="120" y2="36" stroke="#e9eef4" stroke-width="6" stroke-linecap="round"/></g><circle cx="120" cy="120" r="10" fill="#e9eef4"/></svg><b>Compliance</b></div>
+  </div>
+  <div class="translate f" data-s="1">
+    <div class="say no">“CVSS 9.8 on the HMI web server”</div>
+    <div class="ar">→</div>
+    <div class="say yes">“Could stop Line 3 for a shift — here's the $1,200 fix”<span style="display:block;font-size:16px;opacity:.6;margin-top:6px">example figure</span></div>
+  </div>
+  <aside class="notes"><ul>
+    <li>The plant manager watches these five dials. Security only matters to the extent it moves one of them.</li>
+    <li>[Click] Translate. Same finding, two languages. One gets ignored, one gets funded.</li>
+    <li>Hand-off: now apply this thinking to the standards themselves.</li>
+  </ul></aside>
+</section>
+
+<!-- ================= 17 SECTION: STANDARDS ================= -->
+<section class="slide divider" data-title="Section: Standards, honestly">
+  <div class="num">04</div>
+  <div class="kicker">Section 04</div>
+  <h1>Standards, <span class="amber">honestly</span></h1>
+  <p class="handoff">NIST SP 800-82r3 · ISA/IEC 62443 · Cyber-Informed Engineering</p>
+  <aside class="notes"><ul><li>Three frameworks you'll actually run into. Strengths, weaknesses, and how I actually use them.</li></ul></aside>
+</section>
+
+<!-- ================= 18 800-82 ================= -->
+<section class="slide" data-title="NIST SP 800-82r3" data-steps="4">
+  <div class="grid2" style="grid-template-columns:620px 1fr;align-items:center">
+    <div class="f zoom" data-s="0" style="padding-left:30px"><div class="binder"><div class="t">Guide to Operational Technology (OT) Security</div><div class="n">800-82</div><div class="r">Revision 3</div><div class="pt">FREE</div><div class="seal">NIST SPECIAL PUBLICATION</div></div></div>
+    <div>
+      <div class="kicker">NIST SP 800-82r3</div>
+      <div class="checks">
+        <div class="ck f" data-s="1"><b>Generic?</b><span class="ans amber">Yes.</span></div>
+        <div class="ck f" data-s="2"><b>Free?</b><span class="ans green">Yes.</span></div>
+        <div class="ck f" data-s="3"><b>Opens doors?</b><span class="ans cyan">Yes — it says NIST.</span></div>
+      </div>
+      <div class="f" data-s="4" style="margin-top:50px">
+        <p class="big" style="font-size:42px">Use it as a <span class="amber">map</span>, not a checklist.</p>
+        <p class="muted" style="margin-top:16px;font-size:32px">“I'm allowed to say it's generic. My name's in it.”</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes"><ul>
+    <li>[Click] It's generic. People quietly wonder what they're supposed to do with it. It has to cover water, pharma, pipelines, and building automation at once.</li>
+    <li>[Click] It's free. [Click] And executives and regulators like hearing "NIST." That opens doors and budgets.</li>
+    <li>[Click] How I use it: orientation and vocabulary, the OT overlay of SP 800-53 for control selection — then go to 62443 for the engineering.</li>
+  </ul></aside>
+</section>
+
+<!-- ================= 19 SL LADDER ================= -->
+<section class="slide" data-title="62443 security levels" data-steps="5">
+  <div class="kicker">ISA/IEC 62443 · Security Levels</div>
+  <h2 style="font-size:64px;margin-bottom:24px">Who are you defending against?</h2>
+  <div style="position:relative"><div class="ladder">
+    <div class="rung l1 f" data-s="1"><div class="lv">SL 1</div><p>Casual or coincidental violation</p><div class="who">A screen-door lock</div></div>
+    <div class="rung l2 f" data-s="2"><div class="lv">SL 2</div><p>Intentional · simple means · low resources · generic skills</p><div class="who">Where security starts</div></div>
+    <div class="rung l3 f" data-s="3"><div class="lv">SL 3</div><p>Sophisticated means · moderate resources · ICS-specific skills</p><div class="who">Realistic ceiling for most</div></div>
+    <div class="rung l4 f" data-s="4"><div class="lv">SL 4</div><p>Sophisticated means · extended resources · high motivation</p><div class="who">Nation-state. Bring a budget.</div></div>
+  </div>
+  <div class="bracket f" data-s="5"><p>Most companies<br>realistically live<br>at SL 2–3</p></div></div>
+  <div class="src">Three flavors you'll hear: Target (SL-T) · Capability (SL-C) · Achieved (SL-A)</div>
+  <aside class="notes"><ul>
+    <li>Security levels describe the adversary you're designing against, not how "good" you are.</li>
+    <li>[Click] SL1 — stops accidents. Honestly doesn't do much against anyone trying.</li>
+    <li>[Click] SL2 — the first level that assumes someone means it.</li>
+    <li>[Click] SL3 — ICS-savvy attacker. Achievable for important zones.</li>
+    <li>[Click] SL4 — nation-state resources. Very few organizations get here or need to everywhere.</li>
+    <li>[Click] Reality check: most of you will live between 2 and 3.</li>
+  </ul></aside>
+</section>
+
+<!-- ================= 20 MT FLOOR ================= -->
+<section class="slide" data-title="The MT Floor" data-steps="2">
+  <div class="floor">
+    <div class="zones">
+      <div class="zone" style="--i:0"><b>Packaging</b><span class="sl"></span></div>
+      <div class="zone up" style="--i:1"><b>Boiler</b><span class="sl"></span></div>
+      <div class="zone" style="--i:2"><b>Utilities</b><span class="sl"></span></div>
+      <div class="zone up" style="--i:3"><b>Safety Instrumented System</b><span class="sl"></span></div>
+      <div class="zone up" style="--i:4"><b>Batch Reactor</b><span class="sl"></span></div>
+      <div class="zone up" style="--i:5"><b>Tank Farm</b><span class="sl"></span></div>
+      <div class="zone" style="--i:6"><b>Wastewater</b><span class="sl"></span></div>
+      <div class="zone" style="--i:7"><b>HVAC / BMS</b><span class="sl"></span></div>
+      <div class="zone" style="--i:8"><b>Historian DMZ</b><span class="sl"></span></div>
+      <div class="zone" style="--i:9"><b>Shipping</b><span class="sl"></span></div>
+      <div class="zone" style="--i:10"><b>Quality Lab</b><span class="sl"></span></div>
+      <div class="zone" style="--i:11"><b>Compressors</b><span class="sl"></span></div>
+    </div>
+    <div>
+      <div class="mtbadge"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="none" stroke="#ffb000" stroke-width="3"/><line x1="4" y1="50" x2="96" y2="50" stroke="#ffb000" stroke-width="3"/><text x="50" y="40" text-anchor="middle" font-size="26" font-family="Consolas,monospace" font-weight="800" fill="#ffb000">MT</text><text x="50" y="78" text-anchor="middle" font-size="18" font-family="Consolas,monospace" font-weight="800" fill="#ffb000">SL2</text></svg><h3>The MT Floor</h3></div>
+      <p class="f" data-s="1"><b class="amber">Floor:</b> every zone inherits SL 2 on day one. No waiting for a perfect assessment.</p>
+      <p class="f" data-s="2" style="margin-top:22px"><b class="cyan">Evolve:</b> step a zone up only when consequence demands it:</p>
+      <ul class="clean c f" data-s="2" style="margin-top:6px"><li style="font-size:29px">Safety or hazardous-release consequence</li><li style="font-size:29px">Environmental or regulatory exposure</li><li style="font-size:29px">Crown-jewel production</li></ul>
+    </div>
+  </div>
+  <aside class="notes"><ul>
+    <li>This is my approach. Full per-zone assessments don't scale — at enterprise scale they stall for years.</li>
+    <li>[Click] Every zone inherits SL2 immediately. That's a defensible baseline you can build and audit now.</li>
+    <li>[Click] Then step up where consequence justifies it — SIS, reactors, tank farms, boilers. Spend where the consequences are.</li>
+    <li>Same logic as SIL selection: classify by consequence, inherit requirements, don't reinvent per site.</li>
+  </ul></aside>
+</section>
+
+<!-- ================= 21 CIE ================= -->
+<section class="slide" data-title="CIE — FSE with Wi-Fi" data-steps="3">
+  <div class="kicker">Cyber-Informed Engineering (DOE / INL)</div>
+  <h2 style="font-size:72px;margin-bottom:6px">CIE is <span class="amber">FSE with Wi-Fi.</span></h2>
+  <svg class="sif" viewBox="0 0 1640 330">
+    <g>
+      <rect class="box" x="40" y="150" width="300" height="130" rx="16"/><text x="190" y="205" text-anchor="middle" font-size="34">Sensor</text><text x="190" y="248" text-anchor="middle" font-size="24" fill="#8c9cb1" style="font-weight:500">PT-101</text>
+      <rect class="box" x="670" y="150" width="300" height="130" rx="16"/><text x="820" y="205" text-anchor="middle" font-size="34">Logic Solver</text><text x="820" y="248" text-anchor="middle" font-size="24" fill="#8c9cb1" style="font-weight:500">SIS</text>
+      <rect class="box" x="1300" y="150" width="300" height="130" rx="16"/><text x="1450" y="205" text-anchor="middle" font-size="34">Final Element</text><text x="1450" y="248" text-anchor="middle" font-size="24" fill="#8c9cb1" style="font-weight:500">XV-101</text>
+      <path d="M340 215 H670 M970 215 H1300" stroke="#233144" stroke-width="6"/>
+      <path d="M340 215 H670 M970 215 H1300" stroke="#3ddc97" stroke-width="6" class="flow"/>
+    </g>
+    <g transform="translate(820 30)"><g class="wifi"><path d="M-80 70 Q0 -10 80 70" fill="none" stroke="#ffb000" stroke-width="12" stroke-linecap="round"/><path d="M-50 92 Q0 42 50 92" fill="none" stroke="#ffb000" stroke-width="12" stroke-linecap="round"/><circle cx="0" cy="112" r="11" fill="#ffb000"/></g></g>
+  </svg>
+  <div class="scalebal">
+    <div class="card f left" data-s="2" style="border-color:rgba(61,220,151,.5)"><h3 class="green" style="margin-bottom:12px">Great in theory</h3><ul class="clean g"><li style="font-size:29px">Consequence-first, in engineers' language</li><li style="font-size:29px">Designs out cyber-enabled hazards</li><li style="font-size:29px">Engineered safeguards can't be hacked remotely</li></ul></div>
+    <div class="card f right" data-s="3" style="border-color:rgba(255,79,94,.5)"><h3 class="red" style="margin-bottom:12px">Costly in practice</h3><ul class="clean r"><li style="font-size:29px">Labor-intensive, system by system</li><li style="font-size:29px">Needs rare people fluent in both disciplines</li><li style="font-size:29px">Best value: capital projects &amp; crown jewels</li></ul></div>
+  </div>
+  <aside class="notes"><ul>
+    <li>I'm a fan because I'm an actual FSE. A safety function: sense, decide, act.</li>
+    <li>[Click] CIE asks: what if the sensor, the logic, or the network lies? Same hazard thinking, now with Wi-Fi.</li>
+    <li>[Click] Strengths: it's consequence-driven and engineers already think this way. Physical safeguards — relief valves, mechanical interlocks — can't be hacked remotely. They can still be bypassed or neglected, so they need maintenance too.</li>
+    <li>[Click] Weakness: it's expensive and slow to do well. Use it where it pays — new builds and the systems that can hurt people.</li>
+    <li>Hand-off: standards meet real plants.</li>
+  </ul></aside>
+</section>
+
+<!-- ================= 22 SECTION: ENGINEERING ================= -->
+<section class="slide divider" data-title="Section: Engineering reality">
+  <div class="num">05</div>
+  <div class="kicker">Section 05</div>
+  <h1>Engineering <span class="amber">reality</span></h1>
+  <p class="handoff">Purdue · legacy vs. modern controllers · dependencies</p>
+  <aside class="notes"><ul><li>Standards meet real plants: old equipment, real physics, and things the plant can't run without.</li></ul></aside>
+</section>
+
+<!-- ================= 23 PURDUE ================= -->
+<section class="slide" data-title="Purdue — still useful?" data-steps="2">
+  <div class="purdue">
+    <div class="lvls">
+      <div class="lvl"><i>L5</i>Enterprise</div>
+      <div class="lvl"><i>L4</i>Business planning &amp; logistics</div>
+      <div class="lvl dmz"><i>L3.5</i>IT/OT DMZ</div>
+      <div class="lvl"><i>L3</i>Site operations</div>
+      <div class="lvl"><i>L2</i>Supervisory control · HMI</div>
+      <div class="lvl"><i>L1</i>Basic control · PLC</div>
+      <div class="lvl"><i>L0</i>Process · sensors &amp; actuators</div>
+      <svg class="cut f fade" data-s="1" viewBox="0 0 900 600" preserveAspectRatio="none">
+        <path d="M820 560 C 900 300, 900 100, 860 -10" stroke="#ff4f5e" stroke-width="6" fill="none" class="flow"/>
+        <path d="M60 470 C -40 300, 0 120, 90 -10" stroke="#3fd2ff" stroke-width="6" fill="none" class="flow"/>
+        <path d="M600 -10 L 560 380" stroke="#a98bff" stroke-width="6" fill="none" class="flow"/>
+      </svg>
+    </div>
+    <div>
+      <div class="kicker">The Purdue Model</div>
+      <div class="f" data-s="1">
+        <p style="font-size:30px"><b class="red">━</b> IIoT sensor → cloud analytics</p>
+        <p style="font-size:30px"><b class="cyan">━</b> Vendor remote access into L1</p>
+        <p style="font-size:30px"><b style="color:var(--violet)">━</b> Wireless &amp; cellular straight to L2</p>
+      </div>
+      <div class="f" data-s="2" style="margin-top:46px">
+        <p class="big" style="font-size:42px">Keep it as a <span class="green">vocabulary.</span></p>
+        <p class="big" style="font-size:42px">Drop it as a <span class="red">description of reality.</span></p>
+        <p class="muted" style="margin-top:16px;font-size:30px">Still good for: a shared language with IT, and your first segmentation cut.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes"><ul>
+    <li>You all know the layers. Quick question: is your plant actually built like this?</li>
+    <li>[Click] Modern plants punch straight through: cloud analytics, vendor remote access, cellular modems.</li>
+    <li>[Click] Where it still helps: a common language with IT, and drawing the first boundary. Where it hurts: when people assume the layers are walls.</li>
+  </ul></aside>
+</section>
+
+<!-- ================= 24 CONTROLLERS ================= -->
+<section class="slide" data-title="Legacy vs modern controllers" data-steps="2">
+  <div class="kicker">Legacy vs. modern controllers</div>
+  <div class="ctrls">
+    <div class="card f left" data-s="0">
+      <svg viewBox="0 0 700 210"><rect x="20" y="20" width="660" height="170" rx="8" fill="#3a3a33" stroke="#6b6a5c" stroke-width="3"/>
+        <g fill="#5c5b4f" stroke="#7d7b6a" stroke-width="2"><rect x="40" y="38" width="80" height="134"/><rect x="132" y="38" width="80" height="134"/><rect x="224" y="38" width="80" height="134"/><rect x="316" y="38" width="80" height="134"/><rect x="408" y="38" width="80" height="134"/><rect x="500" y="38" width="80" height="134"/><rect x="592" y="38" width="70" height="134"/></g>
+        <g fill="#9aff6b"><circle cx="60" cy="60" r="6"/><circle cx="152" cy="60" r="6"/><circle cx="244" cy="60" r="6" fill="#ff4f5e"/></g>
+        <text x="80" y="160" font-family="Consolas,monospace" font-size="18" fill="#b9b7a2" text-anchor="middle">CPU</text>
+        <text x="620" y="160" font-family="Consolas,monospace" font-size="16" fill="#b9b7a2" text-anchor="middle">DH+</text></svg>
+      <h3>Legacy <small>c. 1998 · still running</small></h3>
+      <ul class="clean r"><li>Cleartext protocols, no authentication</li><li>No signed firmware · vendor may be gone</li><li>Can fall over from an active scan</li><li>20–30 year lifecycle</li></ul>
+    </div>
+    <div class="card f right" data-s="1">
+      <svg viewBox="0 0 700 210"><rect x="20" y="20" width="660" height="170" rx="14" fill="#141c28" stroke="#3fd2ff" stroke-width="3"/>
+        <g fill="#1d2939" stroke="#2e405a" stroke-width="2"><rect x="40" y="38" width="120" height="134" rx="6"/><rect x="172" y="38" width="90" height="134" rx="6"/><rect x="274" y="38" width="90" height="134" rx="6"/><rect x="376" y="38" width="90" height="134" rx="6"/><rect x="478" y="38" width="90" height="134" rx="6"/></g>
+        <g fill="#3fd2ff"><circle cx="62" cy="58" r="6"/><circle cx="82" cy="58" r="6"/><circle cx="190" cy="58" r="6"/><circle cx="292" cy="58" r="6"/></g>
+        <g transform="translate(600 70)"><rect x="0" y="30" width="56" height="44" rx="6" fill="#3ddc97"/><path d="M10 30 V18 a18 18 0 0 1 36 0 V30" fill="none" stroke="#3ddc97" stroke-width="7"/></g>
+        <text x="100" y="160" font-family="Consolas,monospace" font-size="18" fill="#8c9cb1" text-anchor="middle">CPU · TLS</text></svg>
+      <h3>Modern <small>c. 2024 · new build</small></h3>
+      <ul class="clean g"><li>Secure protocols, role-based access</li><li>Signed firmware, secure boot</li><li>Patchable — if you get a window</li><li>Bigger attack surface: web servers, services</li></ul>
+    </div>
+  </div>
+  <p class="f" data-s="2" style="text-align:center;margin-top:34px;font-size:38px;color:var(--text)">Modern isn't “secure.” It's <span class="amber">securable</span> — and it brings new things to configure.</p>
+  <aside class="notes"><ul>
+    <li>Legacy: designed for a trusted, isolated network that hasn't existed for 20 years. Some will crash if you scan them actively. Don't learn that in production.</li>
+    <li>[Click] Modern: real security features — that ship turned off half the time, and bring web servers and services you didn't have before.</li>
+    <li>[Click] Securable, not secure. Somebody still has to configure it.</li>
+  </ul></aside>
+</section>
+
+<!-- ================= 25 TRADE-OFFS ================= -->
+<section class="slide" data-title="Trade-offs" data-steps="1">
+  <div class="kicker">Every control has an operating cost</div>
+  <h2 style="font-size:68px">Pick your trade-offs <span class="amber">on purpose</span></h2>
+  <div class="sliders">
+    <div class="sld"><span class="l amber">Patch now</span><div class="track"><div class="knob"></div></div><span class="cyan">Protect uptime</span></div>
+    <div class="sld"><span class="l amber">Encrypt it</span><div class="track"><div class="knob"></div></div><span class="cyan">Keep it deterministic</span></div>
+    <div class="sld"><span class="l amber">Active scanning</span><div class="track"><div class="knob"></div></div><span class="cyan">Don't crash the PLC</span></div>
+    <div class="sld"><span class="l amber">MFA everywhere</span><div class="track"><div class="knob"></div></div><span class="cyan">Break-glass at 2 a.m.</span></div>
+  </div>
+  <div class="f" data-s="1">
+    <p style="margin-top:44px;font-size:32px" class="muted">Can't patch the legacy box? Compensate:</p>
+    <div class="comp"><span>Segment it</span><span>Allow-list who talks to it</span><span>Monitor passively</span><span>Back up the logic</span><span>Engineered safeguards</span></div>
+  </div>
+  <aside class="notes"><ul>
+    <li>The sliders keep moving because the right answer depends on the zone, the process, and the consequence.</li>
+    <li>Safety and availability come first — but "we can't patch" is the start of the conversation, not the end.</li>
+    <li>[Click] The compensating-controls menu for gear you can't touch.</li>
+  </ul></aside>
+</section>
+
+<!-- ================= 26 CLAUSEWITZ 3 ================= -->
+
+<!-- ================= 27 DEPENDENCIES ================= -->
+<section class="slide" data-title="Poison the water" data-steps="2">
+  <div class="dep">
+    <svg viewBox="0 0 1020 720">
+      <g class="spokes">
+        <line class="spoke" x1="510" y1="360" x2="510" y2="80"/><line class="spoke" x1="510" y1="360" x2="800" y2="190"/><line class="spoke" x1="510" y1="360" x2="830" y2="520"/>
+        <line class="spoke" x1="510" y1="360" x2="510" y2="650"/><line class="spoke" x1="510" y1="360" x2="190" y2="520"/><line class="spoke" x1="510" y1="360" x2="210" y2="190"/>
+      </g>
+      <circle cx="510" cy="360" r="150" fill="none" stroke="#3ddc97" stroke-width="12" class="wall" stroke-dasharray="4 10"/>
+      <g class="node"><circle cx="510" cy="360" r="105" style="fill:#18263a;stroke:#3ddc97"/><text x="510" y="352">THE PLANT</text><text x="510" y="386" style="font-size:20px;fill:#8c9cb1">SL 3 · hardened</text></g>
+      <g class="node"><circle cx="510" cy="80" r="64"/><text x="510" y="88">Power</text></g>
+      <g class="node hit"><circle cx="800" cy="190" r="64"/><text x="800" y="198">Water</text></g>
+      <g class="node"><circle cx="830" cy="520" r="64"/><text x="830" y="528">Steam</text></g>
+      <g class="node"><circle cx="510" cy="650" r="64"/><text x="510" y="658">Nitrogen</text></g>
+      <g class="node hit"><circle cx="190" cy="520" r="64"/><text x="190" y="528">Vendor</text></g>
+      <g class="node"><circle cx="210" cy="190" r="64"/><text x="210" y="198">Logistics</text></g>
+      <g class="bounce"><circle cx="300" cy="330" r="16" fill="#ff4f5e"/><text x="300" y="300" style="font:700 20px Consolas,monospace;fill:#ff4f5e;text-anchor:middle">✕ blocked</text></g>
+      <path class="atk" d="M990 40 C 940 90, 880 130, 840 160"/>
+      <path class="atk" d="M10 700 C 60 640, 120 590, 150 560"/>
+    </svg>
+    <div>
+      <div class="kicker">Attack the dependencies</div>
+      <h2 style="font-size:68px">When the walls are strong, the attacker <span class="red">poisons the water.</span></h2>
+      <p class="f" data-s="1" style="font-size:32px">Front door hardened? Good. The attacker stops knocking.</p>
+      <p class="f" data-s="2" style="font-size:32px;margin-top:20px">They go after what the plant <b class="amber">can't run without</b> — utilities, suppliers, vendor access.</p>
+      <p class="f" data-s="2" style="font-size:30px;margin-top:26px" class="cyan">→ Map your dependencies. They're in scope.</p>
+    </div>
+  </div>
+  <aside class="notes"><ul>
+    <li>Classic siege thinking: you don't storm the walls, you poison the wells.</li>
+    <li>[Click] Harden the plant, and the direct attack bounces.</li>
+    <li>[Click] So the attacker takes the easier path: the water utility, the vendor with standing remote access, the power feed.</li>
+    <li>Exercise for Monday: list what stops your plant within 4 hours if it disappears. That's your real center of gravity.</li>
+  </ul></aside>
+</section>
+
+<!-- ================= 28 SECTION: DEFENSE ================= -->
+<section class="slide divider" data-title="Section: Defense that works">
+  <div class="num">06</div>
+  <div class="kicker">Section 06</div>
+  <h1>Defense that <span class="amber">works</span></h1>
+  <p class="handoff">So what actually works? Mostly the boring stuff.</p>
+  <aside class="notes"><ul><li>No silver bullets. Four boring things done well beat a shelf of tools.</li></ul></aside>
+</section>
+
+<!-- ================= 29 CLAUSEWITZ 4 + CHILL JOB ================= -->
+<section class="slide quote" data-title="Clausewitz — simple is difficult" data-steps="1">
+  <div class="q type">Everything in war is very simple, but the simplest thing is difficult.</div>
+  <div class="who">Carl von Clausewitz <span>On War, Book 1, Ch. 7</span></div>
+  <div class="f" data-s="1" style="margin-top:70px;padding-left:70px">
+    <p class="big" style="font-size:46px">“If they'd just patched and deprovisioned the people they fired,<br><span class="amber">my job would've been easy.”</span></p>
+    <p class="mono" style="margin-top:18px;font-size:24px;color:var(--red)">↳ see: Port Hudson, 2014</p>
+  </div>
+  <aside class="notes"><ul>
+    <li>Clausewitz called it friction. Simple things are hard when you're actually doing them.</li>
+    <li>[Click] My joke, mostly. If organizations just patched and turned off accounts for people they fired, I'd have a very chill job.</li>
+    <li>Port Hudson callback: one deprovisioning step would have prevented months of pain.</li>
+  </ul></aside>
+</section>
+
+<!-- ================= 30 FOUR TILES ================= -->
+<section class="slide" data-title="Four things that work">
+  <div class="kicker">Four boring things that work</div>
+  <div class="tiles">
+    <div class="tile f" style="--c:var(--red)"><svg class="ic" viewBox="0 0 84 84"><circle cx="42" cy="30" r="16" fill="none" stroke="#ff4f5e" stroke-width="6"/><path d="M14 76 Q42 40 70 76" fill="none" stroke="#ff4f5e" stroke-width="6"/><line x1="10" y1="10" x2="74" y2="74" stroke="#ff4f5e" stroke-width="7"/></svg><h3>Patch &amp; deprovision</h3><ul class="clean r"><li>Kill accounts the day people leave</li><li>VPN, shared logins, vendor accounts</li><li>Patch on the maintenance calendar</li></ul><div class="callback">PORT HUDSON</div></div>
+    <div class="tile f" style="--c:var(--amber)"><svg class="ic" viewBox="0 0 84 84"><rect x="6" y="10" width="30" height="30" rx="4" fill="none" stroke="#ffb000" stroke-width="6"/><rect x="48" y="44" width="30" height="30" rx="4" fill="none" stroke="#ffb000" stroke-width="6"/><path d="M36 25 H60 V44" fill="none" stroke="#ffb000" stroke-width="6"/></svg><h3>Segmentation</h3><ul class="clean"><li>Zones &amp; conduits</li><li>SL 2 floor everywhere</li><li>Allow-list the conduits, deny the rest</li></ul></div>
+    <div class="tile f" style="--c:var(--cyan)"><svg class="ic" viewBox="0 0 84 84"><rect x="18" y="38" width="48" height="38" rx="6" fill="none" stroke="#3fd2ff" stroke-width="6"/><path d="M28 38 V26 a14 14 0 0 1 28 0 V38" fill="none" stroke="#3fd2ff" stroke-width="6"/></svg><h3>Remote access</h3><ul class="clean c"><li>One door, through a jump host</li><li>MFA, time-boxed, recorded</li><li>Vendor sessions approved each time</li></ul></div>
+    <div class="tile f" style="--c:var(--green)"><svg class="ic" viewBox="0 0 84 84"><rect x="14" y="6" width="56" height="72" rx="6" fill="none" stroke="#3ddc97" stroke-width="6"/><path d="M26 28 H58 M26 42 H58 M26 56 H46" stroke="#3ddc97" stroke-width="6"/></svg><h3>Dumb-but-tough IR</h3><ul class="clean g"><li>One page, not two hundred</li><li>Operators can run it at 2 a.m.</li><li>Known-good logic backups</li></ul></div>
+  </div>
+  <aside class="notes"><ul>
+    <li>[Click ×4] Walk each tile in ~30 seconds.</li>
+    <li>Deprovisioning is the cheapest control in this whole talk.</li>
+    <li>Remote access is one of the most common ways in. One door, watched.</li>
+  </ul></aside>
+</section>
+
+<!-- ================= 31 DUMB BUT TOUGH IR ================= -->
+<section class="slide" data-title="Dumb-but-tough IR" data-steps="1">
+  <div class="ir">
+    <div class="playbook">
+      <div class="bk" style="top:120px">IR PLAYBOOK v4 · VOL 1</div><div class="bk" style="top:200px">IR PLAYBOOK v4 · VOL 2</div><div class="bk" style="top:280px">APPENDICES A–K</div><div class="bk" style="top:360px">RACI MATRIX (DRAFT)</div><div class="bk" style="top:440px">TABLETOP AAR 2019</div>
+      <div class="dust"></div>
+      <p class="mono" style="position:absolute;top:530px;left:60px;font-size:22px;color:var(--dim)">Last opened: never</p>
+    </div>
+    <div class="f right" data-s="1">
+      <div class="cardir">
+        <h3>OT INCIDENT · DO THIS</h3>
+        <ol>
+          <li><b>Make it safe.</b> Manual / SIS takes priority.</li>
+          <li><b>Isolate.</b> Pull the conduit, not the plant.</li>
+          <li><b>Call.</b> Ops lead · controls eng · security.</li>
+          <li><b>Ask:</b> intent or incident? Run the analysis.</li>
+          <li><b>Restore</b> from known-good logic.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <aside class="notes"><ul>
+    <li>Everyone has the binder. Nobody has read the binder. Especially not at 2 a.m. with an alarm flood.</li>
+    <li>[Click] Dumb but tough: one page, on the wall, that an operator can actually run. Notice step 4 — that's the intent-or-incident triage from the start of the talk.</li>
+    <li>Hand-off: how do you do all this with no staff?</li>
+  </ul></aside>
+</section>
+
+<!-- ================= 32 SECTION: AI ================= -->
+<section class="slide divider" data-title="Section: AI toolkit">
+  <div class="num">07</div>
+  <div class="kicker">Section 07</div>
+  <h1>Don't be <span class="amber">Kodak</span> with AI.</h1>
+  <p class="handoff">How do you do all this with no staff? <b>Put the gadget to work.</b></p>
+  <aside class="notes"><ul><li>Callback to Kodak. Most people have AI in hand and are just playing with it — or shelving it. Let's put it to work on the boring, expensive parts of OT security.</li></ul></aside>
+</section>
+
+<!-- ================= 33 PIPELINE ================= -->
+<section class="slide" data-title="AI pipeline" data-steps="2">
+  <div class="kicker">The workflow</div>
+  <h2 style="font-size:66px"><span class="cyan">AI drafts.</span> <span class="amber">Humans judge confidence.</span></h2>
+  <svg class="pipe" viewBox="0 0 1640 420">
+    <defs><marker id="ah" markerWidth="12" markerHeight="12" refX="9" refY="6" orient="auto"><path d="M0 0 L12 6 L0 12 Z" fill="#2e405a"/></marker></defs>
+    <path id="pp" d="M180 210 H1480" stroke="#233144" stroke-width="8" fill="none"/>
+    <path d="M180 210 H1480" stroke="#3fd2ff" stroke-width="8" fill="none" class="flow"/>
+    <circle r="12" fill="#ffb000"><animateMotion dur="3s" repeatCount="indefinite" path="M180 210 H1480"/></circle>
+    <circle r="12" fill="#ffb000"><animateMotion dur="3s" begin="1s" repeatCount="indefinite" path="M180 210 H1480"/></circle>
+    <circle r="12" fill="#ffb000"><animateMotion dur="3s" begin="2s" repeatCount="indefinite" path="M180 210 H1480"/></circle>
+    <g class="st"><rect x="20" y="90" width="310" height="240" rx="20" style="fill:#151e2b"/><text x="175" y="160" font-size="34">Inputs</text><text class="sub" x="175" y="210" font-size="21">asset lists · firewall</text><text class="sub" x="175" y="240" font-size="21">rules · P&amp;IDs · notes</text><text class="sub" x="175" y="270" font-size="21">standard clauses</text></g>
+    <g class="st"><rect x="460" y="90" width="310" height="240" rx="20" style="stroke:#3fd2ff"/><text x="615" y="160" font-size="34" fill="#3fd2ff" style="fill:#3fd2ff">AI drafts</text><text class="sub" x="615" y="210" font-size="21">threat model</text><text class="sub" x="615" y="240" font-size="21">crosswalk · gap list</text><text class="sub" x="615" y="270" font-size="21">consequence draft</text></g>
+    <g class="st human f fade" data-s="1"><rect x="900" y="70" width="330" height="280" rx="20"/><text x="1065" y="150" font-size="34" style="fill:#ffb000">Engineer judges</text><text class="sub" x="1065" y="200" font-size="21">verify against source</text><text class="sub" x="1065" y="230" font-size="21">assign ICD 203</text><text class="sub" x="1065" y="260" font-size="21">likelihood + confidence</text><text x="1065" y="315" font-size="26" style="fill:#e9eef4">✍ signs it</text></g>
+    <g class="st f fade" data-s="2"><rect x="1330" y="90" width="290" height="240" rx="20" style="stroke:#3ddc97"/><text x="1475" y="160" font-size="34" style="fill:#3ddc97">Deliverable</text><text class="sub" x="1475" y="210" font-size="21">risk assessment</text><text class="sub" x="1475" y="240" font-size="21">standards map</text><text class="sub" x="1475" y="270" font-size="21">gap report</text></g>
+  </svg>
+  <p class="f" data-s="2" style="text-align:center;font-size:34px">Hours of mapping and drafting → <span class="amber">minutes.</span> The judgment stays human.</p>
+  <aside class="notes"><ul>
+    <li>Where AI earns its keep: the first draft of anything tedious — crosswalks, threat models, gap lists, consequence write-ups.</li>
+    <li>[Click] The engineer is the gate. Every AI claim gets checked against the source and labeled with likelihood and confidence — the ICD 203 thinking from earlier.</li>
+    <li>[Click] The time savings are real. The accountability doesn't move.</li>
+  </ul></aside>
+</section>
+
+<!-- ================= 34 TOOLKIT ================= -->
+<section class="slide" data-title="The toolkit" data-steps="3">
+  <div class="kicker">Your toolkit</div>
+  <div class="repo">
+    <div class="card f left" data-s="1">
+      <div class="gh"><svg width="44" height="44" viewBox="0 0 16 16" fill="#3fd2ff"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>isiahjonesSTEM/security-methodology</div>
+      <h3 style="margin-bottom:16px">Isiah Jones' security methodology</h3>
+      <ul class="clean c">
+        <li style="font-size:30px"><b>AI agent-based threat modeling</b> — automates analytical steps for ICS, OT, IIoT &amp; embedded systems</li>
+        <li style="font-size:30px"><b>Assessment &amp; testing templates</b> — risk, threat, vulnerability, mission assurance, acceptance testing</li>
+        <li style="font-size:30px"><b>Papers, guides &amp; scripts</b> from the field</li>
+      </ul>
+      <p class="mono" style="font-size:20px;color:var(--dim);margin-top:14px">Open source · GPL-3.0 · thank you, Isiah</p>
+    </div>
+    <div>
+      <h3 class="f" data-s="2" style="margin-bottom:20px">Prompt patterns to steal</h3>
+      <div class="prompt f" data-s="2"><b>Crosswalk:</b> Map 62443-3-3 SR 5.2 to SP 800-53 and CSF 2.0. Cite SR numbers only. I'll check them against my licensed copy. Rate each mapping's confidence. Flag anything you're unsure of.</div>
+      <div class="prompt f" data-s="3"><b>Conduits:</b> Here's a firewall export and our zone list. Find rules that cross zones without a defined conduit.</div>
+      <div class="prompt f" data-s="3"><b>Consequence:</b> Draft the worst credible consequence for this zone. List every assumption separately.</div>
+    </div>
+  </div>
+  <aside class="notes"><ul>
+    <li>[Click] My friend Isiah Jones built and open-sourced this. Threat modeling agent for ICS/OT, plus assessment templates from real work. QR code at the end.</li>
+    <li>[Click] Prompt patterns — notice every one asks the model to show its work and flag uncertainty.</li>
+    <li>[Click] Never paste real plant data into a public model. Sanitize or run it locally.</li>
+  </ul></aside>
+</section>
+
+<!-- ================= 35 CROSSWALK DEMO ================= -->
+<section class="slide" data-title="Live crosswalk demo">
+  <div class="kicker"><span class="live"></span>&nbsp;Live demo · standards crosswalk</div>
+  <div class="xw">
+    <div class="list" id="xwList"></div>
+    <div class="out" id="xwOut"></div>
+  </div>
+  <div class="src" style="bottom:40px">Illustrative sample, drafted with AI and checked by an engineer. Verify against the licensed standard text before use. SP 800-53 controls per the 800-82r3 OT overlay.</div>
+  <aside class="notes"><ul>
+    <li>Click through 2–3 requirements with the mouse (arrow keys still move slides). Suggest: SR 1.13, SR 5.1, SR 7.3.</li>
+    <li>Point out the "Legacy reality" line — that's where the standard meets the plant.</li>
+    <li>Point out the confidence label. Moderate means "I'd want a second look." That's the habit.</li>
+  </ul></aside>
+</section>
+
+<!-- ================= 36 GUARDRAILS ================= -->
+<section class="slide" data-title="Guardrails">
+  <div class="kicker">Guardrails</div>
+  <h2 style="font-size:68px">Rules before tools</h2>
+  <div class="rails">
+    <div class="rail f"><div class="n">1</div><div><h3>Plant data stays home</h3><p>No P&amp;IDs, IPs, or configs in public models. Sanitize or run local.</p></div></div>
+    <div class="rail f"><div class="n">2</div><div><h3>AI drafts, engineers sign</h3><p>A human owns every conclusion that touches the process.</p></div></div>
+    <div class="rail f"><div class="n">3</div><div><h3>Label confidence</h3><p>Every claim gets ICD 203 likelihood and confidence.</p></div></div>
+    <div class="rail f"><div class="n">4</div><div><h3>Verify against source</h3><p>Models invent clause numbers. Check the actual standard.</p></div></div>
+  </div>
+  <aside class="notes"><ul>
+    <li>[Click ×4] These are non-negotiable.</li>
+    <li>#4 matters: models will confidently cite SR numbers that don't exist. Check.</li>
+    <li>Hand-off to close.</li>
+  </ul></aside>
+</section>
+
+<!-- ================= 37 CLOSE: DAVE ================= -->
+<section class="slide" data-title="Close — Dave" data-steps="1">
+  <div class="kicker">Back to the beginning</div>
+  <h1 style="font-size:96px">Was it even a&nbsp;<span class="amber">hack?</span></h1>
+  <div class="slot">
+    <div class="lbl">ROOT&nbsp;CAUSE&nbsp;▸</div>
+    <div class="reel land"><ul>
+      <li>Nation-state APT</li><li>Ransomware crew</li><li>Operator error</li><li>Bad VFD</li><li>Disgruntled insider</li><li>Firmware bug</li><li>Nation-state APT</li>
+      <li>Ransomware crew</li><li>Operator error</li><li>Bad VFD</li><li>Disgruntled insider</li><li>Firmware bug</li><li>Nation-state APT</li><li style="color:#3ddc97">Dave's keyboard</li>
+    </ul></div>
+  </div>
+  <p class="f big" data-s="1" style="margin-top:70px;font-size:56px">Next time it's Dave's keyboard,<br>you'll know in <span class="green">hours</span>, not <span class="red">months.</span></p>
+  <aside class="notes"><ul>
+    <li>Same question we started with. Now you have the tools: analysis before attribution, likelihood and confidence, consequence-first standards.</li>
+    <li>[Click] Land the line. Pause.</li>
+  </ul></aside>
+</section>
+
+<!-- ================= 38 MONDAY ================= -->
+<section class="slide" data-title="Five things Monday">
+  <div class="kicker">Five things to do Monday</div>
+  <div class="monday">
+    <div class="it f"><div class="bx"></div><p>Run <b class="amber">intent-or-incident</b> triage on your next weird event.</p></div>
+    <div class="it f"><div class="bx"></div><p>Set <b class="amber">SL 2 as your floor</b>. List the zones that need more.</p></div>
+    <div class="it f"><div class="bx"></div><p>Pull everyone who left in 12 months. <b class="amber">Confirm their access is dead.</b></p></div>
+    <div class="it f"><div class="bx"></div><p>Write the <b class="amber">one-page IR card</b>. Verify a known-good logic backup.</p></div>
+    <div class="it f"><div class="bx"></div><p>Have AI draft <b class="amber">one crosswalk</b> — then you assign the confidence.</p></div>
+  </div>
+  <aside class="notes"><ul><li>[Click ×5] One line each. These are free or nearly free.</li></ul></aside>
+</section>
+
+<!-- ================= 39 THANK YOU ================= -->
+<section class="slide" data-title="Thank you / QR">
+  <div style="text-align:center">
+    <div class="kicker" style="justify-content:center">Thank you · CyberHogs &amp; IEEE</div>
+    <h1 style="font-size:100px">Questions?</h1>
+  </div>
+  <div class="qrs">
+    <div class="qr f zoom" data-s="0"><div class="box"><svg viewBox="0 0 29 29" shape-rendering="crispEdges"><path d="M0,0h1v1h-1zM1,0h1v1h-1zM2,0h1v1h-1zM3,0h1v1h-1zM4,0h1v1h-1zM5,0h1v1h-1zM6,0h1v1h-1zM10,0h1v1h-1zM14,0h1v1h-1zM18,0h1v1h-1zM19,0h1v1h-1zM20,0h1v1h-1zM22,0h1v1h-1zM23,0h1v1h-1zM24,0h1v1h-1zM25,0h1v1h-1zM26,0h1v1h-1zM27,0h1v1h-1zM28,0h1v1h-1zM0,1h1v1h-1zM6,1h1v1h-1zM10,1h1v1h-1zM12,1h1v1h-1zM16,1h1v1h-1zM17,1h1v1h-1zM18,1h1v1h-1zM19,1h1v1h-1zM22,1h1v1h-1zM28,1h1v1h-1zM0,2h1v1h-1zM2,2h1v1h-1zM3,2h1v1h-1zM4,2h1v1h-1zM6,2h1v1h-1zM9,2h1v1h-1zM12,2h1v1h-1zM14,2h1v1h-1zM15,2h1v1h-1zM17,2h1v1h-1zM18,2h1v1h-1zM22,2h1v1h-1zM24,2h1v1h-1zM25,2h1v1h-1zM26,2h1v1h-1zM28,2h1v1h-1zM0,3h1v1h-1zM2,3h1v1h-1zM3,3h1v1h-1zM4,3h1v1h-1zM6,3h1v1h-1zM10,3h1v1h-1zM11,3h1v1h-1zM13,3h1v1h-1zM16,3h1v1h-1zM17,3h1v1h-1zM19,3h1v1h-1zM22,3h1v1h-1zM24,3h1v1h-1zM25,3h1v1h-1zM26,3h1v1h-1zM28,3h1v1h-1zM0,4h1v1h-1zM2,4h1v1h-1zM3,4h1v1h-1zM4,4h1v1h-1zM6,4h1v1h-1zM9,4h1v1h-1zM12,4h1v1h-1zM18,4h1v1h-1zM19,4h1v1h-1zM20,4h1v1h-1zM22,4h1v1h-1zM24,4h1v1h-1zM25,4h1v1h-1zM26,4h1v1h-1zM28,4h1v1h-1zM0,5h1v1h-1zM6,5h1v1h-1zM8,5h1v1h-1zM9,5h1v1h-1zM15,5h1v1h-1zM16,5h1v1h-1zM19,5h1v1h-1zM20,5h1v1h-1zM22,5h1v1h-1zM28,5h1v1h-1zM0,6h1v1h-1zM1,6h1v1h-1zM2,6h1v1h-1zM3,6h1v1h-1zM4,6h1v1h-1zM5,6h1v1h-1zM6,6h1v1h-1zM8,6h1v1h-1zM10,6h1v1h-1zM12,6h1v1h-1zM14,6h1v1h-1zM16,6h1v1h-1zM18,6h1v1h-1zM20,6h1v1h-1zM22,6h1v1h-1zM23,6h1v1h-1zM24,6h1v1h-1zM25,6h1v1h-1zM26,6h1v1h-1zM27,6h1v1h-1zM28,6h1v1h-1zM9,7h1v1h-1zM10,7h1v1h-1zM13,7h1v1h-1zM15,7h1v1h-1zM16,7h1v1h-1zM17,7h1v1h-1zM0,8h1v1h-1zM3,8h1v1h-1zM5,8h1v1h-1zM6,8h1v1h-1zM8,8h1v1h-1zM9,8h1v1h-1zM11,8h1v1h-1zM14,8h1v1h-1zM16,8h1v1h-1zM17,8h1v1h-1zM18,8h1v1h-1zM21,8h1v1h-1zM23,8h1v1h-1zM2,9h1v1h-1zM7,9h1v1h-1zM9,9h1v1h-1zM12,9h1v1h-1zM13,9h1v1h-1zM15,9h1v1h-1zM16,9h1v1h-1zM17,9h1v1h-1zM19,9h1v1h-1zM21,9h1v1h-1zM22,9h1v1h-1zM25,9h1v1h-1zM28,9h1v1h-1zM1,10h1v1h-1zM2,10h1v1h-1zM3,10h1v1h-1zM4,10h1v1h-1zM6,10h1v1h-1zM7,10h1v1h-1zM10,10h1v1h-1zM13,10h1v1h-1zM14,10h1v1h-1zM15,10h1v1h-1zM18,10h1v1h-1zM19,10h1v1h-1zM21,10h1v1h-1zM23,10h1v1h-1zM24,10h1v1h-1zM25,10h1v1h-1zM26,10h1v1h-1zM27,10h1v1h-1zM0,11h1v1h-1zM1,11h1v1h-1zM3,11h1v1h-1zM7,11h1v1h-1zM8,11h1v1h-1zM9,11h1v1h-1zM12,11h1v1h-1zM13,11h1v1h-1zM16,11h1v1h-1zM21,11h1v1h-1zM24,11h1v1h-1zM26,11h1v1h-1zM27,11h1v1h-1zM1,12h1v1h-1zM2,12h1v1h-1zM4,12h1v1h-1zM5,12h1v1h-1zM6,12h1v1h-1zM7,12h1v1h-1zM8,12h1v1h-1zM11,12h1v1h-1zM12,12h1v1h-1zM14,12h1v1h-1zM15,12h1v1h-1zM16,12h1v1h-1zM17,12h1v1h-1zM18,12h1v1h-1zM19,12h1v1h-1zM20,12h1v1h-1zM22,12h1v1h-1zM25,12h1v1h-1zM27,12h1v1h-1zM28,12h1v1h-1zM4,13h1v1h-1zM5,13h1v1h-1zM7,13h1v1h-1zM8,13h1v1h-1zM9,13h1v1h-1zM10,13h1v1h-1zM11,13h1v1h-1zM13,13h1v1h-1zM14,13h1v1h-1zM15,13h1v1h-1zM16,13h1v1h-1zM21,13h1v1h-1zM1,14h1v1h-1zM5,14h1v1h-1zM6,14h1v1h-1zM9,14h1v1h-1zM11,14h1v1h-1zM13,14h1v1h-1zM14,14h1v1h-1zM16,14h1v1h-1zM19,14h1v1h-1zM20,14h1v1h-1zM21,14h1v1h-1zM25,14h1v1h-1zM26,14h1v1h-1zM27,14h1v1h-1zM28,14h1v1h-1zM0,15h1v1h-1zM1,15h1v1h-1zM2,15h1v1h-1zM4,15h1v1h-1zM7,15h1v1h-1zM10,15h1v1h-1zM15,15h1v1h-1zM17,15h1v1h-1zM20,15h1v1h-1zM21,15h1v1h-1zM22,15h1v1h-1zM23,15h1v1h-1zM25,15h1v1h-1zM27,15h1v1h-1zM2,16h1v1h-1zM6,16h1v1h-1zM7,16h1v1h-1zM8,16h1v1h-1zM10,16h1v1h-1zM12,16h1v1h-1zM13,16h1v1h-1zM17,16h1v1h-1zM19,16h1v1h-1zM20,16h1v1h-1zM21,16h1v1h-1zM27,16h1v1h-1zM1,17h1v1h-1zM2,17h1v1h-1zM3,17h1v1h-1zM4,17h1v1h-1zM5,17h1v1h-1zM8,17h1v1h-1zM9,17h1v1h-1zM10,17h1v1h-1zM12,17h1v1h-1zM13,17h1v1h-1zM14,17h1v1h-1zM17,17h1v1h-1zM20,17h1v1h-1zM21,17h1v1h-1zM22,17h1v1h-1zM23,17h1v1h-1zM25,17h1v1h-1zM28,17h1v1h-1zM0,18h1v1h-1zM2,18h1v1h-1zM3,18h1v1h-1zM4,18h1v1h-1zM6,18h1v1h-1zM12,18h1v1h-1zM14,18h1v1h-1zM15,18h1v1h-1zM16,18h1v1h-1zM17,18h1v1h-1zM18,18h1v1h-1zM19,18h1v1h-1zM20,18h1v1h-1zM21,18h1v1h-1zM27,18h1v1h-1zM28,18h1v1h-1zM2,19h1v1h-1zM4,19h1v1h-1zM7,19h1v1h-1zM8,19h1v1h-1zM10,19h1v1h-1zM11,19h1v1h-1zM12,19h1v1h-1zM14,19h1v1h-1zM16,19h1v1h-1zM17,19h1v1h-1zM23,19h1v1h-1zM27,19h1v1h-1zM28,19h1v1h-1zM0,20h1v1h-1zM5,20h1v1h-1zM6,20h1v1h-1zM9,20h1v1h-1zM10,20h1v1h-1zM11,20h1v1h-1zM15,20h1v1h-1zM17,20h1v1h-1zM20,20h1v1h-1zM21,20h1v1h-1zM22,20h1v1h-1zM23,20h1v1h-1zM24,20h1v1h-1zM26,20h1v1h-1zM8,21h1v1h-1zM9,21h1v1h-1zM10,21h1v1h-1zM12,21h1v1h-1zM14,21h1v1h-1zM15,21h1v1h-1zM18,21h1v1h-1zM19,21h1v1h-1zM20,21h1v1h-1zM24,21h1v1h-1zM26,21h1v1h-1zM27,21h1v1h-1zM28,21h1v1h-1zM0,22h1v1h-1zM1,22h1v1h-1zM2,22h1v1h-1zM3,22h1v1h-1zM4,22h1v1h-1zM5,22h1v1h-1zM6,22h1v1h-1zM9,22h1v1h-1zM12,22h1v1h-1zM17,22h1v1h-1zM18,22h1v1h-1zM20,22h1v1h-1zM22,22h1v1h-1zM24,22h1v1h-1zM27,22h1v1h-1zM0,23h1v1h-1zM6,23h1v1h-1zM8,23h1v1h-1zM10,23h1v1h-1zM12,23h1v1h-1zM14,23h1v1h-1zM16,23h1v1h-1zM17,23h1v1h-1zM19,23h1v1h-1zM20,23h1v1h-1zM24,23h1v1h-1zM25,23h1v1h-1zM26,23h1v1h-1zM0,24h1v1h-1zM2,24h1v1h-1zM3,24h1v1h-1zM4,24h1v1h-1zM6,24h1v1h-1zM10,24h1v1h-1zM15,24h1v1h-1zM20,24h1v1h-1zM21,24h1v1h-1zM22,24h1v1h-1zM23,24h1v1h-1zM24,24h1v1h-1zM28,24h1v1h-1zM0,25h1v1h-1zM2,25h1v1h-1zM3,25h1v1h-1zM4,25h1v1h-1zM6,25h1v1h-1zM8,25h1v1h-1zM11,25h1v1h-1zM13,25h1v1h-1zM15,25h1v1h-1zM19,25h1v1h-1zM20,25h1v1h-1zM22,25h1v1h-1zM24,25h1v1h-1zM25,25h1v1h-1zM26,25h1v1h-1zM28,25h1v1h-1zM0,26h1v1h-1zM2,26h1v1h-1zM3,26h1v1h-1zM4,26h1v1h-1zM6,26h1v1h-1zM9,26h1v1h-1zM12,26h1v1h-1zM14,26h1v1h-1zM16,26h1v1h-1zM17,26h1v1h-1zM18,26h1v1h-1zM19,26h1v1h-1zM21,26h1v1h-1zM24,26h1v1h-1zM25,26h1v1h-1zM26,26h1v1h-1zM28,26h1v1h-1zM0,27h1v1h-1zM6,27h1v1h-1zM11,27h1v1h-1zM15,27h1v1h-1zM18,27h1v1h-1zM19,27h1v1h-1zM20,27h1v1h-1zM21,27h1v1h-1zM24,27h1v1h-1zM27,27h1v1h-1zM0,28h1v1h-1zM1,28h1v1h-1zM2,28h1v1h-1zM3,28h1v1h-1zM4,28h1v1h-1zM5,28h1v1h-1zM6,28h1v1h-1zM8,28h1v1h-1zM11,28h1v1h-1zM14,28h1v1h-1zM15,28h1v1h-1zM16,28h1v1h-1zM17,28h1v1h-1zM18,28h1v1h-1zM20,28h1v1h-1zM22,28h1v1h-1zM23,28h1v1h-1zM25,28h1v1h-1zM27,28h1v1h-1z"/></svg></div><b>Michael Thompson</b><small>orcid.org/0000-0002-0836-244X</small></div>
+    <div class="qr f zoom" data-s="0"><div class="box"><svg viewBox="0 0 33 33" shape-rendering="crispEdges"><path d="M0,0h1v1h-1zM1,0h1v1h-1zM2,0h1v1h-1zM3,0h1v1h-1zM4,0h1v1h-1zM5,0h1v1h-1zM6,0h1v1h-1zM10,0h1v1h-1zM11,0h1v1h-1zM15,0h1v1h-1zM17,0h1v1h-1zM18,0h1v1h-1zM21,0h1v1h-1zM22,0h1v1h-1zM26,0h1v1h-1zM27,0h1v1h-1zM28,0h1v1h-1zM29,0h1v1h-1zM30,0h1v1h-1zM31,0h1v1h-1zM32,0h1v1h-1zM0,1h1v1h-1zM6,1h1v1h-1zM8,1h1v1h-1zM9,1h1v1h-1zM12,1h1v1h-1zM13,1h1v1h-1zM14,1h1v1h-1zM16,1h1v1h-1zM17,1h1v1h-1zM20,1h1v1h-1zM22,1h1v1h-1zM26,1h1v1h-1zM32,1h1v1h-1zM0,2h1v1h-1zM2,2h1v1h-1zM3,2h1v1h-1zM4,2h1v1h-1zM6,2h1v1h-1zM8,2h1v1h-1zM9,2h1v1h-1zM11,2h1v1h-1zM13,2h1v1h-1zM19,2h1v1h-1zM21,2h1v1h-1zM22,2h1v1h-1zM26,2h1v1h-1zM28,2h1v1h-1zM29,2h1v1h-1zM30,2h1v1h-1zM32,2h1v1h-1zM0,3h1v1h-1zM2,3h1v1h-1zM3,3h1v1h-1zM4,3h1v1h-1zM6,3h1v1h-1zM8,3h1v1h-1zM9,3h1v1h-1zM11,3h1v1h-1zM12,3h1v1h-1zM17,3h1v1h-1zM20,3h1v1h-1zM21,3h1v1h-1zM24,3h1v1h-1zM26,3h1v1h-1zM28,3h1v1h-1zM29,3h1v1h-1zM30,3h1v1h-1zM32,3h1v1h-1zM0,4h1v1h-1zM2,4h1v1h-1zM3,4h1v1h-1zM4,4h1v1h-1zM6,4h1v1h-1zM10,4h1v1h-1zM15,4h1v1h-1zM17,4h1v1h-1zM19,4h1v1h-1zM20,4h1v1h-1zM21,4h1v1h-1zM22,4h1v1h-1zM23,4h1v1h-1zM26,4h1v1h-1zM28,4h1v1h-1zM29,4h1v1h-1zM30,4h1v1h-1zM32,4h1v1h-1zM0,5h1v1h-1zM6,5h1v1h-1zM11,5h1v1h-1zM13,5h1v1h-1zM16,5h1v1h-1zM18,5h1v1h-1zM20,5h1v1h-1zM21,5h1v1h-1zM26,5h1v1h-1zM32,5h1v1h-1zM0,6h1v1h-1zM1,6h1v1h-1zM2,6h1v1h-1zM3,6h1v1h-1zM4,6h1v1h-1zM5,6h1v1h-1zM6,6h1v1h-1zM8,6h1v1h-1zM10,6h1v1h-1zM12,6h1v1h-1zM14,6h1v1h-1zM16,6h1v1h-1zM18,6h1v1h-1zM20,6h1v1h-1zM22,6h1v1h-1zM24,6h1v1h-1zM26,6h1v1h-1zM27,6h1v1h-1zM28,6h1v1h-1zM29,6h1v1h-1zM30,6h1v1h-1zM31,6h1v1h-1zM32,6h1v1h-1zM8,7h1v1h-1zM11,7h1v1h-1zM14,7h1v1h-1zM19,7h1v1h-1zM20,7h1v1h-1zM0,8h1v1h-1zM6,8h1v1h-1zM8,8h1v1h-1zM10,8h1v1h-1zM14,8h1v1h-1zM15,8h1v1h-1zM16,8h1v1h-1zM17,8h1v1h-1zM19,8h1v1h-1zM20,8h1v1h-1zM23,8h1v1h-1zM25,8h1v1h-1zM26,8h1v1h-1zM29,8h1v1h-1zM30,8h1v1h-1zM31,8h1v1h-1zM0,9h1v1h-1zM2,9h1v1h-1zM8,9h1v1h-1zM10,9h1v1h-1zM11,9h1v1h-1zM12,9h1v1h-1zM15,9h1v1h-1zM17,9h1v1h-1zM18,9h1v1h-1zM19,9h1v1h-1zM22,9h1v1h-1zM23,9h1v1h-1zM28,9h1v1h-1zM29,9h1v1h-1zM30,9h1v1h-1zM1,10h1v1h-1zM2,10h1v1h-1zM3,10h1v1h-1zM4,10h1v1h-1zM6,10h1v1h-1zM7,10h1v1h-1zM8,10h1v1h-1zM9,10h1v1h-1zM10,10h1v1h-1zM12,10h1v1h-1zM15,10h1v1h-1zM16,10h1v1h-1zM18,10h1v1h-1zM20,10h1v1h-1zM21,10h1v1h-1zM22,10h1v1h-1zM24,10h1v1h-1zM28,10h1v1h-1zM30,10h1v1h-1zM0,11h1v1h-1zM1,11h1v1h-1zM2,11h1v1h-1zM3,11h1v1h-1zM5,11h1v1h-1zM8,11h1v1h-1zM10,11h1v1h-1zM12,11h1v1h-1zM14,11h1v1h-1zM16,11h1v1h-1zM24,11h1v1h-1zM26,11h1v1h-1zM27,11h1v1h-1zM28,11h1v1h-1zM29,11h1v1h-1zM30,11h1v1h-1zM31,11h1v1h-1zM2,12h1v1h-1zM4,12h1v1h-1zM5,12h1v1h-1zM6,12h1v1h-1zM7,12h1v1h-1zM13,12h1v1h-1zM14,12h1v1h-1zM15,12h1v1h-1zM16,12h1v1h-1zM17,12h1v1h-1zM18,12h1v1h-1zM20,12h1v1h-1zM24,12h1v1h-1zM26,12h1v1h-1zM0,13h1v1h-1zM2,13h1v1h-1zM3,13h1v1h-1zM8,13h1v1h-1zM9,13h1v1h-1zM10,13h1v1h-1zM12,13h1v1h-1zM14,13h1v1h-1zM16,13h1v1h-1zM18,13h1v1h-1zM19,13h1v1h-1zM20,13h1v1h-1zM21,13h1v1h-1zM23,13h1v1h-1zM26,13h1v1h-1zM27,13h1v1h-1zM29,13h1v1h-1zM31,13h1v1h-1zM32,13h1v1h-1zM2,14h1v1h-1zM3,14h1v1h-1zM6,14h1v1h-1zM7,14h1v1h-1zM11,14h1v1h-1zM12,14h1v1h-1zM14,14h1v1h-1zM18,14h1v1h-1zM22,14h1v1h-1zM25,14h1v1h-1zM26,14h1v1h-1zM29,14h1v1h-1zM31,14h1v1h-1zM1,15h1v1h-1zM3,15h1v1h-1zM11,15h1v1h-1zM15,15h1v1h-1zM22,15h1v1h-1zM25,15h1v1h-1zM27,15h1v1h-1zM28,15h1v1h-1zM29,15h1v1h-1zM30,15h1v1h-1zM32,15h1v1h-1zM0,16h1v1h-1zM1,16h1v1h-1zM3,16h1v1h-1zM6,16h1v1h-1zM7,16h1v1h-1zM10,16h1v1h-1zM12,16h1v1h-1zM14,16h1v1h-1zM17,16h1v1h-1zM19,16h1v1h-1zM22,16h1v1h-1zM23,16h1v1h-1zM24,16h1v1h-1zM25,16h1v1h-1zM27,16h1v1h-1zM28,16h1v1h-1zM29,16h1v1h-1zM32,16h1v1h-1zM0,17h1v1h-1zM1,17h1v1h-1zM2,17h1v1h-1zM4,17h1v1h-1zM7,17h1v1h-1zM9,17h1v1h-1zM10,17h1v1h-1zM12,17h1v1h-1zM13,17h1v1h-1zM14,17h1v1h-1zM15,17h1v1h-1zM16,17h1v1h-1zM17,17h1v1h-1zM18,17h1v1h-1zM19,17h1v1h-1zM20,17h1v1h-1zM21,17h1v1h-1zM23,17h1v1h-1zM26,17h1v1h-1zM29,17h1v1h-1zM30,17h1v1h-1zM3,18h1v1h-1zM5,18h1v1h-1zM6,18h1v1h-1zM7,18h1v1h-1zM12,18h1v1h-1zM14,18h1v1h-1zM15,18h1v1h-1zM16,18h1v1h-1zM19,18h1v1h-1zM21,18h1v1h-1zM22,18h1v1h-1zM23,18h1v1h-1zM24,18h1v1h-1zM25,18h1v1h-1zM27,18h1v1h-1zM29,18h1v1h-1zM30,18h1v1h-1zM32,18h1v1h-1zM0,19h1v1h-1zM2,19h1v1h-1zM3,19h1v1h-1zM4,19h1v1h-1zM5,19h1v1h-1zM7,19h1v1h-1zM9,19h1v1h-1zM10,19h1v1h-1zM13,19h1v1h-1zM15,19h1v1h-1zM16,19h1v1h-1zM17,19h1v1h-1zM18,19h1v1h-1zM19,19h1v1h-1zM20,19h1v1h-1zM25,19h1v1h-1zM28,19h1v1h-1zM29,19h1v1h-1zM30,19h1v1h-1zM31,19h1v1h-1zM0,20h1v1h-1zM5,20h1v1h-1zM6,20h1v1h-1zM9,20h1v1h-1zM12,20h1v1h-1zM13,20h1v1h-1zM14,20h1v1h-1zM16,20h1v1h-1zM19,20h1v1h-1zM22,20h1v1h-1zM24,20h1v1h-1zM25,20h1v1h-1zM28,20h1v1h-1zM29,20h1v1h-1zM31,20h1v1h-1zM0,21h1v1h-1zM1,21h1v1h-1zM2,21h1v1h-1zM7,21h1v1h-1zM10,21h1v1h-1zM11,21h1v1h-1zM14,21h1v1h-1zM16,21h1v1h-1zM17,21h1v1h-1zM18,21h1v1h-1zM19,21h1v1h-1zM22,21h1v1h-1zM23,21h1v1h-1zM24,21h1v1h-1zM25,21h1v1h-1zM27,21h1v1h-1zM28,21h1v1h-1zM30,21h1v1h-1zM0,22h1v1h-1zM4,22h1v1h-1zM6,22h1v1h-1zM10,22h1v1h-1zM11,22h1v1h-1zM15,22h1v1h-1zM16,22h1v1h-1zM18,22h1v1h-1zM20,22h1v1h-1zM25,22h1v1h-1zM28,22h1v1h-1zM29,22h1v1h-1zM31,22h1v1h-1zM0,23h1v1h-1zM5,23h1v1h-1zM8,23h1v1h-1zM11,23h1v1h-1zM12,23h1v1h-1zM14,23h1v1h-1zM18,23h1v1h-1zM19,23h1v1h-1zM20,23h1v1h-1zM22,23h1v1h-1zM24,23h1v1h-1zM25,23h1v1h-1zM26,23h1v1h-1zM29,23h1v1h-1zM30,23h1v1h-1zM32,23h1v1h-1zM0,24h1v1h-1zM1,24h1v1h-1zM2,24h1v1h-1zM3,24h1v1h-1zM4,24h1v1h-1zM5,24h1v1h-1zM6,24h1v1h-1zM7,24h1v1h-1zM9,24h1v1h-1zM12,24h1v1h-1zM13,24h1v1h-1zM15,24h1v1h-1zM16,24h1v1h-1zM20,24h1v1h-1zM24,24h1v1h-1zM25,24h1v1h-1zM26,24h1v1h-1zM27,24h1v1h-1zM28,24h1v1h-1zM29,24h1v1h-1zM32,24h1v1h-1zM8,25h1v1h-1zM11,25h1v1h-1zM13,25h1v1h-1zM14,25h1v1h-1zM15,25h1v1h-1zM16,25h1v1h-1zM18,25h1v1h-1zM19,25h1v1h-1zM21,25h1v1h-1zM23,25h1v1h-1zM24,25h1v1h-1zM28,25h1v1h-1zM30,25h1v1h-1zM0,26h1v1h-1zM1,26h1v1h-1zM2,26h1v1h-1zM3,26h1v1h-1zM4,26h1v1h-1zM5,26h1v1h-1zM6,26h1v1h-1zM9,26h1v1h-1zM12,26h1v1h-1zM14,26h1v1h-1zM15,26h1v1h-1zM16,26h1v1h-1zM18,26h1v1h-1zM20,26h1v1h-1zM22,26h1v1h-1zM23,26h1v1h-1zM24,26h1v1h-1zM26,26h1v1h-1zM28,26h1v1h-1zM30,26h1v1h-1zM31,26h1v1h-1zM0,27h1v1h-1zM6,27h1v1h-1zM11,27h1v1h-1zM12,27h1v1h-1zM14,27h1v1h-1zM15,27h1v1h-1zM23,27h1v1h-1zM24,27h1v1h-1zM28,27h1v1h-1zM29,27h1v1h-1zM30,27h1v1h-1zM32,27h1v1h-1zM0,28h1v1h-1zM2,28h1v1h-1zM3,28h1v1h-1zM4,28h1v1h-1zM6,28h1v1h-1zM9,28h1v1h-1zM10,28h1v1h-1zM14,28h1v1h-1zM18,28h1v1h-1zM19,28h1v1h-1zM22,28h1v1h-1zM24,28h1v1h-1zM25,28h1v1h-1zM26,28h1v1h-1zM27,28h1v1h-1zM28,28h1v1h-1zM29,28h1v1h-1zM31,28h1v1h-1zM0,29h1v1h-1zM2,29h1v1h-1zM3,29h1v1h-1zM4,29h1v1h-1zM6,29h1v1h-1zM10,29h1v1h-1zM13,29h1v1h-1zM16,29h1v1h-1zM17,29h1v1h-1zM19,29h1v1h-1zM20,29h1v1h-1zM21,29h1v1h-1zM23,29h1v1h-1zM24,29h1v1h-1zM25,29h1v1h-1zM27,29h1v1h-1zM28,29h1v1h-1zM29,29h1v1h-1zM30,29h1v1h-1zM31,29h1v1h-1zM32,29h1v1h-1zM0,30h1v1h-1zM2,30h1v1h-1zM3,30h1v1h-1zM4,30h1v1h-1zM6,30h1v1h-1zM9,30h1v1h-1zM11,30h1v1h-1zM12,30h1v1h-1zM13,30h1v1h-1zM14,30h1v1h-1zM16,30h1v1h-1zM18,30h1v1h-1zM19,30h1v1h-1zM20,30h1v1h-1zM23,30h1v1h-1zM25,30h1v1h-1zM27,30h1v1h-1zM28,30h1v1h-1zM30,30h1v1h-1zM31,30h1v1h-1zM32,30h1v1h-1zM0,31h1v1h-1zM6,31h1v1h-1zM10,31h1v1h-1zM11,31h1v1h-1zM15,31h1v1h-1zM16,31h1v1h-1zM18,31h1v1h-1zM20,31h1v1h-1zM22,31h1v1h-1zM23,31h1v1h-1zM25,31h1v1h-1zM27,31h1v1h-1zM28,31h1v1h-1zM29,31h1v1h-1zM30,31h1v1h-1zM0,32h1v1h-1zM1,32h1v1h-1zM2,32h1v1h-1zM3,32h1v1h-1zM4,32h1v1h-1zM5,32h1v1h-1zM6,32h1v1h-1zM8,32h1v1h-1zM9,32h1v1h-1zM12,32h1v1h-1zM17,32h1v1h-1zM22,32h1v1h-1zM23,32h1v1h-1zM24,32h1v1h-1zM27,32h1v1h-1zM31,32h1v1h-1z"/></svg></div><b>The toolkit · Isiah Jones</b><small>github.com/isiahjonesSTEM/security-methodology</small></div>
+  </div>
+  <aside class="notes"><ul><li>Leave this up during Q&amp;A. Thank the hosts again.</li></ul></aside>
+</section>
+
+</div><!-- /stage -->
+
+<div id="footer"><div class="mt"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="none" stroke="#5a6b82" stroke-width="5"/><line x1="6" y1="50" x2="94" y2="50" stroke="#5a6b82" stroke-width="5"/><text x="50" y="40" text-anchor="middle" font-size="28" font-family="Consolas,monospace" font-weight="800" fill="#5a6b82">MT</text></svg>Michael Thompson</div><div id="count">01 / 01</div></div>
+<div id="progress"></div>
+<div id="timer">35:00</div>
+<div id="notesPanel"><h4 id="notesTitle">Notes</h4><div id="notesBody"></div></div>
+<div id="help"><div>
+  <b>→ Space PgDn</b> next<br><b>← PgUp</b> back<br><b>Home / End</b> first / last<br>
+  <b>F</b> fullscreen<br><b>N</b> speaker notes<br><b>P</b> presenter window<br><b>T</b> 35-min timer (again to pause)<br>
+  <b>O</b> overview<br><b>B</b> blank screen<br><b>?</b> this help
+</div></div>
+<div id="blank" style="position:fixed;inset:0;background:#000;z-index:20;display:none"></div>
+
+<script>
+(()=>{
+const stage=document.getElementById('stage');
+const slides=[...stage.querySelectorAll('.slide')];
+const N=slides.length;
+let cur=-1, step=0;
+
+/* ---------- prepare fragments ---------- */
+slides.forEach(s=>{
+  let auto=0, max=+(s.dataset.steps||0);
+  s.querySelectorAll('.f').forEach(f=>{
+    if(f.dataset.s===undefined){ auto++; f.dataset.s=auto; }
+    max=Math.max(max,+f.dataset.s);
+  });
+  s._steps=max;
+  s.querySelectorAll('.type').forEach(t=>{ t._full=t.textContent.trim(); });
+});
+
+/* ---------- scaling ---------- */
+function fit(){
+  const k=Math.min(innerWidth/1920, innerHeight/1080);
+  if(stage.classList.contains('ov')){ stage.style.transform=`translate(-50%,-50%) scale(${k})`; stage.style.transformOrigin='50% 50%'; return; }
+  stage.style.transformOrigin='0 0';
+  stage.style.transform=`translate(${-960*k}px,${-540*k}px) scale(${k})`;
+}
+addEventListener('resize',fit); fit();
+
+/* ---------- typewriter ---------- */
+let typeTimers=[];
+function typeIn(s){
+  typeTimers.forEach(clearTimeout); typeTimers=[];
+  s.querySelectorAll('.type').forEach(t=>{
+    const full=t._full; t.innerHTML='<span class="tx"></span><span class="caret"></span>';
+    const tx=t.firstChild; let i=0;
+    const tick=()=>{ tx.textContent=full.slice(0,++i); if(i<full.length) typeTimers.push(setTimeout(tick, full[i-1]===','||full[i-1]===';'?220:34)); };
+    typeTimers.push(setTimeout(tick,500));
+  });
+}
+
+/* ---------- render ---------- */
+function apply(){
+  slides.forEach((s,i)=>{
+    s.classList.toggle('active',i===cur);
+    s.classList.toggle('past',i<cur);
+  });
+  const s=slides[cur];
+  for(let k=1;k<=12;k++) s.classList.toggle('s'+k, step>=k);
+  s.classList.toggle('flip', step>=1 && s.querySelector('.verdict'));
+  s.querySelectorAll('.f').forEach(f=>f.classList.toggle('on', +f.dataset.s<=step));
+  document.getElementById('count').textContent=String(cur+1).padStart(2,'0')+' / '+String(N).padStart(2,'0');
+  document.getElementById('progress').style.width=((cur+ (s._steps? step/(s._steps+1):0))/(N-1)*100)+'%';
+  const nb=document.getElementById('notesBody'), nt=document.getElementById('notesTitle');
+  const notes=s.querySelector('aside.notes');
+  nb.innerHTML=notes?notes.innerHTML:'<p>—</p>';
+  nt.textContent=`Notes · ${cur+1}. ${s.dataset.title||''} · step ${step}/${s._steps}`;
+  if(location.hash!=='#'+(cur+1)) history.replaceState(null,'','#'+(cur+1));
+  syncPresenter();
+}
+function go(i,st){
+  i=Math.max(0,Math.min(N-1,i));
+  const changed=i!==cur;
+  cur=i; step=st==='end'?slides[i]._steps:(st||0);
+  apply();
+  if(changed){ typeIn(slides[cur]); onEnter(slides[cur]); }
+}
+function next(){ const s=slides[cur]; if(step<s._steps){step++;apply();} else if(cur<N-1) go(cur+1,0); }
+function prev(){ if(step>0){step--;apply();} else if(cur>0) go(cur-1,'end'); }
+
+/* ---------- slide-enter hooks ---------- */
+function onEnter(s){
+  if(s.querySelector('#xwList')) xwRender(0);
+  // restart CSS animations on re-entry
+  s.querySelectorAll('.reel ul, .egg .top, .egg .badge').forEach(el=>{el.style.animation='none';void el.offsetWidth;el.style.animation='';});
+}
+
+/* ---------- overview ---------- */
+function overview(on){
+  stage.classList.toggle('ov',on);
+  if(on){
+    const cols=8, w=1920, h=1080, sc=0.1, gx=36, gy=36;
+    const rows=Math.ceil(N/cols);
+    const totalW=cols*w*sc+(cols-1)*gx, totalH=rows*h*sc+(rows-1)*gy;
+    slides.forEach((s,i)=>{
+      const c=i%cols, r=Math.floor(i/cols);
+      const x=(1920-totalW)/2 + c*(w*sc+gx), y=(1080-totalH)/2 + r*(h*sc+gy);
+      s.style.transformOrigin='0 0';
+      s.style.transform=`translate(${x}px,${y}px) scale(${sc})`;
+      s.onclick=()=>{ overview(false); go(i,0); };
+    });
+  } else {
+    slides.forEach(s=>{s.style.transform='';s.style.transformOrigin='';s.onclick=null;});
+  }
+  fit();
+}
+
+/* ---------- timer ---------- */
+const timerEl=document.getElementById('timer'); let tLeft=35*60, tRun=false, tInt=null;
+function tShow(){ const m=Math.floor(Math.abs(tLeft)/60), s=Math.abs(tLeft)%60; timerEl.textContent=(tLeft<0?'+':'')+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0'); timerEl.classList.toggle('warn',tLeft<=180); syncPresenter(); }
+function tToggle(){
+  if(!timerEl.classList.contains('on')){ timerEl.classList.add('on'); tRun=true; }
+  else tRun=!tRun;
+  clearInterval(tInt); if(tRun) tInt=setInterval(()=>{tLeft--;tShow();},1000); tShow();
+}
+
+/* ---------- presenter window ---------- */
+let pw=null;
+function openPresenter(){
+  pw=window.open('','mtPresenter','width=1100,height=760');
+  if(!pw){alert('Allow pop-ups for the presenter window.');return;}
+  pw.document.write(`<!doctype html><title>Presenter — Standards Meet Steel</title><style>
+  body{margin:0;background:#0b0f14;color:#e9eef4;font:20px/1.5 "Segoe UI",system-ui,sans-serif;padding:24px 30px}
+  #h{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid #ffb000;padding-bottom:10px;margin-bottom:14px}
+  #t{font:700 44px Consolas,monospace;color:#ffb000} #c{font:700 22px Consolas,monospace;color:#8c9cb1}
+  #cur{font-size:30px;font-weight:800} #nx{color:#3fd2ff;font:600 18px Consolas,monospace;margin:6px 0 16px}
+  #n{font-size:24px} #n li{margin:8px 0} .k{color:#5a6b82;font:14px Consolas,monospace;margin-top:20px}
+  </style><div id="h"><div><div id="cur"></div><div id="nx"></div></div><div style="text-align:right"><div id="t">--:--</div><div id="c"></div></div></div><div id="n"></div><div class="k">Keys here control the deck · → ← · T timer</div>`);
+  pw.document.close();
+  pw.document.addEventListener('keydown',e=>{ key(e); });
+  syncPresenter();
+}
+function syncPresenter(){
+  if(!pw||pw.closed) return;
+  try{
+    const s=slides[cur], nx=slides[cur+1];
+    pw.document.getElementById('cur').textContent=`${cur+1}. ${s.dataset.title||''}`;
+    pw.document.getElementById('nx').textContent=(step<s._steps?`step ${step}/${s._steps} · `:'')+'NEXT ▸ '+(nx?nx.dataset.title:'— end —');
+    pw.document.getElementById('n').innerHTML=(s.querySelector('aside.notes')||{}).innerHTML||'';
+    pw.document.getElementById('t').textContent=timerEl.classList.contains('on')?timerEl.textContent:'35:00';
+    pw.document.getElementById('c').textContent=`${cur+1} / ${N}`;
+  }catch(e){}
+}
+
+/* ---------- keys ---------- */
+function key(e){
+  if(e.target.tagName==='INPUT') return;
+  const k=e.key;
+  if(['ArrowRight','PageDown',' ','ArrowDown','Enter'].includes(k)){e.preventDefault();next();}
+  else if(['ArrowLeft','PageUp','ArrowUp','Backspace'].includes(k)){e.preventDefault();prev();}
+  else if(k==='Home') go(0,0);
+  else if(k==='End') go(N-1,0);
+  else if(k==='f'||k==='F'){ document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen(); }
+  else if(k==='n'||k==='N') document.getElementById('notesPanel').classList.toggle('on');
+  else if(k==='t'||k==='T') tToggle();
+  else if(k==='o'||k==='O'||k==='Escape') overview(k==='Escape'?false:!stage.classList.contains('ov'));
+  else if(k==='p'||k==='P') openPresenter();
+  else if(k==='b'||k==='B'||k==='.'){ const b=document.getElementById('blank'); b.style.display=b.style.display==='block'?'none':'block'; }
+  else if(k==='?') document.getElementById('help').classList.toggle('on');
+}
+document.addEventListener('keydown',key);
+document.getElementById('help').onclick=()=>document.getElementById('help').classList.remove('on');
+
+/* hide cursor when idle */
+let ct; addEventListener('mousemove',()=>{document.body.classList.remove('hidecursor');clearTimeout(ct);ct=setTimeout(()=>document.body.classList.add('hidecursor'),2500);});
+
+/* ---------- crosswalk data ---------- */
+const XW=[
+ {sr:'SR 1.1',name:'Human user identification & authentication',c53:'IA-2',csf:'PR.AA-01 · PR.AA-03',legacy:'Many legacy PLCs have no user accounts at all. Authenticate at the HMI / jump host instead.',cf:'High'},
+ {sr:'SR 1.13',name:'Access via untrusted networks',c53:'AC-17',csf:'PR.AA-05 · PR.IR-01',legacy:'This is your vendor remote access. One door, MFA, time-boxed, recorded.',cf:'Moderate'},
+ {sr:'SR 2.1',name:'Authorization enforcement',c53:'AC-3 · AC-6',csf:'PR.AA-05',legacy:'Shared “operator” logins are common. Least privilege usually lives in the HMI, not the controller.',cf:'High'},
+ {sr:'SR 2.8',name:'Auditable events',c53:'AU-2 · AU-12',csf:'PR.PS-04',legacy:'Old controllers log little or nothing. Capture at the network and the engineering workstation.',cf:'High'},
+ {sr:'SR 3.1',name:'Communication integrity',c53:'SC-8',csf:'PR.DS-02',legacy:'Cleartext Modbus / DH+ can’t do this natively. Compensate at the conduit.',cf:'High'},
+ {sr:'SR 3.4',name:'Software & information integrity',c53:'SI-7',csf:'PR.DS-01 · PR.DS-02',legacy:'No signed firmware on older gear. Hash and compare the logic against a known-good copy.',cf:'Moderate'},
+ {sr:'SR 4.1',name:'Information confidentiality',c53:'SC-8 · SC-28',csf:'PR.DS-01 · PR.DS-02',legacy:'Usually a lower priority than integrity and availability in OT. Prioritize accordingly.',cf:'High'},
+ {sr:'SR 5.1',name:'Network segmentation',c53:'SC-7',csf:'PR.IR-01',legacy:'The single biggest win for legacy equipment. This is where the SL 2 floor starts.',cf:'High'},
+ {sr:'SR 5.2',name:'Zone boundary protection',c53:'SC-7',csf:'PR.IR-01',legacy:'Allow-list the conduit. Deny everything else. Log the denies.',cf:'High'},
+ {sr:'SR 6.2',name:'Continuous monitoring',c53:'SI-4',csf:'DE.CM-01',legacy:'Passive monitoring only. Active scans can knock older devices over.',cf:'High'},
+ {sr:'SR 7.1',name:'Denial-of-service protection',c53:'SC-5',csf:'PR.IR-03',legacy:'Fragile network stacks. Rate-limit and isolate at the boundary.',cf:'Moderate'},
+ {sr:'SR 7.3',name:'Control system backup',c53:'CP-9',csf:'PR.DS-11',legacy:'Do you have the current logic, offline, and have you tested restoring it?',cf:'High'},
+ {sr:'SR 7.4',name:'Recovery & reconstitution',c53:'CP-10',csf:'RC.RP-01 · RC.RP-03',legacy:'Know which firmware and logic versions are known-good before you need them.',cf:'Moderate'}
+];
+const xwList=document.getElementById('xwList'), xwOut=document.getElementById('xwOut');
+XW.forEach((d,i)=>{ const b=document.createElement('button'); b.innerHTML=`<i>${d.sr}</i><span>${d.name}</span>`; b.onclick=e=>{e.stopPropagation();xwRender(i);}; xwList.appendChild(b); });
+function xwRender(i){
+  const d=XW[i];
+  [...xwList.children].forEach((b,j)=>b.classList.toggle('sel',i===j));
+  xwOut.innerHTML=`<div class="anim"><div class="cf ${d.cf}">CONFIDENCE · ${d.cf.toUpperCase()}</div>
+  <div class="srid">ISA/IEC 62443-3-3 · ${d.sr}</div><h3>${d.name}</h3>
+  <div class="maprow" style="margin-top:18px"><span>SP 800-53 (800-82r3 overlay)</span><b>${d.c53}</b></div>
+  <div class="maprow"><span>NIST CSF 2.0</span><b>${d.csf}</b></div>
+  <div class="maprow" style="border:none"><span class="amber" style="color:var(--amber)">Legacy reality</span><p>${d.legacy}</p></div></div>`;
+}
+
+/* ---------- start ---------- */
+const h=parseInt(location.hash.slice(1)); go(isNaN(h)?0:h-1,0);
+})();
+</script>
+</body>
+</html>
