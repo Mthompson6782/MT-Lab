@@ -670,8 +670,23 @@ ul.clean.g li:before{border-color:var(--green)}
 </section>
 
 <!-- ================= 20 MT FLOOR ================= -->
-<section class="slide" data-title="The MT Floor" data-steps="2">
-  <div class="floor">
+<section class="slide" data-title="The MT Floor" data-steps="3">
+  <style>
+    .zone b { font-size:23px; line-height:1.15; }
+    .slide.s3 .zone.up {
+      border-color:var(--green);
+      background:linear-gradient(180deg,rgba(61,220,151,.22),var(--panel));
+      box-shadow:0 0 40px rgba(61,220,151,.28);
+      transform:translateY(-10px);
+    }
+    .slide.s3 .zone.up .sl { color:var(--green); font-size:26px; }
+    .slide.s3 .zone.up .sl:after { content:"SL 2+ ★ TAILORED"; }
+    .mtbadge .tag-sl2plus { opacity:0; transition:opacity .45s var(--ease); }
+    .slide.s3 .mtbadge .tag-sl2 { opacity:0; }
+    .slide.s3 .mtbadge .tag-sl2plus { opacity:1; }
+    .slide.s3 .mtbadge circle, .slide.s3 .mtbadge line { stroke:var(--green); transition:stroke .45s var(--ease); }
+  </style>
+  <div class="floor" style="align-items:start">
     <div class="zones">
       <div class="zone" style="--i:0"><b>Packaging</b><span class="sl"></span></div>
       <div class="zone up" style="--i:1"><b>Boiler</b><span class="sl"></span></div>
@@ -687,17 +702,31 @@ ul.clean.g li:before{border-color:var(--green)}
       <div class="zone" style="--i:11"><b>Compressors</b><span class="sl"></span></div>
     </div>
     <div>
-      <div class="mtbadge"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="none" stroke="#ffb000" stroke-width="3"/><line x1="4" y1="50" x2="96" y2="50" stroke="#ffb000" stroke-width="3"/><text x="50" y="40" text-anchor="middle" font-size="26" font-family="Consolas,monospace" font-weight="800" fill="#ffb000">MT</text><text x="50" y="78" text-anchor="middle" font-size="18" font-family="Consolas,monospace" font-weight="800" fill="#ffb000">SL2</text></svg><h3>The MT Floor</h3></div>
-      <p class="f" data-s="1"><b class="amber">Floor:</b> every zone inherits SL 2 on day one. No waiting for a perfect assessment.</p>
-      <p class="f" data-s="2" style="margin-top:22px"><b class="cyan">Evolve:</b> step a zone up only when consequence demands it:</p>
-      <ul class="clean c f" data-s="2" style="margin-top:6px"><li style="font-size:29px">Safety or hazardous-release consequence</li><li style="font-size:29px">Environmental or regulatory exposure</li><li style="font-size:29px">Crown-jewel production</li></ul>
+      <div class="mtbadge" style="margin-bottom:18px">
+        <svg viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="46" fill="none" stroke="#ffb000" stroke-width="3"/>
+          <line x1="4" y1="50" x2="96" y2="50" stroke="#ffb000" stroke-width="3"/>
+          <text x="50" y="40" text-anchor="middle" font-size="26" font-family="Consolas,monospace" font-weight="800" fill="#ffb000">MT</text>
+          <text class="tag-sl2" x="50" y="78" text-anchor="middle" font-size="18" font-family="Consolas,monospace" font-weight="800" fill="#ffb000">SL2</text>
+          <text class="tag-sl2plus" x="50" y="78" text-anchor="middle" font-size="18" font-family="Consolas,monospace" font-weight="800" fill="#3ddc97">SL2+</text>
+        </svg>
+        <h3>The MT Floor → <span class="green">SL 2+</span></h3>
+      </div>
+      <p class="f" data-s="1" style="font-size:28px;line-height:1.34"><b class="amber">1. Floor (SL 2):</b> every zone inherits SL 2 on day one. No waiting for a perfect assessment.</p>
+      <p class="f" data-s="2" style="margin-top:16px;font-size:28px;line-height:1.34"><b class="cyan">2. Step Up (SL 3):</b> flag high-consequence zones where safety, environment, or crown-jewel production demand more.</p>
+      <p class="f" data-s="3" style="margin-top:16px;font-size:28px;line-height:1.34"><b class="green">3. Tailor to Reality (SL 2+):</b> textbook SL 3 is tough on real plant gear — so we build <b class="green">SL 2+</b>, tailoring the standard with surgical controls &amp; compensating measures that fit our reality.</p>
     </div>
   </div>
+  <div class="card f" data-s="3" style="margin-top:30px;padding:22px 34px;border-color:rgba(255,176,0,.55);background:linear-gradient(90deg,rgba(255,176,0,.11),rgba(61,220,151,.08))">
+    <div style="font:800 30px/1.25 var(--sans);color:var(--text)">The standard <span class="amber">never replaces</span> good engineering judgment.</div>
+    <p style="font-size:25px;margin-top:6px;color:#cfd8e3">In Functional Safety, <b class="cyan">the calculation doesn't stop an explosion</b> — in OT cybersecurity, <b class="green">the standard alone doesn't stop an attack.</b></p>
+  </div>
   <aside class="notes"><ul>
-    <li>This is my approach. Full per-zone assessments don't scale — at enterprise scale they stall for years.</li>
-    <li>[Click] Every zone inherits SL2 immediately. That's a defensible baseline you can build and audit now.</li>
-    <li>[Click] Then step up where consequence justifies it — SIS, reactors, tank farms, boilers. Spend where the consequences are.</li>
-    <li>Same logic as SIL selection: classify by consequence, inherit requirements, don't reinvent per site.</li>
+    <li>This is my approach in practice. Full per-zone assessments don't scale — at enterprise scale they stall for years.</li>
+    <li>[Click — Step 1] Every zone inherits SL 2 immediately on day one. That gives you a defensible baseline you can build and audit now.</li>
+    <li>[Click — Step 2] Next, identify where consequence justifies stepping up — Boilers, SIS, Batch Reactors, Tank Farms.</li>
+    <li>[Click — Step 3] Here's the real-world twist: even SL 3 can be a serious challenge on actual plant equipment. So SL 3 evolves into SL 2+ — tailoring the standard to fit our operational reality.</li>
+    <li>And remember the bottom line: the standard never replaces good engineering judgment. Just like in Functional Safety the SIL calculation doesn't stop an explosion, in OT cybersecurity the standard alone doesn't stop an attack.</li>
   </ul></aside>
 </section>
 
