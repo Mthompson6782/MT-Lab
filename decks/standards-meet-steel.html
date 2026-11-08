@@ -714,90 +714,91 @@ ul.clean.g li:before{border-color:var(--green)}
     .cie-pkt1 { animation:ciePktL 1.5s linear infinite; }
     .cie-pkt2 { animation:ciePktM 1.2s linear infinite; }
     .cie-pkt3 { animation:ciePktR 1.5s linear infinite; }
-    @keyframes ciePktL { 0%{transform:translate(540px,68px);opacity:1} 100%{transform:translate(165px,162px);opacity:.2} }
-    @keyframes ciePktM { 0%{transform:translate(690px,96px);opacity:1} 100%{transform:translate(650px,162px);opacity:.2} }
-    @keyframes ciePktR { 0%{transform:translate(840px,68px);opacity:1} 100%{transform:translate(1135px,162px);opacity:.2} }
+    @keyframes ciePktL { 0%{transform:translate(480px,88px);opacity:1} 100%{transform:translate(165px,154px);opacity:.2} }
+    @keyframes ciePktM { 0%{transform:translate(650px,96px);opacity:1} 100%{transform:translate(650px,154px);opacity:.2} }
+    @keyframes ciePktR { 0%{transform:translate(860px,88px);opacity:1} 100%{transform:translate(1135px,154px);opacity:.2} }
     .psv-vent { stroke-dasharray:10 10; animation:flow 1s linear infinite; }
   </style>
   <div class="kicker">Cyber-Informed Engineering (DOE / INL)</div>
-  <h2 style="font-size:62px;margin-bottom:4px">CIE is really just <span class="amber">FSE with networks and switches.</span></h2>
-  <svg class="sif cie-stage" viewBox="0 0 1640 365" style="height:365px">
+  <h2 style="font-size:62px;margin-bottom:8px">CIE is really just <span class="amber">FSE with networks and switches.</span></h2>
+  <svg class="sif cie-stage" viewBox="0 0 1640 375" style="height:375px">
     <!-- Baseline FSE Loop (Step 0: Random independent failure model) -->
     <g>
-      <rect class="box box-pt" x="30" y="165" width="270" height="125" rx="16"/>
-      <text x="165" y="212" text-anchor="middle" font-size="31">Sensor</text>
-      <text x="165" y="246" text-anchor="middle" font-size="21" fill="#8c9cb1" style="font-weight:500">PT-101 · Pressure</text>
+      <rect class="box box-pt" x="30" y="154" width="270" height="114" rx="16"/>
+      <text x="165" y="202" text-anchor="middle" font-size="31">Sensor</text>
+      <text x="165" y="240" text-anchor="middle" font-size="20" fill="#8c9cb1" style="font-weight:500">PT-101 · Pressure</text>
 
-      <rect class="box box-sis" x="515" y="165" width="270" height="125" rx="16"/>
-      <text x="650" y="212" text-anchor="middle" font-size="31">Logic Solver</text>
-      <text x="650" y="246" text-anchor="middle" font-size="21" fill="#8c9cb1" style="font-weight:500">SIS · Tricon / Safety PLC</text>
+      <rect class="box box-sis" x="515" y="154" width="270" height="114" rx="16"/>
+      <text x="650" y="202" text-anchor="middle" font-size="31">Logic Solver</text>
+      <text x="650" y="240" text-anchor="middle" font-size="20" fill="#8c9cb1" style="font-weight:500">SIS · Safety PLC</text>
 
-      <rect class="box" x="1000" y="165" width="270" height="125" rx="16"/>
-      <text x="1135" y="212" text-anchor="middle" font-size="31">Final Element</text>
-      <text x="1135" y="246" text-anchor="middle" font-size="21" fill="#8c9cb1" style="font-weight:500">XV-101 · Automated Valve</text>
+      <rect class="box" x="1000" y="154" width="270" height="114" rx="16"/>
+      <text x="1135" y="202" text-anchor="middle" font-size="31">Final Element</text>
+      <text x="1135" y="240" text-anchor="middle" font-size="20" fill="#8c9cb1" style="font-weight:500">XV-101 · Valve</text>
 
-      <path d="M300 227 H515 M785 227 H1000" stroke="#233144" stroke-width="6"/>
-      <path d="M300 227 H515 M785 227 H1000" stroke="#3ddc97" stroke-width="6" class="flow sif-ok"/>
+      <path d="M300 211 H515 M785 211 H1000" stroke="#233144" stroke-width="6"/>
+      <path d="M300 211 H515 M785 211 H1000" stroke="#3ddc97" stroke-width="6" class="flow sif-ok"/>
     </g>
 
     <!-- STEP 1: L2/L3 Switch drops in + Common-Cause Spoof across multiple layers -->
-    <g class="cie-sw" style="transform:translateY(-20px)">
-      <path d="M540 68 L165 165" stroke="#ff4f5e" stroke-width="3.5" stroke-dasharray="10 8" class="flow"/>
-      <path d="M675 98 L650 165" stroke="#ff4f5e" stroke-width="4.5" stroke-dasharray="10 8" class="flow"/>
-      <path d="M840 68 L1135 165" stroke="#ffb000" stroke-width="3.5" stroke-dasharray="10 8" class="flow"/>
+    <g class="cie-sw" style="transform:translateY(-16px)">
+      <path d="M480 88 L165 154" stroke="#ff4f5e" stroke-width="3.5" stroke-dasharray="10 8" class="flow"/>
+      <path d="M650 96 L650 154" stroke="#ff4f5e" stroke-width="4.5" stroke-dasharray="10 8" class="flow"/>
+      <path d="M860 88 L1135 154" stroke="#ffb000" stroke-width="3.5" stroke-dasharray="10 8" class="flow"/>
 
       <!-- Animated exploit packets traveling down from the switch -->
       <circle r="8" fill="#ff4f5e" class="cie-pkt1"/>
       <circle r="9" fill="#ff4f5e" class="cie-pkt2"/>
       <circle r="8" fill="#ffb000" class="cie-pkt3"/>
 
-      <!-- Switch Chassis -->
-      <rect x="465" y="14" width="450" height="84" rx="12" fill="#141c28" stroke="#ff4f5e" stroke-width="3.5"/>
-      <text x="490" y="46" font-family="Consolas,monospace" font-size="17" font-weight="700" fill="#ff4f5e">L2/L3 OT SWITCH · COMMON-CAUSE BRIDGE</text>
-      <text x="490" y="75" font-family="Consolas,monospace" font-size="14" fill="#cfd8e3">Attacker spoofs HMI &amp; inhibits logic at the same time</text>
-      <g transform="translate(765 26)">
-        <rect x="0" y="0" width="24" height="20" rx="3" fill="#080b10" stroke="#ff4f5e" stroke-width="2"/>
-        <rect x="30" y="0" width="24" height="20" rx="3" fill="#080b10" stroke="#ff4f5e" stroke-width="2"/>
-        <rect x="60" y="0" width="24" height="20" rx="3" fill="#080b10" stroke="#ffb000" stroke-width="2"/>
-        <rect x="90" y="0" width="24" height="20" rx="3" fill="#080b10" stroke="#3fd2ff" stroke-width="2"/>
-        <circle cx="12" cy="30" r="4" fill="#ff4f5e"/>
-        <circle cx="42" cy="30" r="4" fill="#ff4f5e"/>
-        <circle cx="72" cy="30" r="4" fill="#ffb000"/>
-        <circle cx="102" cy="30" r="4" fill="#3fd2ff"/>
+      <!-- Wider Switch Chassis with cleanly separated Left Label + Right Ports -->
+      <rect x="370" y="10" width="590" height="86" rx="12" fill="#141c28" stroke="#ff4f5e" stroke-width="3.5"/>
+      <text x="394" y="44" font-family="Consolas,monospace" font-size="18" font-weight="700" fill="#ff4f5e">L2/L3 OT SWITCH · COMMON-CAUSE</text>
+      <text x="394" y="74" font-family="Consolas,monospace" font-size="14" fill="#cfd8e3" style="font-weight:500">Spoofs HMI &amp; inhibits SIS logic at once</text>
+      <line x1="778" y1="22" x2="778" y2="84" stroke="#2e405a" stroke-width="2"/>
+      <g transform="translate(796 24)">
+        <rect x="0" y="0" width="28" height="22" rx="3" fill="#080b10" stroke="#ff4f5e" stroke-width="2"/>
+        <rect x="36" y="0" width="28" height="22" rx="3" fill="#080b10" stroke="#ff4f5e" stroke-width="2"/>
+        <rect x="72" y="0" width="28" height="22" rx="3" fill="#080b10" stroke="#ffb000" stroke-width="2"/>
+        <rect x="108" y="0" width="28" height="22" rx="3" fill="#080b10" stroke="#3fd2ff" stroke-width="2"/>
+        <circle cx="14" cy="36" r="4.5" fill="#ff4f5e"/>
+        <circle cx="50" cy="36" r="4.5" fill="#ff4f5e"/>
+        <circle cx="86" cy="36" r="4.5" fill="#ffb000"/>
+        <circle cx="122" cy="36" r="4.5" fill="#3fd2ff"/>
       </g>
     </g>
 
-    <!-- Step 1 Spoof / Inhibit callout badges on Sensor & Logic Solver -->
+    <!-- Step 1 Spoof / Inhibit callout badges cleanly below Sensor & Logic Solver -->
     <g class="cie-atk">
-      <rect x="36" y="268" width="258" height="32" rx="6" fill="#2a1215" stroke="#ff4f5e" stroke-width="1.5"/>
-      <text x="165" y="290" text-anchor="middle" font-family="Consolas,monospace" font-size="15" font-weight="700" fill="#ff9ea6">REAL: 185 PSI · HMI SEES: 45 PSI</text>
+      <rect x="30" y="276" width="270" height="32" rx="6" fill="#2a1215" stroke="#ff4f5e" stroke-width="1.5"/>
+      <text x="165" y="297" text-anchor="middle" font-family="Consolas,monospace" font-size="14" font-weight="700" fill="#ff9ea6">REAL: 185 PSI · HMI SEES: 45 PSI</text>
 
-      <rect x="521" y="268" width="258" height="32" rx="6" fill="#2a1215" stroke="#ff4f5e" stroke-width="1.5"/>
-      <text x="650" y="290" text-anchor="middle" font-family="Consolas,monospace" font-size="15" font-weight="700" fill="#ff4f5e">✕ TRIP LOGIC INHIBITED OVER NET</text>
+      <rect x="515" y="276" width="270" height="32" rx="6" fill="#2a1215" stroke="#ff4f5e" stroke-width="1.5"/>
+      <text x="650" y="297" text-anchor="middle" font-family="Consolas,monospace" font-size="14" font-weight="700" fill="#ff4f5e">✕ TRIP LOGIC INHIBITED OVER NET</text>
 
-      <text x="892" y="214" text-anchor="middle" font-family="Consolas,monospace" font-size="22" font-weight="800" fill="#ff4f5e">✕ NO TRIP</text>
+      <text x="892" y="198" text-anchor="middle" font-family="Consolas,monospace" font-size="21" font-weight="800" fill="#ff4f5e">✕ NO TRIP</text>
     </g>
 
     <!-- STEP 2: CIE Physical Safeguard (Mechanical PSV / Hardwired Physics) -->
     <g class="cie-psv" style="transform:translateX(24px)">
       <!-- Blocked network line trying to reach PSV -->
-      <path d="M915 56 Q1260 56 1445 140" fill="none" stroke="#5a6b82" stroke-width="2.5" stroke-dasharray="6 6"/>
-      <rect x="1140" y="42" width="245" height="32" rx="6" fill="#0d121a" stroke="#3ddc97" stroke-width="2"/>
-      <text x="1262" y="63" text-anchor="middle" font-family="Consolas,monospace" font-size="14" font-weight="700" fill="#3ddc97">✕ NO IP · NO SWITCH PORT</text>
+      <path d="M960 52 Q1270 52 1460 144" fill="none" stroke="#5a6b82" stroke-width="2.5" stroke-dasharray="6 6"/>
+      <rect x="1130" y="36" width="250" height="32" rx="6" fill="#0d121a" stroke="#3ddc97" stroke-width="2"/>
+      <text x="1255" y="57" text-anchor="middle" font-family="Consolas,monospace" font-size="14" font-weight="700" fill="#3ddc97">✕ NO IP · NO SWITCH PORT</text>
 
       <!-- Physical process pipe & Mechanical Relief Valve -->
-      <path d="M1270 227 H1335" stroke="#3ddc97" stroke-width="6" class="psv-vent"/>
-      <rect x="1335" y="150" width="285" height="150" rx="18" fill="rgba(61,220,151,.12)" stroke="#3ddc97" stroke-width="3.5"/>
-      <text x="1477" y="186" text-anchor="middle" font-family="Consolas,monospace" font-size="16" font-weight="800" fill="#3ddc97">CIE PHYSICAL SAFEGUARD</text>
-      <text x="1477" y="220" text-anchor="middle" font-size="28" fill="#e9eef4">Mechanical PSV-101</text>
-      <text x="1477" y="250" text-anchor="middle" font-family="Consolas,monospace" font-size="18" fill="#bff5dd">Spring opens @ 150 PSI</text>
-      <text x="1477" y="280" text-anchor="middle" font-family="Consolas,monospace" font-size="16" font-weight="700" fill="#ffb000">Physics can't be spoofed</text>
+      <path d="M1270 211 H1335" stroke="#3ddc97" stroke-width="6" class="psv-vent"/>
+      <rect x="1335" y="144" width="285" height="154" rx="18" fill="rgba(61,220,151,.12)" stroke="#3ddc97" stroke-width="3.5"/>
+      <text x="1477" y="180" text-anchor="middle" font-family="Consolas,monospace" font-size="15" font-weight="800" fill="#3ddc97">CIE PHYSICAL SAFEGUARD</text>
+      <text x="1477" y="214" text-anchor="middle" font-size="27" fill="#e9eef4">Mechanical PSV-101</text>
+      <text x="1477" y="246" text-anchor="middle" font-family="Consolas,monospace" font-size="17" fill="#bff5dd" style="font-weight:500">Spring opens @ 150 PSI</text>
+      <text x="1477" y="276" text-anchor="middle" font-family="Consolas,monospace" font-size="16" font-weight="700" fill="#ffb000">Physics can't be spoofed</text>
     </g>
 
     <!-- Bottom Caption Banner across the SVG -->
     <g class="cie-psv">
-      <rect x="30" y="318" width="1590" height="40" rx="8" fill="rgba(61,220,151,.09)" stroke="rgba(61,220,151,.45)" stroke-width="1.5"/>
-      <text x="825" y="344" text-anchor="middle" font-family="Consolas,monospace" font-size="18" font-weight="700" fill="#e9eef4">FSE assumes <tspan fill="#3fd2ff">random independent failure</tspan> · CIE assumes the <tspan fill="#ff4f5e">switch causes common-cause failure</tspan> — and bounds it with <tspan fill="#3ddc97">pure physics</tspan>.</text>
+      <rect x="30" y="324" width="1590" height="40" rx="8" fill="rgba(61,220,151,.09)" stroke="rgba(61,220,151,.45)" stroke-width="1.5"/>
+      <text x="825" y="350" text-anchor="middle" font-family="Consolas,monospace" font-size="17" font-weight="700" fill="#e9eef4">FSE assumes <tspan fill="#3fd2ff">random independent failure</tspan> · CIE assumes the <tspan fill="#ff4f5e">switch causes common-cause failure</tspan> — and bounds it with <tspan fill="#3ddc97">pure physics</tspan>.</text>
     </g>
   </svg>
   <div class="scalebal">
