@@ -104,36 +104,41 @@ Key Architecture & Capabilities:
   {
     id: "standards-meet-steel",
     title: "Standards Meet Steel",
-    subtitle: "University of Arkansas Guest Talk, November 2026 (38-slide HTML deck)",
+    subtitle: "U of A CyberHogs Talk · 43-Slide Interactive Deck + 3D WebGL Sim",
+    category: "OT Cybersecurity",
+    rows: ["Trending Originals", "IEC 62443 & Critical Infrastructure Defense", "Top 10 in Tech Today"],
+    top10Rank: 3,
+    matchScore: 99,
+    rating: "OT-EXEC",
+    year: 2026,
+    duration: "43-slide talk + 3D Sim",
     featured: false,
-    bannerImage: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1600&q=80",
-    posterGradient: "linear-gradient(135deg, #1c1917 0%, #44403c 46%, #c2410c 100%)",
-    category: "OT Cybersecurity Talks & Presentations",
-    rows: ["IEC 62443 & Critical Infrastructure Defense"],
-    top10Rank: null,
-    rating: "Talk",
-    matchScore: 92,
-    year: "2026",
-    duration: "38-slide talk",
-    quality: "HTML Slide Deck",
-    audio: "Guest Lecture",
-    repoUrl: "https://github.com/Mthompson6782/presentations/blob/main/U-of-A-Talk/Standards_Meet_Steel.html",
-    liveUrl: "decks/standards-meet-steel.html",
-    executiveUrl: "",
-    vercelUrl: "",
-    isDemo: false,
-    synopsis: "An OT cybersecurity talk on where security standards meet real industrial equipment, delivered at the University of Arkansas. The deck lives in the private presentations repo under U-of-A-Talk.",
-    longDescription: `Standards Meet Steel is a 38-slide HTML guest talk delivered at the University of Arkansas in November 2026. It covers where OT cybersecurity standards meet real industrial equipment.
-
-The deck is stored in the private presentations repository under U-of-A-Talk and is not published as a live page.`,
-    tags: [
-      "Talk",
-      "University of Arkansas",
-      "OT Cybersecurity",
-      "IEC 62443"
+    accentColor: "#f59e0b",
+    gradientBg: "linear-gradient(135deg, #451a03 0%, #78350f 50%, #090d16 100%)",
+    thumbnailIcon: "shield-alert",
+    heroVisualType: "iec-shield",
+    synopsis: "Interactive 43-slide executive talk for the University of Arkansas CyberHogs Speaker Series on making IEC 62443, NIST SP 800-82 Rev. 4, the Zombie Purdue Model, NIST OSCAL, and AI-tailored standards survive contact with plant-floor steel.",
+    longDescription: "Built for the University of Arkansas CyberHogs Speaker Series (Nov 18, 2026), 'Standards Meet Steel' leads upfront with an honest field breakdown of OT cybersecurity standards: IEC 62443, NIST SP 800-82 Rev. 4 (Initial Public Draft aligned with CSF 2.0 Govern & OT Zero Trust), the Zombie Purdue Model, an embedded 3D WebGL Planetary Defense simulation ('Patching Is for Suckers'), the MT Floor (SL 2 -> SL 3 -> SL 2+ tailored engineering judgment), Cyber-Informed Engineering (FSE with networks and switches), NIST OSCAL (Standards as Code), and using AI to generate one-page plant-floor commandments.",
+    techStack: ["Interactive HTML Deck", "Three.js 3D WebGL", "IEC 62443", "NIST 800-82 Rev 4", "NIST OSCAL", "CIE / FSE"],
+    tags: ["Speaking", "OT Security", "IEC 62443", "NIST 800-82 Rev 4", "OSCAL", "3D Simulation"],
+    metrics: [
+      { label: "Format", value: "43-Slide Interactive HTML + 3D Sim" },
+      { label: "Core Thesis", value: "Standards Never Replace Engineering Judgment" },
+      { label: "Venue", value: "University of Arkansas · Nov 18, 2026" }
     ],
-    stats: { stars: 0, forks: 0, status: "Talk Deck" },
-    icon: "shield-alert"
+    architectureSummary: "Single-file zero-dependency HTML/CSS/SVG presentation deck with an embedded Three.js 3D WebGL Planetary Defense simulation (Slide 7), interactive step-reveal diagrams, speaker notes drawer (N), and slide overview grid (G).",
+    keyHighlights: [
+      "Upfront deep dive on IEC 62443, NIST SP 800-82 Rev. 4 Draft, NERC CIP, and the Zombie Purdue Model",
+      "Embedded 3D WebGL 'Patching Is for Suckers' Planetary Defense simulation contrasting 100% laser patching against segmentation shielding",
+      "The MT Floor (SL 2 baseline -> SL 3 -> SL 2+ tailored) & CIE ('FSE with networks and switches' bounded by mechanical relief)",
+      "NIST OSCAL (Standards as Code) & AI-driven custom organizational standards ('One-Page Commandments')",
+      "Three anonymized field cases (Water Utility, Brownfield Pharma, Green Energy Co-Op) + 60-Second Vendor Bullshit Detector"
+    ],
+    links: {
+      liveUrl: "decks/standards-meet-steel.html",
+      repoUrl: "https://github.com/Mthompson6782/MT-Lab/blob/main/decks/standards-meet-steel.html",
+      docsUrl: "OT-with-MT/index.html"
+    }
   }
 ];
 
