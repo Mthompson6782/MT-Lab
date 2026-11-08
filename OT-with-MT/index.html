@@ -610,40 +610,159 @@ ul.clean.g li:before{border-color:var(--green)}
 </section>
 
 <!-- ================= 23 PURDUE ================= -->
-<section class="slide" data-title="Purdue — still useful?" data-steps="2">
-  <div class="purdue">
-    <div class="lvls">
-      <div class="lvl"><i>L5</i>Enterprise</div>
-      <div class="lvl"><i>L4</i>Business planning &amp; logistics</div>
-      <div class="lvl dmz"><i>L3.5</i>IT/OT DMZ</div>
-      <div class="lvl"><i>L3</i>Site operations</div>
-      <div class="lvl"><i>L2</i>Supervisory control · HMI</div>
-      <div class="lvl"><i>L1</i>Basic control · PLC</div>
-      <div class="lvl"><i>L0</i>Process · sensors &amp; actuators</div>
-      <svg class="cut f fade" data-s="1" viewBox="0 0 900 600" preserveAspectRatio="none">
-        <path d="M820 560 C 900 300, 900 100, 860 -10" stroke="#ff4f5e" stroke-width="6" fill="none" class="flow"/>
-        <path d="M60 470 C -40 300, 0 120, 90 -10" stroke="#3fd2ff" stroke-width="6" fill="none" class="flow"/>
-        <path d="M600 -10 L 560 380" stroke="#a98bff" stroke-width="6" fill="none" class="flow"/>
-      </svg>
-    </div>
+<section class="slide" data-title="Purdue — the zombie model" data-steps="3">
+  <style>
+    .purdue-wrap { display:grid; grid-template-columns:860px 1fr; gap:56px; align-items:center; }
+    .purdue-wrap .lvl { height:68px; margin-bottom:9px; font-size:26px; transition:all .55s var(--ease); }
+    /* Step 2: Zombie resurrection glow on the Purdue stack */
+    .slide.s2 .purdue-wrap .lvl {
+      border-color:rgba(61,220,151,.75);
+      box-shadow:0 0 24px rgba(61,220,151,.18);
+      transform:translateX(0) rotate(0deg) !important;
+    }
+    .zombie-stage {
+      margin-top:10px;
+      height:150px;
+      border-radius:16px;
+      border:2px solid var(--line2);
+      background:linear-gradient(180deg,#0b1118,#070a0e);
+      position:relative;
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      padding:0 28px;
+    }
+    .slide.s2 .zombie-stage {
+      border-color:var(--green);
+      box-shadow:0 0 36px rgba(61,220,151,.25);
+      background:linear-gradient(180deg,rgba(61,220,151,.12),#070a0e);
+    }
+    .z-hand {
+      transform:translateY(130px) rotate(-14deg);
+      opacity:0;
+      transition:transform .75s cubic-bezier(.2,1.35,.4,1), opacity .4s;
+      transform-origin:bottom center;
+    }
+    .slide.s2 .z-hand {
+      transform:translateY(0) rotate(0deg);
+      opacity:1;
+      animation:zombieTwitch 2.6s 0.8s ease-in-out infinite alternate;
+    }
+    @keyframes zombieTwitch {
+      0% { transform:translateY(0) rotate(-3deg); }
+      100% { transform:translateY(-6px) rotate(4deg); }
+    }
+    .z-dirt circle {
+      opacity:0;
+    }
+    .slide.s2 .z-dirt circle {
+      animation:dirtPop 1.2s ease-out infinite;
+    }
+    .slide.s2 .z-dirt circle:nth-child(2) { animation-delay:.25s; }
+    .slide.s2 .z-dirt circle:nth-child(3) { animation-delay:.5s; }
+    @keyframes dirtPop {
+      0% { opacity:.9; transform:translate(0,0) scale(1); }
+      100% { opacity:0; transform:translate(var(--dx,20px),-38px) scale(.3); }
+    }
+    .z-badge {
+      opacity:0;
+      transform:translateX(20px);
+      transition:all .55s .15s var(--ease);
+    }
+    .slide.s2 .z-badge {
+      opacity:1;
+      transform:none;
+    }
+  </style>
+  <div class="kicker">The Purdue Model · PERA / ISA-95 (c. 1992)</div>
+  <h2 style="font-size:66px;margin-bottom:20px">The <span class="green">zombie model</span> that refuses to die.</h2>
+  <div class="purdue-wrap">
     <div>
-      <div class="kicker">The Purdue Model</div>
-      <div class="f" data-s="1">
-        <p style="font-size:30px"><b class="red">━</b> IIoT sensor → cloud analytics</p>
-        <p style="font-size:30px"><b class="cyan">━</b> Vendor remote access into L1</p>
-        <p style="font-size:30px"><b style="color:var(--violet)">━</b> Wireless &amp; cellular straight to L2</p>
+      <div class="lvls">
+        <div class="lvl"><i>L5</i>Enterprise IT</div>
+        <div class="lvl"><i>L4</i>Business planning &amp; logistics (ERP)</div>
+        <div class="lvl dmz"><i>L3.5</i>IT / OT DMZ</div>
+        <div class="lvl"><i>L3</i>Site operations · Historian · MES</div>
+        <div class="lvl"><i>L2</i>Supervisory control · HMI / SCADA</div>
+        <div class="lvl"><i>L1</i>Basic control · PLC / RTU / SIS</div>
+        <div class="lvl"><i>L0</i>Physical process · sensors &amp; actuators</div>
+        <svg class="cut f fade" data-s="1" viewBox="0 0 900 530" preserveAspectRatio="none">
+          <path d="M810 500 C 890 270, 890 90, 850 -10" stroke="#ff4f5e" stroke-width="6" fill="none" class="flow"/>
+          <path d="M60 420 C -35 270, 0 105, 90 -10" stroke="#3fd2ff" stroke-width="6" fill="none" class="flow"/>
+          <path d="M600 -10 L 560 340" stroke="#a98bff" stroke-width="6" fill="none" class="flow"/>
+        </svg>
       </div>
-      <div class="f" data-s="2" style="margin-top:46px">
-        <p class="big" style="font-size:42px">Keep it as a <span class="green">vocabulary.</span></p>
-        <p class="big" style="font-size:42px">Drop it as a <span class="red">description of reality.</span></p>
-        <p class="muted" style="margin-top:16px;font-size:30px">Still good for: a shared language with IT, and your first segmentation cut.</p>
+      <!-- Tombstone + Zombie Hand Crawling Out of the Ground -->
+      <div class="zombie-stage">
+        <svg viewBox="0 0 320 140" width="320" height="140" style="flex:none">
+          <!-- Ground / Turf line -->
+          <path d="M10 126 Q80 118 160 126 T310 124" stroke="#3a4b63" stroke-width="4" fill="none"/>
+          <!-- Tombstone on the left -->
+          <g transform="translate(22 18)">
+            <path d="M10 106 V42 A38 38 0 0 1 86 42 V106 Z" fill="#1b2432" stroke="#5a6b82" stroke-width="3"/>
+            <text x="48" y="48" text-anchor="middle" font-family="Consolas,monospace" font-size="14" font-weight="800" fill="#8c9cb1">R.I.P.</text>
+            <text x="48" y="67" text-anchor="middle" font-family="Consolas,monospace" font-size="12" font-weight="700" fill="#ff4f5e">PURDUE</text>
+            <text x="48" y="84" text-anchor="middle" font-family="Consolas,monospace" font-size="10" fill="#8c9cb1">“Dead” 2015–26</text>
+          </g>
+          <!-- Dirt particles -->
+          <g class="z-dirt">
+            <circle cx="190" cy="118" r="4" fill="#3ddc97" style="--dx:-24px"/>
+            <circle cx="215" cy="115" r="5" fill="#ffb000" style="--dx:18px"/>
+            <circle cx="240" cy="118" r="4" fill="#3ddc97" style="--dx:28px"/>
+          </g>
+          <!-- Zombie arm & clawed hand bursting out of the grave -->
+          <g class="z-hand">
+            <!-- Cracked earth glow -->
+            <ellipse cx="212" cy="126" rx="46" ry="8" fill="rgba(61,220,151,.35)"/>
+            <!-- Forearm -->
+            <rect x="198" y="68" width="26" height="58" rx="8" fill="#2ebd7f" stroke="#14593b" stroke-width="2.5"/>
+            <!-- Tattered sleeve cuff -->
+            <path d="M192 98 L202 88 L212 98 L222 88 L230 98 L228 112 H194 Z" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
+            <!-- Exposed wrist bone -->
+            <line x1="211" y1="76" x2="211" y2="90" stroke="#d9f99d" stroke-width="4" stroke-linecap="round"/>
+            <!-- Palm & 4 zombie fingers reaching up -->
+            <rect x="192" y="44" width="38" height="28" rx="9" fill="#3ddc97" stroke="#14593b" stroke-width="2.5"/>
+            <!-- Thumb -->
+            <path d="M192 56 Q174 48 176 34 Q180 28 186 36 L195 50" fill="#3ddc97" stroke="#14593b" stroke-width="2.5"/>
+            <!-- Index, Middle, Ring, Pinky bent fingers -->
+            <path d="M196 44 V20 Q196 12 202 12 Q206 12 206 20 V44" fill="#3ddc97" stroke="#14593b" stroke-width="2.2"/>
+            <path d="M206 44 V14 Q206 6 212 6 Q218 6 218 14 V44" fill="#3ddc97" stroke="#14593b" stroke-width="2.2"/>
+            <path d="M218 44 V18 Q218 10 224 10 Q229 10 229 18 V44" fill="#3ddc97" stroke="#14593b" stroke-width="2.2"/>
+            <path d="M227 48 V28 Q227 21 232 21 Q237 21 237 28 V52" fill="#3ddc97" stroke="#14593b" stroke-width="2.2"/>
+          </g>
+        </svg>
+        <div class="z-badge">
+          <div style="font:800 20px var(--mono);color:var(--green);letter-spacing:.08em">★ UNDEAD SINCE 1992</div>
+          <p style="font-size:22px;color:#dbe4ef;margin-top:4px;line-height:1.3">Every conference buries it — and every Monday morning it <b class="green">crawls right back out of the ground.</b></p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="card f" data-s="1" style="padding:26px 32px;border-color:rgba(255,79,94,.45);margin-bottom:24px">
+        <div style="font:700 18px var(--mono);color:var(--red);letter-spacing:.12em;text-transform:uppercase">01 · Why pundits declare it dead</div>
+        <p style="font-size:27px;margin-top:10px"><b class="red">━</b> IIoT sensors punching straight to cloud analytics</p>
+        <p style="font-size:27px;margin-top:6px"><b class="cyan">━</b> Vendor remote sessions dropping straight into L1</p>
+        <p style="font-size:27px;margin-top:6px"><b style="color:var(--violet)">━</b> Wireless &amp; cellular bypassing L3 / L3.5 entirely</p>
+      </div>
+
+      <div class="card f" data-s="2" style="padding:26px 32px;border-color:rgba(61,220,151,.55);margin-bottom:24px;background:linear-gradient(160deg,rgba(61,220,151,.10),var(--panel))">
+        <div style="font:700 18px var(--mono);color:var(--green);letter-spacing:.12em;text-transform:uppercase">02 · Yet it crawls out of the grave anyway</div>
+        <p style="font-size:27px;margin-top:8px;line-height:1.36">Try explaining plant traffic to an IT firewall team without saying <b class="amber">“Level 1 PLC”</b> or <b class="cyan">“Level 3.5 DMZ.”</b> You can't — nothing else replaced the shared mental map.</p>
+      </div>
+
+      <div class="f" data-s="3">
+        <p class="big" style="font-size:40px">Keep the zombie as a <span class="green">vocabulary.</span></p>
+        <p class="big" style="font-size:40px;margin-top:4px">Drop it as a <span class="red">literal firewall diagram.</span></p>
+        <p class="muted" style="margin-top:12px;font-size:27px">Use it to draw your first <b>62443 zones &amp; conduits</b> cut — just don't pretend the layers are walls.</p>
       </div>
     </div>
   </div>
   <aside class="notes"><ul>
-    <li>You all know the layers. Quick question: is your plant actually built like this?</li>
-    <li>[Click] Modern plants punch straight through: cloud analytics, vendor remote access, cellular modems.</li>
-    <li>[Click] Where it still helps: a common language with IT, and drawing the first boundary for 62443 zones and conduits. Where it hurts: when people assume the layers are walls.</li>
+    <li>You all know the Purdue Model — born in the early '90s out of Purdue Enterprise Reference Architecture and ISA-95.</li>
+    <li>[Click — Step 1] At every conference since 2015, somebody gives a talk declaring "The Purdue Model is Dead!" because IIoT, cloud analytics, and vendor VPNs punch right through the layers.</li>
+    <li>[Click — Step 2] And yet every single year, the Purdue Model crawls right back out of the ground like a zombie! Why won't it die? Because the moment you sit down with IT and plant engineers, you still need a 10-second way to separate a Level 1 PLC from a Level 3 historian.</li>
+    <li>[Click — Step 3] So don't fight the zombie — put it to work. Keep it as shared vocabulary and your first cut at 62443 zones and conduits; just drop the illusion that the layers are physical walls.</li>
   </ul></aside>
 </section>
 
