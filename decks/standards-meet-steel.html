@@ -702,29 +702,51 @@ ul.clean.g li:before{border-color:var(--green)}
 </section>
 
 <!-- ================= 21 CIE ================= -->
-<section class="slide" data-title="CIE — FSE with Wi-Fi" data-steps="3">
+<section class="slide" data-title="CIE — FSE with networks &amp; switches" data-steps="3">
   <div class="kicker">Cyber-Informed Engineering (DOE / INL)</div>
-  <h2 style="font-size:72px;margin-bottom:6px">CIE is <span class="amber">FSE with Wi-Fi.</span></h2>
-  <svg class="sif" viewBox="0 0 1640 330">
+  <h2 style="font-size:64px;margin-bottom:6px">CIE is really just <span class="amber">FSE with networks and switches.</span></h2>
+  <svg class="sif" viewBox="0 0 1640 340">
     <g>
-      <rect class="box" x="40" y="150" width="300" height="130" rx="16"/><text x="190" y="205" text-anchor="middle" font-size="34">Sensor</text><text x="190" y="248" text-anchor="middle" font-size="24" fill="#8c9cb1" style="font-weight:500">PT-101</text>
-      <rect class="box" x="670" y="150" width="300" height="130" rx="16"/><text x="820" y="205" text-anchor="middle" font-size="34">Logic Solver</text><text x="820" y="248" text-anchor="middle" font-size="24" fill="#8c9cb1" style="font-weight:500">SIS</text>
-      <rect class="box" x="1300" y="150" width="300" height="130" rx="16"/><text x="1450" y="205" text-anchor="middle" font-size="34">Final Element</text><text x="1450" y="248" text-anchor="middle" font-size="24" fill="#8c9cb1" style="font-weight:500">XV-101</text>
-      <path d="M340 215 H670 M970 215 H1300" stroke="#233144" stroke-width="6"/>
-      <path d="M340 215 H670 M970 215 H1300" stroke="#3ddc97" stroke-width="6" class="flow"/>
+      <rect class="box" x="40" y="170" width="300" height="130" rx="16"/><text x="190" y="225" text-anchor="middle" font-size="34">Sensor</text><text x="190" y="268" text-anchor="middle" font-size="24" fill="#8c9cb1" style="font-weight:500">PT-101</text>
+      <rect class="box" x="670" y="170" width="300" height="130" rx="16"/><text x="820" y="225" text-anchor="middle" font-size="34">Logic Solver</text><text x="820" y="268" text-anchor="middle" font-size="24" fill="#8c9cb1" style="font-weight:500">SIS</text>
+      <rect class="box" x="1300" y="170" width="300" height="130" rx="16"/><text x="1450" y="225" text-anchor="middle" font-size="34">Final Element</text><text x="1450" y="268" text-anchor="middle" font-size="24" fill="#8c9cb1" style="font-weight:500">XV-101</text>
+      <path d="M340 235 H670 M970 235 H1300" stroke="#233144" stroke-width="6"/>
+      <path d="M340 235 H670 M970 235 H1300" stroke="#3ddc97" stroke-width="6" class="flow"/>
     </g>
-    <g transform="translate(820 30)"><g class="wifi"><path d="M-80 70 Q0 -10 80 70" fill="none" stroke="#ffb000" stroke-width="12" stroke-linecap="round"/><path d="M-50 92 Q0 42 50 92" fill="none" stroke="#ffb000" stroke-width="12" stroke-linecap="round"/><circle cx="0" cy="112" r="11" fill="#ffb000"/></g></g>
+    <!-- Industrial Managed Switch + Network Links (appears on step 1) -->
+    <g class="wifi">
+      <!-- Uplinks from switch to Sensor, Logic Solver, and Engineering/HMI network -->
+      <path d="M680 72 L190 170" stroke="#ffb000" stroke-width="3.5" stroke-dasharray="10 8" class="flow"/>
+      <path d="M820 108 L820 170" stroke="#ffb000" stroke-width="4.5" stroke-dasharray="10 8" class="flow"/>
+      <path d="M960 72 L1450 170" stroke="#ffb000" stroke-width="3.5" stroke-dasharray="10 8" class="flow"/>
+      <!-- Switch chassis -->
+      <rect x="610" y="22" width="420" height="86" rx="12" fill="#141c28" stroke="#ffb000" stroke-width="3.5"/>
+      <text x="636" y="54" font-family="Consolas,monospace" font-size="17" font-weight="700" fill="#ffb000">L2/L3 OT SWITCH</text>
+      <text x="636" y="84" font-family="Consolas,monospace" font-size="14" fill="#8c9cb1">VLAN · ENIP / MODBUS TCP</text>
+      <!-- RJ45 / SFP ports with blinking status LEDs -->
+      <g transform="translate(835 36)">
+        <rect x="0" y="0" width="28" height="24" rx="3" fill="#080b10" stroke="#3fd2ff" stroke-width="2"/>
+        <rect x="36" y="0" width="28" height="24" rx="3" fill="#080b10" stroke="#3fd2ff" stroke-width="2"/>
+        <rect x="72" y="0" width="28" height="24" rx="3" fill="#080b10" stroke="#ffb000" stroke-width="2"/>
+        <rect x="108" y="0" width="28" height="24" rx="3" fill="#080b10" stroke="#ffb000" stroke-width="2"/>
+        <rect x="144" y="0" width="28" height="24" rx="3" fill="#080b10" stroke="#3ddc97" stroke-width="2"/>
+        <circle cx="14" cy="36" r="4.5" fill="#3ddc97"/>
+        <circle cx="50" cy="36" r="4.5" fill="#3ddc97"/>
+        <circle cx="86" cy="36" r="4.5" fill="#ffb000"/>
+        <circle cx="122" cy="36" r="4.5" fill="#ffb000"/>
+        <circle cx="158" cy="36" r="4.5" fill="#3fd2ff"/>
+      </g>
+    </g>
   </svg>
   <div class="scalebal">
     <div class="card f left" data-s="2" style="border-color:rgba(61,220,151,.5)"><h3 class="green" style="margin-bottom:12px">Great in theory</h3><ul class="clean g"><li style="font-size:29px">Consequence-first, in engineers' language</li><li style="font-size:29px">Designs out cyber-enabled hazards</li><li style="font-size:29px">Engineered safeguards can't be hacked remotely</li></ul></div>
     <div class="card f right" data-s="3" style="border-color:rgba(255,79,94,.5)"><h3 class="red" style="margin-bottom:12px">Costly in practice</h3><ul class="clean r"><li style="font-size:29px">Labor-intensive, system by system</li><li style="font-size:29px">Needs rare people fluent in both disciplines</li><li style="font-size:29px">Best value: capital projects &amp; crown jewels</li></ul></div>
   </div>
   <aside class="notes"><ul>
-    <li>I'm a fan because I'm an actual FSE. A safety function: sense, decide, act.</li>
-    <li>[Click] CIE asks: what if the sensor, the logic, or the network lies? Same hazard thinking, now with Wi-Fi.</li>
+    <li>I'm a fan because I'm an actual FSE. A safety function is simple: sense, decide, act.</li>
+    <li>[Click] CIE asks: what if the sensor, the logic solver, or the network switch in between lies? Same hazard thinking — CIE is really just FSE with networks and switches.</li>
     <li>[Click] Strengths: it's consequence-driven and engineers already think this way. Physical safeguards — relief valves, mechanical interlocks — can't be hacked remotely. They can still be bypassed or neglected, so they need maintenance too.</li>
     <li>[Click] Weakness: it's expensive and slow to do well. Use it where it pays — new builds and the systems that can hurt people.</li>
-    <li>Hand-off: standards meet real plants.</li>
   </ul></aside>
 </section>
 
