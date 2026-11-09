@@ -140,6 +140,8 @@ Together, **CUTLASS** and **HALBERD** deliver comprehensive defense-in-depth acr
 | Resource | Description | Direct Link |
 | :--- | :--- | :--- |
 | **MT-Lab Engineering Portal** | Interactive catalog & dashboard for OT cyber engineers | [Launch Portal](https://mthompson6782.github.io/MT-Lab/) |
+| **Standards Meet Steel (U of A Talk)** | 43-slide interactive OT standards deck + 3D WebGL Planetary Defense sim | [Launch Deck](https://mthompson6782.github.io/MT-Lab/decks/standards-meet-steel.html) |
+| **OT with MT Hub** | Executive OT cybersecurity briefings & field cases | [Open Hub](https://mthompson6782.github.io/MT-Lab/OT-with-MT/) |
 | **CUTLASS Console** | ISA/IEC 62443-3-2 automated site survey & topology map | [Open CUTLASS UI](https://mthompson6782.github.io/MT-Lab/cutlass-demo.html) |
 | **HALBERD Technical Console** | Interactive Happened-Before edge threat simulator | [Open HALBERD UI](https://mthompson6782.github.io/MT-Lab/halberd-demo.html) |
 | **HALBERD Executive Briefing** | C-Suite & leadership narrative with interactive audio | [Open Briefing](https://mthompson6782.github.io/MT-Lab/halberd-executive.html) |
@@ -154,7 +156,8 @@ Together, **CUTLASS** and **HALBERD** deliver comprehensive defense-in-depth acr
 - **Referenced Standards**:
   - ISA/IEC 62443-3-2 (Security risk assessment for system design)
   - ISA/IEC 62443-3-3 (System security requirements and security levels)
-  - NIST SP 800-82 Rev. 3 (Guide to Operational Technology Security)
+  - NIST SP 800-82 Rev. 3 & Rev. 4 Initial Public Draft (Guide to Operational Technology Security)
+  - NIST OSCAL (Open Security Controls Assessment Language)
   - CISA Cross-Sector Cybersecurity Performance Goals (CPGs)
 
 ---
