@@ -102,6 +102,71 @@ Key Architecture & Capabilities:
     icon: "shield-alert"
   },
   {
+    id: "slice-ot",
+    title: "SLiCE™ — Structured Likelihood & Confidence Evaluation",
+    subtitle: "ICD 203 Risk & Analytic Confidence Engine for OT/ICS Cybersecurity",
+    featured: false,
+    posterGradient: "linear-gradient(135deg, #064e3b 0%, #0f172a 55%, #020617 100%)",
+    gradientBg: "linear-gradient(135deg, #064e3b 0%, #0f172a 55%, #020617 100%)",
+    accentColor: "#10b981",
+    category: "OT Cybersecurity",
+    rows: ["Trending Originals", "IEC 62443 & Critical Infrastructure Defense", "Top 10 in Tech Today"],
+    top10Rank: 4,
+    rating: "ICD 203",
+    matchScore: 98,
+    year: 2026,
+    duration: "Interactive Web Console",
+    quality: "AIChE GCPS 2026",
+    audio: "L : C : I Triplet",
+    repoUrl: "https://github.com/Mthompson6782/MT-Lab/tree/main/slice-ot",
+    liveUrl: "slice-demo.html",
+    docsUrl: "https://github.com/Mthompson6782/MT-Lab/blob/main/slice-ot/docs/METHODOLOGY.md",
+    isDemo: true,
+    thumbnailIcon: "compass",
+    icon: "compass",
+    synopsis: "Replaces single-point OT risk guesswork with an Intelligence Community Directive (ICD 203) inspired Likelihood : Confidence : Impact (L:C:I) framework that separates threat likelihood from evidentiary certainty.",
+    longDescription: `Authored for the AIChE 2026 Spring Meeting & 22nd Global Congress on Process Safety (GCPS), SLiCE adapts Intelligence Community Directive (ICD 203) Analytic Tradecraft Standards to Industrial Control Systems (ICS) and OT cybersecurity risk assessments.
+
+KEY CAPABILITIES:
+• Weighted Likelihood Triplet (L1–L5): Evaluates Attack Surface & Accessibility (40%), Exploitable Conditions (35%), and Historical & Threat Activity (25%) with strict score boundaries.
+• Four-Dimension Confidence Engine (C1–C4): Assesses Control Validation, Asset Inventory, Network Telemetry, and Analytic Corroboration without ever mathematically collapsing Confidence into Likelihood.
+• Deterministic Integrity Safeguards: Enforces the Single-Source Override (C4=Low caps overall Confidence at Low), Historical Linkage Rule (H ≤ 2 caps Confidence at Moderate), and 10-Bias Analytic Catalog Gate.
+• Worst-Case Consequence Scoring (I1–I5): Scores Safety & HSE, Environmental Release, Operational Downtime, Financial Loss, and Regulatory/Compliance impact using max() with documented cascade & degraded-response rules.
+• 3×3 Decision Matrix & Report Export: Separates engineering remediation (MITIGATE) from targeted reconnaissance (CHARACTERIZE / INVESTIGATE), exporting reproducible Markdown and JSON artifacts.`,
+    techStack: ["React 19", "TypeScript", "Tailwind CSS", "Vitest", "ICD 203", "IEC 62443-3-2", "NIST SP 800-82"],
+    tags: [
+      "SLiCE",
+      "ICD 203",
+      "OT Risk Assessment",
+      "Analytic Confidence",
+      "IEC 62443-3-2",
+      "NIST SP 800-82",
+      "TSA SD02",
+      "Decision Matrix",
+      "Bias Mitigation",
+      "TypeScript"
+    ],
+    metrics: [
+      { label: "Output Format", value: "L[1–5] : C-[Low/Mod/High] : I[1–5]" },
+      { label: "Safeguards", value: "Single-Source, Historical Linkage, 10-Bias Gate" },
+      { label: "Publication", value: "AIChE 2026 GCPS (Houston, TX)" }
+    ],
+    architectureSummary: "Pure TypeScript SLiCE calculation engine paired with a dark-mode React interactive console featuring 5 OT reference scenarios, bias checklist enforcement, 3×3 L×C Decision Matrix, and Markdown/JSON export.",
+    keyHighlights: [
+      "Weighted Likelihood L = 0.40A + 0.35E + 0.25H mapped to L1–L5 tiers",
+      "Independent Confidence dimensions (C1–C4) with Single-Source & Historical Linkage overrides",
+      "Mandatory 10-Bias Analytic Catalog Gate capping unreviewed assessments at Moderate Confidence",
+      "Max-consequence Impact engine (I1–I5) plus 3×3 L×C Decision Matrix exposing the Bottom-Right Paradox ('we don't know ≠ we're safe')",
+      "100% client-side static architecture deployable air-gapped or via GitHub Pages"
+    ],
+    links: {
+      liveUrl: "slice-demo.html",
+      repoUrl: "https://github.com/Mthompson6782/MT-Lab/tree/main/slice-ot",
+      docsUrl: "https://github.com/Mthompson6782/MT-Lab/blob/main/slice-ot/docs/METHODOLOGY.md"
+    },
+    stats: { stars: 12, forks: 3, status: "Active Framework" }
+  },
+  {
     id: "standards-meet-steel",
     title: "Standards Meet Steel",
     subtitle: "U of A CyberHogs Talk · 43-Slide Interactive Deck + 3D WebGL Sim",

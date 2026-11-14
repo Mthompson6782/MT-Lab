@@ -20,9 +20,9 @@
 ### 👥 SELECT ENGINEERING PERSPECTIVE
 *Explore technical architectures, live consoles, and audit specifications:*
 
-| [🛡️ OT / ICS Cyber Engineer](https://mthompson6782.github.io/MT-Lab/halberd-demo.html) | [⚡ Controls & Automation Lead](https://mthompson6782.github.io/MT-Lab/cutlass-demo.html) | [📋 OT GRC & Compliance Auditor](https://mthompson6782.github.io/MT-Lab/cutlass-demo.html) | [🏛️ Critical Infrastructure Architect](https://mthompson6782.github.io/MT-Lab/halberd-executive.html) |
-| :---: | :---: | :---: | :---: |
-| Modbus/CIP DPI, Out-of-Sequence Logic | Purdue Conduits, Zero-Trip Operations | ISA/IEC 62443-3-2, SL-V Evaluation | Multi-Hop Attack Graphs & Blast Radius |
+| [🛡️ OT / ICS Cyber Engineer](https://mthompson6782.github.io/MT-Lab/halberd-demo.html) | [⚡ Controls & Automation Lead](https://mthompson6782.github.io/MT-Lab/cutlass-demo.html) | [🧭 OT Risk & Confidence Analyst](https://mthompson6782.github.io/MT-Lab/slice-demo.html) | [📋 OT GRC & Compliance Auditor](https://mthompson6782.github.io/MT-Lab/cutlass-demo.html) | [🏛️ Critical Infrastructure Architect](https://mthompson6782.github.io/MT-Lab/halberd-executive.html) |
+| :---: | :---: | :---: | :---: | :---: |
+| Modbus/CIP DPI, Out-of-Sequence Logic | Purdue Conduits, Zero-Trip Operations | ICD 203 `L:C:I` Risk, Bias Gate & Decision Matrix | ISA/IEC 62443-3-2, SL-V Evaluation | Multi-Hop Attack Graphs & Blast Radius |
 
 ---
 
@@ -34,10 +34,11 @@
 
 **MT-Lab** is an engineering laboratory dedicated to operational technology (OT) cybersecurity, industrial control systems (ICS/SCADA), and critical infrastructure defense. The lab focuses on closing the operational gap between enterprise IT security tooling and the deterministic safety constraints of physical plants.
 
-The laboratory currently hosts two flagship cyber-physical platforms:
+The laboratory currently hosts three flagship cyber-physical & OT risk platforms:
 
 1. **[⚔️ CUTLASS™](#-cutlass---cyber-unified-threat-level-automated-site-survey)**: Automated ISA/IEC 62443-3-2 & 62443-3-3 risk assessment, Purdue Model zone/conduit partitioning, live Armis telemetry ingestion, multi-hop attack graphs, and supply chain blast radius modeling.
 2. **[🛡️ HALBERD™](#-halberd---happened-before-analytics--logic-baseline-for-edge-response--defense)**: Low-SWaP edge cybersecurity engine running at Purdue Levels 1 & 2, utilizing Lamport Happened-Before causal tracking to intercept unauthorized PLC commands, out-of-sequence logic, and setpoint anomalies without false trips.
+3. **[🧭 SLiCE™](#-slice---structured-likelihood-and-confidence-evaluation)**: Intelligence Community Directive (ICD 203) inspired `L : C : I` OT cybersecurity risk and analytic confidence framework that separates technical risk likelihood from evidentiary certainty, preventing the "low confidence = safe" fallacy across IEC 62443-3-2, NIST SP 800-82, and TSA directives.
 
 ---
 
@@ -104,6 +105,22 @@ HALBERD brings distributed systems formal methods to industrial edge cybersecuri
 
 ---
 
+## 🧭 SLiCE™ - Structured Likelihood and Confidence Evaluation
+
+**Intelligence Community Directive (ICD 203) inspired OT Cybersecurity Risk & Analytic Confidence Assessment Framework.**
+
+Presented at the **AIChE 2026 Spring Meeting & 22nd Global Congress on Process Safety (GCPS)**, SLiCE replaces opaque single-point risk scores with an auditable triplet (`L[score] : C-[rating] : I[score]`) that keeps technical vulnerability likelihood cleanly separated from evidentiary certainty.
+
+### Core Capabilities
+- **Paired Likelihood–Confidence–Impact Triplet (`L:C:I`)**: Scores Weighted Likelihood (`L = 0.40A + 0.35E + 0.25H` mapped to `L1–L5`), four independent Confidence dimensions (`C1` Control Validation, `C2` Asset Inventory, `C3` Network Telemetry, `C4` Analytic Corroboration), and worst-case Consequence Impact (`I1–I5`).
+- **Automated Integrity Safeguards**: Enforces the **Single-Source Override** (`C4 = Low` caps overall Confidence at `Low`), **Historical Linkage Rule** (`H ≤ 2` caps Confidence at `Moderate`), and **10-Bias Analytic Catalog Gate** (`< 10` biases reviewed caps Confidence at `Moderate`).
+- **3×3 `L × C` Decision Matrix & Bottom-Right Paradox**: Exposes the critical error of treating *"Low Likelihood + Low Confidence"* as safe (`ACCEPT`)—forcing **`CHARACTERIZE`** reconnaissance instead so *"we don't know"* is never confused with *"we're safe"*.
+- **IEC 62443-3-2 / NIST SP 800-82 / TSA Aligned**: Includes 5 pre-loaded OT reference scenario presets, live bias compliance checks, and instant **Markdown** and **JSON** audit exports.
+
+👉 **[Launch Interactive SLiCE Console](https://mthompson6782.github.io/MT-Lab/slice-demo.html)** &nbsp;|&nbsp; **[Read Full Methodology Guide](slice-ot/docs/METHODOLOGY.md)** &nbsp;|&nbsp; **[Browse SLiCE Source](slice-ot/)**
+
+---
+
 ## 🏛️ Defense-in-Depth Architecture: CUTLASS + HALBERD
 
 Together, **CUTLASS** and **HALBERD** deliver comprehensive defense-in-depth across the Purdue Enterprise Reference Architecture:
@@ -145,8 +162,11 @@ Together, **CUTLASS** and **HALBERD** deliver comprehensive defense-in-depth acr
 | **CUTLASS Console** | ISA/IEC 62443-3-2 automated site survey & topology map | [Open CUTLASS UI](https://mthompson6782.github.io/MT-Lab/cutlass-demo.html) |
 | **HALBERD Technical Console** | Interactive Happened-Before edge threat simulator | [Open HALBERD UI](https://mthompson6782.github.io/MT-Lab/halberd-demo.html) |
 | **HALBERD Executive Briefing** | C-Suite & leadership narrative with interactive audio | [Open Briefing](https://mthompson6782.github.io/MT-Lab/halberd-executive.html) |
+| **SLiCE Risk & Confidence Console** | Interactive ICD 203 `L:C:I` calculator, 10-bias gate & Decision Matrix | [Open SLiCE UI](https://mthompson6782.github.io/MT-Lab/slice-demo.html) |
+| **SLiCE Methodology Guide** | Full mathematical model, likelihood/confidence/impact tables & safeguards | [Read Spec](slice-ot/docs/METHODOLOGY.md) |
 | **CUTLASS Codebase** | Python backend, models, risk engine, connectors | [Browse Code](cutlass-62443-platform/) |
 | **HALBERD Codebase** | Edge sensor modules, parsers, Lamport logic | [Browse Code](halberd-ot/) |
+| **SLiCE Codebase** | React 19 + TypeScript + Vitest engine & single-file build | [Browse Code](slice-ot/) |
 
 ---
 

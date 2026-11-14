@@ -3,3 +3,6 @@ __pycache__/
 *$py.class
 .DS_Store
 Thumbs.db
+node_modules/
+slice-ot/dist/
+slice-ot/.vite/
