@@ -73,7 +73,7 @@ p,li{font-size:36px;line-height:1.38;color:#cfd8e3}
 .big{font-size:52px;line-height:1.25;font-weight:700;color:var(--text)}
 .hl{background:linear-gradient(transparent 62%,rgba(255,176,0,.35) 62%);padding:0 4px}
 .tag{display:inline-block;font:700 18px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;padding:10px 14px;border-radius:8px;border:2px solid currentColor}
-.src{position:absolute;left:140px;bottom:56px;font:500 17px/1.4 var(--mono);color:var(--dim);max-width:1500px}
+.src{position:absolute;left:140px;bottom:56px;font:500 19px/1.4 var(--mono);color:var(--muted);max-width:1580px}
 .def{font:500 22px/1.4 var(--mono);color:var(--cyan);border-left:3px solid var(--cyan);padding:6px 0 6px 16px;margin-top:18px}
 
 /* ---------- fragments ---------- */
@@ -199,7 +199,7 @@ ul.clean.g li:before{border-color:var(--green)}
 .chart{display:flex;align-items:flex-end;gap:22px;height:520px;padding:0 10px;border-bottom:3px solid var(--line2);position:relative}
 .chart .bar{flex:1;border-radius:10px 10px 0 0;background:linear-gradient(180deg,var(--red),rgba(255,79,94,.25));height:0;transition:height 1.1s var(--ease);position:relative}
 .slide.active .chart .bar{height:var(--h)}
-.chart .bar span{position:absolute;bottom:-46px;left:0;right:0;text-align:center;font:600 22px var(--mono);color:var(--dim)}
+.chart .bar span{position:absolute;bottom:-46px;left:0;right:0;text-align:center;font:600 22px var(--mono);color:var(--muted)}
 .chart .arrow{position:absolute;right:-20px;top:-70px;font:800 110px var(--sans);color:var(--red);opacity:0;transform:translateY(30px);transition:all .8s .9s var(--ease)}
 .slide.active .chart .arrow{opacity:1;transform:none}
 .footnote{margin-top:80px;font:500 30px/1.4 var(--mono);color:var(--muted)}
@@ -208,13 +208,14 @@ ul.clean.g li:before{border-color:var(--green)}
 /* ---------- malware timeline ---------- */
 .mtl{position:relative;height:420px;margin-top:40px}
 .mtl .axis{position:absolute;left:0;right:0;top:200px;height:4px;background:var(--line2)}
-.mtl .yr{position:absolute;top:350px;font:600 22px var(--mono);color:var(--dim);transform:translateX(-50%)}
-.mtl .m{position:absolute;transform:translateX(-50%);text-align:center;width:220px}
+.mtl .yr{position:absolute;top:350px;font:600 22px var(--mono);color:var(--muted);transform:translateX(-50%)}
+.mtl .m{position:absolute;transform:translateX(-50%) translateY(18px);text-align:center;width:220px;opacity:0;transition:opacity .5s var(--ease),transform .55s var(--ease);transition-delay:var(--d,0s)}
+.slide.active .mtl .m,#stage.ov .mtl .m{opacity:1;transform:translateX(-50%)}
 .mtl .m .dot{width:30px;height:30px;border-radius:50%;background:var(--amber);margin:0 auto;box-shadow:0 0 24px var(--amber)}
 .mtl .m b{display:block;font-size:30px;font-weight:800}
 .mtl .m small{display:block;font:500 19px/1.3 var(--mono);color:var(--muted)}
-.mtl .m.up{top:20px} .mtl .m.up .dot{margin-top:14px}
-.mtl .m.dn{top:186px}
+.mtl .m.up{bottom:204px} .mtl .m.up .dot{margin-top:14px}
+.mtl .m.dn{top:186px} .mtl .m.dn b{margin-top:14px}
 .mtl .m.up b{margin-bottom:2px}
 .count{font:800 240px/1 var(--sans);color:var(--amber);text-shadow:0 0 60px rgba(255,176,0,.35)}
 
@@ -374,7 +375,7 @@ ul.clean.g li:before{border-color:var(--green)}
 
 /* ---------- defense tiles ---------- */
 .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:28px}
-.tile{border-radius:22px;border:2px solid var(--line);background:var(--panel);padding:32px 30px;min-height:560px;position:relative;overflow:hidden}
+.tile{border-radius:22px;border:2px solid var(--line);background:var(--panel);padding:32px 30px 78px;min-height:615px;position:relative;overflow:hidden}
 .tile .ic{width:84px;height:84px;margin-bottom:22px}
 .tile h3{font-size:38px;margin-bottom:16px}
 .tile li{font-size:26px;line-height:1.35;margin:8px 0}
@@ -440,12 +441,13 @@ ul.clean.g li:before{border-color:var(--green)}
 .monday .it.on .bx:after{content:"";position:absolute;left:14px;top:2px;width:14px;height:28px;border:solid var(--green);border-width:0 6px 6px 0;transform:rotate(45deg);animation:tick .4s var(--ease)}
 @keyframes tick{from{transform:rotate(45deg) scale(0)}}
 .monday p{font-size:33px;color:var(--text)}
-.qrs{display:flex;gap:70px;justify-content:center;margin-top:30px}
+.qrs{display:grid;grid-template-columns:repeat(3,1fr);gap:44px;align-items:start;margin-top:30px}
 .qr{text-align:center}
-.qr .box{width:330px;height:330px;background:#fff;border-radius:22px;padding:24px;box-shadow:0 0 70px rgba(255,176,0,.25)}
+.qr .box{width:310px;height:310px;margin:0 auto;background:#fff;border-radius:22px;padding:22px;box-shadow:0 0 70px rgba(255,176,0,.25)}
+.qr.deck .box{box-shadow:0 0 75px rgba(63,210,255,.35);outline:3px solid rgba(63,210,255,.65)}
 .qr svg{width:100%;height:100%;fill:#0b0f14}
-.qr b{display:block;font-size:32px;margin-top:22px}
-.qr small{display:block;font:500 20px var(--mono);color:var(--muted);margin-top:6px}
+.qr b{display:block;font-size:30px;margin-top:20px}
+.qr small{display:block;font:500 19px var(--mono);color:var(--muted);margin-top:6px}
 
 /* ---------- planet defense embed ---------- */
 .slide.pd3d{padding:0}
@@ -454,6 +456,8 @@ ul.clean.g li:before{border-color:var(--green)}
 .slide.pd3d .pdposter h1{font-size:92px;margin:0 0 18px}
 .slide.pd3d .pdposter p{font:600 28px/1.4 var(--mono);color:var(--cyan);max-width:1400px}
 .slide.pd3d .pdposter .sub2{font:500 24px/1.45 var(--sans);color:#cfd8e3;margin-top:16px;max-width:1300px}
+.slide.pd3d .pdskip{all:unset;box-sizing:border-box;position:absolute;right:36px;bottom:28px;z-index:15;cursor:pointer;font:700 18px/1 var(--mono);letter-spacing:.1em;color:var(--amber);background:rgba(8,11,16,.88);border:1.5px solid rgba(255,176,0,.6);padding:12px 18px;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.5);transition:all .2s}
+.slide.pd3d .pdskip:hover{background:rgba(255,176,0,.18);color:#fff;border-color:var(--amber)}
 </style>
 </head>
 <body>
@@ -782,6 +786,7 @@ ul.clean.g li:before{border-color:var(--green)}
     <p>Patching = shooting asteroids with lasers (requires 100% perfection · 1 miss = crater) · Segmentation = the planetary shield</p>
     <div class="sub2">“Vulnerabilities are a function of <b class="amber">time, money, and creativity</b> — and nearly limitless with an adversary that's <b class="cyan">well-funded or bored</b>.”</div>
   </div>
+  <button class="pdskip" type="button">SKIP 3D SIM → SLIDE 08 ▸</button>
   <aside class="notes"><ul>
     <li>Cheeky truth right after the Purdue slide: Patching is for suckers if that's your primary strategy.</li>
     <li>This 3D Planetary Defense sim takes the keyboard/clicker: → / Space steps through the 5 scenes (Lasers only → 1 miss = Crater → Raise the Segmentation Shield → Defense in Depth). Press S to toggle shield, L for lasers, Esc to jump out early.</li>
@@ -927,7 +932,7 @@ ul.clean.g li:before{border-color:var(--green)}
       <!-- Wider Switch Chassis with cleanly separated Left Label + Right Ports -->
       <rect x="370" y="10" width="590" height="86" rx="12" fill="#141c28" stroke="#ff4f5e" stroke-width="3.5"/>
       <text x="394" y="44" font-family="Consolas,monospace" font-size="18" font-weight="700" fill="#ff4f5e">L2/L3 OT SWITCH · COMMON-CAUSE</text>
-      <text x="394" y="74" font-family="Consolas,monospace" font-size="14" fill="#cfd8e3" style="font-weight:500">Spoofs HMI &amp; inhibits SIS logic at once</text>
+      <text x="394" y="74" font-family="Consolas,monospace" font-size="16" fill="#cfd8e3" style="font-weight:500">Spoofs HMI &amp; inhibits SIS logic at once</text>
       <line x1="778" y1="22" x2="778" y2="84" stroke="#2e405a" stroke-width="2"/>
       <g transform="translate(796 24)">
         <rect x="0" y="0" width="28" height="22" rx="3" fill="#080b10" stroke="#ff4f5e" stroke-width="2"/>
@@ -943,11 +948,11 @@ ul.clean.g li:before{border-color:var(--green)}
 
     <!-- Step 1 Spoof / Inhibit callout badges cleanly below Sensor & Logic Solver -->
     <g class="cie-atk">
-      <rect x="30" y="276" width="270" height="32" rx="6" fill="#2a1215" stroke="#ff4f5e" stroke-width="1.5"/>
-      <text x="165" y="297" text-anchor="middle" font-family="Consolas,monospace" font-size="14" font-weight="700" fill="#ff9ea6">REAL: 185 PSI · HMI SEES: 45 PSI</text>
+      <rect x="12" y="275" width="306" height="36" rx="6" fill="#2a1215" stroke="#ff4f5e" stroke-width="1.5"/>
+      <text x="165" y="299" text-anchor="middle" font-family="Consolas,monospace" font-size="16.5" font-weight="700" fill="#ff9ea6">REAL: 185 PSI · HMI SEES: 45 PSI</text>
 
-      <rect x="515" y="276" width="270" height="32" rx="6" fill="#2a1215" stroke="#ff4f5e" stroke-width="1.5"/>
-      <text x="650" y="297" text-anchor="middle" font-family="Consolas,monospace" font-size="14" font-weight="700" fill="#ff4f5e">✕ TRIP LOGIC INHIBITED OVER NET</text>
+      <rect x="497" y="275" width="306" height="36" rx="6" fill="#2a1215" stroke="#ff4f5e" stroke-width="1.5"/>
+      <text x="650" y="299" text-anchor="middle" font-family="Consolas,monospace" font-size="16.5" font-weight="700" fill="#ff4f5e">✕ TRIP LOGIC INHIBITED OVER NET</text>
 
       <text x="892" y="198" text-anchor="middle" font-family="Consolas,monospace" font-size="21" font-weight="800" fill="#ff4f5e">✕ NO TRIP</text>
     </g>
@@ -956,8 +961,8 @@ ul.clean.g li:before{border-color:var(--green)}
     <g class="cie-psv" style="transform:translateX(24px)">
       <!-- Blocked network line trying to reach PSV -->
       <path d="M960 52 Q1270 52 1460 144" fill="none" stroke="#5a6b82" stroke-width="2.5" stroke-dasharray="6 6"/>
-      <rect x="1130" y="36" width="250" height="32" rx="6" fill="#0d121a" stroke="#3ddc97" stroke-width="2"/>
-      <text x="1255" y="57" text-anchor="middle" font-family="Consolas,monospace" font-size="14" font-weight="700" fill="#3ddc97">✕ NO IP · NO SWITCH PORT</text>
+      <rect x="1115" y="34" width="280" height="36" rx="6" fill="#0d121a" stroke="#3ddc97" stroke-width="2"/>
+      <text x="1255" y="58" text-anchor="middle" font-family="Consolas,monospace" font-size="16.5" font-weight="700" fill="#3ddc97">✕ NO IP · NO SWITCH PORT</text>
 
       <!-- Physical process pipe & Mechanical Relief Valve -->
       <path d="M1270 211 H1335" stroke="#3ddc97" stroke-width="6" class="psv-vent"/>
@@ -1055,12 +1060,12 @@ ul.clean.g li:before{border-color:var(--green)}
   <div class="translate f" data-s="1">
     <div class="say no">“CVSS 9.8 on the HMI web server”</div>
     <div class="ar">→</div>
-    <div class="say yes">“Could stop Line 3 for a shift — here's the $1,200 fix”<span style="display:block;font-size:16px;opacity:.6;margin-top:6px">example figure</span></div>
+    <div class="say yes">“Could stop Line 3 for a shift — here's the $1,200 fix”<span style="display:block;font-size:19px;color:var(--muted);margin-top:8px">illustrative example figure</span></div>
   </div>
   <aside class="notes"><ul>
     <li>The plant manager watches these five dials. Security only matters to the extent it moves one of them.</li>
     <li>[Click] Translate. Same finding, two languages. One gets ignored, one gets funded.</li>
-    <li>Hand-off: now apply this thinking to the standards themselves.</li>
+    <li>Hand-off: now let's look at the actual controllers sitting on that plant floor.</li>
   </ul></aside>
 </section>
 
@@ -1106,13 +1111,13 @@ ul.clean.g li:before{border-color:var(--green)}
     <div class="sld"><span class="l amber">MFA everywhere</span><div class="track"><div class="knob"></div></div><span class="cyan">Break-glass at 2 a.m.</span></div>
   </div>
   <div class="f" data-s="1">
-    <p style="margin-top:44px;font-size:32px" class="muted">Can't patch the legacy box? Compensate:</p>
-    <div class="comp"><span>Segment it</span><span>Allow-list who talks to it</span><span>Monitor passively</span><span>Back up the logic</span><span>Engineered safeguards</span></div>
+    <p style="margin-top:40px;font-size:38px;font-weight:700;color:var(--text)">Can't patch the legacy box? <span class="amber">“No pathway, no peril.”</span> <span class="muted" style="font-weight:500;font-size:30px">— cut the path &amp; compensate:</span></p>
+    <div class="comp" style="margin-top:24px"><span>Segment it</span><span>Allow-list who talks to it</span><span>Monitor passively</span><span>Back up the logic</span><span>Engineered safeguards</span></div>
   </div>
   <aside class="notes"><ul>
     <li>The sliders keep moving because the right answer depends on the zone, the process, and the consequence.</li>
     <li>Safety and availability come first — but "we can't patch" is the start of the conversation, not the end.</li>
-    <li>[Click] The compensating-controls menu for gear you can't touch.</li>
+    <li>[Click] My rule on patching: <b>No pathway, no peril.</b> A CVE on a legacy PLC only matters if an attacker has a pathway to reach it. Take away the pathway with compensating controls.</li>
   </ul></aside>
 </section>
 
@@ -1169,12 +1174,12 @@ ul.clean.g li:before{border-color:var(--green)}
   <div class="who">Carl von Clausewitz <span>On War, Book 1, Ch. 7</span></div>
   <div class="f" data-s="1" style="margin-top:70px;padding-left:70px">
     <p class="big" style="font-size:46px">“If they'd just patched and deprovisioned the people they fired,<br><span class="amber">my job would've been easy.”</span></p>
-    <p class="mono" style="margin-top:18px;font-size:24px;color:var(--red)">↳ see: Port Hudson, 2014</p>
+    <p class="mono" style="margin-top:18px;font-size:23px;color:var(--red)">↳ Georgia-Pacific Port Hudson (2014): fired sysadmin’s unrevoked VPN → months of mill upsets &amp; $1.1M loss</p>
   </div>
   <aside class="notes"><ul>
     <li>Clausewitz called it friction. Simple things are hard when you're actually doing them.</li>
     <li>[Click] My joke, mostly. If organizations just patched and turned off accounts for people they fired, I'd have a very chill job.</li>
-    <li>Port Hudson callback: one deprovisioning step would have prevented months of pain.</li>
+    <li>Real-world proof: at Georgia-Pacific's Port Hudson paper mill in 2014, a fired sysadmin's VPN stayed active — months of plant upsets, $1.1M restitution, 34 months federal prison (full case in Section 05 if time permits).</li>
   </ul></aside>
 </section>
 
@@ -1182,14 +1187,14 @@ ul.clean.g li:before{border-color:var(--green)}
 <section class="slide" data-title="Four things that work">
   <div class="kicker">Four boring things that work</div>
   <div class="tiles">
-    <div class="tile f" style="--c:var(--red)"><svg class="ic" viewBox="0 0 84 84"><circle cx="42" cy="30" r="16" fill="none" stroke="#ff4f5e" stroke-width="6"/><path d="M14 76 Q42 40 70 76" fill="none" stroke="#ff4f5e" stroke-width="6"/><line x1="10" y1="10" x2="74" y2="74" stroke="#ff4f5e" stroke-width="7"/></svg><h3>Patch &amp; deprovision</h3><ul class="clean r"><li>Kill accounts the day people leave</li><li>VPN, shared logins, vendor accounts</li><li>Patch on the maintenance calendar</li></ul><div class="callback">PORT HUDSON</div></div>
+    <div class="tile f" style="--c:var(--red)"><svg class="ic" viewBox="0 0 84 84"><circle cx="42" cy="30" r="16" fill="none" stroke="#ff4f5e" stroke-width="6"/><path d="M14 76 Q42 40 70 76" fill="none" stroke="#ff4f5e" stroke-width="6"/><line x1="10" y1="10" x2="74" y2="74" stroke="#ff4f5e" stroke-width="7"/></svg><h3>Patch &amp; deprovision</h3><ul class="clean r"><li>Kill accounts the day people leave</li><li>VPN, shared logins, vendor accounts</li><li>Patch on the maintenance calendar — or cut the path (<b class="amber">no pathway, no peril</b>)</li></ul><div class="callback">GP PORT HUDSON · $1.1M</div></div>
     <div class="tile f" style="--c:var(--amber)"><svg class="ic" viewBox="0 0 84 84"><rect x="6" y="10" width="30" height="30" rx="4" fill="none" stroke="#ffb000" stroke-width="6"/><rect x="48" y="44" width="30" height="30" rx="4" fill="none" stroke="#ffb000" stroke-width="6"/><path d="M36 25 H60 V44" fill="none" stroke="#ffb000" stroke-width="6"/></svg><h3>Segmentation</h3><ul class="clean"><li>Zones &amp; conduits</li><li>SL 2 floor everywhere</li><li>Allow-list the conduits, deny the rest</li></ul></div>
     <div class="tile f" style="--c:var(--cyan)"><svg class="ic" viewBox="0 0 84 84"><rect x="18" y="38" width="48" height="38" rx="6" fill="none" stroke="#3fd2ff" stroke-width="6"/><path d="M28 38 V26 a14 14 0 0 1 28 0 V38" fill="none" stroke="#3fd2ff" stroke-width="6"/></svg><h3>Remote access</h3><ul class="clean c"><li>One door, through a jump host</li><li>MFA, time-boxed, recorded</li><li>Vendor sessions approved each time</li></ul></div>
     <div class="tile f" style="--c:var(--green)"><svg class="ic" viewBox="0 0 84 84"><rect x="14" y="6" width="56" height="72" rx="6" fill="none" stroke="#3ddc97" stroke-width="6"/><path d="M26 28 H58 M26 42 H58 M26 56 H46" stroke="#3ddc97" stroke-width="6"/></svg><h3>Dumb-but-tough IR</h3><ul class="clean g"><li>One page, not two hundred</li><li>Operators can run it at 2 a.m.</li><li>Known-good logic backups</li></ul></div>
   </div>
   <aside class="notes"><ul>
     <li>[Click ×4] Walk each tile in ~30 seconds.</li>
-    <li>Deprovisioning is the cheapest control in this whole talk.</li>
+    <li>Deprovisioning is the cheapest control in this whole talk. And remember on patching: no pathway, no peril.</li>
     <li>Remote access is one of the most common ways in. One door, watched.</li>
   </ul></aside>
 </section>
@@ -1209,7 +1214,7 @@ ul.clean.g li:before{border-color:var(--green)}
           <li><b>Make it safe.</b> Manual / SIS takes priority.</li>
           <li><b>Isolate.</b> Pull the conduit, not the plant.</li>
           <li><b>Call.</b> Ops lead · controls eng · security.</li>
-          <li><b>Ask:</b> intent or incident? Run the analysis.</li>
+          <li><b>Ask:</b> intent or incident? Check <b>physics · logs · access · changes</b>.</li>
           <li><b>Restore</b> from known-good logic.</li>
         </ol>
       </div>
@@ -1217,8 +1222,8 @@ ul.clean.g li:before{border-color:var(--green)}
   </div>
   <aside class="notes"><ul>
     <li>Everyone has the binder. Nobody has read the binder. Especially not at 2 a.m. with an alarm flood.</li>
-    <li>[Click] Dumb but tough: one page, on the wall, that an operator can actually run. Notice step 4 — that's the intent-or-incident triage from the start of the talk.</li>
-    <li>Hand-off: how do you do all this with no staff?</li>
+    <li>[Click] Dumb but tough: one page, on the wall, that an operator can actually run. Step 4 is rapid intent-or-incident triage — check physics, logs, access, and changes before yelling "hack" (full 4-check card in Section 05 if time permits).</li>
+    <li>Hand-off: how do you do all this with a lean team?</li>
   </ul></aside>
 </section>
 
@@ -1226,9 +1231,9 @@ ul.clean.g li:before{border-color:var(--green)}
 <section class="slide divider" data-title="Section 04: AI toolkit & custom standards">
   <div class="num">04</div>
   <div class="kicker">Section 04 · AI Toolkit &amp; Custom Standards</div>
-  <h1>Don't be <span class="amber">Kodak</span> with AI.</h1>
+  <h1>Put the <span class="amber">breakthrough</span> to work.</h1>
   <p class="handoff">Risk assessments · automated crosswalks · <b>building custom organizational standards with AI</b></p>
-  <aside class="notes"><ul><li>Callback to Kodak. Most people have AI in hand and are just playing with it — or shelving it. Let's put it to work on the boring, expensive parts of OT security.</li></ul></aside>
+  <aside class="notes"><ul><li>How do you execute all of this with a lean OT team? Borrow proven analytical tools and put AI to work on the tedious, expensive parts of OT security.</li></ul></aside>
 </section>
 
 <!-- ================= 13 KODAK ================= -->
@@ -1241,7 +1246,7 @@ ul.clean.g li:before{border-color:var(--green)}
   @keyframes kspin{to{transform:rotate(360deg)}}
   .kd .shelf{opacity:0;transform:translateY(-30px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
   .kd.s1 .shelf,.slide.active .kd .shelf.on{opacity:1;transform:none}
-  .kd .stamp{font:900 64px/1 var(--sans);fill:#ff4f5e;letter-spacing:.06em}
+  .kd .kstamp{font:900 64px/1 var(--sans);fill:#ff4f5e;letter-spacing:.06em}
   </style>
   <div class="kd">
     <svg viewBox="0 0 720 720" width="720" height="720">
@@ -1262,14 +1267,14 @@ ul.clean.g li:before{border-color:var(--green)}
       <g class="shelf f" data-s="1">
         <rect x="60" y="560" width="600" height="18" rx="4" fill="#5a6b82"/>
         <rect x="90" y="578" width="16" height="80" fill="#5a6b82"/><rect x="614" y="578" width="16" height="80" fill="#5a6b82"/>
-        <g transform="rotate(-12 360 640)"><rect x="200" y="600" width="320" height="86" rx="10" fill="none" stroke="#ff4f5e" stroke-width="6"/><text class="stamp" x="360" y="664" text-anchor="middle">SHELVED</text></g>
+        <g transform="rotate(-12 360 640)"><rect x="200" y="600" width="320" height="86" rx="10" fill="none" stroke="#ff4f5e" stroke-width="6"/><text class="kstamp" x="360" y="664" text-anchor="middle">SHELVED</text></g>
       </g>
     </svg>
     <div>
       <div class="kicker">Kodak · Rochester, NY · 1975</div>
       <h2 style="font-size:72px">Kodak built the first <span class="amber">digital camera.</span></h2>
       <p class="f big" data-s="1" style="font-size:44px">Then shelved it to protect film. <span class="red">Bankrupt in 2012.</span></p>
-      <p class="f" data-s="2" style="margin-top:34px;font-size:38px;color:var(--text)">They had the breakthrough in hand.<br><b class="amber">They never put it to work.</b></p>
+      <p class="f" data-s="2" style="margin-top:34px;font-size:38px;color:var(--text)">They had the breakthrough in hand — and never put it to work.<br><b class="amber">Don't be Kodak with AI.</b></p>
       <div class="f" data-s="3" style="margin-top:44px;padding:22px 28px;border-left:4px solid var(--cyan);background:rgba(63,210,255,.06);border-radius:10px">
         <p style="font-size:30px;color:var(--text)">Other fields borrow well: <b class="cyan">surgery stole the pilot's checklist</b> and cut complications.</p>
         <p style="font-size:24px;color:var(--muted);margin-top:8px">So let's steal from the intelligence community next ▸</p>
@@ -1279,7 +1284,7 @@ ul.clean.g li:before{border-color:var(--green)}
   <aside class="notes"><ul>
     <li>1975, Kodak engineer Steve Sasson builds the first digital camera. Toaster-sized, about 8 pounds, 0.01 megapixels, recorded to cassette tape, 23 seconds per picture.</li>
     <li>[Click] Management shelved it. Digital threatened the film business. Kodak filed for bankruptcy in 2012.</li>
-    <li>[Click] The lesson: having the tool isn't the same as applying it. Keep this in your pocket — we come back to it with AI.</li>
+    <li>[Click] The lesson: having the breakthrough in hand isn't the same as applying it. Don't be Kodak with AI — put it to work on the boring, expensive parts of OT engineering.</li>
     <li>[Click] The flip side: fields that borrow well win. Surgery adopted aviation's checklist and complications dropped. Hand-off: we're going to borrow from the intelligence community.</li>
   </ul></aside>
 </section>
@@ -1322,8 +1327,8 @@ ul.clean.g li:before{border-color:var(--green)}
     <circle r="12" fill="#ffb000"><animateMotion dur="3s" repeatCount="indefinite" path="M180 210 H1480"/></circle>
     <circle r="12" fill="#ffb000"><animateMotion dur="3s" begin="1s" repeatCount="indefinite" path="M180 210 H1480"/></circle>
     <circle r="12" fill="#ffb000"><animateMotion dur="3s" begin="2s" repeatCount="indefinite" path="M180 210 H1480"/></circle>
-    <g class="st"><rect x="20" y="90" width="310" height="240" rx="20" style="fill:#151e2b"/><text x="175" y="160" font-size="34">Inputs</text><text class="sub" x="175" y="210" font-size="21">asset lists · firewall</text><text class="sub" x="175" y="240" font-size="21">rules · P&amp;IDs · notes</text><text class="sub" x="175" y="270" font-size="21">standard clauses</text></g>
-    <g class="st"><rect x="460" y="90" width="310" height="240" rx="20" style="stroke:#3fd2ff"/><text x="615" y="160" font-size="34" fill="#3fd2ff" style="fill:#3fd2ff">AI drafts</text><text class="sub" x="615" y="210" font-size="21">threat model</text><text class="sub" x="615" y="240" font-size="21">crosswalk · gap list</text><text class="sub" x="615" y="270" font-size="21">consequence draft</text></g>
+    <g class="st"><rect x="20" y="90" width="310" height="240" rx="20" style="fill:#151e2b"/><text x="175" y="160" font-size="34">Inputs</text><text class="sub" x="175" y="206" font-size="21">sanitized assets &amp; rules</text><text class="sub" x="175" y="236" font-size="21">redacted P&amp;IDs · notes</text><text class="sub" x="175" y="266" font-size="21">standard clauses</text><text x="175" y="306" font-family="Consolas,monospace" font-size="17" style="fill:#3ddc97">sanitized / local only</text></g>
+    <g class="st"><rect x="460" y="90" width="310" height="240" rx="20" style="stroke:#3fd2ff"/><text x="615" y="160" font-size="34" fill="#3fd2ff" style="fill:#3fd2ff">AI drafts</text><text class="sub" x="615" y="206" font-size="21">threat model</text><text class="sub" x="615" y="236" font-size="21">crosswalk · gap list</text><text class="sub" x="615" y="266" font-size="21">consequence draft</text><text x="615" y="306" font-family="Consolas,monospace" font-size="17" style="fill:#3fd2ff">local / private LLM</text></g>
     <g class="st human f fade" data-s="1"><rect x="900" y="70" width="330" height="280" rx="20"/><text x="1065" y="150" font-size="34" style="fill:#ffb000">Engineer judges</text><text class="sub" x="1065" y="200" font-size="21">verify against source</text><text class="sub" x="1065" y="230" font-size="21">assign ICD 203</text><text class="sub" x="1065" y="260" font-size="21">likelihood + confidence</text><text x="1065" y="315" font-size="26" style="fill:#e9eef4">✍ signs it</text></g>
     <g class="st f fade" data-s="2"><rect x="1330" y="90" width="290" height="240" rx="20" style="stroke:#3ddc97"/><text x="1475" y="160" font-size="34" style="fill:#3ddc97">Deliverable</text><text class="sub" x="1475" y="210" font-size="21">risk assessment</text><text class="sub" x="1475" y="240" font-size="21">standards map</text><text class="sub" x="1475" y="270" font-size="21">gap report</text></g>
   </svg>
@@ -1409,12 +1414,12 @@ ul.clean.g li:before{border-color:var(--green)}
 
 <!-- ================= 35 CROSSWALK DEMO ================= -->
 <section class="slide" data-title="Live crosswalk demo">
-  <div class="kicker"><span class="live"></span>&nbsp;Live demo · standards crosswalk</div>
+  <div class="kicker"><span class="live"></span>&nbsp;Live demo · Interactive 62443-3-3 ↔ NIST Crosswalk</div>
   <div class="xw">
     <div class="list" id="xwList"></div>
     <div class="out" id="xwOut"></div>
   </div>
-  <div class="src" style="bottom:40px">Illustrative sample, drafted with AI and checked by an engineer. Verify against the licensed standard text before use. SP 800-53 controls per the 800-82r3 OT overlay.</div>
+  <div class="src" style="bottom:40px">Illustrative sample, drafted with AI and checked by an engineer. Verify against the licensed standard text before use. SP 800-53 controls per the 800-82r3 / r4 OT overlay.</div>
   <aside class="notes"><ul>
     <li>Click through 2–3 requirements with the mouse (arrow keys still move slides). Suggest: SR 1.13, SR 5.1, SR 7.3.</li>
     <li>Point out the "Legacy reality" line — that's where the standard meets the plant.</li>
@@ -1437,7 +1442,7 @@ ul.clean.g li:before{border-color:var(--green)}
     <li>#4 matters: models will confidently cite SR numbers that don't exist. Check.</li>
     <li>Hand-off to close.</li>
   </ul></aside>
-  <div style="position:absolute;right:140px;bottom:48px;display:flex;gap:18px;font:700 16px var(--mono)">
+  <div style="position:absolute;right:140px;bottom:46px;display:flex;gap:18px;font:700 18px var(--mono)">
     <a href="#29" onclick="event.stopPropagation()" style="color:var(--cyan);text-decoration:none;padding:8px 14px;border:1px solid rgba(63,210,255,.4);border-radius:8px;background:rgba(63,210,255,.08)">TIME PERMITTING: FIELD CASES (#29) ▸</a>
     <a href="#42" onclick="event.stopPropagation()" style="color:var(--amber);text-decoration:none;padding:8px 14px;border:1px solid rgba(255,176,0,.45);border-radius:8px;background:rgba(255,176,0,.10)">JUMP TO CLOSE: 5 THINGS MONDAY (#42) ▸</a>
   </div>
@@ -1541,7 +1546,7 @@ ul.clean.g li:before{border-color:var(--green)}
     <li>Opposite failure mode. Everyone assumed equipment. Nobody asked "who still has access?"</li>
     <li>[Click] It was a fired systems administrator, still logging in over the VPN.</li>
     <li>[Click] We spent months on it. I came in at the tail end — tell the story briefly.</li>
-    <li>[Click] 34 months, $1.1M restitution. Hold this one — it comes back later.</li>
+    <li>[Click] 34 months, $1.1M restitution — the exact reason same-day deprovisioning led our "Four Boring Things" list earlier.</li>
   </ul></aside>
 </section>
 
@@ -1571,13 +1576,13 @@ ul.clean.g li:before{border-color:var(--green)}
   <div class="kicker">The method · Intent or incident?</div>
   <h2 style="font-size:64px;margin-bottom:30px">Four checks <span class="amber">before</span> anyone says “hack.”</h2>
   <div class="tiles">
-    <div class="tile f" style="--c:var(--cyan);min-height:auto"><h3><span style="font:800 30px var(--mono);color:var(--cyan)">01</span> Physics</h3><ul style="list-style:none">
+    <div class="tile f" style="--c:var(--cyan);min-height:auto;padding-bottom:32px"><h3><span style="font:800 30px var(--mono);color:var(--cyan)">01</span> Physics</h3><ul style="list-style:none">
       <li>Is the change physically possible for this equipment?</li><li>Does it match a known failure mode (drift, stiction, bad VFD)?</li><li>Did the process respond the way the logic says it should?</li></ul></div>
-    <div class="tile f" style="--c:var(--amber);min-height:auto"><h3><span style="font:800 30px var(--mono);color:var(--amber)">02</span> Logs</h3><ul style="list-style:none">
+    <div class="tile f" style="--c:var(--amber);min-height:auto;padding-bottom:32px"><h3><span style="font:800 30px var(--mono);color:var(--amber)">02</span> Logs</h3><ul style="list-style:none">
       <li>What do the historian and alarm journal say, in what order?</li><li>Does the HMI audit trail show a write, and from which station?</li><li>Any gaps, resets, or time jumps?</li></ul></div>
-    <div class="tile f" style="--c:var(--red);min-height:auto"><h3><span style="font:800 30px var(--mono);color:var(--red)">03</span> Access</h3><ul style="list-style:none">
+    <div class="tile f" style="--c:var(--red);min-height:auto;padding-bottom:32px"><h3><span style="font:800 30px var(--mono);color:var(--red)">03</span> Access</h3><ul style="list-style:none">
       <li>Who was logged in, locally or remotely?</li><li>Any VPN, vendor, or shared-account sessions at that time?</li><li>Any accounts that should be dead? <span class="amber">(Port Hudson)</span></li></ul></div>
-    <div class="tile f" style="--c:var(--green);min-height:auto"><h3><span style="font:800 30px var(--mono);color:var(--green)">04</span> Changes</h3><ul style="list-style:none">
+    <div class="tile f" style="--c:var(--green);min-height:auto;padding-bottom:32px"><h3><span style="font:800 30px var(--mono);color:var(--green)">04</span> Changes</h3><ul style="list-style:none">
       <li>Any open MOC, work order, or logic download?</li><li>Did maintenance or a vendor touch it this week?</li><li>Does the running logic match the last known-good backup?</li></ul></div>
   </div>
   <p class="f big" style="font-size:38px;margin-top:40px">Then call it: <span class="cyan">equipment</span> · <span class="green">operator</span> · <span class="red">cyber</span>, with ICD 203 <span class="amber">likelihood + confidence.</span></p>
@@ -1605,6 +1610,10 @@ ul.clean.g li:before{border-color:var(--green)}
     <li>Real point under the joke: plants are noisy. Equipment fails all the time. That's great cover — for attackers and for bad analysis.</li>
     <li>[Click] Hand-off: if first reports are wrong, who do you listen to?</li>
   </ul></aside>
+  <div style="position:absolute;right:140px;bottom:46px;display:flex;gap:18px;font:700 18px var(--mono)">
+    <a href="#37" onclick="event.stopPropagation()" style="color:var(--cyan);text-decoration:none;padding:8px 14px;border:1px solid rgba(63,210,255,.4);border-radius:8px;background:rgba(63,210,255,.08)">TIME PERMITTING: FILTER NOISE (#37) ▸</a>
+    <a href="#41" onclick="event.stopPropagation()" style="color:var(--amber);text-decoration:none;padding:8px 14px;border:1px solid rgba(255,176,0,.45);border-radius:8px;background:rgba(255,176,0,.10)">JUMP TO CLOSE: DAVE'S KEYBOARD (#41) ▸</a>
+  </div>
 </section>
 
 <!-- ================= 08 SECTION: NOISE ================= -->
@@ -1645,15 +1654,15 @@ ul.clean.g li:before{border-color:var(--green)}
   <div class="mtl">
     <div class="axis"></div>
     <div class="yr" style="left:0%">2010</div><div class="yr" style="left:35.7%">2015</div><div class="yr" style="left:71.4%">2020</div><div class="yr" style="left:100%">2024</div>
-    <div class="m up f" style="left:2%"><b>Stuxnet</b><small>2010 · centrifuges</small><div class="dot"></div></div>
-    <div class="m dn f" style="left:43%"><div class="dot"></div><b>Industroyer</b><small>2016 · Ukraine grid</small></div>
-    <div class="m up f" style="left:50%"><b>Triton</b><small>2017 · safety systems</small><div class="dot"></div></div>
-    <div class="m dn f" style="left:82%"><div class="dot"></div><b>Industroyer2</b><small>2022 · Ukraine grid</small></div>
-    <div class="m up f" style="left:82%"><b>Pipedream</b><small>2022 · caught before use</small><div class="dot"></div></div>
-    <div class="m up f" style="left:96%"><b>FrostyGoop</b><small>2024 · Modbus / heating</small><div class="dot"></div></div>
-    <div class="m dn f" style="left:96%"><div class="dot"></div><b>Fuxnet</b><small>2024 · sensor gateways</small></div>
+    <div class="m up" style="left:3%;--d:.10s"><b>Stuxnet</b><small>2010 · centrifuges</small><div class="dot"></div></div>
+    <div class="m dn" style="left:41%;--d:.22s"><div class="dot"></div><b>Industroyer</b><small>2016 · Ukraine grid</small></div>
+    <div class="m up" style="left:50%;--d:.34s"><b>Triton</b><small>2017 · safety systems</small><div class="dot"></div></div>
+    <div class="m up" style="left:74%;--d:.46s"><b>Pipedream</b><small>2022 · caught before use</small><div class="dot"></div></div>
+    <div class="m dn" style="left:82%;--d:.58s"><div class="dot"></div><b>Industroyer2</b><small>2022 · Ukraine grid</small></div>
+    <div class="m up" style="left:90%;--d:.70s"><b>FrostyGoop</b><small>2024 · Modbus / heating</small><div class="dot"></div></div>
+    <div class="m dn" style="left:97%;--d:.82s"><div class="dot"></div><b>Fuxnet</b><small>2024 · sensor gateways</small></div>
   </div>
-  <p class="f" data-s="8" style="font-size:34px;margin-top:-10px">Ransomware hitting a company that <i>owns</i> a plant ≠ an attack <span class="amber">on the plant.</span></p>
+  <p class="f" data-s="1" style="font-size:34px;margin-top:-10px">Ransomware hitting a company that <i>owns</i> a plant ≠ an attack <span class="amber">on the plant.</span></p>
   <div class="src">Also on most lists: Havex (2014), BlackEnergy 2 (2014), IOCONTROL (2024). Counts vary by source.</div>
   <aside class="notes"><ul>
     <li>Here's the counter-weight. OT-specific malware — tooling built to manipulate industrial processes — fits on one slide.</li>
@@ -1684,7 +1693,7 @@ ul.clean.g li:before{border-color:var(--green)}
     <li>Insta-expert: builds a brand, posts daily, has never stood next to a running process.</li>
     <li>[Click] Flip side: the veteran who won't hear anyone without PLC time. Also limited value — the field is changing faster than that attitude.</li>
     <li>[Click] Both stamped. [Click] Students: this is the target. Get your hands dirty AND stay curious.</li>
-    <li>Hand-off: don't trust people by label. Trust better thinking.</li>
+    <li>Hand-off: let's bring it all home to Monday morning.</li>
   </ul></aside>
 </section>
 
@@ -1710,7 +1719,7 @@ ul.clean.g li:before{border-color:var(--green)}
 <section class="slide" data-title="Five things Monday">
   <div class="kicker">Five things to do Monday</div>
   <div class="monday">
-    <div class="it f"><div class="bx"></div><p>Run <b class="amber">intent-or-incident</b> triage on your next weird event.</p></div>
+    <div class="it f"><div class="bx"></div><p>Run <b class="amber">intent-or-incident</b> triage (<span class="muted" style="font-size:27px">physics · logs · access · changes</span>) on your next weird event.</p></div>
     <div class="it f"><div class="bx"></div><p>Set <b class="amber">SL 2 as your floor</b>. List the zones that need more.</p></div>
     <div class="it f"><div class="bx"></div><p>Pull everyone who left in 12 months. <b class="amber">Confirm their access is dead.</b></p></div>
     <div class="it f"><div class="bx"></div><p>Write the <b class="amber">one-page IR card</b>. Verify a known-good logic backup.</p></div>
@@ -1727,6 +1736,7 @@ ul.clean.g li:before{border-color:var(--green)}
   </div>
   <div class="qrs">
     <div class="qr f zoom" data-s="0"><div class="box"><svg viewBox="0 0 29 29" shape-rendering="crispEdges"><path d="M0,0h1v1h-1zM1,0h1v1h-1zM2,0h1v1h-1zM3,0h1v1h-1zM4,0h1v1h-1zM5,0h1v1h-1zM6,0h1v1h-1zM10,0h1v1h-1zM14,0h1v1h-1zM18,0h1v1h-1zM19,0h1v1h-1zM20,0h1v1h-1zM22,0h1v1h-1zM23,0h1v1h-1zM24,0h1v1h-1zM25,0h1v1h-1zM26,0h1v1h-1zM27,0h1v1h-1zM28,0h1v1h-1zM0,1h1v1h-1zM6,1h1v1h-1zM10,1h1v1h-1zM12,1h1v1h-1zM16,1h1v1h-1zM17,1h1v1h-1zM18,1h1v1h-1zM19,1h1v1h-1zM22,1h1v1h-1zM28,1h1v1h-1zM0,2h1v1h-1zM2,2h1v1h-1zM3,2h1v1h-1zM4,2h1v1h-1zM6,2h1v1h-1zM9,2h1v1h-1zM12,2h1v1h-1zM14,2h1v1h-1zM15,2h1v1h-1zM17,2h1v1h-1zM18,2h1v1h-1zM22,2h1v1h-1zM24,2h1v1h-1zM25,2h1v1h-1zM26,2h1v1h-1zM28,2h1v1h-1zM0,3h1v1h-1zM2,3h1v1h-1zM3,3h1v1h-1zM4,3h1v1h-1zM6,3h1v1h-1zM10,3h1v1h-1zM11,3h1v1h-1zM13,3h1v1h-1zM16,3h1v1h-1zM17,3h1v1h-1zM19,3h1v1h-1zM22,3h1v1h-1zM24,3h1v1h-1zM25,3h1v1h-1zM26,3h1v1h-1zM28,3h1v1h-1zM0,4h1v1h-1zM2,4h1v1h-1zM3,4h1v1h-1zM4,4h1v1h-1zM6,4h1v1h-1zM9,4h1v1h-1zM12,4h1v1h-1zM18,4h1v1h-1zM19,4h1v1h-1zM20,4h1v1h-1zM22,4h1v1h-1zM24,4h1v1h-1zM25,4h1v1h-1zM26,4h1v1h-1zM28,4h1v1h-1zM0,5h1v1h-1zM6,5h1v1h-1zM8,5h1v1h-1zM9,5h1v1h-1zM15,5h1v1h-1zM16,5h1v1h-1zM19,5h1v1h-1zM20,5h1v1h-1zM22,5h1v1h-1zM28,5h1v1h-1zM0,6h1v1h-1zM1,6h1v1h-1zM2,6h1v1h-1zM3,6h1v1h-1zM4,6h1v1h-1zM5,6h1v1h-1zM6,6h1v1h-1zM8,6h1v1h-1zM10,6h1v1h-1zM12,6h1v1h-1zM14,6h1v1h-1zM16,6h1v1h-1zM18,6h1v1h-1zM20,6h1v1h-1zM22,6h1v1h-1zM23,6h1v1h-1zM24,6h1v1h-1zM25,6h1v1h-1zM26,6h1v1h-1zM27,6h1v1h-1zM28,6h1v1h-1zM9,7h1v1h-1zM10,7h1v1h-1zM13,7h1v1h-1zM15,7h1v1h-1zM16,7h1v1h-1zM17,7h1v1h-1zM0,8h1v1h-1zM3,8h1v1h-1zM5,8h1v1h-1zM6,8h1v1h-1zM8,8h1v1h-1zM9,8h1v1h-1zM11,8h1v1h-1zM14,8h1v1h-1zM16,8h1v1h-1zM17,8h1v1h-1zM18,8h1v1h-1zM21,8h1v1h-1zM23,8h1v1h-1zM2,9h1v1h-1zM7,9h1v1h-1zM9,9h1v1h-1zM12,9h1v1h-1zM13,9h1v1h-1zM15,9h1v1h-1zM16,9h1v1h-1zM17,9h1v1h-1zM19,9h1v1h-1zM21,9h1v1h-1zM22,9h1v1h-1zM25,9h1v1h-1zM28,9h1v1h-1zM1,10h1v1h-1zM2,10h1v1h-1zM3,10h1v1h-1zM4,10h1v1h-1zM6,10h1v1h-1zM7,10h1v1h-1zM10,10h1v1h-1zM13,10h1v1h-1zM14,10h1v1h-1zM15,10h1v1h-1zM18,10h1v1h-1zM19,10h1v1h-1zM21,10h1v1h-1zM23,10h1v1h-1zM24,10h1v1h-1zM25,10h1v1h-1zM26,10h1v1h-1zM27,10h1v1h-1zM0,11h1v1h-1zM1,11h1v1h-1zM3,11h1v1h-1zM7,11h1v1h-1zM8,11h1v1h-1zM9,11h1v1h-1zM12,11h1v1h-1zM13,11h1v1h-1zM16,11h1v1h-1zM21,11h1v1h-1zM24,11h1v1h-1zM26,11h1v1h-1zM27,11h1v1h-1zM1,12h1v1h-1zM2,12h1v1h-1zM4,12h1v1h-1zM5,12h1v1h-1zM6,12h1v1h-1zM7,12h1v1h-1zM8,12h1v1h-1zM11,12h1v1h-1zM12,12h1v1h-1zM14,12h1v1h-1zM15,12h1v1h-1zM16,12h1v1h-1zM17,12h1v1h-1zM18,12h1v1h-1zM19,12h1v1h-1zM20,12h1v1h-1zM22,12h1v1h-1zM25,12h1v1h-1zM27,12h1v1h-1zM28,12h1v1h-1zM4,13h1v1h-1zM5,13h1v1h-1zM7,13h1v1h-1zM8,13h1v1h-1zM9,13h1v1h-1zM10,13h1v1h-1zM11,13h1v1h-1zM13,13h1v1h-1zM14,13h1v1h-1zM15,13h1v1h-1zM16,13h1v1h-1zM21,13h1v1h-1zM1,14h1v1h-1zM5,14h1v1h-1zM6,14h1v1h-1zM9,14h1v1h-1zM11,14h1v1h-1zM13,14h1v1h-1zM14,14h1v1h-1zM16,14h1v1h-1zM19,14h1v1h-1zM20,14h1v1h-1zM21,14h1v1h-1zM25,14h1v1h-1zM26,14h1v1h-1zM27,14h1v1h-1zM28,14h1v1h-1zM0,15h1v1h-1zM1,15h1v1h-1zM2,15h1v1h-1zM4,15h1v1h-1zM7,15h1v1h-1zM10,15h1v1h-1zM15,15h1v1h-1zM17,15h1v1h-1zM20,15h1v1h-1zM21,15h1v1h-1zM22,15h1v1h-1zM23,15h1v1h-1zM25,15h1v1h-1zM27,15h1v1h-1zM2,16h1v1h-1zM6,16h1v1h-1zM7,16h1v1h-1zM8,16h1v1h-1zM10,16h1v1h-1zM12,16h1v1h-1zM13,16h1v1h-1zM17,16h1v1h-1zM19,16h1v1h-1zM20,16h1v1h-1zM21,16h1v1h-1zM27,16h1v1h-1zM1,17h1v1h-1zM2,17h1v1h-1zM3,17h1v1h-1zM4,17h1v1h-1zM5,17h1v1h-1zM8,17h1v1h-1zM9,17h1v1h-1zM10,17h1v1h-1zM12,17h1v1h-1zM13,17h1v1h-1zM14,17h1v1h-1zM17,17h1v1h-1zM20,17h1v1h-1zM21,17h1v1h-1zM22,17h1v1h-1zM23,17h1v1h-1zM25,17h1v1h-1zM28,17h1v1h-1zM0,18h1v1h-1zM2,18h1v1h-1zM3,18h1v1h-1zM4,18h1v1h-1zM6,18h1v1h-1zM12,18h1v1h-1zM14,18h1v1h-1zM15,18h1v1h-1zM16,18h1v1h-1zM17,18h1v1h-1zM18,18h1v1h-1zM19,18h1v1h-1zM20,18h1v1h-1zM21,18h1v1h-1zM27,18h1v1h-1zM28,18h1v1h-1zM2,19h1v1h-1zM4,19h1v1h-1zM7,19h1v1h-1zM8,19h1v1h-1zM10,19h1v1h-1zM11,19h1v1h-1zM12,19h1v1h-1zM14,19h1v1h-1zM16,19h1v1h-1zM17,19h1v1h-1zM23,19h1v1h-1zM27,19h1v1h-1zM28,19h1v1h-1zM0,20h1v1h-1zM5,20h1v1h-1zM6,20h1v1h-1zM9,20h1v1h-1zM10,20h1v1h-1zM11,20h1v1h-1zM15,20h1v1h-1zM17,20h1v1h-1zM20,20h1v1h-1zM21,20h1v1h-1zM22,20h1v1h-1zM23,20h1v1h-1zM24,20h1v1h-1zM26,20h1v1h-1zM8,21h1v1h-1zM9,21h1v1h-1zM10,21h1v1h-1zM12,21h1v1h-1zM14,21h1v1h-1zM15,21h1v1h-1zM18,21h1v1h-1zM19,21h1v1h-1zM20,21h1v1h-1zM24,21h1v1h-1zM26,21h1v1h-1zM27,21h1v1h-1zM28,21h1v1h-1zM0,22h1v1h-1zM1,22h1v1h-1zM2,22h1v1h-1zM3,22h1v1h-1zM4,22h1v1h-1zM5,22h1v1h-1zM6,22h1v1h-1zM9,22h1v1h-1zM12,22h1v1h-1zM17,22h1v1h-1zM18,22h1v1h-1zM20,22h1v1h-1zM22,22h1v1h-1zM24,22h1v1h-1zM27,22h1v1h-1zM0,23h1v1h-1zM6,23h1v1h-1zM8,23h1v1h-1zM10,23h1v1h-1zM12,23h1v1h-1zM14,23h1v1h-1zM16,23h1v1h-1zM17,23h1v1h-1zM19,23h1v1h-1zM20,23h1v1h-1zM24,23h1v1h-1zM25,23h1v1h-1zM26,23h1v1h-1zM0,24h1v1h-1zM2,24h1v1h-1zM3,24h1v1h-1zM4,24h1v1h-1zM6,24h1v1h-1zM10,24h1v1h-1zM15,24h1v1h-1zM20,24h1v1h-1zM21,24h1v1h-1zM22,24h1v1h-1zM23,24h1v1h-1zM24,24h1v1h-1zM28,24h1v1h-1zM0,25h1v1h-1zM2,25h1v1h-1zM3,25h1v1h-1zM4,25h1v1h-1zM6,25h1v1h-1zM8,25h1v1h-1zM11,25h1v1h-1zM13,25h1v1h-1zM15,25h1v1h-1zM19,25h1v1h-1zM20,25h1v1h-1zM22,25h1v1h-1zM24,25h1v1h-1zM25,25h1v1h-1zM26,25h1v1h-1zM28,25h1v1h-1zM0,26h1v1h-1zM2,26h1v1h-1zM3,26h1v1h-1zM4,26h1v1h-1zM6,26h1v1h-1zM9,26h1v1h-1zM12,26h1v1h-1zM14,26h1v1h-1zM16,26h1v1h-1zM17,26h1v1h-1zM18,26h1v1h-1zM19,26h1v1h-1zM21,26h1v1h-1zM24,26h1v1h-1zM25,26h1v1h-1zM26,26h1v1h-1zM28,26h1v1h-1zM0,27h1v1h-1zM6,27h1v1h-1zM11,27h1v1h-1zM15,27h1v1h-1zM18,27h1v1h-1zM19,27h1v1h-1zM20,27h1v1h-1zM21,27h1v1h-1zM24,27h1v1h-1zM27,27h1v1h-1zM0,28h1v1h-1zM1,28h1v1h-1zM2,28h1v1h-1zM3,28h1v1h-1zM4,28h1v1h-1zM5,28h1v1h-1zM6,28h1v1h-1zM8,28h1v1h-1zM11,28h1v1h-1zM14,28h1v1h-1zM15,28h1v1h-1zM16,28h1v1h-1zM17,28h1v1h-1zM18,28h1v1h-1zM20,28h1v1h-1zM22,28h1v1h-1zM23,28h1v1h-1zM25,28h1v1h-1zM27,28h1v1h-1z"/></svg></div><b>Michael Thompson</b><small>orcid.org/0000-0002-0836-244X</small></div>
+    <div class="qr deck f zoom" data-s="0"><div class="box"><svg viewBox="0 0 33 33" shape-rendering="crispEdges"><path d="M0,0h1v1h-1zM1,0h1v1h-1zM2,0h1v1h-1zM3,0h1v1h-1zM4,0h1v1h-1zM5,0h1v1h-1zM6,0h1v1h-1zM8,0h1v1h-1zM9,0h1v1h-1zM10,0h1v1h-1zM14,0h1v1h-1zM18,0h1v1h-1zM20,0h1v1h-1zM21,0h1v1h-1zM26,0h1v1h-1zM27,0h1v1h-1zM28,0h1v1h-1zM29,0h1v1h-1zM30,0h1v1h-1zM31,0h1v1h-1zM32,0h1v1h-1zM0,1h1v1h-1zM6,1h1v1h-1zM9,1h1v1h-1zM10,1h1v1h-1zM11,1h1v1h-1zM13,1h1v1h-1zM14,1h1v1h-1zM17,1h1v1h-1zM18,1h1v1h-1zM22,1h1v1h-1zM24,1h1v1h-1zM26,1h1v1h-1zM32,1h1v1h-1zM0,2h1v1h-1zM2,2h1v1h-1zM3,2h1v1h-1zM4,2h1v1h-1zM6,2h1v1h-1zM8,2h1v1h-1zM9,2h1v1h-1zM11,2h1v1h-1zM14,2h1v1h-1zM18,2h1v1h-1zM20,2h1v1h-1zM21,2h1v1h-1zM22,2h1v1h-1zM23,2h1v1h-1zM26,2h1v1h-1zM28,2h1v1h-1zM29,2h1v1h-1zM30,2h1v1h-1zM32,2h1v1h-1zM0,3h1v1h-1zM2,3h1v1h-1zM3,3h1v1h-1zM4,3h1v1h-1zM6,3h1v1h-1zM9,3h1v1h-1zM14,3h1v1h-1zM15,3h1v1h-1zM16,3h1v1h-1zM18,3h1v1h-1zM20,3h1v1h-1zM21,3h1v1h-1zM22,3h1v1h-1zM23,3h1v1h-1zM24,3h1v1h-1zM26,3h1v1h-1zM28,3h1v1h-1zM29,3h1v1h-1zM30,3h1v1h-1zM32,3h1v1h-1zM0,4h1v1h-1zM2,4h1v1h-1zM3,4h1v1h-1zM4,4h1v1h-1zM6,4h1v1h-1zM11,4h1v1h-1zM14,4h1v1h-1zM15,4h1v1h-1zM16,4h1v1h-1zM18,4h1v1h-1zM19,4h1v1h-1zM20,4h1v1h-1zM21,4h1v1h-1zM22,4h1v1h-1zM26,4h1v1h-1zM28,4h1v1h-1zM29,4h1v1h-1zM30,4h1v1h-1zM32,4h1v1h-1zM0,5h1v1h-1zM6,5h1v1h-1zM8,5h1v1h-1zM9,5h1v1h-1zM11,5h1v1h-1zM16,5h1v1h-1zM17,5h1v1h-1zM18,5h1v1h-1zM20,5h1v1h-1zM24,5h1v1h-1zM26,5h1v1h-1zM32,5h1v1h-1zM0,6h1v1h-1zM1,6h1v1h-1zM2,6h1v1h-1zM3,6h1v1h-1zM4,6h1v1h-1zM5,6h1v1h-1zM6,6h1v1h-1zM8,6h1v1h-1zM10,6h1v1h-1zM12,6h1v1h-1zM14,6h1v1h-1zM16,6h1v1h-1zM18,6h1v1h-1zM20,6h1v1h-1zM22,6h1v1h-1zM24,6h1v1h-1zM26,6h1v1h-1zM27,6h1v1h-1zM28,6h1v1h-1zM29,6h1v1h-1zM30,6h1v1h-1zM31,6h1v1h-1zM32,6h1v1h-1zM9,7h1v1h-1zM10,7h1v1h-1zM14,7h1v1h-1zM0,8h1v1h-1zM2,8h1v1h-1zM6,8h1v1h-1zM7,8h1v1h-1zM9,8h1v1h-1zM10,8h1v1h-1zM12,8h1v1h-1zM15,8h1v1h-1zM16,8h1v1h-1zM19,8h1v1h-1zM24,8h1v1h-1zM27,8h1v1h-1zM30,8h1v1h-1zM32,8h1v1h-1zM2,9h1v1h-1zM4,9h1v1h-1zM8,9h1v1h-1zM9,9h1v1h-1zM10,9h1v1h-1zM12,9h1v1h-1zM15,9h1v1h-1zM19,9h1v1h-1zM21,9h1v1h-1zM22,9h1v1h-1zM23,9h1v1h-1zM24,9h1v1h-1zM26,9h1v1h-1zM29,9h1v1h-1zM31,9h1v1h-1zM0,10h1v1h-1zM1,10h1v1h-1zM3,10h1v1h-1zM5,10h1v1h-1zM6,10h1v1h-1zM7,10h1v1h-1zM9,10h1v1h-1zM10,10h1v1h-1zM13,10h1v1h-1zM14,10h1v1h-1zM15,10h1v1h-1zM16,10h1v1h-1zM17,10h1v1h-1zM18,10h1v1h-1zM19,10h1v1h-1zM20,10h1v1h-1zM21,10h1v1h-1zM22,10h1v1h-1zM23,10h1v1h-1zM29,10h1v1h-1zM30,10h1v1h-1zM32,10h1v1h-1zM1,11h1v1h-1zM2,11h1v1h-1zM4,11h1v1h-1zM5,11h1v1h-1zM7,11h1v1h-1zM8,11h1v1h-1zM11,11h1v1h-1zM14,11h1v1h-1zM15,11h1v1h-1zM18,11h1v1h-1zM23,11h1v1h-1zM24,11h1v1h-1zM25,11h1v1h-1zM26,11h1v1h-1zM27,11h1v1h-1zM28,11h1v1h-1zM29,11h1v1h-1zM31,11h1v1h-1zM0,12h1v1h-1zM2,12h1v1h-1zM5,12h1v1h-1zM6,12h1v1h-1zM9,12h1v1h-1zM11,12h1v1h-1zM13,12h1v1h-1zM14,12h1v1h-1zM15,12h1v1h-1zM16,12h1v1h-1zM17,12h1v1h-1zM18,12h1v1h-1zM20,12h1v1h-1zM22,12h1v1h-1zM24,12h1v1h-1zM26,12h1v1h-1zM27,12h1v1h-1zM0,13h1v1h-1zM2,13h1v1h-1zM10,13h1v1h-1zM14,13h1v1h-1zM16,13h1v1h-1zM18,13h1v1h-1zM20,13h1v1h-1zM23,13h1v1h-1zM24,13h1v1h-1zM29,13h1v1h-1zM31,13h1v1h-1zM32,13h1v1h-1zM1,14h1v1h-1zM2,14h1v1h-1zM4,14h1v1h-1zM5,14h1v1h-1zM6,14h1v1h-1zM10,14h1v1h-1zM12,14h1v1h-1zM16,14h1v1h-1zM20,14h1v1h-1zM22,14h1v1h-1zM23,14h1v1h-1zM27,14h1v1h-1zM29,14h1v1h-1zM30,14h1v1h-1zM32,14h1v1h-1zM0,15h1v1h-1zM3,15h1v1h-1zM5,15h1v1h-1zM7,15h1v1h-1zM9,15h1v1h-1zM10,15h1v1h-1zM13,15h1v1h-1zM15,15h1v1h-1zM16,15h1v1h-1zM18,15h1v1h-1zM19,15h1v1h-1zM20,15h1v1h-1zM22,15h1v1h-1zM23,15h1v1h-1zM24,15h1v1h-1zM25,15h1v1h-1zM26,15h1v1h-1zM0,16h1v1h-1zM2,16h1v1h-1zM6,16h1v1h-1zM9,16h1v1h-1zM10,16h1v1h-1zM12,16h1v1h-1zM13,16h1v1h-1zM14,16h1v1h-1zM16,16h1v1h-1zM23,16h1v1h-1zM24,16h1v1h-1zM26,16h1v1h-1zM27,16h1v1h-1zM29,16h1v1h-1zM31,16h1v1h-1zM1,17h1v1h-1zM3,17h1v1h-1zM4,17h1v1h-1zM7,17h1v1h-1zM8,17h1v1h-1zM11,17h1v1h-1zM12,17h1v1h-1zM13,17h1v1h-1zM15,17h1v1h-1zM16,17h1v1h-1zM17,17h1v1h-1zM19,17h1v1h-1zM21,17h1v1h-1zM23,17h1v1h-1zM24,17h1v1h-1zM26,17h1v1h-1zM29,17h1v1h-1zM2,18h1v1h-1zM4,18h1v1h-1zM5,18h1v1h-1zM6,18h1v1h-1zM10,18h1v1h-1zM11,18h1v1h-1zM14,18h1v1h-1zM15,18h1v1h-1zM19,18h1v1h-1zM21,18h1v1h-1zM23,18h1v1h-1zM24,18h1v1h-1zM27,18h1v1h-1zM29,18h1v1h-1zM30,18h1v1h-1zM32,18h1v1h-1zM0,19h1v1h-1zM2,19h1v1h-1zM3,19h1v1h-1zM4,19h1v1h-1zM5,19h1v1h-1zM7,19h1v1h-1zM9,19h1v1h-1zM10,19h1v1h-1zM11,19h1v1h-1zM13,19h1v1h-1zM14,19h1v1h-1zM16,19h1v1h-1zM17,19h1v1h-1zM19,19h1v1h-1zM20,19h1v1h-1zM22,19h1v1h-1zM25,19h1v1h-1zM26,19h1v1h-1zM28,19h1v1h-1zM29,19h1v1h-1zM31,19h1v1h-1zM32,19h1v1h-1zM1,20h1v1h-1zM2,20h1v1h-1zM4,20h1v1h-1zM6,20h1v1h-1zM8,20h1v1h-1zM10,20h1v1h-1zM13,20h1v1h-1zM14,20h1v1h-1zM15,20h1v1h-1zM17,20h1v1h-1zM19,20h1v1h-1zM20,20h1v1h-1zM21,20h1v1h-1zM26,20h1v1h-1zM27,20h1v1h-1zM1,21h1v1h-1zM2,21h1v1h-1zM4,21h1v1h-1zM8,21h1v1h-1zM9,21h1v1h-1zM10,21h1v1h-1zM11,21h1v1h-1zM17,21h1v1h-1zM21,21h1v1h-1zM23,21h1v1h-1zM24,21h1v1h-1zM25,21h1v1h-1zM27,21h1v1h-1zM29,21h1v1h-1zM30,21h1v1h-1zM32,21h1v1h-1zM0,22h1v1h-1zM1,22h1v1h-1zM3,22h1v1h-1zM4,22h1v1h-1zM5,22h1v1h-1zM6,22h1v1h-1zM10,22h1v1h-1zM15,22h1v1h-1zM17,22h1v1h-1zM18,22h1v1h-1zM19,22h1v1h-1zM23,22h1v1h-1zM28,22h1v1h-1zM30,22h1v1h-1zM32,22h1v1h-1zM11,23h1v1h-1zM13,23h1v1h-1zM14,23h1v1h-1zM18,23h1v1h-1zM19,23h1v1h-1zM20,23h1v1h-1zM22,23h1v1h-1zM24,23h1v1h-1zM25,23h1v1h-1zM29,23h1v1h-1zM32,23h1v1h-1zM0,24h1v1h-1zM1,24h1v1h-1zM2,24h1v1h-1zM5,24h1v1h-1zM6,24h1v1h-1zM7,24h1v1h-1zM13,24h1v1h-1zM15,24h1v1h-1zM24,24h1v1h-1zM25,24h1v1h-1zM26,24h1v1h-1zM27,24h1v1h-1zM28,24h1v1h-1zM29,24h1v1h-1zM30,24h1v1h-1zM31,24h1v1h-1zM32,24h1v1h-1zM8,25h1v1h-1zM10,25h1v1h-1zM15,25h1v1h-1zM16,25h1v1h-1zM18,25h1v1h-1zM19,25h1v1h-1zM21,25h1v1h-1zM24,25h1v1h-1zM28,25h1v1h-1zM32,25h1v1h-1zM0,26h1v1h-1zM1,26h1v1h-1zM2,26h1v1h-1zM3,26h1v1h-1zM4,26h1v1h-1zM5,26h1v1h-1zM6,26h1v1h-1zM8,26h1v1h-1zM9,26h1v1h-1zM10,26h1v1h-1zM11,26h1v1h-1zM15,26h1v1h-1zM16,26h1v1h-1zM17,26h1v1h-1zM18,26h1v1h-1zM19,26h1v1h-1zM20,26h1v1h-1zM21,26h1v1h-1zM24,26h1v1h-1zM26,26h1v1h-1zM28,26h1v1h-1zM29,26h1v1h-1zM30,26h1v1h-1zM31,26h1v1h-1zM32,26h1v1h-1zM0,27h1v1h-1zM6,27h1v1h-1zM11,27h1v1h-1zM12,27h1v1h-1zM13,27h1v1h-1zM18,27h1v1h-1zM19,27h1v1h-1zM20,27h1v1h-1zM22,27h1v1h-1zM23,27h1v1h-1zM24,27h1v1h-1zM28,27h1v1h-1zM29,27h1v1h-1zM31,27h1v1h-1zM32,27h1v1h-1zM0,28h1v1h-1zM2,28h1v1h-1zM3,28h1v1h-1zM4,28h1v1h-1zM6,28h1v1h-1zM10,28h1v1h-1zM11,28h1v1h-1zM13,28h1v1h-1zM16,28h1v1h-1zM17,28h1v1h-1zM18,28h1v1h-1zM19,28h1v1h-1zM20,28h1v1h-1zM21,28h1v1h-1zM23,28h1v1h-1zM24,28h1v1h-1zM25,28h1v1h-1zM26,28h1v1h-1zM27,28h1v1h-1zM28,28h1v1h-1zM0,29h1v1h-1zM2,29h1v1h-1zM3,29h1v1h-1zM4,29h1v1h-1zM6,29h1v1h-1zM9,29h1v1h-1zM12,29h1v1h-1zM14,29h1v1h-1zM16,29h1v1h-1zM18,29h1v1h-1zM19,29h1v1h-1zM21,29h1v1h-1zM22,29h1v1h-1zM25,29h1v1h-1zM27,29h1v1h-1zM28,29h1v1h-1zM29,29h1v1h-1zM30,29h1v1h-1zM31,29h1v1h-1zM32,29h1v1h-1zM0,30h1v1h-1zM2,30h1v1h-1zM3,30h1v1h-1zM4,30h1v1h-1zM6,30h1v1h-1zM8,30h1v1h-1zM9,30h1v1h-1zM10,30h1v1h-1zM11,30h1v1h-1zM14,30h1v1h-1zM16,30h1v1h-1zM17,30h1v1h-1zM19,30h1v1h-1zM20,30h1v1h-1zM24,30h1v1h-1zM27,30h1v1h-1zM28,30h1v1h-1zM29,30h1v1h-1zM30,30h1v1h-1zM31,30h1v1h-1zM32,30h1v1h-1zM0,31h1v1h-1zM6,31h1v1h-1zM9,31h1v1h-1zM11,31h1v1h-1zM14,31h1v1h-1zM15,31h1v1h-1zM16,31h1v1h-1zM20,31h1v1h-1zM24,31h1v1h-1zM25,31h1v1h-1zM27,31h1v1h-1zM28,31h1v1h-1zM29,31h1v1h-1zM0,32h1v1h-1zM1,32h1v1h-1zM2,32h1v1h-1zM3,32h1v1h-1zM4,32h1v1h-1zM5,32h1v1h-1zM6,32h1v1h-1zM8,32h1v1h-1zM10,32h1v1h-1zM13,32h1v1h-1zM14,32h1v1h-1zM16,32h1v1h-1zM19,32h1v1h-1zM22,32h1v1h-1zM23,32h1v1h-1zM24,32h1v1h-1zM25,32h1v1h-1zM26,32h1v1h-1zM27,32h1v1h-1zM28,32h1v1h-1zM29,32h1v1h-1zM32,32h1v1h-1z"/></svg></div><b class="cyan">Interactive Deck &amp; Crosswalk</b><small>mthompson6782.github.io/MT-Lab/OT-with-MT</small></div>
     <div class="qr f zoom" data-s="0"><div class="box"><svg viewBox="0 0 33 33" shape-rendering="crispEdges"><path d="M0,0h1v1h-1zM1,0h1v1h-1zM2,0h1v1h-1zM3,0h1v1h-1zM4,0h1v1h-1zM5,0h1v1h-1zM6,0h1v1h-1zM10,0h1v1h-1zM11,0h1v1h-1zM15,0h1v1h-1zM17,0h1v1h-1zM18,0h1v1h-1zM21,0h1v1h-1zM22,0h1v1h-1zM26,0h1v1h-1zM27,0h1v1h-1zM28,0h1v1h-1zM29,0h1v1h-1zM30,0h1v1h-1zM31,0h1v1h-1zM32,0h1v1h-1zM0,1h1v1h-1zM6,1h1v1h-1zM8,1h1v1h-1zM9,1h1v1h-1zM12,1h1v1h-1zM13,1h1v1h-1zM14,1h1v1h-1zM16,1h1v1h-1zM17,1h1v1h-1zM20,1h1v1h-1zM22,1h1v1h-1zM26,1h1v1h-1zM32,1h1v1h-1zM0,2h1v1h-1zM2,2h1v1h-1zM3,2h1v1h-1zM4,2h1v1h-1zM6,2h1v1h-1zM8,2h1v1h-1zM9,2h1v1h-1zM11,2h1v1h-1zM13,2h1v1h-1zM19,2h1v1h-1zM21,2h1v1h-1zM22,2h1v1h-1zM26,2h1v1h-1zM28,2h1v1h-1zM29,2h1v1h-1zM30,2h1v1h-1zM32,2h1v1h-1zM0,3h1v1h-1zM2,3h1v1h-1zM3,3h1v1h-1zM4,3h1v1h-1zM6,3h1v1h-1zM8,3h1v1h-1zM9,3h1v1h-1zM11,3h1v1h-1zM12,3h1v1h-1zM17,3h1v1h-1zM20,3h1v1h-1zM21,3h1v1h-1zM24,3h1v1h-1zM26,3h1v1h-1zM28,3h1v1h-1zM29,3h1v1h-1zM30,3h1v1h-1zM32,3h1v1h-1zM0,4h1v1h-1zM2,4h1v1h-1zM3,4h1v1h-1zM4,4h1v1h-1zM6,4h1v1h-1zM10,4h1v1h-1zM15,4h1v1h-1zM17,4h1v1h-1zM19,4h1v1h-1zM20,4h1v1h-1zM21,4h1v1h-1zM22,4h1v1h-1zM23,4h1v1h-1zM26,4h1v1h-1zM28,4h1v1h-1zM29,4h1v1h-1zM30,4h1v1h-1zM32,4h1v1h-1zM0,5h1v1h-1zM6,5h1v1h-1zM11,5h1v1h-1zM13,5h1v1h-1zM16,5h1v1h-1zM18,5h1v1h-1zM20,5h1v1h-1zM21,5h1v1h-1zM26,5h1v1h-1zM32,5h1v1h-1zM0,6h1v1h-1zM1,6h1v1h-1zM2,6h1v1h-1zM3,6h1v1h-1zM4,6h1v1h-1zM5,6h1v1h-1zM6,6h1v1h-1zM8,6h1v1h-1zM10,6h1v1h-1zM12,6h1v1h-1zM14,6h1v1h-1zM16,6h1v1h-1zM18,6h1v1h-1zM20,6h1v1h-1zM22,6h1v1h-1zM24,6h1v1h-1zM26,6h1v1h-1zM27,6h1v1h-1zM28,6h1v1h-1zM29,6h1v1h-1zM30,6h1v1h-1zM31,6h1v1h-1zM32,6h1v1h-1zM8,7h1v1h-1zM11,7h1v1h-1zM14,7h1v1h-1zM19,7h1v1h-1zM20,7h1v1h-1zM0,8h1v1h-1zM6,8h1v1h-1zM8,8h1v1h-1zM10,8h1v1h-1zM14,8h1v1h-1zM15,8h1v1h-1zM16,8h1v1h-1zM17,8h1v1h-1zM19,8h1v1h-1zM20,8h1v1h-1zM23,8h1v1h-1zM25,8h1v1h-1zM26,8h1v1h-1zM29,8h1v1h-1zM30,8h1v1h-1zM31,8h1v1h-1zM0,9h1v1h-1zM2,9h1v1h-1zM8,9h1v1h-1zM10,9h1v1h-1zM11,9h1v1h-1zM12,9h1v1h-1zM15,9h1v1h-1zM17,9h1v1h-1zM18,9h1v1h-1zM19,9h1v1h-1zM22,9h1v1h-1zM23,9h1v1h-1zM28,9h1v1h-1zM29,9h1v1h-1zM30,9h1v1h-1zM1,10h1v1h-1zM2,10h1v1h-1zM3,10h1v1h-1zM4,10h1v1h-1zM6,10h1v1h-1zM7,10h1v1h-1zM8,10h1v1h-1zM9,10h1v1h-1zM10,10h1v1h-1zM12,10h1v1h-1zM15,10h1v1h-1zM16,10h1v1h-1zM18,10h1v1h-1zM20,10h1v1h-1zM21,10h1v1h-1zM22,10h1v1h-1zM24,10h1v1h-1zM28,10h1v1h-1zM30,10h1v1h-1zM0,11h1v1h-1zM1,11h1v1h-1zM2,11h1v1h-1zM3,11h1v1h-1zM5,11h1v1h-1zM8,11h1v1h-1zM10,11h1v1h-1zM12,11h1v1h-1zM14,11h1v1h-1zM16,11h1v1h-1zM24,11h1v1h-1zM26,11h1v1h-1zM27,11h1v1h-1zM28,11h1v1h-1zM29,11h1v1h-1zM30,11h1v1h-1zM31,11h1v1h-1zM2,12h1v1h-1zM4,12h1v1h-1zM5,12h1v1h-1zM6,12h1v1h-1zM7,12h1v1h-1zM13,12h1v1h-1zM14,12h1v1h-1zM15,12h1v1h-1zM16,12h1v1h-1zM17,12h1v1h-1zM18,12h1v1h-1zM20,12h1v1h-1zM24,12h1v1h-1zM26,12h1v1h-1zM0,13h1v1h-1zM2,13h1v1h-1zM3,13h1v1h-1zM8,13h1v1h-1zM9,13h1v1h-1zM10,13h1v1h-1zM12,13h1v1h-1zM14,13h1v1h-1zM16,13h1v1h-1zM18,13h1v1h-1zM19,13h1v1h-1zM20,13h1v1h-1zM21,13h1v1h-1zM23,13h1v1h-1zM26,13h1v1h-1zM27,13h1v1h-1zM29,13h1v1h-1zM31,13h1v1h-1zM32,13h1v1h-1zM2,14h1v1h-1zM3,14h1v1h-1zM6,14h1v1h-1zM7,14h1v1h-1zM11,14h1v1h-1zM12,14h1v1h-1zM14,14h1v1h-1zM18,14h1v1h-1zM22,14h1v1h-1zM25,14h1v1h-1zM26,14h1v1h-1zM29,14h1v1h-1zM31,14h1v1h-1zM1,15h1v1h-1zM3,15h1v1h-1zM11,15h1v1h-1zM15,15h1v1h-1zM22,15h1v1h-1zM25,15h1v1h-1zM27,15h1v1h-1zM28,15h1v1h-1zM29,15h1v1h-1zM30,15h1v1h-1zM32,15h1v1h-1zM0,16h1v1h-1zM1,16h1v1h-1zM3,16h1v1h-1zM6,16h1v1h-1zM7,16h1v1h-1zM10,16h1v1h-1zM12,16h1v1h-1zM14,16h1v1h-1zM17,16h1v1h-1zM19,16h1v1h-1zM22,16h1v1h-1zM23,16h1v1h-1zM24,16h1v1h-1zM25,16h1v1h-1zM27,16h1v1h-1zM28,16h1v1h-1zM29,16h1v1h-1zM32,16h1v1h-1zM0,17h1v1h-1zM1,17h1v1h-1zM2,17h1v1h-1zM4,17h1v1h-1zM7,17h1v1h-1zM9,17h1v1h-1zM10,17h1v1h-1zM12,17h1v1h-1zM13,17h1v1h-1zM14,17h1v1h-1zM15,17h1v1h-1zM16,17h1v1h-1zM17,17h1v1h-1zM18,17h1v1h-1zM19,17h1v1h-1zM20,17h1v1h-1zM21,17h1v1h-1zM23,17h1v1h-1zM26,17h1v1h-1zM29,17h1v1h-1zM30,17h1v1h-1zM3,18h1v1h-1zM5,18h1v1h-1zM6,18h1v1h-1zM7,18h1v1h-1zM12,18h1v1h-1zM14,18h1v1h-1zM15,18h1v1h-1zM16,18h1v1h-1zM19,18h1v1h-1zM21,18h1v1h-1zM22,18h1v1h-1zM23,18h1v1h-1zM24,18h1v1h-1zM25,18h1v1h-1zM27,18h1v1h-1zM29,18h1v1h-1zM30,18h1v1h-1zM32,18h1v1h-1zM0,19h1v1h-1zM2,19h1v1h-1zM3,19h1v1h-1zM4,19h1v1h-1zM5,19h1v1h-1zM7,19h1v1h-1zM9,19h1v1h-1zM10,19h1v1h-1zM13,19h1v1h-1zM15,19h1v1h-1zM16,19h1v1h-1zM17,19h1v1h-1zM18,19h1v1h-1zM19,19h1v1h-1zM20,19h1v1h-1zM25,19h1v1h-1zM28,19h1v1h-1zM29,19h1v1h-1zM30,19h1v1h-1zM31,19h1v1h-1zM0,20h1v1h-1zM5,20h1v1h-1zM6,20h1v1h-1zM9,20h1v1h-1zM12,20h1v1h-1zM13,20h1v1h-1zM14,20h1v1h-1zM16,20h1v1h-1zM19,20h1v1h-1zM22,20h1v1h-1zM24,20h1v1h-1zM25,20h1v1h-1zM28,20h1v1h-1zM29,20h1v1h-1zM31,20h1v1h-1zM0,21h1v1h-1zM1,21h1v1h-1zM2,21h1v1h-1zM7,21h1v1h-1zM10,21h1v1h-1zM11,21h1v1h-1zM14,21h1v1h-1zM16,21h1v1h-1zM17,21h1v1h-1zM18,21h1v1h-1zM19,21h1v1h-1zM22,21h1v1h-1zM23,21h1v1h-1zM24,21h1v1h-1zM25,21h1v1h-1zM27,21h1v1h-1zM28,21h1v1h-1zM30,21h1v1h-1zM0,22h1v1h-1zM4,22h1v1h-1zM6,22h1v1h-1zM10,22h1v1h-1zM11,22h1v1h-1zM15,22h1v1h-1zM16,22h1v1h-1zM18,22h1v1h-1zM20,22h1v1h-1zM25,22h1v1h-1zM28,22h1v1h-1zM29,22h1v1h-1zM31,22h1v1h-1zM0,23h1v1h-1zM5,23h1v1h-1zM8,23h1v1h-1zM11,23h1v1h-1zM12,23h1v1h-1zM14,23h1v1h-1zM18,23h1v1h-1zM19,23h1v1h-1zM20,23h1v1h-1zM22,23h1v1h-1zM24,23h1v1h-1zM25,23h1v1h-1zM26,23h1v1h-1zM29,23h1v1h-1zM30,23h1v1h-1zM32,23h1v1h-1zM0,24h1v1h-1zM1,24h1v1h-1zM2,24h1v1h-1zM3,24h1v1h-1zM4,24h1v1h-1zM5,24h1v1h-1zM6,24h1v1h-1zM7,24h1v1h-1zM9,24h1v1h-1zM12,24h1v1h-1zM13,24h1v1h-1zM15,24h1v1h-1zM16,24h1v1h-1zM20,24h1v1h-1zM24,24h1v1h-1zM25,24h1v1h-1zM26,24h1v1h-1zM27,24h1v1h-1zM28,24h1v1h-1zM29,24h1v1h-1zM32,24h1v1h-1zM8,25h1v1h-1zM11,25h1v1h-1zM13,25h1v1h-1zM14,25h1v1h-1zM15,25h1v1h-1zM16,25h1v1h-1zM18,25h1v1h-1zM19,25h1v1h-1zM21,25h1v1h-1zM23,25h1v1h-1zM24,25h1v1h-1zM28,25h1v1h-1zM30,25h1v1h-1zM0,26h1v1h-1zM1,26h1v1h-1zM2,26h1v1h-1zM3,26h1v1h-1zM4,26h1v1h-1zM5,26h1v1h-1zM6,26h1v1h-1zM9,26h1v1h-1zM12,26h1v1h-1zM14,26h1v1h-1zM15,26h1v1h-1zM16,26h1v1h-1zM18,26h1v1h-1zM20,26h1v1h-1zM22,26h1v1h-1zM23,26h1v1h-1zM24,26h1v1h-1zM26,26h1v1h-1zM28,26h1v1h-1zM30,26h1v1h-1zM31,26h1v1h-1zM0,27h1v1h-1zM6,27h1v1h-1zM11,27h1v1h-1zM12,27h1v1h-1zM14,27h1v1h-1zM15,27h1v1h-1zM23,27h1v1h-1zM24,27h1v1h-1zM28,27h1v1h-1zM29,27h1v1h-1zM30,27h1v1h-1zM32,27h1v1h-1zM0,28h1v1h-1zM2,28h1v1h-1zM3,28h1v1h-1zM4,28h1v1h-1zM6,28h1v1h-1zM9,28h1v1h-1zM10,28h1v1h-1zM14,28h1v1h-1zM18,28h1v1h-1zM19,28h1v1h-1zM22,28h1v1h-1zM24,28h1v1h-1zM25,28h1v1h-1zM26,28h1v1h-1zM27,28h1v1h-1zM28,28h1v1h-1zM29,28h1v1h-1zM31,28h1v1h-1zM0,29h1v1h-1zM2,29h1v1h-1zM3,29h1v1h-1zM4,29h1v1h-1zM6,29h1v1h-1zM10,29h1v1h-1zM13,29h1v1h-1zM16,29h1v1h-1zM17,29h1v1h-1zM19,29h1v1h-1zM20,29h1v1h-1zM21,29h1v1h-1zM23,29h1v1h-1zM24,29h1v1h-1zM25,29h1v1h-1zM27,29h1v1h-1zM28,29h1v1h-1zM29,29h1v1h-1zM30,29h1v1h-1zM31,29h1v1h-1zM32,29h1v1h-1zM0,30h1v1h-1zM2,30h1v1h-1zM3,30h1v1h-1zM4,30h1v1h-1zM6,30h1v1h-1zM9,30h1v1h-1zM11,30h1v1h-1zM12,30h1v1h-1zM13,30h1v1h-1zM14,30h1v1h-1zM16,30h1v1h-1zM18,30h1v1h-1zM19,30h1v1h-1zM20,30h1v1h-1zM23,30h1v1h-1zM25,30h1v1h-1zM27,30h1v1h-1zM28,30h1v1h-1zM30,30h1v1h-1zM31,30h1v1h-1zM32,30h1v1h-1zM0,31h1v1h-1zM6,31h1v1h-1zM10,31h1v1h-1zM11,31h1v1h-1zM15,31h1v1h-1zM16,31h1v1h-1zM18,31h1v1h-1zM20,31h1v1h-1zM22,31h1v1h-1zM23,31h1v1h-1zM25,31h1v1h-1zM27,31h1v1h-1zM28,31h1v1h-1zM29,31h1v1h-1zM30,31h1v1h-1zM0,32h1v1h-1zM1,32h1v1h-1zM2,32h1v1h-1zM3,32h1v1h-1zM4,32h1v1h-1zM5,32h1v1h-1zM6,32h1v1h-1zM8,32h1v1h-1zM9,32h1v1h-1zM12,32h1v1h-1zM17,32h1v1h-1zM22,32h1v1h-1zM23,32h1v1h-1zM24,32h1v1h-1zM27,32h1v1h-1zM31,32h1v1h-1z"/></svg></div><b>The toolkit · Isiah Jones</b><small>github.com/isiahjonesSTEM/security-methodology</small></div>
   </div>
   <aside class="notes"><ul><li>Leave this up during Q&amp;A. Thank the hosts again.</li></ul></aside>
@@ -1780,8 +1790,8 @@ function typeIn(s){
   s.querySelectorAll('.type').forEach(t=>{
     const full=t._full; t.innerHTML='<span class="tx"></span><span class="caret"></span>';
     const tx=t.firstChild; let i=0;
-    const tick=()=>{ tx.textContent=full.slice(0,++i); if(i<full.length) typeTimers.push(setTimeout(tick, full[i-1]===','||full[i-1]===';'?220:34)); };
-    typeTimers.push(setTimeout(tick,500));
+    const tick=()=>{ tx.textContent=full.slice(0,++i); if(i<full.length) typeTimers.push(setTimeout(tick, full[i-1]===','||full[i-1]===';'?130:22)); };
+    typeTimers.push(setTimeout(tick,120));
   });
 }
 
@@ -1911,6 +1921,7 @@ function key(e){
 }
 document.addEventListener('keydown',key);
 document.getElementById('help').onclick=()=>document.getElementById('help').classList.remove('on');
+document.querySelectorAll('.pdskip').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();next();}));
 
 /* hide cursor when idle */
 let ct; addEventListener('mousemove',()=>{document.body.classList.remove('hidecursor');clearTimeout(ct);ct=setTimeout(()=>document.body.classList.add('hidecursor'),2500);});
@@ -1938,13 +1949,14 @@ function xwRender(i){
   [...xwList.children].forEach((b,j)=>b.classList.toggle('sel',i===j));
   xwOut.innerHTML=`<div class="anim"><div class="cf ${d.cf}">CONFIDENCE · ${d.cf.toUpperCase()}</div>
   <div class="srid">ISA/IEC 62443-3-3 · ${d.sr}</div><h3>${d.name}</h3>
-  <div class="maprow" style="margin-top:18px"><span>SP 800-53 (800-82r3 overlay)</span><b>${d.c53}</b></div>
+  <div class="maprow" style="margin-top:18px"><span>SP 800-53 (800-82r3 / r4)</span><b>${d.c53}</b></div>
   <div class="maprow"><span>NIST CSF 2.0</span><b>${d.csf}</b></div>
   <div class="maprow" style="border:none"><span class="amber" style="color:var(--amber)">Legacy reality</span><p>${d.legacy}</p></div></div>`;
 }
 
 /* ---------- start ---------- */
 const h=parseInt(location.hash.slice(1)); go(isNaN(h)?0:h-1,0);
+setTimeout(()=>{try{pdDoc();}catch(e){}},500);
 })();
 </script>
 </body>
