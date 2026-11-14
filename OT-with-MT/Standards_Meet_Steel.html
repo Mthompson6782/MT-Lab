@@ -1168,8 +1168,8 @@ ul.clean.g li:before{border-color:var(--green)}
   <div class="num">02</div>
   <div class="kicker">Section 02 · Standards Meet Steel</div>
   <h1>Engineering <span class="amber">reality</span></h1>
-  <p class="handoff">Plant manager lens · legacy vs. modern controllers · operating trade-offs · system dependencies</p>
-  <aside class="notes"><ul><li>Now we take those standards onto the plant floor: what the plant manager cares about, legacy vs. modern controllers, trade-offs, and system dependencies.</li></ul></aside>
+  <p class="handoff">Plant manager lens · aligned vs. broken incentives · legacy vs. modern controllers · operating trade-offs · system dependencies</p>
+  <aside class="notes"><ul><li>Now we take those standards onto the plant floor: what the plant manager cares about, how OT cyber incentives align or collide with production tempo, legacy vs. modern controllers, trade-offs, and system dependencies.</li></ul></aside>
 </section>
 
 <!-- ================= 16 PLANT MANAGER ================= -->
@@ -1196,6 +1196,64 @@ ul.clean.g li:before{border-color:var(--green)}
     <li>The plant manager watches these five dials. Security only matters to the extent it moves one of them.</li>
     <li>[Click — Step 1] Translate. Same finding, two languages. One gets ignored, one gets funded.</li>
     <li>[Click — Step 2] And here's the rule I live by on site: quoting the standard is lazy engineering, and quoting it to a site manager will get you thrown off site. Your "why" should never be "because the standard says so."</li>
+    <li>Hand-off: let's look at why our incentives either line up with that plant manager — or get us thrown out of the gate.</li>
+  </ul></aside>
+</section>
+
+<!-- ================= 16b INCENTIVES ================= -->
+<section class="slide" data-title="Incentives — Uptime vs. OT Cyber Nirvana" data-steps="2">
+  <style>
+    .inc-grid { width:100%; display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:32px; }
+    .inc-card { padding:30px 34px; border-radius:18px; display:flex; flex-direction:column; gap:18px; border:1px solid #263447; background:#0f1622; }
+    .inc-card.good { border-color:rgba(61,220,151,.5); background:linear-gradient(160deg,rgba(61,220,151,.09),#0e1520); }
+    .inc-card.bad { border-color:rgba(255,79,94,.52); background:linear-gradient(160deg,rgba(255,79,94,.10),#0e1520); }
+    .inc-kicker { font:800 17px var(--mono); letter-spacing:.10em; text-transform:uppercase; }
+    .inc-item { padding:16px 20px; border-radius:12px; background:rgba(9,13,20,.65); border:1px solid rgba(255,255,255,.07); }
+    .inc-item .role { font:800 14px var(--mono); letter-spacing:.09em; text-transform:uppercase; margin-bottom:6px; }
+    .inc-item p { font-size:25px; line-height:1.32; color:#eef4fb; font-weight:600; margin:0; }
+    .inc-foot { font:700 20px var(--mono); padding-top:6px; border-top:1px solid rgba(255,255,255,.08); }
+    .inc-banner { width:100%; margin-top:26px; padding:22px 30px; border-radius:14px; border:1px solid rgba(255,176,0,.55); background:linear-gradient(135deg,rgba(255,79,94,.10),rgba(255,176,0,.09)); display:flex; align-items:center; gap:24px; }
+  </style>
+  <div class="kicker">Incentives on the plant floor</div>
+  <h2 style="font-size:58px;margin-bottom:26px">Same goal — until you chase <span class="amber">OT Cyber Nirvana.</span></h2>
+
+  <div class="inc-grid">
+    <div class="inc-card good">
+      <div class="inc-kicker green">✓ Aligned · Most of the Time</div>
+      <div class="inc-item">
+        <div class="role" style="color:var(--green)">Site Manager Wants</div>
+        <p>More production and higher plant uptime.</p>
+      </div>
+      <div class="inc-item">
+        <div class="role" style="color:var(--cyan)">OT Cyber Should Want</div>
+        <p>A cyberattack never to be the reason that plant shuts down.</p>
+      </div>
+      <div class="inc-foot green">→ Same destination: keep steel running safely.</div>
+    </div>
+
+    <div class="inc-card bad f" data-s="1">
+      <div class="inc-kicker red">✕ Misaligned · Chasing Nirvana</div>
+      <div class="inc-item">
+        <div class="role" style="color:#ff8f99">The Trap</div>
+        <p>Chasing textbook OT cyber perfection at the expense of operational tempo.</p>
+      </div>
+      <div class="inc-item">
+        <div class="role" style="color:var(--amber)">The Collision</div>
+        <p>Blocking maintenance windows, breaking deterministic loops, slowing operators down.</p>
+      </div>
+      <div class="inc-foot" style="color:#ff9ea6">→ Incentives split — operators route around you.</div>
+    </div>
+  </div>
+
+  <div class="inc-banner f" data-s="2">
+    <span style="font:800 16px var(--mono);color:var(--amber);letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;padding:8px 14px;border-radius:8px;border:1px solid rgba(255,176,0,.45);background:rgba(255,176,0,.10)">INCENTIVE REALITY</span>
+    <span style="font-size:28px;line-height:1.32;color:#eef4fb;font-weight:700">When your security posture collides with operational tempo, incentives break. <span class="red">Guess who wins that fight?</span> <span class="amber">Not you.</span></span>
+  </div>
+
+  <aside class="notes"><ul>
+    <li>Here's why most OT cyber friction is self-inflicted: for the most part, our incentives already align with the plant. The site manager wants more production and more uptime. The OT cyber engineer should want a cyberattack never to be the reason the plant shuts down. Same destination.</li>
+    <li>[Click — Step 1] Where does that break? When the OT cyber person chases OT cyber Nirvana — textbook purity at the expense of operational tempo. Blocking turnarounds, stalling line restarts, adding friction at 2 a.m.</li>
+    <li>[Click — Step 2] Now you have a misalignment of incentives with the person who owns output and revenue. And guess who wins that fight? Not you.</li>
     <li>Hand-off: now let's look at the actual controllers sitting on that plant floor.</li>
   </ul></aside>
 </section>
@@ -1571,11 +1629,11 @@ ul.clean.g li:before{border-color:var(--green)}
   <aside class="notes"><ul>
     <li>[Click ×4] These are non-negotiable.</li>
     <li>#4 matters: models will confidently cite SR numbers that don't exist. Check.</li>
-    <li><b>Clock Gate 1:</b> If &lt;5:30 left → click <b>#43</b> ("Let's bring this straight to five things you can do Monday."). If ≥6:00 left → click <b>#30</b> ("Those are the rules for the tools — with a few minutes left, let's test that same analysis discipline on two real plant incidents.").</li>
+    <li><b>Clock Gate 1:</b> If &lt;5:30 left → click <b>#44</b> ("Let's bring this straight to five things you can do Monday."). If ≥6:00 left → click <b>#31</b> ("Those are the rules for the tools — with a few minutes left, let's test that same analysis discipline on two real plant incidents.").</li>
   </ul></aside>
   <div style="position:absolute;right:140px;bottom:46px;display:flex;gap:18px;font:700 18px var(--mono)">
-    <a href="#30" onclick="event.stopPropagation()" style="color:var(--cyan);text-decoration:none;padding:8px 14px;border:1px solid rgba(63,210,255,.4);border-radius:8px;background:rgba(63,210,255,.08)">TIME PERMITTING: FIELD CASES (#30) ▸</a>
-    <a href="#43" onclick="event.stopPropagation()" style="color:var(--amber);text-decoration:none;padding:8px 14px;border:1px solid rgba(255,176,0,.45);border-radius:8px;background:rgba(255,176,0,.10)">JUMP TO CLOSE: 5 THINGS MONDAY (#43) ▸</a>
+    <a href="#31" onclick="event.stopPropagation()" style="color:var(--cyan);text-decoration:none;padding:8px 14px;border:1px solid rgba(63,210,255,.4);border-radius:8px;background:rgba(63,210,255,.08)">TIME PERMITTING: FIELD CASES (#31) ▸</a>
+    <a href="#44" onclick="event.stopPropagation()" style="color:var(--amber);text-decoration:none;padding:8px 14px;border:1px solid rgba(255,176,0,.45);border-radius:8px;background:rgba(255,176,0,.10)">JUMP TO CLOSE: 5 THINGS MONDAY (#44) ▸</a>
   </div>
 </section>
 
@@ -1739,11 +1797,11 @@ ul.clean.g li:before{border-color:var(--green)}
   <aside class="notes"><ul>
     <li>Have fun with this. I genuinely feel for the attackers out there. They do all this work and it gets logged as a maintenance ticket.</li>
     <li>[Click] Real point under the joke: plants are noisy. Equipment fails all the time — great cover for attackers and bad analysis alike.</li>
-    <li><b>Clock Gate 2:</b> If ≥4:30 left → click <b>#38</b> ("If first reports are unreliable, who can you actually trust in this industry?"). If tight → click <b>#42</b> to land the Dave's keyboard callback.</li>
+    <li><b>Clock Gate 2:</b> If ≥4:30 left → click <b>#39</b> ("If first reports are unreliable, who can you actually trust in this industry?"). If tight → click <b>#43</b> to land the Dave's keyboard callback.</li>
   </ul></aside>
   <div style="position:absolute;right:140px;bottom:46px;display:flex;gap:18px;font:700 18px var(--mono)">
-    <a href="#38" onclick="event.stopPropagation()" style="color:var(--cyan);text-decoration:none;padding:8px 14px;border:1px solid rgba(63,210,255,.4);border-radius:8px;background:rgba(63,210,255,.08)">TIME PERMITTING: FILTER NOISE (#38) ▸</a>
-    <a href="#42" onclick="event.stopPropagation()" style="color:var(--amber);text-decoration:none;padding:8px 14px;border:1px solid rgba(255,176,0,.45);border-radius:8px;background:rgba(255,176,0,.10)">JUMP TO CLOSE: DAVE'S KEYBOARD (#42) ▸</a>
+    <a href="#39" onclick="event.stopPropagation()" style="color:var(--cyan);text-decoration:none;padding:8px 14px;border:1px solid rgba(63,210,255,.4);border-radius:8px;background:rgba(63,210,255,.08)">TIME PERMITTING: FILTER NOISE (#39) ▸</a>
+    <a href="#43" onclick="event.stopPropagation()" style="color:var(--amber);text-decoration:none;padding:8px 14px;border:1px solid rgba(255,176,0,.45);border-radius:8px;background:rgba(255,176,0,.10)">JUMP TO CLOSE: DAVE'S KEYBOARD (#43) ▸</a>
   </div>
 </section>
 
