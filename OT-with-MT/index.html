@@ -502,10 +502,10 @@ ul.clean.g li:before{border-color:var(--green)}
   <div class="num">01</div>
   <div class="kicker">Section 01 · Core Focus</div>
   <h1>Standards, <span class="amber">honestly</span></h1>
-  <p class="handoff">Why they matter · the standards map · 800-82 (r3 → r4) · Purdue · 62443 · CIE &amp; CCE · NIST OSCAL</p>
+  <p class="handoff">Why they matter · the standards map · 800-82 (r3 → r4) · Purdue · 62443 · CIE &amp; CCE · one risk spine · NIST OSCAL</p>
   <aside class="notes"><ul>
     <li>We're starting right at the heart of the abstract: how OT cybersecurity standards actually work when they meet steel.</li>
-    <li>We'll cover why standards exist, the full map, NIST 800-82's transition from Rev 3 to Rev 4, Purdue, 62443 Security Levels and my SL 2 floor, CIE/CCE, and NIST OSCAL.</li>
+    <li>We'll cover why standards exist, the full map, NIST 800-82's transition from Rev 3 to Rev 4, Purdue, 62443 Security Levels and my SL 2 floor, CIE/CCE, how FSE, Cyber PHA, CIE/CCE, and 62443-3-2 align on one risk spine, and NIST OSCAL.</li>
   </ul></aside>
 </section>
 
@@ -563,11 +563,11 @@ ul.clean.g li:before{border-color:var(--green)}
     </div>
     <div class="card f" data-s="2" style="padding:26px 30px;border-left:5px solid var(--green)">
       <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font:800 30px var(--mono);color:var(--green)">DOE / INL CIE</span><span class="tag" style="font-size:14px;padding:6px 10px;color:var(--green)">DESIGN FIRST</span></div>
-      <p style="font-size:25px;margin-top:12px;line-height:1.36"><b>Cyber-Informed Engineering:</b> builds physical and mechanical safeguards into system design so digital compromise can't cause catastrophe.</p>
+      <p style="font-size:25px;margin-top:12px;line-height:1.36"><b>Cyber-Informed Engineering:</b> 12 lifecycle principles embedding physical, hardwired, and architectural safeguards so digital compromise can't cause catastrophe.</p>
     </div>
     <div class="card f" data-s="2" style="padding:26px 30px;border-left:5px solid var(--green)">
       <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font:800 30px var(--mono);color:var(--green)">INL CCE</span><span class="tag" style="font-size:14px;padding:6px 10px;color:var(--green)">CROWN JEWELS</span></div>
-      <p style="font-size:25px;margin-top:12px;line-height:1.36"><b>Consequence-driven Cyber-informed Engineering:</b> INL's consequence-first methodology assuming adversary access and engineering out worst-case kill-chain physics.</p>
+      <p style="font-size:25px;margin-top:12px;line-height:1.36"><b>Consequence-driven Cyber-informed Engineering:</b> INL's 4-phase methodology assuming adversary access to trace kill chains and engineer out worst-case physical consequences.</p>
     </div>
     <div class="card f" data-s="3" style="padding:26px 30px;border-left:5px solid var(--violet)">
       <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font:800 26px var(--mono);color:var(--violet)">IEC 61511 + TR84.00.09</span><span class="tag" style="font-size:14px;padding:6px 10px;color:var(--violet)">SAFETY + CYBER</span></div>
@@ -581,7 +581,7 @@ ul.clean.g li:before{border-color:var(--green)}
   <aside class="notes"><ul>
     <li>Here is the whole OT standards map on one slide so you see how every piece fits together before we drill into each one.</li>
     <li>[Click] ISA/IEC 62443 is the engineering core for zones, conduits, and Security Levels; NIST SP 800-82 is the free federal map — Rev. 3 is current and Rev. 4 is in public draft right now.</li>
-    <li>[Click] DOE and INL give us CIE (Cyber-Informed Engineering) for design-in safety and CCE (Consequence-driven Cyber-informed Engineering) for protecting crown jewels against top-tier adversaries.</li>
+    <li>[Click] DOE and INL give us CIE — 12 lifecycle principles for designing risk out upfront ("the What") — and CCE — a 4-phase consequence-first methodology for protecting brownfield crown jewels ("the How").</li>
     <li>[Click] IEC 61511 / ISA 84 is functional safety, paired with ISA-TR84.00.09 (2024): 61511 requires the security risk assessment, and TR84.00.09 shows you how. And NERC CIP is the mandatory bulk-power contrast where compliance comes with real fines.</li>
   </ul></aside>
 </section>
@@ -879,116 +879,242 @@ ul.clean.g li:before{border-color:var(--green)}
   </ul></aside>
 </section>
 
-<!-- ================= 21 CIE ================= -->
-<section class="slide" data-title="CIE — FSE with networks &amp; switches" data-steps="4">
+<!-- ================= 21 CIE & CCE ================= -->
+<section class="slide" data-title="CIE &amp; CCE — FSE with networks &amp; switches" data-steps="4">
   <style>
-    .cie-stage .cie-sw, .cie-stage .cie-atk, .cie-stage .cie-psv { opacity:0; transition:all .65s var(--ease); }
+    .cie-stage .cie-sw, .cie-stage .cie-atk, .cie-stage .cie-psv { opacity:0; transition:all .6s var(--ease); }
     .slide.s1 .cie-stage .cie-sw { opacity:1; transform:none; }
     .slide.s1 .cie-stage .cie-atk { opacity:1; }
-    .slide.s1 .cie-stage .box-sis { stroke:#ff4f5e; fill:rgba(255,79,94,.10); transition:all .5s var(--ease); }
-    .slide.s1 .cie-stage .box-pt { stroke:#ffb000; fill:rgba(255,176,0,.08); transition:all .5s var(--ease); }
-    .slide.s1 .cie-stage .sif-ok { opacity:.2; transition:opacity .5s; }
+    .slide.s1 .cie-stage .box-sis { stroke:#ff4f5e; fill:rgba(255,79,94,.11); transition:all .5s var(--ease); }
+    .slide.s1 .cie-stage .box-hmi { stroke:#ff4f5e; fill:rgba(255,79,94,.11); transition:all .5s var(--ease); }
+    .slide.s1 .cie-stage .hmi-ok { opacity:0; }
+    .slide.s1 .cie-stage .hmi-bad { opacity:1; }
+    .slide.s1 .cie-stage .sif-ok { opacity:.18; transition:opacity .5s; }
     .slide.s2 .cie-stage .cie-psv { opacity:1; transform:none; }
-    .cie-pkt1 { animation:ciePktL 1.5s linear infinite; }
-    .cie-pkt2 { animation:ciePktM 1.2s linear infinite; }
-    .cie-pkt3 { animation:ciePktR 1.5s linear infinite; }
-    @keyframes ciePktL { 0%{transform:translate(480px,88px);opacity:1} 100%{transform:translate(165px,154px);opacity:.2} }
-    @keyframes ciePktM { 0%{transform:translate(650px,96px);opacity:1} 100%{transform:translate(650px,154px);opacity:.2} }
-    @keyframes ciePktR { 0%{transform:translate(860px,88px);opacity:1} 100%{transform:translate(1135px,154px);opacity:.2} }
+    .cie-stage .hmi-bad { opacity:0; transition:opacity .45s var(--ease); }
+    .cce-bar { opacity:0; transform:translateY(8px); transition:all .5s var(--ease); display:grid; grid-template-columns:230px repeat(4, minmax(0,1fr)); gap:10px; align-items:center; margin:6px 0 12px; padding:10px 16px; border-radius:12px; border:1px solid rgba(63,210,255,.35); background:rgba(63,210,255,.06); }
+    .slide.s2 .cce-bar { opacity:1; transform:none; }
+    .cce-step { font-family:var(--mono); font-size:15.5px; color:#d7e3ef; background:rgba(13,18,26,.85); border:1px solid rgba(63,210,255,.22); border-radius:8px; padding:7px 11px; line-height:1.25; }
+    .cce-step b { color:var(--amber); }
+    .cie-pkt-hmi { animation:ciePktHmi 1.4s linear infinite; }
+    .cie-pkt-sis { animation:ciePktSis 1.25s linear infinite; }
+    @keyframes ciePktHmi { 0%{transform:translate(425px,52px);opacity:1} 100%{transform:translate(310px,52px);opacity:.25} }
+    @keyframes ciePktSis { 0%{transform:translate(625px,94px);opacity:1} 100%{transform:translate(625px,162px);opacity:.25} }
     .psv-vent { stroke-dasharray:10 10; animation:flow 1s linear infinite; }
   </style>
-  <div class="kicker">Cyber-Informed Engineering (DOE / INL)</div>
-  <h2 style="font-size:62px;margin-bottom:8px">CIE is really just <span class="amber">FSE with networks and switches.</span></h2>
-  <svg class="sif cie-stage" viewBox="0 0 1640 375" style="height:375px">
-    <!-- Baseline FSE Loop (Step 0: Random independent failure model) -->
+  <div class="kicker">Cyber-Informed Engineering (DOE "The What") &amp; CCE (INL "The How")</div>
+  <h2 style="font-size:52px;margin-bottom:12px">CIE &amp; CCE: <span class="amber">FSE with networks and switches.</span></h2>
+  <svg class="sif cie-stage" viewBox="0 -14 1640 414" style="height:374px">
+    <!-- Baseline FSE Loop + HMI (Step 0: Hardwired 4-20mA & 24VDC, non-malicious failures) -->
     <g>
-      <rect class="box box-pt" x="30" y="154" width="270" height="114" rx="16"/>
-      <text x="165" y="202" text-anchor="middle" font-size="31">Sensor</text>
-      <text x="165" y="240" text-anchor="middle" font-size="20" fill="#8c9cb1" style="font-weight:500">PT-101 · Pressure</text>
+      <!-- HMI Box (top-left) -->
+      <rect class="box box-hmi" x="28" y="10" width="282" height="84" rx="12"/>
+      <text x="169" y="42" text-anchor="middle" font-size="24">HMI · Operator View</text>
+      <text class="hmi-ok" x="169" y="72" text-anchor="middle" font-family="Consolas,monospace" font-size="16" fill="#8c9cb1" style="font-weight:500">Shows SIS pressure (185 PSI)</text>
+      <text class="hmi-bad" x="169" y="72" text-anchor="middle" font-family="Consolas,monospace" font-size="16" font-weight="800" fill="#ff9ea6">SPOOFED VIEW: 45 PSI (OK!)</text>
 
-      <rect class="box box-sis" x="515" y="154" width="270" height="114" rx="16"/>
-      <text x="650" y="202" text-anchor="middle" font-size="31">Logic Solver</text>
-      <text x="650" y="240" text-anchor="middle" font-size="20" fill="#8c9cb1" style="font-weight:500">SIS · Safety PLC</text>
+      <!-- Subtle baseline telemetry tap from SIS/Comms to HMI -->
+      <path d="M490 162 L310 74" stroke="#2c3d55" stroke-width="2.5" stroke-dasharray="6 6"/>
 
-      <rect class="box" x="1000" y="154" width="270" height="114" rx="16"/>
-      <text x="1135" y="202" text-anchor="middle" font-size="31">Final Element</text>
-      <text x="1135" y="240" text-anchor="middle" font-size="20" fill="#8c9cb1" style="font-weight:500">XV-101 · Valve</text>
+      <!-- Sensor PT-101 -->
+      <rect class="box" x="28" y="162" width="242" height="108" rx="15"/>
+      <text x="149" y="207" text-anchor="middle" font-size="29">Sensor</text>
+      <text x="149" y="242" text-anchor="middle" font-size="19" fill="#8c9cb1" style="font-weight:500">PT-101 · 185 PSI real</text>
 
-      <path d="M300 211 H515 M785 211 H1000" stroke="#233144" stroke-width="6"/>
-      <path d="M300 211 H515 M785 211 H1000" stroke="#3ddc97" stroke-width="6" class="flow sif-ok"/>
+      <!-- Logic Solver SIS -->
+      <rect class="box box-sis" x="455" y="162" width="275" height="108" rx="15"/>
+      <text x="592" y="207" text-anchor="middle" font-size="29">Logic Solver</text>
+      <text x="592" y="242" text-anchor="middle" font-size="19" fill="#8c9cb1" style="font-weight:500">SIS · Safety PLC</text>
+
+      <!-- Final Element XV-101 -->
+      <rect class="box" x="905" y="162" width="245" height="108" rx="15"/>
+      <text x="1027" y="207" text-anchor="middle" font-size="29">Final Element</text>
+      <text x="1027" y="242" text-anchor="middle" font-size="19" fill="#8c9cb1" style="font-weight:500">XV-101 · ESD Valve</text>
+
+      <!-- Hardwired physical loop: 4-20 mA & 24 VDC (does NOT pass through switch) -->
+      <path d="M270 216 H455 M730 216 H905" stroke="#233144" stroke-width="6"/>
+      <path d="M270 216 H455 M730 216 H905" stroke="#3ddc97" stroke-width="6" class="flow sif-ok"/>
+      <text x="362" y="200" text-anchor="middle" font-family="Consolas,monospace" font-size="14.5" font-weight="700" fill="#7be3b3">4–20 mA hardwired</text>
+      <text x="817" y="200" text-anchor="middle" font-family="Consolas,monospace" font-size="14.5" font-weight="700" fill="#7be3b3">24 VDC hardwired</text>
     </g>
 
-    <!-- STEP 1: L2/L3 Switch drops in + Common-Cause Spoof across multiple layers -->
-    <g class="cie-sw" style="transform:translateY(-16px)">
-      <path d="M480 88 L165 154" stroke="#ff4f5e" stroke-width="3.5" stroke-dasharray="10 8" class="flow"/>
-      <path d="M650 96 L650 154" stroke="#ff4f5e" stroke-width="4.5" stroke-dasharray="10 8" class="flow"/>
-      <path d="M860 88 L1135 154" stroke="#ffb000" stroke-width="3.5" stroke-dasharray="10 8" class="flow"/>
+    <!-- STEP 1: L2/L3 OT Switch drops in -> Common-Cause Cyber Failure hitting HMI & SIS -->
+    <g class="cie-sw" style="transform:translateY(-14px)">
+      <path d="M425 52 H310" stroke="#ff4f5e" stroke-width="4" stroke-dasharray="8 6" class="flow"/>
+      <path d="M625 94 V162" stroke="#ff4f5e" stroke-width="4.5" stroke-dasharray="8 6" class="flow"/>
+      <circle r="8" fill="#ffb000" class="cie-pkt-hmi"/>
+      <circle r="9" fill="#ff4f5e" class="cie-pkt-sis"/>
 
-      <!-- Animated exploit packets traveling down from the switch -->
-      <circle r="8" fill="#ff4f5e" class="cie-pkt1"/>
-      <circle r="9" fill="#ff4f5e" class="cie-pkt2"/>
-      <circle r="8" fill="#ffb000" class="cie-pkt3"/>
-
-      <!-- Wider Switch Chassis with cleanly separated Left Label + Right Ports -->
-      <rect x="370" y="10" width="590" height="86" rx="12" fill="#141c28" stroke="#ff4f5e" stroke-width="3.5"/>
-      <text x="394" y="44" font-family="Consolas,monospace" font-size="18" font-weight="700" fill="#ff4f5e">L2/L3 OT SWITCH · COMMON-CAUSE</text>
-      <text x="394" y="74" font-family="Consolas,monospace" font-size="16" fill="#cfd8e3" style="font-weight:500">Spoofs HMI &amp; inhibits SIS logic at once</text>
-      <line x1="778" y1="22" x2="778" y2="84" stroke="#2e405a" stroke-width="2"/>
-      <g transform="translate(796 24)">
-        <rect x="0" y="0" width="28" height="22" rx="3" fill="#080b10" stroke="#ff4f5e" stroke-width="2"/>
-        <rect x="36" y="0" width="28" height="22" rx="3" fill="#080b10" stroke="#ff4f5e" stroke-width="2"/>
-        <rect x="72" y="0" width="28" height="22" rx="3" fill="#080b10" stroke="#ffb000" stroke-width="2"/>
-        <rect x="108" y="0" width="28" height="22" rx="3" fill="#080b10" stroke="#3fd2ff" stroke-width="2"/>
-        <circle cx="14" cy="36" r="4.5" fill="#ff4f5e"/>
-        <circle cx="50" cy="36" r="4.5" fill="#ff4f5e"/>
-        <circle cx="86" cy="36" r="4.5" fill="#ffb000"/>
-        <circle cx="122" cy="36" r="4.5" fill="#3fd2ff"/>
+      <rect x="425" y="10" width="555" height="84" rx="12" fill="#141c28" stroke="#ff4f5e" stroke-width="3.5"/>
+      <text x="448" y="42" font-family="Consolas,monospace" font-size="17.5" font-weight="700" fill="#ff4f5e">L2/L3 OT SWITCH · COMMON-CAUSE</text>
+      <text x="448" y="71" font-family="Consolas,monospace" font-size="15.5" fill="#cfd8e3" style="font-weight:500">Spoofs HMI &amp; inhibits SIS trip logic over net</text>
+      <line x1="806" y1="22" x2="806" y2="82" stroke="#2e405a" stroke-width="2"/>
+      <g transform="translate(822 24)">
+        <rect x="0" y="0" width="26" height="20" rx="3" fill="#080b10" stroke="#ff4f5e" stroke-width="2"/>
+        <rect x="34" y="0" width="26" height="20" rx="3" fill="#080b10" stroke="#ff4f5e" stroke-width="2"/>
+        <rect x="68" y="0" width="26" height="20" rx="3" fill="#080b10" stroke="#ffb000" stroke-width="2"/>
+        <rect x="102" y="0" width="26" height="20" rx="3" fill="#080b10" stroke="#3fd2ff" stroke-width="2"/>
+        <circle cx="13" cy="34" r="4" fill="#ff4f5e"/>
+        <circle cx="47" cy="34" r="4" fill="#ff4f5e"/>
+        <circle cx="81" cy="34" r="4" fill="#ffb000"/>
+        <circle cx="115" cy="34" r="4" fill="#3fd2ff"/>
       </g>
     </g>
 
-    <!-- Step 1 Spoof / Inhibit callout badges cleanly below Sensor & Logic Solver -->
+    <!-- Step 1 Spoof / Inhibit badges -->
     <g class="cie-atk">
-      <rect x="12" y="275" width="306" height="36" rx="6" fill="#2a1215" stroke="#ff4f5e" stroke-width="1.5"/>
-      <text x="165" y="299" text-anchor="middle" font-family="Consolas,monospace" font-size="16.5" font-weight="700" fill="#ff9ea6">REAL: 185 PSI · HMI SEES: 45 PSI</text>
+      <rect x="18" y="280" width="262" height="34" rx="6" fill="#18221e" stroke="#ffb000" stroke-width="1.5"/>
+      <text x="149" y="302" text-anchor="middle" font-family="Consolas,monospace" font-size="15.5" font-weight="700" fill="#ffd166">REAL FIELD: 185 PSI RISING</text>
 
-      <rect x="497" y="275" width="306" height="36" rx="6" fill="#2a1215" stroke="#ff4f5e" stroke-width="1.5"/>
-      <text x="650" y="299" text-anchor="middle" font-family="Consolas,monospace" font-size="16.5" font-weight="700" fill="#ff4f5e">✕ TRIP LOGIC INHIBITED OVER NET</text>
+      <rect x="442" y="280" width="302" height="34" rx="6" fill="#2a1215" stroke="#ff4f5e" stroke-width="1.5"/>
+      <text x="593" y="302" text-anchor="middle" font-family="Consolas,monospace" font-size="15.5" font-weight="700" fill="#ff4f5e">✕ SIS TRIP INHIBITED OVER NET</text>
 
-      <text x="892" y="198" text-anchor="middle" font-family="Consolas,monospace" font-size="21" font-weight="800" fill="#ff4f5e">✕ NO TRIP</text>
+      <text x="817" y="246" text-anchor="middle" font-family="Consolas,monospace" font-size="19.5" font-weight="800" fill="#ff4f5e">✕ NO TRIP</text>
     </g>
 
-    <!-- STEP 2: CIE Physical Safeguard (Mechanical PSV / Hardwired Physics) -->
-    <g class="cie-psv" style="transform:translateX(24px)">
-      <!-- Blocked network line trying to reach PSV -->
-      <path d="M960 52 Q1270 52 1460 144" fill="none" stroke="#5a6b82" stroke-width="2.5" stroke-dasharray="6 6"/>
-      <rect x="1115" y="34" width="280" height="36" rx="6" fill="#0d121a" stroke="#3ddc97" stroke-width="2"/>
-      <text x="1255" y="58" text-anchor="middle" font-family="Consolas,monospace" font-size="16.5" font-weight="700" fill="#3ddc97">✕ NO IP · NO SWITCH PORT</text>
+    <!-- STEP 2: Parallel Protected Process Vessel -> Mechanical PSV-101 (NOT downstream of XV-101) -->
+    <g class="cie-psv" style="transform:translateX(20px)">
+      <!-- Blocked network path from OT switch -->
+      <path d="M980 52 Q1260 44 1485 144" fill="none" stroke="#5a6b82" stroke-width="2.5" stroke-dasharray="6 6"/>
+      <rect x="1110" y="32" width="275" height="34" rx="6" fill="#0d121a" stroke="#3ddc97" stroke-width="2"/>
+      <text x="1247" y="54" text-anchor="middle" font-family="Consolas,monospace" font-size="15.5" font-weight="700" fill="#3ddc97">✕ NO IP · NO SWITCH PORT</text>
 
-      <!-- Physical process pipe & Mechanical Relief Valve -->
-      <path d="M1270 211 H1335" stroke="#3ddc97" stroke-width="6" class="psv-vent"/>
-      <rect x="1335" y="144" width="285" height="154" rx="18" fill="rgba(61,220,151,.12)" stroke="#3ddc97" stroke-width="3.5"/>
-      <text x="1477" y="180" text-anchor="middle" font-family="Consolas,monospace" font-size="15" font-weight="800" fill="#3ddc97">CIE PHYSICAL SAFEGUARD</text>
-      <text x="1477" y="214" text-anchor="middle" font-size="27" fill="#e9eef4">Mechanical PSV-101</text>
-      <text x="1477" y="246" text-anchor="middle" font-family="Consolas,monospace" font-size="17" fill="#bff5dd" style="font-weight:500">Spring opens @ 150 PSI</text>
-      <text x="1477" y="276" text-anchor="middle" font-family="Consolas,monospace" font-size="16" font-weight="700" fill="#ffb000">Physics can't be spoofed</text>
+      <!-- Parallel vessel header (independent from XV-101 feed line) -->
+      <line x1="1182" y1="142" x2="1182" y2="294" stroke="#2c3e52" stroke-width="2" stroke-dasharray="5 5"/>
+      <rect x="1205" y="156" width="132" height="122" rx="14" fill="#131c26" stroke="#3fd2ff" stroke-width="2.5"/>
+      <text x="1271" y="196" text-anchor="middle" font-family="Consolas,monospace" font-size="14" font-weight="700" fill="#3fd2ff">PARALLEL LAYER</text>
+      <text x="1271" y="224" text-anchor="middle" font-size="21" font-weight="700" fill="#e9eef4">Vessel Tap</text>
+      <text x="1271" y="252" text-anchor="middle" font-family="Consolas,monospace" font-size="14.5" fill="#ffb000" style="font-weight:700">Direct @ 185 PSI</text>
+
+      <!-- Relief pipe to PSV-101 -->
+      <path d="M1337 217 H1385" stroke="#3ddc97" stroke-width="6" class="psv-vent"/>
+      <rect x="1385" y="144" width="238" height="148" rx="16" fill="rgba(61,220,151,.12)" stroke="#3ddc97" stroke-width="3.5"/>
+      <text x="1504" y="177" text-anchor="middle" font-family="Consolas,monospace" font-size="14" font-weight="800" fill="#3ddc97">CIE PHYSICAL BOUND</text>
+      <text x="1504" y="209" text-anchor="middle" font-size="25" fill="#e9eef4">Mechanical PSV-101</text>
+      <text x="1504" y="239" text-anchor="middle" font-family="Consolas,monospace" font-size="15.5" fill="#bff5dd" style="font-weight:500">Spring lifts @ 150 PSI</text>
+      <text x="1504" y="268" text-anchor="middle" font-family="Consolas,monospace" font-size="15" font-weight="700" fill="#ffb000">Physics can't be spoofed</text>
     </g>
 
-    <!-- Bottom Caption Banner across the SVG -->
+    <!-- Bottom Caption Banner -->
     <g class="cie-psv">
-      <rect x="30" y="324" width="1590" height="40" rx="8" fill="rgba(61,220,151,.09)" stroke="rgba(61,220,151,.45)" stroke-width="1.5"/>
-      <text x="825" y="350" text-anchor="middle" font-family="Consolas,monospace" font-size="17" font-weight="700" fill="#e9eef4">FSE assumes <tspan fill="#3fd2ff">random independent failure</tspan> · CIE assumes the <tspan fill="#ff4f5e">switch causes common-cause failure</tspan> — and bounds it with <tspan fill="#3ddc97">pure physics</tspan>.</text>
+      <rect x="28" y="340" width="1595" height="44" rx="8" fill="rgba(61,220,151,.09)" stroke="rgba(61,220,151,.45)" stroke-width="1.5"/>
+      <text x="825" y="368" text-anchor="middle" font-family="Consolas,monospace" font-size="16.5" font-weight="700" fill="#e9eef4">FSE models <tspan fill="#3fd2ff">non-malicious failures (random + systematic)</tspan> · CIE/CCE assumes the <tspan fill="#ff4f5e">switch causes common-cause cyber failure</tspan> — bounded by <tspan fill="#3ddc97">physics</tspan>.</text>
     </g>
   </svg>
-  <div class="scalebal">
-    <div class="card f left" data-s="3" style="border-color:rgba(61,220,151,.5)"><h3 class="green" style="margin-bottom:12px">Great in theory</h3><ul class="clean g"><li style="font-size:29px">Consequence-first, in engineers' language</li><li style="font-size:29px">Designs out cyber-enabled hazards</li><li style="font-size:29px">Engineered safeguards can't be hacked remotely</li></ul></div>
-    <div class="card f right" data-s="4" style="border-color:rgba(255,79,94,.5)"><h3 class="red" style="margin-bottom:12px">Costly in practice</h3><ul class="clean r"><li style="font-size:29px">Labor-intensive, system by system</li><li style="font-size:29px">Needs rare people fluent in both disciplines</li><li style="font-size:29px">Best value: capital projects &amp; crown jewels</li></ul></div>
+
+  <!-- Step 2: INL CCE 4-Phase Strip ("The How") -->
+  <div class="cce-bar">
+    <div style="font-family:var(--mono);font-size:15.5px;font-weight:800;color:var(--cyan);letter-spacing:.03em">INL CCE ("THE HOW")<br><span style="font-size:13.5px;font-weight:500;color:var(--muted)">DOE CIE = 12 Lifecycle Principles</span></div>
+    <div class="cce-step"><b>1 · Prioritize</b><br>Worst-case HCEs</div>
+    <div class="cce-step"><b>2 · SoS Map</b><br>Paths &amp; vendor trust</div>
+    <div class="cce-step"><b>3 · Targeting</b><br>Adversary kill chains</div>
+    <div class="cce-step"><b>4 · Mitigate</b><br>Physics + tripwires</div>
+  </div>
+
+  <div class="scalebal" style="margin-top:0">
+    <div class="card f left" data-s="3" style="border-color:rgba(61,220,151,.5);padding:20px 26px"><h3 class="green" style="font-size:28px;margin-bottom:10px">CIE "The What" · CCE "The How"</h3><ul class="clean g"><li style="font-size:24.5px;margin-bottom:8px">Consequence-first, spoken in engineers' language</li><li style="font-size:24.5px;margin-bottom:8px">CCE assumes breach to trace paths to physical HCEs</li><li style="font-size:24.5px;margin-bottom:0">Engineered bounds work even if the switch is owned</li></ul></div>
+    <div class="card f right" data-s="4" style="border-color:rgba(255,79,94,.5);padding:20px 26px"><h3 class="red" style="font-size:28px;margin-bottom:10px">Sharp edge in practice</h3><ul class="clean r"><li style="font-size:24.5px;margin-bottom:8px">Labor-intensive, system by system — rare dual-fluent pros</li><li style="font-size:24.5px;margin-bottom:8px">Physics still requires maintenance (PSVs plug or get gagged)</li><li style="font-size:24.5px;margin-bottom:0">Best ROI: capital builds (CIE) &amp; crown-jewel HCEs (CCE)</li></ul></div>
   </div>
   <aside class="notes"><ul>
-    <li>I'm a fan of CIE because I'm an actual Functional Safety Engineer. Classic FSE is simple: Sensor, Logic Solver, Final Element — assuming random, independent hardware failures.</li>
-    <li>[Click — Step 1] Now add networks and switches. An attacker on that L2/L3 switch doesn't wait for random failure — they create a common-cause failure, spoofing 45 PSI to the operator's HMI while inhibiting the SIS trip logic at the exact same time.</li>
-    <li>[Click — Step 2] How does CIE solve the problem the switch created? By going right back to old-school FSE: a mechanical spring-loaded relief valve (PSV-101) set at 150 PSI. No IP address, no firmware, no switch port — physics doesn't care what the switch says.</li>
-    <li>[Click — Step 3] Strengths: consequence-first, and physical safeguards can't be hacked remotely.</li>
-    <li>[Click — Step 4] Weakness: it's labor-intensive and costly to retrofit everywhere, so aim it at new capital builds and your crown-jewel hazards.</li>
+    <li>Precision matters here: DOE's CIE is "The What" — 12 engineering lifecycle principles. INL's CCE is "The How" — a 4-phase consequence-driven methodology.</li>
+    <li>And as a Functional Safety Engineer, I love both because they feel just like FSE with networks and switches. Classic FSE assumes non-malicious random hardware and systematic failures across hardwired 4–20 mA and 24 VDC loops.</li>
+    <li>[Click — Step 1] Drop an L2/L3 OT switch in the middle and assume adversary access. Now an attacker creates a deliberate common-cause failure: spoofing 45 PSI to the operator's HMI while inhibiting the SIS trip logic at the same time.</li>
+    <li>[Click — Step 2] CIE solves that problem with physics — a mechanical PSV-101 tapped directly on the process vessel in parallel, completely independent of XV-101. No IP, no switch port. Meanwhile CCE's 4 phases prioritize High-Consequence Events, map system-of-systems trust, trace kill chains, and apply engineered mitigations.</li>
+    <li>[Click — Step 3] That gives engineers common-sense bounds that hold even if IT and switches are compromised.</li>
+    <li>[Click — Step 4] Reality check: physics still needs proof-testing and maintenance so valves don't plug or get gagged on turnarounds, and full CCE is too heavy for every loop — save CIE for capital builds and CCE for your worst crown jewels.</li>
+  </ul></aside>
+</section>
+
+<!-- ================= 01f-2 ONE RISK SPINE: METHOD CONVERGENCE ================= -->
+<section class="slide" data-title="One risk spine — FSE, Cyber PHA, CIE/CCE &amp; 62443-3-2" data-steps="4">
+  <style>
+    .spine-wrap { width:100%; display:flex; flex-direction:column; gap:10px; }
+    .spine-row { display:grid; grid-template-columns:208px repeat(4, minmax(0,1fr)); gap:12px; align-items:stretch; }
+    .spine-hdr { font-family:var(--mono); font-size:15.5px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; padding:11px 14px; border-radius:10px; border:1px solid #263447; background:#101722; display:flex; flex-direction:column; justify-content:center; }
+    .spine-hdr small { font-size:13px; font-weight:500; text-transform:none; letter-spacing:0; color:#8c9cb1; margin-top:2px; }
+    .spine-stage { padding:14px 16px; border-radius:12px; background:linear-gradient(135deg,#131b26,#0e141d); border:1px solid #2b3b50; display:flex; flex-direction:column; justify-content:center; }
+    .spine-stage .st-num { font-family:var(--mono); font-size:13.5px; font-weight:800; color:var(--amber); letter-spacing:.06em; }
+    .spine-stage .st-name { font-size:21px; font-weight:800; color:#e9eef4; line-height:1.18; margin-top:3px; }
+    .spine-cell { padding:13px 16px; border-radius:12px; background:rgba(15,21,30,.92); border:1px solid #243244; border-top-width:3px; display:flex; flex-direction:column; justify-content:center; }
+    .spine-cell .sc-tag { font-family:var(--mono); font-size:14.5px; font-weight:800; margin-bottom:4px; letter-spacing:.02em; }
+    .spine-cell p { font-size:18.5px; line-height:1.28; color:#d3dde9; margin:0; }
+    .sc-fse { border-top-color:var(--cyan); }
+    .sc-fse .sc-tag { color:var(--cyan); }
+    .sc-cpha { border-top-color:var(--amber); }
+    .sc-cpha .sc-tag { color:var(--amber); }
+    .sc-cce { border-top-color:var(--green); }
+    .sc-cce .sc-tag { color:var(--green); }
+    .sc-62443 { border-top-color:#a78bfa; }
+    .sc-62443 .sc-tag { color:#c4b5fd; }
+    .spine-step { opacity:0; transform:translateY(10px); transition:all .45s var(--ease); }
+    .slide.s1 .spine-r2 { opacity:1; transform:none; }
+    .slide.s2 .spine-r3 { opacity:1; transform:none; }
+    .slide.s3 .spine-r4 { opacity:1; transform:none; }
+    .spine-bottom { opacity:0; transform:translateY(8px); transition:all .45s var(--ease); margin-top:6px; padding:14px 22px; border-radius:12px; border:1px solid rgba(255,176,0,.45); background:rgba(255,176,0,.08); font-size:22px; font-weight:700; color:#eef4fb; display:flex; align-items:center; justify-content:space-between; gap:18px; }
+    .slide.s4 .spine-bottom { opacity:1; transform:none; }
+  </style>
+  <div class="kicker">Method Convergence · Different Acronyms, Same Engineering</div>
+  <h2 style="font-size:54px;margin-bottom:14px">Four methodologies. <span class="amber">One risk spine.</span></h2>
+
+  <div class="spine-wrap">
+    <!-- Column Headers -->
+    <div class="spine-row">
+      <div class="spine-hdr" style="color:#b8c7d8">Shared Spine<small>Common engineering flow</small></div>
+      <div class="spine-hdr" style="border-color:rgba(63,210,255,.4);color:var(--cyan)">FSE · IEC 61511<small>Process safety baseline</small></div>
+      <div class="spine-hdr" style="border-color:rgba(255,176,0,.4);color:var(--amber)">Cyber PHA · TR84.00.09<small>PHA-to-OT-cyber bridge</small></div>
+      <div class="spine-hdr" style="border-color:rgba(61,220,151,.4);color:var(--green)">CIE &amp; CCE · DOE / INL<small>Consequence elimination</small></div>
+      <div class="spine-hdr" style="border-color:rgba(167,139,250,.45);color:#c4b5fd">ISA/IEC 62443-3-2<small>ZCR 1–7 risk partition</small></div>
+    </div>
+
+    <!-- Row 1: Step 0 visible immediately so audience sees the matrix logic -->
+    <div class="spine-row">
+      <div class="spine-stage"><div class="st-num">STAGE 01</div><div class="st-name">Consequence &amp; Scope</div></div>
+      <div class="spine-cell sc-fse"><div class="sc-tag">PHA / HAZOP</div><p>Identify toxic, fire, explosion hazards &amp; tolerable risk.</p></div>
+      <div class="spine-cell sc-cpha"><div class="sc-tag">Filter Hackable Loops</div><p>Pull existing PHA/LOPA scenarios reachable via cyber.</p></div>
+      <div class="spine-cell sc-cce"><div class="sc-tag">CCE Phase 1 · Prioritize</div><p>Score High-Consequence Events (HCEs): worst physical harm.</p></div>
+      <div class="spine-cell sc-62443"><div class="sc-tag">ZCR 1–2 · SuC &amp; Screen</div><p>Define System under Consideration; run initial unmitigated risk.</p></div>
+    </div>
+
+    <!-- Row 2: Step 1 -->
+    <div class="spine-row spine-step spine-r2">
+      <div class="spine-stage"><div class="st-num">STAGE 02</div><div class="st-name">System &amp; Pathways</div></div>
+      <div class="spine-cell sc-fse"><div class="sc-tag">P&amp;IDs · C&amp;E · IPLs</div><p>Map sensors, logic solvers, valves &amp; independent layers.</p></div>
+      <div class="spine-cell sc-cpha"><div class="sc-tag">SIS Attack Surface</div><p>Map HMIs, EWS, protocols, network paths &amp; SIS nodes.</p></div>
+      <div class="spine-cell sc-cce"><div class="sc-tag">CCE Phase 2 · SoS Map</div><p>Trace System-of-Systems links, vendor access &amp; unverified trust.</p></div>
+      <div class="spine-cell sc-62443"><div class="sc-tag">ZCR 3 · Zones &amp; Conduits</div><p>Partition assets by trust &amp; risk; split Safety, BPCS &amp; IT.</p></div>
+    </div>
+
+    <!-- Row 3: Step 2 -->
+    <div class="spine-row spine-step spine-r3">
+      <div class="spine-stage"><div class="st-num">STAGE 03</div><div class="st-name">Scenario &amp; Risk</div></div>
+      <div class="spine-cell sc-fse"><div class="sc-tag">LOPA &amp; SIL Target</div><p>Quantify initiating frequency &amp; non-malicious PFDavg (SIL 1–4).</p></div>
+      <div class="spine-cell sc-cpha"><div class="sc-tag">Threat-Enabled Risk</div><p>Test adversary TTPs (ATT&amp;CK ICS) against SIS residual risk.</p></div>
+      <div class="spine-cell sc-cce"><div class="sc-tag">CCE Phase 3 · Targeting</div><p>Assume compromise; build kill chains to physical HCEs.</p></div>
+      <div class="spine-cell sc-62443"><div class="sc-tag">ZCR 4–5 · Detailed Risk</div><p>Check zone risk vs. tolerance; run detailed threat analysis.</p></div>
+    </div>
+
+    <!-- Row 4: Step 3 -->
+    <div class="spine-row spine-step spine-r4">
+      <div class="spine-stage"><div class="st-num">STAGE 04</div><div class="st-name">Safeguards &amp; Spec</div></div>
+      <div class="spine-cell sc-fse"><div class="sc-tag">SRS · Build · Proof Test</div><p>Write SRS; engineer SIS + PSVs; verify SIL &amp; test intervals.</p></div>
+      <div class="spine-cell sc-cpha"><div class="sc-tag">Gap Closure &amp; MOC</div><p>Assign cyber safeguards &amp; SL-T; feed back into IEC 61511 MOC.</p></div>
+      <div class="spine-cell sc-cce"><div class="sc-tag">Phase 4 + CIE 12</div><p>Cut cyber pathways with physics, analog backups &amp; tripwires.</p></div>
+      <div class="spine-cell sc-62443"><div class="sc-tag">ZCR 6–7 · SL-T &amp; CRS</div><p>Assign Target SL per zone; write CRS; asset owner sign-off.</p></div>
+    </div>
+
+    <!-- Bottom Synthesis Bar: Step 4 -->
+    <div class="spine-bottom">
+      <span><span class="amber" style="font-family:var(--mono)">BOTTOM LINE:</span> Same engineering muscle memory — start with physical consequence, trace trust &amp; pathways, assume failure or breach, then bound risk with physics + SL-T.</span>
+      <span style="font-family:var(--mono);font-size:15px;color:var(--cyan);white-space:nowrap">ONE PROCESS · FOUR DIALECTS</span>
+    </div>
+  </div>
+  <aside class="notes"><ul>
+    <li>Here's the slide I wish someone handed engineers 10 years ago: FSE, Cyber PHA, CIE/CCE, and 62443-3-2 look like four different worlds, yet they follow the exact same 4-stage engineering spine.</li>
+    <li>Every one of them starts at Stage 1 with Consequence and Scope — HAZOP in FSE, filtering hackable loops in ISA-TR84.00.09, scoring HCEs in CCE Phase 1, or defining the SuC in 62443-3-2 ZCR 1–2.</li>
+    <li>[Click — Step 1] Stage 2 maps the system and pathways: P&amp;IDs, SIS attack surfaces, system-of-systems trust, or partitioning Zones and Conduits.</li>
+    <li>[Click — Step 2] Stage 3 models failure or adversary scenarios — LOPA/SIL math for non-malicious failures, kill chains and threat analysis once networks exist.</li>
+    <li>[Click — Step 3] Stage 4 locks in safeguards and specs: SRS and proof tests, Cyber PHA gap closure and MOC, CIE physics and CCE mitigations, and 62443-3-2 SL-T and CRS sign-off.</li>
+    <li>[Click — Step 4] When a plant engineer tells you "we don't speak cyber," show them this table — they already know the workflow.</li>
   </ul></aside>
 </section>
 
@@ -1440,11 +1566,11 @@ ul.clean.g li:before{border-color:var(--green)}
   <aside class="notes"><ul>
     <li>[Click ×4] These are non-negotiable.</li>
     <li>#4 matters: models will confidently cite SR numbers that don't exist. Check.</li>
-    <li><b>Clock Gate 1:</b> If &lt;5:30 left → click <b>#42</b> ("Let's bring this straight to five things you can do Monday."). If ≥6:00 left → click <b>#29</b> ("Those are the rules for the tools — with a few minutes left, let's test that same analysis discipline on two real plant incidents.").</li>
+    <li><b>Clock Gate 1:</b> If &lt;5:30 left → click <b>#43</b> ("Let's bring this straight to five things you can do Monday."). If ≥6:00 left → click <b>#30</b> ("Those are the rules for the tools — with a few minutes left, let's test that same analysis discipline on two real plant incidents.").</li>
   </ul></aside>
   <div style="position:absolute;right:140px;bottom:46px;display:flex;gap:18px;font:700 18px var(--mono)">
-    <a href="#29" onclick="event.stopPropagation()" style="color:var(--cyan);text-decoration:none;padding:8px 14px;border:1px solid rgba(63,210,255,.4);border-radius:8px;background:rgba(63,210,255,.08)">TIME PERMITTING: FIELD CASES (#29) ▸</a>
-    <a href="#42" onclick="event.stopPropagation()" style="color:var(--amber);text-decoration:none;padding:8px 14px;border:1px solid rgba(255,176,0,.45);border-radius:8px;background:rgba(255,176,0,.10)">JUMP TO CLOSE: 5 THINGS MONDAY (#42) ▸</a>
+    <a href="#30" onclick="event.stopPropagation()" style="color:var(--cyan);text-decoration:none;padding:8px 14px;border:1px solid rgba(63,210,255,.4);border-radius:8px;background:rgba(63,210,255,.08)">TIME PERMITTING: FIELD CASES (#30) ▸</a>
+    <a href="#43" onclick="event.stopPropagation()" style="color:var(--amber);text-decoration:none;padding:8px 14px;border:1px solid rgba(255,176,0,.45);border-radius:8px;background:rgba(255,176,0,.10)">JUMP TO CLOSE: 5 THINGS MONDAY (#43) ▸</a>
   </div>
 </section>
 
@@ -1608,11 +1734,11 @@ ul.clean.g li:before{border-color:var(--green)}
   <aside class="notes"><ul>
     <li>Have fun with this. I genuinely feel for the attackers out there. They do all this work and it gets logged as a maintenance ticket.</li>
     <li>[Click] Real point under the joke: plants are noisy. Equipment fails all the time — great cover for attackers and bad analysis alike.</li>
-    <li><b>Clock Gate 2:</b> If ≥4:30 left → click <b>#37</b> ("If first reports are unreliable, who can you actually trust in this industry?"). If tight → click <b>#41</b> to land the Dave's keyboard callback.</li>
+    <li><b>Clock Gate 2:</b> If ≥4:30 left → click <b>#38</b> ("If first reports are unreliable, who can you actually trust in this industry?"). If tight → click <b>#42</b> to land the Dave's keyboard callback.</li>
   </ul></aside>
   <div style="position:absolute;right:140px;bottom:46px;display:flex;gap:18px;font:700 18px var(--mono)">
-    <a href="#37" onclick="event.stopPropagation()" style="color:var(--cyan);text-decoration:none;padding:8px 14px;border:1px solid rgba(63,210,255,.4);border-radius:8px;background:rgba(63,210,255,.08)">TIME PERMITTING: FILTER NOISE (#37) ▸</a>
-    <a href="#41" onclick="event.stopPropagation()" style="color:var(--amber);text-decoration:none;padding:8px 14px;border:1px solid rgba(255,176,0,.45);border-radius:8px;background:rgba(255,176,0,.10)">JUMP TO CLOSE: DAVE'S KEYBOARD (#41) ▸</a>
+    <a href="#38" onclick="event.stopPropagation()" style="color:var(--cyan);text-decoration:none;padding:8px 14px;border:1px solid rgba(63,210,255,.4);border-radius:8px;background:rgba(63,210,255,.08)">TIME PERMITTING: FILTER NOISE (#38) ▸</a>
+    <a href="#42" onclick="event.stopPropagation()" style="color:var(--amber);text-decoration:none;padding:8px 14px;border:1px solid rgba(255,176,0,.45);border-radius:8px;background:rgba(255,176,0,.10)">JUMP TO CLOSE: DAVE'S KEYBOARD (#42) ▸</a>
   </div>
 </section>
 
