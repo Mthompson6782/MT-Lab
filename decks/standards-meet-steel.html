@@ -1173,24 +1173,29 @@ ul.clean.g li:before{border-color:var(--green)}
 </section>
 
 <!-- ================= 16 PLANT MANAGER ================= -->
-<section class="slide" data-title="Think like the plant manager" data-steps="1">
+<section class="slide" data-title="Think like the plant manager" data-steps="2">
   <div class="kicker">Think like the plant manager</div>
-  <h2 style="font-size:68px">Nobody wakes up wanting “more security.”</h2>
-  <div class="gauges">
+  <h2 style="font-size:66px">Nobody wakes up wanting “more security.”</h2>
+  <div class="gauges" style="width:100%;margin:14px 0 28px">
     <div class="gauge" style="--a:55deg"><svg viewBox="0 0 240 140"><path d="M20 120 A100 100 0 0 1 220 120" fill="none" stroke="#233144" stroke-width="18" stroke-linecap="round"/><path d="M20 120 A100 100 0 0 1 220 120" fill="none" stroke="#3ddc97" stroke-width="18" stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="60"/><g class="needle"><line x1="120" y1="120" x2="120" y2="36" stroke="#e9eef4" stroke-width="6" stroke-linecap="round"/></g><circle cx="120" cy="120" r="10" fill="#e9eef4"/></svg><b>Safety</b></div>
     <div class="gauge" style="--a:40deg"><svg viewBox="0 0 240 140"><path d="M20 120 A100 100 0 0 1 220 120" fill="none" stroke="#233144" stroke-width="18" stroke-linecap="round"/><path d="M20 120 A100 100 0 0 1 220 120" fill="none" stroke="#3fd2ff" stroke-width="18" stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="80"/><g class="needle"><line x1="120" y1="120" x2="120" y2="36" stroke="#e9eef4" stroke-width="6" stroke-linecap="round"/></g><circle cx="120" cy="120" r="10" fill="#e9eef4"/></svg><b>Uptime</b></div>
     <div class="gauge" style="--a:20deg"><svg viewBox="0 0 240 140"><path d="M20 120 A100 100 0 0 1 220 120" fill="none" stroke="#233144" stroke-width="18" stroke-linecap="round"/><path d="M20 120 A100 100 0 0 1 220 120" fill="none" stroke="#ffb000" stroke-width="18" stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="110"/><g class="needle"><line x1="120" y1="120" x2="120" y2="36" stroke="#e9eef4" stroke-width="6" stroke-linecap="round"/></g><circle cx="120" cy="120" r="10" fill="#e9eef4"/></svg><b>Throughput</b></div>
     <div class="gauge" style="--a:-15deg"><svg viewBox="0 0 240 140"><path d="M20 120 A100 100 0 0 1 220 120" fill="none" stroke="#233144" stroke-width="18" stroke-linecap="round"/><path d="M20 120 A100 100 0 0 1 220 120" fill="none" stroke="#ffb000" stroke-width="18" stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="170"/><g class="needle"><line x1="120" y1="120" x2="120" y2="36" stroke="#e9eef4" stroke-width="6" stroke-linecap="round"/></g><circle cx="120" cy="120" r="10" fill="#e9eef4"/></svg><b>Cost</b></div>
     <div class="gauge" style="--a:30deg"><svg viewBox="0 0 240 140"><path d="M20 120 A100 100 0 0 1 220 120" fill="none" stroke="#233144" stroke-width="18" stroke-linecap="round"/><path d="M20 120 A100 100 0 0 1 220 120" fill="none" stroke="#a98bff" stroke-width="18" stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="95"/><g class="needle"><line x1="120" y1="120" x2="120" y2="36" stroke="#e9eef4" stroke-width="6" stroke-linecap="round"/></g><circle cx="120" cy="120" r="10" fill="#e9eef4"/></svg><b>Compliance</b></div>
   </div>
-  <div class="translate f" data-s="1">
+  <div class="translate f" data-s="1" style="width:100%">
     <div class="say no">“CVSS 9.8 on the HMI web server”</div>
     <div class="ar">→</div>
     <div class="say yes">“Could stop Line 3 for a shift — here's the $1,200 fix”<span style="display:block;font-size:19px;color:var(--muted);margin-top:8px">illustrative example figure</span></div>
   </div>
+  <div class="f pm-rule" data-s="2" style="width:100%;margin-top:24px;padding:20px 28px;border-radius:14px;border:1px solid rgba(255,176,0,.5);background:linear-gradient(135deg,rgba(255,79,94,.09),rgba(255,176,0,.08));display:flex;align-items:center;gap:24px">
+    <span style="font:800 16px var(--mono);color:var(--amber);letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;padding:8px 14px;border-radius:8px;border:1px solid rgba(255,176,0,.45);background:rgba(255,176,0,.10)">FIELD RULE</span>
+    <span style="font-size:27px;line-height:1.35;color:#eef4fb;font-weight:600"><b style="color:#ff8f99">Quoting the standard is lazy engineering</b> — and quoting it to a site manager will get you thrown off site. The <i>why</i> is never <span class="amber" style="font-weight:800">“because the standard says so.”</span></span>
+  </div>
   <aside class="notes"><ul>
     <li>The plant manager watches these five dials. Security only matters to the extent it moves one of them.</li>
-    <li>[Click] Translate. Same finding, two languages. One gets ignored, one gets funded.</li>
+    <li>[Click — Step 1] Translate. Same finding, two languages. One gets ignored, one gets funded.</li>
+    <li>[Click — Step 2] And here's the rule I live by on site: quoting the standard is lazy engineering, and quoting it to a site manager will get you thrown off site. Your "why" should never be "because the standard says so."</li>
     <li>Hand-off: now let's look at the actual controllers sitting on that plant floor.</li>
   </ul></aside>
 </section>
