@@ -1440,7 +1440,7 @@ ul.clean.g li:before{border-color:var(--green)}
   <aside class="notes"><ul>
     <li>[Click ×4] These are non-negotiable.</li>
     <li>#4 matters: models will confidently cite SR numbers that don't exist. Check.</li>
-    <li>Hand-off to close.</li>
+    <li><b>Clock Gate 1:</b> If &lt;5:30 left → click <b>#42</b> ("Let's bring this straight to five things you can do Monday."). If ≥6:00 left → click <b>#29</b> ("Those are the rules for the tools — with a few minutes left, let's test that same analysis discipline on two real plant incidents.").</li>
   </ul></aside>
   <div style="position:absolute;right:140px;bottom:46px;display:flex;gap:18px;font:700 18px var(--mono)">
     <a href="#29" onclick="event.stopPropagation()" style="color:var(--cyan);text-decoration:none;padding:8px 14px;border:1px solid rgba(63,210,255,.4);border-radius:8px;background:rgba(63,210,255,.08)">TIME PERMITTING: FIELD CASES (#29) ▸</a>
@@ -1604,11 +1604,11 @@ ul.clean.g li:before{border-color:var(--green)}
     <p>…whose six months of careful recon was closed out in the CMMS as <b>“replaced bad VFD.”</b><br><br>Your hard work mattered. To someone. Probably.</p>
     <div class="lily">❦</div>
   </div>
-  <p class="f" data-s="1" style="text-align:center;margin-top:60px;font:600 34px var(--mono);color:var(--cyan)">So… who do you trust? ▸</p>
+  <p class="f" data-s="1" style="text-align:center;margin-top:54px;font:600 34px var(--mono);color:var(--cyan)">Plant noise hides real threats — <span class="amber">analyze before you name the cause.</span></p>
   <aside class="notes"><ul>
     <li>Have fun with this. I genuinely feel for the attackers out there. They do all this work and it gets logged as a maintenance ticket.</li>
-    <li>Real point under the joke: plants are noisy. Equipment fails all the time. That's great cover — for attackers and for bad analysis.</li>
-    <li>[Click] Hand-off: if first reports are wrong, who do you listen to?</li>
+    <li>[Click] Real point under the joke: plants are noisy. Equipment fails all the time — great cover for attackers and bad analysis alike.</li>
+    <li><b>Clock Gate 2:</b> If ≥4:30 left → click <b>#37</b> ("If first reports are unreliable, who can you actually trust in this industry?"). If tight → click <b>#41</b> to land the Dave's keyboard callback.</li>
   </ul></aside>
   <div style="position:absolute;right:140px;bottom:46px;display:flex;gap:18px;font:700 18px var(--mono)">
     <a href="#37" onclick="event.stopPropagation()" style="color:var(--cyan);text-decoration:none;padding:8px 14px;border:1px solid rgba(63,210,255,.4);border-radius:8px;background:rgba(63,210,255,.08)">TIME PERMITTING: FILTER NOISE (#37) ▸</a>
@@ -1699,7 +1699,7 @@ ul.clean.g li:before{border-color:var(--green)}
 
 <!-- ================= 37 CLOSE: DAVE ================= -->
 <section class="slide" data-title="Close — Dave" data-steps="1">
-  <div class="kicker">Back to the beginning</div>
+  <div class="kicker">Back to the triage question</div>
   <h1 style="font-size:96px">Was it even a&nbsp;<span class="amber">hack?</span></h1>
   <div class="slot">
     <div class="lbl">ROOT&nbsp;CAUSE&nbsp;▸</div>
@@ -1710,7 +1710,7 @@ ul.clean.g li:before{border-color:var(--green)}
   </div>
   <p class="f big" data-s="1" style="margin-top:70px;font-size:56px">Next time it's Dave's keyboard,<br>you'll know in <span class="green">hours</span>, not <span class="red">months.</span></p>
   <aside class="notes"><ul>
-    <li>Same question we started with. Now you have the tools: analysis before attribution, likelihood and confidence, consequence-first standards.</li>
+    <li>Callback to our triage reel: was it even a hack? Now you have the full toolkit — analysis before attribution, likelihood and confidence, and consequence-first standards.</li>
     <li>[Click] Land the line. Pause.</li>
   </ul></aside>
 </section>
@@ -1953,6 +1953,10 @@ function xwRender(i){
   <div class="maprow"><span>NIST CSF 2.0</span><b>${d.csf}</b></div>
   <div class="maprow" style="border:none"><span class="amber" style="color:var(--amber)">Legacy reality</span><p>${d.legacy}</p></div></div>`;
 }
+
+/* ---------- hash & jump-link navigation ---------- */
+addEventListener('hashchange',()=>{const n=parseInt(location.hash.slice(1));if(!isNaN(n)&&n-1!==cur)go(n-1,0);});
+document.querySelectorAll('.slide a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const n=parseInt(a.getAttribute('href').slice(1));if(!isNaN(n)){e.preventDefault();e.stopPropagation();go(n-1,0);}}));
 
 /* ---------- start ---------- */
 const h=parseInt(location.hash.slice(1)); go(isNaN(h)?0:h-1,0);
