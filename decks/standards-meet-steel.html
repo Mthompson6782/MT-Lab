@@ -510,41 +510,327 @@ ul.clean.g li:before{border-color:var(--green)}
 </section>
 
 <!-- ================= 01a WHY STANDARDS MATTER ================= -->
-<section class="slide" data-title="Why standards matter" data-steps="3">
+<section class="slide" data-title="Why standards matter" data-steps="4">
+  <style>
+    .wsm-top { width:100%; display:grid; grid-template-columns:1fr 1fr; gap:28px; margin-bottom:22px; }
+    .wsm-bot { width:100%; display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+    .wsm-card { padding:20px 26px; display:flex; flex-direction:column; justify-content:space-between; }
+    .wsm-svg { width:100%; display:block; margin-top:12px; border-radius:12px; background:rgba(7,11,17,.68); border:1px solid rgba(255,255,255,.07); overflow:visible; }
+
+    /* 1. Lawless Chaos animations */
+    .slide.active .chaos-card { animation:chaosHit .65s cubic-bezier(.36,.07,.19,.97) both; }
+    @keyframes chaosHit { 0%{transform:scale(.95) rotate(-1.5deg)} 25%{transform:translate(-6px,3px) rotate(1.4deg)} 50%{transform:translate(5px,-4px) rotate(-1.2deg)} 75%{transform:translate(-3px,2px) rotate(.6deg)} 100%{transform:none} }
+    .ch-a { animation:chBobA 1.7s ease-in-out infinite alternate; transform-box:fill-box; transform-origin:center; }
+    .ch-b { animation:chBobB 1.4s ease-in-out infinite alternate; transform-box:fill-box; transform-origin:center; }
+    .ch-spin { animation:chSpin 5.5s linear infinite; transform-box:fill-box; transform-origin:center; }
+    .ch-zap { animation:chZap .85s steps(2) infinite; }
+    @keyframes chBobA { from{transform:translate(-6px,5px) rotate(-14deg)} to{transform:translate(8px,-7px) rotate(16deg)} }
+    @keyframes chBobB { from{transform:translate(7px,-6px) rotate(18deg)} to{transform:translate(-8px,6px) rotate(-15deg)} }
+    @keyframes chSpin { from{transform:rotate(0deg) scale(.94)} 50%{transform:rotate(180deg) scale(1.08)} to{transform:rotate(360deg) scale(.94)} }
+    @keyframes chZap { 0%{opacity:.25} 50%{opacity:1} 100%{opacity:.4} }
+
+    /* 2. Codified Order: chaotic elements snap into aligned order on .s1 */
+    .ord-sweep { transform:scaleX(0); transform-origin:left center; opacity:0; }
+    .slide.s1 .ord-sweep { animation:ordSweep 1.05s var(--ease) forwards; }
+    @keyframes ordSweep { 0%{transform:scaleX(0);opacity:1} 65%{transform:scaleX(1);opacity:.9} 100%{transform:scaleX(1);opacity:0} }
+    .ord-bus { stroke-dasharray:620; stroke-dashoffset:620; }
+    .slide.s1 .ord-bus { animation:ordBus .75s .35s var(--ease) forwards; }
+    @keyframes ordBus { to{stroke-dashoffset:0} }
+    .ord-badge { opacity:0; transform:scale(.75); transform-box:fill-box; transform-origin:center; }
+    .slide.s1 .ord-badge { animation:ordBadge .45s .72s cubic-bezier(.3,1.5,.5,1) forwards; }
+    @keyframes ordBadge { to{opacity:1;transform:scale(1)} }
+
+    .ord-n { opacity:0; transform-box:fill-box; transform-origin:center; }
+    .slide.s1 .ord-n1 { animation:snapN1 .95s cubic-bezier(.22,1.28,.36,1) forwards; }
+    .slide.s1 .ord-n2 { animation:snapN2 .95s .08s cubic-bezier(.22,1.28,.36,1) forwards; }
+    .slide.s1 .ord-n3 { animation:snapN3 .95s .16s cubic-bezier(.22,1.28,.36,1) forwards; }
+    .slide.s1 .ord-n4 { animation:snapN4 .95s .24s cubic-bezier(.22,1.28,.36,1) forwards; }
+    @keyframes snapN1 { 0%{opacity:1;transform:translate(-18px,32px) rotate(-28deg);filter:hue-rotate(190deg)} 45%{opacity:1;transform:translate(6px,-10px) rotate(8deg)} 100%{opacity:1;transform:none;filter:none} }
+    @keyframes snapN2 { 0%{opacity:1;transform:translate(26px,-26px) rotate(32deg);filter:hue-rotate(190deg)} 45%{opacity:1;transform:translate(-8px,8px) rotate(-6deg)} 100%{opacity:1;transform:none;filter:none} }
+    @keyframes snapN3 { 0%{opacity:1;transform:translate(-28px,28px) rotate(24deg);filter:hue-rotate(190deg)} 45%{opacity:1;transform:translate(5px,-8px) rotate(-8deg)} 100%{opacity:1;transform:none;filter:none} }
+    @keyframes snapN4 { 0%{opacity:1;transform:translate(16px,-30px) rotate(-30deg);filter:hue-rotate(190deg)} 45%{opacity:1;transform:translate(-6px,10px) rotate(6deg)} 100%{opacity:1;transform:none;filter:none} }
+
+    /* 3. Walls That Hold: brick-by-brick fortress construction + bounce */
+    .brk { opacity:0; transform:translateY(-44px); }
+    .slide.s2 .brk1 { animation:brkDrop .34s .06s cubic-bezier(.3,1.4,.5,1) forwards; }
+    .slide.s2 .brk2 { animation:brkDrop .34s .14s cubic-bezier(.3,1.4,.5,1) forwards; }
+    .slide.s2 .brk3 { animation:brkDrop .34s .22s cubic-bezier(.3,1.4,.5,1) forwards; }
+    .slide.s2 .brk4 { animation:brkDrop .34s .32s cubic-bezier(.3,1.4,.5,1) forwards; }
+    .slide.s2 .brk5 { animation:brkDrop .34s .40s cubic-bezier(.3,1.4,.5,1) forwards; }
+    .slide.s2 .brk6 { animation:brkDrop .34s .50s cubic-bezier(.3,1.4,.5,1) forwards; }
+    .slide.s2 .brk7 { animation:brkDrop .34s .58s cubic-bezier(.3,1.4,.5,1) forwards; }
+    @keyframes brkDrop { to{opacity:1;transform:none} }
+    .wall-shield { opacity:0; transform:scale(.4); transform-box:fill-box; transform-origin:center; }
+    .slide.s2 .wall-shield { animation:ordBadge .45s .68s cubic-bezier(.3,1.5,.5,1) forwards; }
+    .wall-atk { opacity:0; }
+    .slide.s2 .wall-atk { animation:wallBounce 2.2s .78s ease-in-out infinite; }
+    @keyframes wallBounce { 0%{opacity:0;transform:translateX(-48px)} 28%{opacity:1;transform:translateX(0)} 44%{opacity:1;transform:translateX(-28px) rotate(-12deg)} 70%{opacity:0;transform:translateX(-58px) rotate(-20deg)} 100%{opacity:0;transform:translateX(-58px)} }
+
+    /* 4. Standards Are Sticky: SPLAT ON HIT THEN HARDEN INTO THE BLOCK */
+    .sticky-slot { position:relative; }
+    .sticky-card { opacity:0; transform-origin:center; }
+    .slide.s3 .sticky-card { animation:stickyMorph 1.3s cubic-bezier(.25,1.25,.4,1) forwards; }
+    @keyframes stickyMorph {
+      0%   { opacity:0; transform:scale(.15); border-radius:50%; }
+      18%  { opacity:1; transform:scale(1.12,.76); border-radius:46% 54% 48% 52% / 58% 42% 60% 40%; box-shadow:0 0 42px rgba(63,210,255,.65); border-color:#3fd2ff; }
+      38%  { opacity:1; transform:scale(.94,1.07); border-radius:38% 48% 34% 44% / 42% 36% 48% 40%; box-shadow:0 0 28px rgba(63,210,255,.45); border-color:#3fd2ff; }
+      62%  { opacity:1; transform:scale(1.02,.98); border-radius:26px; }
+      100% { opacity:1; transform:none; border-radius:22px; box-shadow:0 20px 60px rgba(0,0,0,.35); }
+    }
+    .sticky-body { opacity:0; }
+    .slide.s3 .sticky-body { animation:stickyBodyIn .45s .55s ease forwards; }
+    @keyframes stickyBodyIn { to{opacity:1} }
+
+    .sticky-splat-fx { position:absolute; inset:-18px; pointer-events:none; opacity:0; z-index:4; }
+    .slide.s3 .sticky-splat-fx { animation:splatBurst 1.15s ease-out forwards; }
+    @keyframes splatBurst {
+      0%   { opacity:0; transform:scale(.2) rotate(-18deg); }
+      18%  { opacity:1; transform:scale(1.18,.86) rotate(4deg); }
+      45%  { opacity:.95; transform:scale(.97,1.05) rotate(-1deg); }
+      80%  { opacity:.2; transform:scale(1.02); }
+      100% { opacity:0; transform:scale(1); }
+    }
+    .stk-badge { opacity:0; transform:scale(.2,1.5) translateY(-28px); transform-box:fill-box; transform-origin:center; }
+    .slide.s3 .stk-badge { animation:stkBadgeSplat .95s .45s cubic-bezier(.28,1.35,.5,1) forwards; }
+    @keyframes stkBadgeSplat {
+      0%   { opacity:0; transform:scale(.2,1.5) translateY(-28px); }
+      35%  { opacity:1; transform:scale(1.26,.72) translateY(3px); }
+      62%  { opacity:1; transform:scale(.94,1.08) translateY(-2px); }
+      100% { opacity:1; transform:none; }
+    }
+    .stk-rotate { opacity:.9; }
+    .slide.s3 .stk-rotate { animation:stkFadeOut 2.8s 1s ease-in-out infinite; }
+    @keyframes stkFadeOut { 0%,100%{opacity:.85;transform:translateX(0)} 55%{opacity:.22;transform:translateX(14px)} }
+
+    /* 5. Answer Questions: funny panic ? -> playbook pop -> chill coffee + lightbulb */
+    .qa-panic { transform-box:fill-box; transform-origin:center; }
+    .slide.s4 .qa-panic { animation:qaShake .45s ease-in-out 3; }
+    @keyframes qaShake { 0%,100%{transform:rotate(0deg)} 25%{transform:rotate(-8deg) translateY(-2px)} 75%{transform:rotate(8deg) translateY(2px)} }
+    .qa-book { opacity:0; transform:scale(.5) translateY(16px); transform-box:fill-box; transform-origin:center; }
+    .slide.s4 .qa-book { animation:ordBadge .48s .42s cubic-bezier(.3,1.5,.5,1) forwards; }
+    .qa-bulb { opacity:0; transform:scale(.3); transform-box:fill-box; transform-origin:center; }
+    .slide.s4 .qa-bulb { animation:bulbPop .6s .78s cubic-bezier(.3,1.6,.5,1) forwards, bulbGlow 1.8s 1.4s ease-in-out infinite; }
+    @keyframes bulbPop { to{opacity:1;transform:scale(1)} }
+    @keyframes bulbGlow { 0%,100%{filter:drop-shadow(0 0 4px rgba(255,176,0,.5))} 50%{filter:drop-shadow(0 0 14px rgba(255,176,0,1))} }
+    .qa-chill { opacity:0; transform:translateX(-14px) scale(.85); transform-box:fill-box; transform-origin:center; }
+    .slide.s4 .qa-chill { animation:ordBadge .55s .92s cubic-bezier(.25,1.4,.5,1) forwards; }
+    .qa-steam { animation:steamUp 1.5s ease-in-out infinite; }
+    @keyframes steamUp { 0%{opacity:.2;transform:translateY(4px)} 50%{opacity:.95;transform:translateY(-4px)} 100%{opacity:.2;transform:translateY(4px)} }
+  </style>
+
   <div class="kicker">Why standards matter · Foundations</div>
-  <h2 style="font-size:66px;margin-bottom:24px">Standards are the <span class="amber">walls of civilization</span></h2>
-  <div class="grid2" style="gap:36px;margin-bottom:28px">
-    <div class="card" style="padding:26px 34px;border-color:rgba(255,79,94,.45);background:linear-gradient(160deg,rgba(255,79,94,.10),var(--panel))">
-      <div style="font:700 19px var(--mono);letter-spacing:.14em;color:var(--red);text-transform:uppercase">Without standards · Lawless chaos</div>
-      <p style="font-size:27px;margin-top:8px;color:#dbe4ef">Works in a tiny village — at plant or enterprise scale, every review turns into a street fight, every integrator invents a snowflake, and tribal guesswork rules.</p>
+  <h2 style="font-size:60px;margin-bottom:16px">Standards are the <span class="amber">walls of civilization</span></h2>
+
+  <!-- TOP ROW: 2-COL (Step 0: Lawless Chaos -> Click 1: Codified Order transforms those same pieces) -->
+  <div class="wsm-top">
+    <div class="card wsm-card chaos-card" style="border-color:rgba(255,79,94,.48);background:linear-gradient(160deg,rgba(255,79,94,.10),var(--panel))">
+      <div>
+        <div style="font:700 18px var(--mono);letter-spacing:.14em;color:var(--red);text-transform:uppercase">Without standards · Lawless chaos</div>
+        <p style="font-size:22.5px;line-height:1.3;margin-top:6px;color:#dbe4ef">Works in a tiny village — at scale, every review turns into a street fight &amp; every integrator invents a snowflake.</p>
+      </div>
+      <svg class="wsm-svg" viewBox="0 0 740 120" style="height:112px">
+        <!-- Wild crisscrossed fault spaghetti -->
+        <path d="M95 36 L255 92 L415 26 L590 88 L675 34" fill="none" stroke="#ff4f5e" stroke-width="2.5" stroke-dasharray="6 6" class="ch-zap"/>
+        <path d="M120 96 L320 28 L510 95 L655 58" fill="none" stroke="#ffb000" stroke-width="2" stroke-dasharray="5 7" class="ch-zap"/>
+        <!-- Wildly bouncing crooked pieces -->
+        <g class="ch-a">
+          <rect x="42" y="24" width="128" height="44" rx="8" fill="#2a1216" stroke="#ff4f5e" stroke-width="2.2"/>
+          <text x="106" y="51" text-anchor="middle" font-family="Consolas,monospace" font-size="15.5" font-weight="800" fill="#ff9ea6">SNOWFLAKE ❄</text>
+        </g>
+        <g class="ch-b">
+          <rect x="215" y="48" width="128" height="44" rx="8" fill="#2a1c0e" stroke="#ffb000" stroke-width="2.2"/>
+          <text x="279" y="75" text-anchor="middle" font-family="Consolas,monospace" font-size="15.5" font-weight="800" fill="#ffd166">SILO v?.?</text>
+        </g>
+        <g class="ch-spin">
+          <circle cx="430" cy="60" r="28" fill="#2b1218" stroke="#ff4f5e" stroke-width="2.2"/>
+          <text x="430" y="67" text-anchor="middle" font-size="22" font-weight="900" fill="#ff4f5e">⚡?!</text>
+        </g>
+        <g class="ch-a">
+          <rect x="520" y="26" width="176" height="46" rx="8" fill="#2a1216" stroke="#ff4f5e" stroke-width="2.2"/>
+          <text x="608" y="55" text-anchor="middle" font-family="Consolas,monospace" font-size="15.5" font-weight="800" fill="#ff8f99">TRIBAL FIGHT</text>
+        </g>
+      </svg>
     </div>
-    <div class="card" style="padding:26px 34px;border-color:rgba(61,220,151,.5);background:linear-gradient(160deg,rgba(61,220,151,.10),var(--panel))">
-      <div style="font:700 19px var(--mono);letter-spacing:.14em;color:var(--green);text-transform:uppercase">With standards · Codified order</div>
-      <p style="font-size:27px;margin-top:8px;color:#dbe4ef">Predictable rules of the road, durable engineering culture, and repeatable architectures that hold best practices in place across sites and years.</p>
+
+    <div class="card wsm-card order-card f" data-s="1" style="border-color:rgba(61,220,151,.52);background:linear-gradient(160deg,rgba(61,220,151,.10),var(--panel))">
+      <div>
+        <div style="font:700 18px var(--mono);letter-spacing:.14em;color:var(--green);text-transform:uppercase">With standards · Codified order</div>
+        <p style="font-size:22.5px;line-height:1.3;margin-top:6px;color:#dbe4ef">Predictable rules of the road, durable engineering culture, and repeatable architectures locked across sites and years.</p>
+      </div>
+      <svg class="wsm-svg" viewBox="0 0 740 120" style="height:112px">
+        <!-- Scanline sweep turning chaos into grid -->
+        <rect class="ord-sweep" x="0" y="4" width="740" height="112" fill="rgba(61,220,151,.14)"/>
+        <!-- Straight aligned emerald bus line -->
+        <line x1="88" y1="60" x2="610" y2="60" stroke="#3ddc97" stroke-width="4" class="ord-bus"/>
+        <!-- Exact 4 chaotic blocks snapped neatly onto the aligned grid -->
+        <g class="ord-n ord-n1">
+          <rect x="24" y="34" width="136" height="52" rx="9" fill="#0d221c" stroke="#3ddc97" stroke-width="2.4"/>
+          <text x="92" y="57" text-anchor="middle" font-family="Consolas,monospace" font-size="14" font-weight="800" fill="#3ddc97">BLUEPRINT</text>
+          <text x="92" y="75" text-anchor="middle" font-family="Consolas,monospace" font-size="12.5" fill="#bff5dd">Standard build</text>
+        </g>
+        <g class="ord-n ord-n2">
+          <rect x="184" y="34" width="136" height="52" rx="9" fill="#0d221c" stroke="#3ddc97" stroke-width="2.4"/>
+          <text x="252" y="57" text-anchor="middle" font-family="Consolas,monospace" font-size="14" font-weight="800" fill="#3ddc97">SHARED RULES</text>
+          <text x="252" y="75" text-anchor="middle" font-family="Consolas,monospace" font-size="12.5" fill="#bff5dd">Repeatable SL</text>
+        </g>
+        <g class="ord-n ord-n3">
+          <rect x="344" y="34" width="136" height="52" rx="9" fill="#0d221c" stroke="#3ddc97" stroke-width="2.4"/>
+          <text x="412" y="57" text-anchor="middle" font-family="Consolas,monospace" font-size="14" font-weight="800" fill="#3ddc97">CONDUITS</text>
+          <text x="412" y="75" text-anchor="middle" font-family="Consolas,monospace" font-size="12.5" fill="#bff5dd">Clean zones</text>
+        </g>
+        <g class="ord-n ord-n4">
+          <rect x="504" y="34" width="136" height="52" rx="9" fill="#0d221c" stroke="#3ddc97" stroke-width="2.4"/>
+          <text x="572" y="57" text-anchor="middle" font-family="Consolas,monospace" font-size="14" font-weight="800" fill="#3ddc97">CULTURE</text>
+          <text x="572" y="75" text-anchor="middle" font-family="Consolas,monospace" font-size="12.5" fill="#bff5dd">Site to site</text>
+        </g>
+        <g class="ord-badge">
+          <circle cx="688" cy="60" r="24" fill="rgba(61,220,151,.2)" stroke="#3ddc97" stroke-width="2.5"/>
+          <text x="688" y="68" text-anchor="middle" font-size="24" font-weight="900" fill="#3ddc97">✓</text>
+        </g>
+      </svg>
     </div>
   </div>
-  <div class="grid3" style="gap:32px">
-    <div class="card f" data-s="1" style="padding:28px 32px;border-top:4px solid var(--amber)">
-      <div style="font:700 18px var(--mono);letter-spacing:.14em;color:var(--amber);text-transform:uppercase">01 · Rule of law</div>
-      <h3 style="font-size:36px;margin:10px 0 12px">Walls that hold</h3>
-      <p style="font-size:26px;line-height:1.38">Set clear expectations across plants and vendors so security outcomes don't depend on who happens to be in the room.</p>
+
+  <!-- BOTTOM ROW: 3-COL (Click 2: Wall Built | Click 3: Sticky Splat -> Block | Click 4: Funny Q&A) -->
+  <div class="wsm-bot">
+    <!-- 01 · Walls That Hold -->
+    <div class="card wsm-card f" data-s="2" style="border-top:4px solid var(--amber)">
+      <div>
+        <div style="font:700 17px var(--mono);letter-spacing:.14em;color:var(--amber);text-transform:uppercase">01 · Rule of law</div>
+        <h3 style="font-size:32px;margin:8px 0 8px">Walls that hold</h3>
+        <p style="font-size:21.5px;line-height:1.3">Clear expectations across plants and vendors so outcomes don't hinge on who's in the room.</p>
+      </div>
+      <svg class="wsm-svg" viewBox="0 0 460 128" style="height:122px">
+        <!-- Ground floor -->
+        <line x1="12" y1="112" x2="448" y2="112" stroke="#2c3e55" stroke-width="3"/>
+        <!-- Deflected attack from left -->
+        <g class="wall-atk">
+          <path d="M40 72 H120" stroke="#ff4f5e" stroke-width="4"/>
+          <polygon points="128,72 110,63 110,81" fill="#ff4f5e"/>
+          <text x="72" y="55" text-anchor="middle" font-family="Consolas,monospace" font-size="13" font-weight="800" fill="#ff8f99">SNOWFLAKE</text>
+        </g>
+        <!-- Interlocking fortress masonry bricks dropping sequentially -->
+        <g fill="#2b2110" stroke="#ffb000" stroke-width="2.2">
+          <!-- Bottom Course -->
+          <rect class="brk brk1" x="150" y="84" width="60" height="26" rx="4"/>
+          <rect class="brk brk2" x="214" y="84" width="60" height="26" rx="4"/>
+          <rect class="brk brk3" x="278" y="84" width="60" height="26" rx="4"/>
+          <!-- Middle Course -->
+          <rect class="brk brk4" x="180" y="54" width="64" height="26" rx="4"/>
+          <rect class="brk brk5" x="248" y="54" width="64" height="26" rx="4"/>
+          <!-- Top Keystone Cap -->
+          <rect class="brk brk6" x="156" y="24" width="84" height="26" rx="4" fill="#3a2a12"/>
+          <rect class="brk brk7" x="244" y="24" width="88" height="26" rx="4" fill="#3a2a12"/>
+        </g>
+        <!-- Shield keystone badge & Protected plant node -->
+        <g class="wall-shield">
+          <circle cx="244" cy="67" r="17" fill="#141c28" stroke="#ffb000" stroke-width="2.5"/>
+          <text x="244" y="73" text-anchor="middle" font-family="Consolas,monospace" font-size="15" font-weight="900" fill="#ffb000">★</text>
+          <rect x="356" y="34" width="90" height="62" rx="10" fill="#0d221c" stroke="#3ddc97" stroke-width="2"/>
+          <text x="401" y="61" text-anchor="middle" font-family="Consolas,monospace" font-size="13" font-weight="800" fill="#3ddc97">PLANT</text>
+          <text x="401" y="81" text-anchor="middle" font-family="Consolas,monospace" font-size="12" fill="#bff5dd">LOCKED ✓</text>
+        </g>
+      </svg>
     </div>
-    <div class="card f" data-s="2" style="padding:28px 32px;border-top:4px solid var(--cyan)">
-      <div style="font:700 18px var(--mono);letter-spacing:.14em;color:var(--cyan);text-transform:uppercase">02 · Institutional memory</div>
-      <h3 style="font-size:36px;margin:10px 0 12px">Standards are “sticky”</h3>
-      <p style="font-size:26px;line-height:1.38">Engineers rotate, contractors roll off, and tribal knowledge evaporates. Standards make hard-won lessons stick.</p>
+
+    <!-- 02 · Standards Are "Sticky" (SPLATS THEN TURNS INTO THE BLOCK) -->
+    <div class="sticky-slot">
+      <!-- Temporary goo splat burst effect overlay on hit -->
+      <svg class="sticky-splat-fx" viewBox="0 0 500 380">
+        <path d="M250 32 C310 10, 395 48, 438 112 C486 182, 464 268, 412 316 C355 368, 282 350, 240 364 C174 345, 78 362, 46 286 C14 210, 36 108, 92 64 C142 26, 200 44, 250 32 Z" fill="rgba(63,210,255,.32)" stroke="#3fd2ff" stroke-width="4"/>
+        <circle cx="48" cy="54" r="14" fill="#3fd2ff"/><circle cx="462" cy="82" r="12" fill="#ffb000"/><circle cx="448" cy="338" r="15" fill="#3fd2ff"/><circle cx="62" cy="342" r="11" fill="#3ddc97"/>
+        <text x="250" y="198" text-anchor="middle" font-family="Consolas,monospace" font-size="44" font-weight="900" fill="#e9eef4" letter-spacing="4">SPLAT!</text>
+      </svg>
+
+      <div class="card wsm-card sticky-card f" data-s="3" style="height:100%;border-top:4px solid var(--cyan)">
+        <div class="sticky-body">
+          <div style="font:700 17px var(--mono);letter-spacing:.14em;color:var(--cyan);text-transform:uppercase">02 · Institutional memory</div>
+          <h3 style="font-size:32px;margin:8px 0 8px">Standards are “sticky”</h3>
+          <p style="font-size:21.5px;line-height:1.3">Engineers rotate and contractors roll off, but standards stick — hard-won lessons stay bolted to the steel.</p>
+        </div>
+        <svg class="wsm-svg sticky-body" viewBox="0 0 460 128" style="height:122px">
+          <!-- Steel wall with sticky cyan splatter permanently hardened into it -->
+          <rect x="18" y="18" width="218" height="92" rx="12" fill="#0d1d29" stroke="#3fd2ff" stroke-width="2.5"/>
+          <!-- Goo drips frozen onto wall -->
+          <path d="M52 18 V44 a8 8 0 0 0 16 0 V18 M112 18 V36 a7 7 0 0 0 14 0 V18 M178 18 V48 a8 8 0 0 0 16 0 V18" fill="#3fd2ff" opacity=".45"/>
+          <g class="stk-badge">
+            <rect x="44" y="42" width="166" height="50" rx="10" fill="#133144" stroke="#3fd2ff" stroke-width="2.5"/>
+            <text x="127" y="64" text-anchor="middle" font-family="Consolas,monospace" font-size="14" font-weight="800" fill="#3fd2ff">STANDARD STUCK</text>
+            <text x="127" y="82" text-anchor="middle" font-family="Consolas,monospace" font-size="12" fill="#d3f3ff">Splat → Solid Block ✓</text>
+          </g>
+          <!-- People/vendors rotating out on right while Standard stays bolted -->
+          <g class="stk-rotate">
+            <rect x="262" y="24" width="174" height="36" rx="8" fill="#151d28" stroke="#5a6b82" stroke-width="1.5" stroke-dasharray="4 4"/>
+            <text x="349" y="47" text-anchor="middle" font-family="Consolas,monospace" font-size="13" fill="#9fb3c8">Eng rotates out →</text>
+            <rect x="262" y="70" width="174" height="36" rx="8" fill="#151d28" stroke="#5a6b82" stroke-width="1.5" stroke-dasharray="4 4"/>
+            <text x="349" y="93" text-anchor="middle" font-family="Consolas,monospace" font-size="13" fill="#9fb3c8">Contractor rolls off →</text>
+          </g>
+        </svg>
+      </div>
     </div>
-    <div class="card f" data-s="3" style="padding:28px 32px;border-top:4px solid var(--green)">
-      <div style="font:700 18px var(--mono);letter-spacing:.14em;color:var(--green);text-transform:uppercase">03 · Engineering reality</div>
-      <h3 style="font-size:36px;margin:10px 0 12px">Answer questions</h3>
-      <p style="font-size:26px;line-height:1.38">A good standard codifies proven plant practices and points to real tools — answering questions instead of making more.</p>
+
+    <!-- 03 · Answer Questions (Funny Q&A animation!) -->
+    <div class="card wsm-card f" data-s="4" style="border-top:4px solid var(--green)">
+      <div>
+        <div style="font:700 17px var(--mono);letter-spacing:.14em;color:var(--green);text-transform:uppercase">03 · Engineering reality</div>
+        <h3 style="font-size:32px;margin:8px 0 8px">Answer questions</h3>
+        <p style="font-size:21.5px;line-height:1.3">A good standard codifies proven plant practices and points to real tools — settling debates instead of starting more.</p>
+      </div>
+      <svg class="wsm-svg" viewBox="0 0 460 128" style="height:122px">
+        <!-- Left: Panicked ? storm ("DO WE PATCH?!" "USE 502?!") -->
+        <g class="qa-panic">
+          <rect x="14" y="20" width="124" height="88" rx="10" fill="#251319" stroke="#ff4f5e" stroke-width="2" opacity=".82"/>
+          <text x="42" y="54" font-family="Consolas,monospace" font-size="24" font-weight="900" fill="#ff4f5e">?</text>
+          <text x="78" y="45" font-family="Consolas,monospace" font-size="19" font-weight="900" fill="#ffb000">?!?</text>
+          <text x="110" y="64" font-family="Consolas,monospace" font-size="22" font-weight="900" fill="#ff4f5e">?</text>
+          <text x="76" y="88" text-anchor="middle" font-family="Consolas,monospace" font-size="11.5" font-weight="700" fill="#ff9ea6">4-hr meeting?!</text>
+        </g>
+
+        <!-- Center: Standard Playbook drops in -->
+        <g class="qa-book">
+          <path d="M150 64 H172" stroke="#3ddc97" stroke-width="3.5"/>
+          <polygon points="178,64 168,58 168,70" fill="#3ddc97"/>
+          <rect x="180" y="30" width="92" height="68" rx="8" fill="#102520" stroke="#3ddc97" stroke-width="2.5"/>
+          <line x1="226" y1="30" x2="226" y2="98" stroke="#3ddc97" stroke-width="1.8" opacity=".6"/>
+          <text x="203" y="59" text-anchor="middle" font-family="Consolas,monospace" font-size="12.5" font-weight="800" fill="#3ddc97">STD</text>
+          <text x="249" y="59" text-anchor="middle" font-family="Consolas,monospace" font-size="12.5" font-weight="800" fill="#ffb000">USE</text>
+          <text x="226" y="82" text-anchor="middle" font-family="Consolas,monospace" font-size="11.5" font-weight="700" fill="#e9eef4">PLAYBOOK</text>
+          <path d="M274 64 H296" stroke="#3ddc97" stroke-width="3.5"/>
+          <polygon points="302,64 292,58 292,70" fill="#3ddc97"/>
+        </g>
+
+        <!-- Right: Cool Hardhat Engineer w/ Sunglasses, Coffee & Lit Bulb ("OH. DONE.") -->
+        <g class="qa-chill">
+          <rect x="304" y="16" width="142" height="96" rx="10" fill="#0d221c" stroke="#3ddc97" stroke-width="2.2"/>
+          <!-- Hardhat + sunglasses smiley -->
+          <path d="M324 52 a18 16 0 0 1 36 0 z" fill="#ffb000"/>
+          <rect x="320" y="50" width="44" height="5" rx="2" fill="#ffd166"/>
+          <circle cx="342" cy="67" r="14" fill="#e9eef4"/>
+          <!-- Cool dark shades -->
+          <rect x="331" y="61" width="9" height="6" rx="2" fill="#0d141d"/>
+          <rect x="343" y="61" width="9" height="6" rx="2" fill="#0d141d"/>
+          <line x1="340" y1="63" x2="343" y2="63" stroke="#0d141d" stroke-width="2"/>
+          <path d="M336 73 q6 5 12 0" fill="none" stroke="#0d141d" stroke-width="2.2" stroke-linecap="round"/>
+          <!-- Steaming coffee mug -->
+          <rect x="366" y="66" width="14" height="14" rx="2" fill="#3fd2ff"/>
+          <path d="M370 60 q3 -4 0 -7 M376 60 q3 -4 0 -7" fill="none" stroke="#8bdfff" stroke-width="1.8" class="qa-steam"/>
+          <!-- Lightbulb + check -->
+          <g class="qa-bulb">
+            <circle cx="416" cy="44" r="14" fill="rgba(255,176,0,.22)" stroke="#ffb000" stroke-width="2"/>
+            <text x="416" y="50" text-anchor="middle" font-size="18">💡</text>
+          </g>
+          <text x="375" y="100" text-anchor="middle" font-family="Consolas,monospace" font-size="13" font-weight="800" fill="#3ddc97">✓ DONE · NO MTG</text>
+        </g>
+      </svg>
     </div>
   </div>
+
   <aside class="notes"><ul>
-    <li>Before we compare specific frameworks, why care about standards at all? Operating without standards is like a civilization without laws — fine in a small village, chaos at scale.</li>
-    <li>[Click] First, standards are the walls of civilization: they replace ad-hoc street fights and snowflake integrator builds with the rule of law.</li>
-    <li>[Click] Second, standards are sticky. People leave, vendors rotate, and tribal memory disappears — standards make best practices stick around.</li>
-    <li>[Click] Third, a useful standard answers engineering questions instead of creating more paperwork.</li>
+    <li>Before we compare specific frameworks, why care about standards at all? Look at Without Standards: lawless chaos — at scale every review becomes a street fight and every integrator invents a snowflake.</li>
+    <li>[Click — Step 1] Drop in Codified Order and all those chaotic snowflakes snap into repeatable architectures locked across sites and years.</li>
+    <li>[Click — Step 2] Pillar 1: Walls that hold — built brick by brick so security outcomes don't depend on who happens to be in the room.</li>
+    <li>[Click — Step 3] Pillar 2: Standards are sticky — watch it splat and harden right into the wall so lessons stay bolted in place even as engineers and contractors rotate out.</li>
+    <li>[Click — Step 4] Pillar 3: A real standard replaces panicked 4-hour meetings with real answers and pointed tools.</li>
   </ul></aside>
 </section>
 
@@ -777,24 +1063,6 @@ ul.clean.g li:before{border-color:var(--green)}
     <li>[Click — Step 3] So don't fight the zombie — put it to work. Keep it as shared vocabulary and your first cut at 62443 zones and conduits; just drop the illusion that the layers are physical walls.</li>
   </ul></aside>
 </section>
-
-<!-- ================= 01e PATCHING IS FOR SUCKERS (3D PLANETARY DEFENSE) ================= -->
-<section class="slide pd3d" data-title="Patching is for suckers (3D)">
-  <div class="pdposter">
-    <div class="kicker">OT Planetary Defense · Why Segmentation Beats Whack-a-Mole</div>
-    <h1>Patching Is for <span class="amber">Suckers.</span></h1>
-    <p>Patching = shooting asteroids with lasers (requires 100% perfection · 1 miss = crater) · Segmentation = the planetary shield</p>
-    <div class="sub2">“Vulnerabilities are a function of <b class="amber">time, money, and creativity</b> — and nearly limitless with an adversary that's <b class="cyan">well-funded or bored</b>.”</div>
-  </div>
-  <button class="pdskip" type="button">SKIP 3D SIM → SLIDE 08 ▸</button>
-  <aside class="notes"><ul>
-    <li>Cheeky truth right after the Purdue slide: Patching is for suckers if that's your primary strategy.</li>
-    <li>This 3D Planetary Defense sim takes the keyboard/clicker: → / Space steps through the 5 scenes (Lasers only → 1 miss = Crater → Raise the Segmentation Shield → Defense in Depth). Press S to toggle shield, L for lasers, Esc to jump out early.</li>
-    <li>Core point: If you rely on patching (shooting asteroids with lasers), you have to be 100% effective. If one slips through, crater! And vulnerabilities are a function of time, money, and creativity — nearly limitless when your adversary is well-funded or just bored.</li>
-    <li>Defense in depth with network segmentation (shielding) is the better engineering approach.</li>
-  </ul></aside>
-</section>
-
 
 <!-- ================= 19 SL LADDER ================= -->
 <section class="slide" data-title="62443 security levels" data-steps="5">
@@ -1482,6 +1750,24 @@ ul.clean.g li:before{border-color:var(--green)}
     <li>Clausewitz called it friction. Simple things are hard when you're actually doing them.</li>
     <li>[Click] My joke, mostly. If organizations just patched and turned off accounts for people they fired, I'd have a very chill job.</li>
     <li>Real-world proof: at Georgia-Pacific's Port Hudson paper mill in 2014, a fired sysadmin's VPN stayed active — months of plant upsets, $1.1M restitution, 34 months federal prison (full case in Section 05 if time permits).</li>
+    <li>Hand-off: so let's see in 3D why patching as your primary defense always loses the math.</li>
+  </ul></aside>
+</section>
+
+<!-- ================= 01e PATCHING IS FOR SUCKERS (3D PLANETARY DEFENSE) ================= -->
+<section class="slide pd3d" data-title="Patching is for suckers (3D)">
+  <div class="pdposter">
+    <div class="kicker">OT Planetary Defense · Why Segmentation Beats Whack-a-Mole</div>
+    <h1>Patching Is for <span class="amber">Suckers.</span></h1>
+    <p>Patching = shooting asteroids with lasers (requires 100% perfection · 1 miss = crater) · Segmentation = the planetary shield</p>
+    <div class="sub2">“Vulnerabilities are a function of <b class="amber">time, money, and creativity</b> — and nearly limitless with an adversary that's <b class="cyan">well-funded or bored</b>.”</div>
+  </div>
+  <button class="pdskip" type="button">SKIP 3D SIM → SLIDE 21 ▸</button>
+  <aside class="notes"><ul>
+    <li>Cheeky truth right after that Clausewitz quote: Patching is for suckers if that's your primary strategy.</li>
+    <li>This 3D Planetary Defense sim takes the keyboard/clicker: → / Space steps through the 5 scenes (Lasers only → 1 miss = Crater → Raise the Segmentation Shield → Defense in Depth). Press S to toggle shield, L for lasers, Esc to jump out early.</li>
+    <li>Core point: If you rely on patching (shooting asteroids with lasers), you have to be 100% effective. If one slips through, crater! And vulnerabilities are a function of time, money, and creativity — nearly limitless when your adversary is well-funded or just bored.</li>
+    <li>Defense in depth with network segmentation (shielding) is the better engineering approach.</li>
   </ul></aside>
 </section>
 

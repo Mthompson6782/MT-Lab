@@ -191,7 +191,7 @@ KEY CAPABILITIES:
       { label: "Core Thesis", value: "Standards Never Replace Engineering Judgment" },
       { label: "Venue", value: "University of Arkansas · Nov 18, 2026" }
     ],
-    architectureSummary: "Single-file zero-dependency HTML/CSS/SVG presentation deck with an embedded Three.js 3D WebGL Planetary Defense simulation (Slide 7), interactive step-reveal diagrams, speaker notes drawer (N), and slide overview grid (G).",
+    architectureSummary: "Single-file zero-dependency HTML/CSS/SVG presentation deck with an embedded Three.js 3D WebGL Planetary Defense simulation (Slide 20), interactive step-reveal diagrams, speaker notes drawer (N), and slide overview grid (G).",
     keyHighlights: [
       "Upfront deep dive on IEC 62443, NIST SP 800-82 Rev. 4 Draft, NERC CIP, and the Zombie Purdue Model",
       "Embedded 3D WebGL 'Patching Is for Suckers' Planetary Defense simulation contrasting 100% laser patching against segmentation shielding",
