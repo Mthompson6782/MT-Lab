@@ -835,40 +835,125 @@ ul.clean.g li:before{border-color:var(--green)}
 </section>
 
 <!-- ================= 01b THE STANDARDS MAP ================= -->
-<section class="slide" data-title="The standards map" data-steps="3">
+<section class="slide" data-title="The standards map" data-steps="4">
+  <style>
+    .map-grid6 { width:100%; display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+    .map-grid6 .card { padding:20px 26px; }
+    .map-grid6 .card p { font-size:23px; margin-top:10px; line-height:1.32; }
+    .cra-strip {
+      width:100%; margin-top:20px; padding:14px 26px; border-radius:18px;
+      border:1px solid rgba(63,210,255,.5);
+      background:linear-gradient(135deg,rgba(12,32,48,.92),rgba(13,20,30,.96));
+      display:grid; grid-template-columns:340px 1fr; align-items:center; gap:26px;
+      box-shadow:0 16px 46px rgba(0,0,0,.35);
+    }
+    .cra-scene { width:100%; height:136px; display:block; border-radius:12px; background:linear-gradient(180deg,#08131f,#0c2136); border:1px solid rgba(63,210,255,.26); overflow:hidden; }
+    /* Rising tide + boats animation on Step 4 (.s4) */
+    .cra-tide { transform:translateY(42px); transition:transform 1.45s cubic-bezier(.22,1,.36,1); }
+    .slide.s4 .cra-tide { transform:translateY(0); }
+    .cra-wave-scroll { animation:craWaveX 3.4s linear infinite; }
+    @keyframes craWaveX { from{transform:translateX(0)} to{transform:translateX(-80px)} }
+    .cra-boat1 { transform:translateY(42px); transition:transform 1.45s .06s cubic-bezier(.22,1.15,.36,1); }
+    .cra-boat2 { transform:translateY(42px); transition:transform 1.55s .14s cubic-bezier(.22,1.15,.36,1); }
+    .slide.s4 .cra-boat1, .slide.s4 .cra-boat2 { transform:translateY(0); }
+    .cra-bob1 { transform-box:fill-box; transform-origin:center; animation:craBobA 2.3s ease-in-out infinite; }
+    .cra-bob2 { transform-box:fill-box; transform-origin:center; animation:craBobB 2.7s ease-in-out infinite; }
+    @keyframes craBobA { 0%,100%{transform:translateY(-2px) rotate(-2.5deg)} 50%{transform:translateY(3px) rotate(2.5deg)} }
+    @keyframes craBobB { 0%,100%{transform:translateY(2px) rotate(2deg)} 50%{transform:translateY(-3px) rotate(-2.5deg)} }
+    .cra-arrow { opacity:0; transition:opacity .5s .6s ease; }
+    .slide.s4 .cra-arrow { opacity:.9; }
+  </style>
+
   <div class="kicker">The landscape · What you'll actually encounter</div>
-  <h2 style="font-size:66px;margin-bottom:24px">The OT <span class="amber">standards map</span></h2>
-  <div class="grid3" style="gap:28px">
-    <div class="card f" data-s="1" style="padding:26px 30px;border-left:5px solid var(--amber)">
-      <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font:800 30px var(--mono);color:var(--amber)">ISA/IEC 62443</span><span class="tag" style="font-size:14px;padding:6px 10px;color:var(--amber)">ENGINEERING CORE</span></div>
-      <p style="font-size:25px;margin-top:12px;line-height:1.36">The global engineering standard for zones, conduits, and Security Levels (SL 1–4) across asset owners, integrators, and OEMs.</p>
+  <h2 style="font-size:62px;margin-bottom:18px">The OT <span class="amber">standards map</span></h2>
+  <div class="map-grid6">
+    <div class="card f" data-s="1" style="border-left:5px solid var(--amber)">
+      <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font:800 28px var(--mono);color:var(--amber)">ISA/IEC 62443</span><span class="tag" style="font-size:13px;padding:5px 9px;color:var(--amber)">ENGINEERING CORE</span></div>
+      <p>The global engineering standard for zones, conduits, and Security Levels (SL 1–4) across asset owners, integrators, and OEMs.</p>
     </div>
-    <div class="card f" data-s="1" style="padding:26px 30px;border-left:5px solid var(--cyan)">
-      <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font:800 28px var(--mono);color:var(--cyan)">NIST SP 800-82 (r3 → r4)</span><span class="tag" style="font-size:14px;padding:6px 10px;color:var(--cyan)">REV 4 IN DRAFT</span></div>
-      <p style="font-size:25px;margin-top:12px;line-height:1.36">Free federal OT guide &amp; 800-53 overlay. <b>Rev. 3</b> is current; <b class="amber">Rev. 4 is now out in public draft</b> (aligned to CSF 2.0 <i>Govern</i> &amp; Zero Trust).</p>
+    <div class="card f" data-s="1" style="border-left:5px solid var(--cyan)">
+      <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font:800 26px var(--mono);color:var(--cyan)">NIST SP 800-82 (r3 → r4)</span><span class="tag" style="font-size:13px;padding:5px 9px;color:var(--cyan)">REV 4 IN DRAFT</span></div>
+      <p>Free federal OT guide &amp; 800-53 overlay. <b>Rev. 3</b> is current; <b class="amber">Rev. 4 is now out in public draft</b> (aligned to CSF 2.0 <i>Govern</i> &amp; Zero Trust).</p>
     </div>
-    <div class="card f" data-s="2" style="padding:26px 30px;border-left:5px solid var(--green)">
-      <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font:800 30px var(--mono);color:var(--green)">DOE / INL CIE</span><span class="tag" style="font-size:14px;padding:6px 10px;color:var(--green)">DESIGN FIRST</span></div>
-      <p style="font-size:25px;margin-top:12px;line-height:1.36"><b>Cyber-Informed Engineering:</b> 12 lifecycle principles embedding physical, hardwired, and architectural safeguards so digital compromise can't cause catastrophe.</p>
+    <div class="card f" data-s="2" style="border-left:5px solid var(--green)">
+      <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font:800 28px var(--mono);color:var(--green)">DOE / INL CIE</span><span class="tag" style="font-size:13px;padding:5px 9px;color:var(--green)">DESIGN FIRST</span></div>
+      <p><b>Cyber-Informed Engineering:</b> 12 lifecycle principles embedding physical, hardwired, and architectural safeguards so digital compromise can't cause catastrophe.</p>
     </div>
-    <div class="card f" data-s="2" style="padding:26px 30px;border-left:5px solid var(--green)">
-      <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font:800 30px var(--mono);color:var(--green)">INL CCE</span><span class="tag" style="font-size:14px;padding:6px 10px;color:var(--green)">CROWN JEWELS</span></div>
-      <p style="font-size:25px;margin-top:12px;line-height:1.36"><b>Consequence-driven Cyber-informed Engineering:</b> INL's 4-phase methodology assuming adversary access to trace kill chains and engineer out worst-case physical consequences.</p>
+    <div class="card f" data-s="2" style="border-left:5px solid var(--green)">
+      <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font:800 28px var(--mono);color:var(--green)">INL CCE</span><span class="tag" style="font-size:13px;padding:5px 9px;color:var(--green)">CROWN JEWELS</span></div>
+      <p><b>Consequence-driven Cyber-informed Engineering:</b> INL's 4-phase methodology assuming adversary access to trace kill chains and engineer out worst-case physical consequences.</p>
     </div>
-    <div class="card f" data-s="3" style="padding:26px 30px;border-left:5px solid var(--violet)">
-      <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font:800 26px var(--mono);color:var(--violet)">IEC 61511 + TR84.00.09</span><span class="tag" style="font-size:14px;padding:6px 10px;color:var(--violet)">SAFETY + CYBER</span></div>
-      <p style="font-size:25px;margin-top:12px;line-height:1.36">Functional safety meets OT security: <b class="amber">61511 requires the security assessment; ISA-TR84.00.09 (2024) shows you how</b> across the SIS lifecycle.</p>
+    <div class="card f" data-s="3" style="border-left:5px solid var(--violet)">
+      <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font:800 24px var(--mono);color:var(--violet)">IEC 61511 + TR84.00.09</span><span class="tag" style="font-size:13px;padding:5px 9px;color:var(--violet)">SAFETY + CYBER</span></div>
+      <p>Functional safety meets OT security: <b class="amber">61511 requires the security assessment; ISA-TR84.00.09 (2024) shows you how</b> across the SIS lifecycle.</p>
     </div>
-    <div class="card f" data-s="3" style="padding:26px 30px;border-left:5px solid var(--red)">
-      <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font:800 30px var(--mono);color:var(--red)">NERC CIP</span><span class="tag" style="font-size:14px;padding:6px 10px;color:var(--red)">MANDATORY</span></div>
-      <p style="font-size:25px;margin-top:12px;line-height:1.36">Enforceable bulk-power cybersecurity rules with real federal audits and fines — the sharp contrast to voluntary industrial frameworks.</p>
+    <div class="card f" data-s="3" style="border-left:5px solid var(--red)">
+      <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font:800 28px var(--mono);color:var(--red)">NERC CIP</span><span class="tag" style="font-size:13px;padding:5px 9px;color:var(--red)">MANDATORY</span></div>
+      <p>Enforceable bulk-power cybersecurity rules with real federal audits and fines — the sharp contrast to voluntary industrial frameworks.</p>
     </div>
   </div>
+
+  <!-- Step 4 ("Slip it in"): EU CRA — A Rising Tide Lifts All Ships -->
+  <div class="cra-strip f" data-s="4" style="border-left:6px solid var(--cyan)">
+    <svg class="cra-scene" viewBox="0 0 340 136">
+      <!-- Subtle old low-water reference mark -->
+      <line x1="12" y1="120" x2="328" y2="120" stroke="#304860" stroke-width="1.2" stroke-dasharray="4 4"/>
+      <text x="16" y="132" font-family="Consolas,monospace" font-size="9.5" fill="#6b88a4">PRE-CRA BASELINE</text>
+
+      <!-- Rising Tide Indicator Arrow -->
+      <g class="cra-arrow">
+        <line x1="22" y1="102" x2="22" y2="34" stroke="#ffb000" stroke-width="2.5"/>
+        <polygon points="22,26 16,38 28,38" fill="#ffb000"/>
+        <text x="34" y="42" font-family="Consolas,monospace" font-size="11.5" font-weight="800" fill="#ffb000">CRA TIDE ↑</text>
+      </g>
+
+      <!-- Rising Tide Wave Fill (drawn cleanly behind ship hulls so hull labels stay crisp) -->
+      <g class="cra-tide">
+        <g class="cra-wave-scroll">
+          <path d="M0 74 Q20 66 40 74 T80 74 T120 74 T160 74 T200 74 T240 74 T280 74 T320 74 T360 74 T400 74 T440 74 V146 H0 Z" fill="rgba(63,210,255,.24)"/>
+          <path d="M0 74 Q20 66 40 74 T80 74 T120 74 T160 74 T200 74 T240 74 T280 74 T320 74 T360 74 T400 74 T440 74" fill="none" stroke="#3fd2ff" stroke-width="2.5"/>
+        </g>
+        <text x="172" y="100" text-anchor="middle" font-family="Consolas,monospace" font-size="12.5" font-weight="800" fill="#bff5dd">RISING TIDE LIFTS ALL SHIPS</text>
+      </g>
+
+      <!-- Two little ships riding up cleanly on top of the rising tide -->
+      <!-- Ship 1: EU OEM Boat (Amber cabin) -->
+      <g class="cra-boat1">
+        <g class="cra-bob1">
+          <rect x="82" y="38" width="32" height="15" rx="3" fill="#ffb000"/>
+          <rect x="88" y="30" width="12" height="9" rx="2" fill="#e9eef4"/>
+          <path d="M62 53 H144 L132 73 H74 Z" fill="#132b40" stroke="#3fd2ff" stroke-width="2.2"/>
+          <text x="103" y="67" text-anchor="middle" font-family="Consolas,monospace" font-size="11" font-weight="800" fill="#ffd166">EU OEM</text>
+        </g>
+      </g>
+
+      <!-- Ship 2: US Plant Boat lifting alongside on the exact same tide (Green hull) -->
+      <g class="cra-boat2">
+        <g class="cra-bob2">
+          <rect x="218" y="40" width="28" height="13" rx="3" fill="#3ddc97"/>
+          <rect x="223" y="33" width="10" height="8" rx="2" fill="#e9eef4"/>
+          <path d="M196 53 H274 L263 73 H207 Z" fill="#0f2d24" stroke="#3ddc97" stroke-width="2.2"/>
+          <text x="235" y="67" text-anchor="middle" font-family="Consolas,monospace" font-size="11" font-weight="800" fill="#bff5dd">US PLANT</text>
+        </g>
+      </g>
+    </svg>
+
+    <div>
+      <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:8px">
+        <span style="font:800 28px var(--mono);color:var(--cyan)">EU Cyber Resilience Act (CRA)</span>
+        <span class="tag" style="font-size:13px;padding:5px 10px;color:var(--cyan)">EU LAW · REPORTING LIVE SEPT '26</span>
+        <span class="tag" style="font-size:13px;padding:5px 10px;color:var(--amber);background:rgba(255,176,0,.08)">RISING TIDE</span>
+      </div>
+      <p style="font-size:23.5px;line-height:1.34;color:#dbe4ef;margin:0">Enacted EU law (<b>Reg. 2024/2847</b>; full rules Dec '27). If a vendor sells into Europe, they're already doing CRA (secure-by-design, SBOMs, vulnerability handling). <b class="amber">Hold them to those same courtesies here too — a rising tide lifts all ships.</b></p>
+    </div>
+  </div>
+
   <aside class="notes"><ul>
     <li>Here is the whole OT standards map on one slide so you see how every piece fits together before we drill into each one.</li>
-    <li>[Click] ISA/IEC 62443 is the engineering core for zones, conduits, and Security Levels; NIST SP 800-82 is the free federal map — Rev. 3 is current and Rev. 4 is in public draft right now.</li>
-    <li>[Click] DOE and INL give us CIE — 12 lifecycle principles for designing risk out upfront ("the What") — and CCE — a 4-phase consequence-first methodology for protecting brownfield crown jewels ("the How").</li>
-    <li>[Click] IEC 61511 / ISA 84 is functional safety, paired with ISA-TR84.00.09 (2024): 61511 requires the security risk assessment, and TR84.00.09 shows you how. And NERC CIP is the mandatory bulk-power contrast where compliance comes with real fines.</li>
+    <li>[Click — Step 1] ISA/IEC 62443 is the engineering core for zones, conduits, and Security Levels; NIST SP 800-82 is the free federal map — Rev. 3 is current and Rev. 4 is in public draft right now.</li>
+    <li>[Click — Step 2] DOE and INL give us CIE — 12 lifecycle principles for designing risk out upfront ("the What") — and CCE — a 4-phase consequence-first methodology for protecting brownfield crown jewels ("the How").</li>
+    <li>[Click — Step 3] IEC 61511 / ISA 84 is functional safety, paired with ISA-TR84.00.09 (2024): 61511 requires the security risk assessment, and TR84.00.09 shows you how. And NERC CIP is the mandatory bulk-power contrast where compliance comes with real fines.</li>
+    <li>[Click — Step 4] And slip one bonus reality in along the bottom: the EU Cyber Resilience Act (CRA). Europe made it law — manufacturer vulnerability reporting already kicked in September 2026, full compliance hits December 2027. Here's the rising-tide takeaway: if a vendor sells in Europe, they are already building CRA into their products. Ask them to extend those exact same courtesies to your US plant too.</li>
   </ul></aside>
 </section>
 
