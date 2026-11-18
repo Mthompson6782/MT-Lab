@@ -498,14 +498,108 @@ ul.clean.g li:before{border-color:var(--green)}
 </section>
 
 <!-- ================= 01 SECTION: STANDARDS UPFRONT ================= -->
-<section class="slide divider" data-title="Section 01: Standards, honestly">
-  <div class="num">01</div>
-  <div class="kicker">Section 01 · Core Focus</div>
-  <h1>Standards, <span class="amber">honestly</span></h1>
-  <p class="handoff">Why they matter · the standards map · 800-82 (r3 → r4) · Purdue · 62443 · CIE &amp; CCE · one risk spine · NIST OSCAL</p>
+<section class="slide divider" data-title="Section 01: Standards, honestly" data-steps="1" style="justify-content:center">
+  <style>
+    .heckle-wrap { width:100%; position:relative; z-index:2; margin-top:26px; }
+    .heckle-grid { width:100%; display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:22px 24px; }
+    .heckle {
+      position:relative; z-index:2;
+      padding:18px 22px; border-radius:16px;
+      background:linear-gradient(160deg,#151d2b,#0c121b);
+      border:1px solid rgba(255,79,94,.42);
+      box-shadow:0 14px 36px rgba(0,0,0,.42);
+      opacity:0;
+      transform:scale(.68) translateY(18px) rotate(var(--r, 0deg));
+      transition:opacity .45s var(--ease), transform .45s var(--ease), filter .45s var(--ease);
+    }
+    .heckle.amber-b { border-color:rgba(255,176,0,.45); }
+    .heckle.cyan-b  { border-color:rgba(63,210,255,.42); }
+    .heckle:after {
+      content:""; position:absolute; bottom:-9px; left:28px;
+      width:16px; height:16px; background:#0d131d;
+      border-width:1px; border-style:none solid solid none; border-color:inherit;
+      transform:rotate(45deg);
+    }
+    .heckle .htag { font:800 13px var(--mono); letter-spacing:.08em; text-transform:uppercase; margin-bottom:6px; opacity:.88; }
+    .heckle p { font-size:21.5px; line-height:1.3; font-weight:600; color:#eef4fb; margin:0; }
+
+    /* Pop-in sequence when entering Slide #2 */
+    .slide.active .heckle {
+      animation:hecklePop .5s var(--d, .1s) cubic-bezier(.34,1.56,.64,1) forwards;
+    }
+    @keyframes hecklePop {
+      0%   { opacity:0; transform:scale(.6) translateY(22px) rotate(var(--r, 0deg)); }
+      100% { opacity:1; transform:scale(1) translateY(0) rotate(var(--r, 0deg)); }
+    }
+
+    /* Step 1: Audience groans dim down cleanly for Michael's deadpan flip */
+    .slide.s1 .heckle { opacity:.24 !important; filter:grayscale(.45); transform:scale(.97) rotate(var(--r, 0deg)); }
+
+    .rebuttal-box {
+      width:100%; margin-top:26px; padding:22px 28px; border-radius:16px;
+      border:1px solid rgba(255,176,0,.55);
+      background:linear-gradient(135deg,rgba(255,176,0,.11),rgba(63,210,255,.08));
+      box-shadow:0 18px 44px rgba(0,0,0,.45);
+    }
+  </style>
+
+  <div class="num" style="top:76px;right:120px">01</div>
+  <div style="position:relative;z-index:2;max-width:1180px">
+    <div class="kicker">Section 01 · Core Focus</div>
+    <h1 style="font-size:102px;line-height:1.03">Standards, <span class="amber">honestly</span></h1>
+  </div>
+
+  <!-- Step 0: Rapid-fire groan bubbles popping like crowd muttering -->
+  <div class="heckle-wrap">
+    <div class="heckle-grid">
+      <div class="heckle" style="--r:-1.8deg;--d:.10s">
+        <div class="htag red">🙄 Every Engineer</div>
+        <p>“They’re so boring.”</p>
+      </div>
+      <div class="heckle amber-b" style="--r:1.5deg;--d:.23s">
+        <div class="htag amber">🦷 Plant Floor Truth</div>
+        <p>“I’d rather go to the dentist and get a root canal than read the standard.”</p>
+      </div>
+      <div class="heckle" style="--r:-1.3deg;--d:.36s">
+        <div class="htag red">🤬 Blunt Verdict</div>
+        <p>“Standards suck.”</p>
+      </div>
+      <div class="heckle cyan-b" style="--r:1.9deg;--d:.49s">
+        <div class="htag cyan">😴 Sleep Medicine</div>
+        <p>“Doctor stopped prescribing melatonin — told me to read NIST 800-82 instead.”</p>
+      </div>
+      <div class="heckle" style="--r:1.4deg;--d:.62s">
+        <div class="htag red">🏭 Field Skeptic</div>
+        <p>“Standards are useless.”</p>
+      </div>
+      <div class="heckle amber-b" style="--r:-1.7deg;--d:.75s">
+        <div class="htag amber">📜 Committee Speak</div>
+        <p>“400 pages just to say: ‘Consider implementing appropriate safeguards.’”</p>
+      </div>
+      <div class="heckle cyan-b" style="--r:1.3deg;--d:.88s">
+        <div class="htag cyan">💸 PDF Paywall</div>
+        <p>“Nothing says ‘protect critical infrastructure’ like a $400 locked PDF.”</p>
+      </div>
+      <div class="heckle" style="--r:-1.5deg;--d:1.01s">
+        <div class="htag red">📚 Shelfware</div>
+        <p>“Great monitor stand. Terrible during a 2 a.m. PLC outage.”</p>
+      </div>
+    </div>
+
+    <!-- Step 1: Deadpan Rebuttal + Actual Section Roadmap -->
+    <div class="rebuttal-box f" data-s="1">
+      <div style="display:flex;align-items:center;gap:22px">
+        <span style="font:800 17px var(--mono);color:var(--amber);letter-spacing:.12em;white-space:nowrap;padding:8px 14px;border-radius:8px;border:1px solid rgba(255,176,0,.5);background:rgba(255,176,0,.12)">FAIR POINT.</span>
+        <p style="font-size:27px;line-height:1.32;font-weight:700;color:#eef4fb;margin:0">Honestly? I co-wrote one of them — and half the time I still agree with you. <span class="amber">Let’s skip the insomnia and talk about what survives steel.</span></p>
+      </div>
+      <p class="handoff" style="margin-top:12px;font-size:21px">Why they matter · standards map (+ EU CRA) · 800-82 (r3 → r4) · Purdue · 62443 · CIE &amp; CCE · one risk spine · NIST OSCAL</p>
+    </div>
+  </div>
+
   <aside class="notes"><ul>
-    <li>We're starting right at the heart of the abstract: how OT cybersecurity standards actually work when they meet steel.</li>
-    <li>We'll cover why standards exist, the full map, NIST 800-82's transition from Rev 3 to Rev 4, Purdue, 62443 Security Levels and my SL 2 floor, CIE/CCE, how FSE, Cyber PHA, CIE/CCE, and 62443-3-2 align on one risk spine, and NIST OSCAL.</li>
+    <li>Before we dive into Section 01, let's get the elephant out of the room. Whenever someone sees a talk about OT standards, I already know what the room is thinking... [Pause 1.5s while all 8 complaints pop onto screen.]</li>
+    <li>Read a couple aloud for the laugh: "I'd rather get a root canal at the dentist than read a standard." "Standards suck." "Great monitor stand."</li>
+    <li>[Click — Step 1] Here's my honest take: fair point. I literally co-wrote one of them, and half the time I still agree with you. Nobody should read 400 pages cover-to-cover — so let's talk about what actually survives plant-floor steel.</li>
   </ul></aside>
 </section>
 
