@@ -2238,30 +2238,129 @@ ul.clean.g li:before{border-color:var(--green)}
 </section>
 
 <!-- ================= 34 TOOLKIT ================= -->
-<section class="slide" data-title="The toolkit" data-steps="3">
-  <div class="kicker">Your toolkit</div>
-  <div class="repo">
+<section class="slide" data-title="The toolkit" data-steps="4">
+  <style>
+    .tk-repo { width:100%; display:grid; grid-template-columns:1.2fr 1fr; gap:36px; align-items:stretch; }
+    .tk-repo .card { padding:22px 28px; display:flex; flex-direction:column; justify-content:space-between; }
+    .tk-repo .gh { display:flex; align-items:center; gap:14px; font:700 25px var(--mono); color:var(--cyan); margin-bottom:12px; word-break:break-all; }
+    .tk-repo h3 { font-size:32px; margin-bottom:12px; }
+    .tk-repo ul.clean li { font-size:23.5px; margin:7px 0; line-height:1.32; }
+    .tk-repo .prompt { font:500 20.5px/1.36 var(--mono); background:#05080c; border:1px solid var(--line2); border-radius:12px; padding:13px 18px; color:#cfe3f5; margin-bottom:11px; }
+    .tk-repo .prompt:last-child { margin-bottom:0; }
+
+    .tk-sine-card {
+      width:100%; margin-top:18px; padding:16px 24px 14px;
+      border-radius:18px; border:1px solid rgba(255,176,0,.45);
+      background:linear-gradient(160deg,#0f1724,#090e16);
+      box-shadow:0 18px 46px rgba(0,0,0,.42);
+    }
+    .tk-scope {
+      width:100%; height:174px; display:block; margin-top:10px;
+      border-radius:12px; background:radial-gradient(circle at 55% 50%, rgba(16,32,48,.65), #060b11 85%);
+      border:1px solid rgba(63,210,255,.22);
+    }
+    .tk-draw-close { stroke-dasharray:1450; stroke-dashoffset:1450; }
+    .tk-draw-sine  { stroke-dasharray:2100; stroke-dashoffset:2100; }
+    .slide.s4 .tk-draw-close { animation:tkDraw 1.2s .1s var(--ease) forwards; }
+    .slide.s4 .tk-draw-sine  { animation:tkDraw 1.5s .25s var(--ease) forwards; }
+    @keyframes tkDraw { to{stroke-dashoffset:0} }
+    .tk-orb { opacity:0; transition:opacity .4s .55s ease; }
+    .slide.s4 .tk-orb { opacity:1; }
+  </style>
+
+  <div class="kicker" style="margin-bottom:10px">Your toolkit</div>
+  <div class="tk-repo">
     <div class="card f left" data-s="1">
-      <div class="gh"><svg width="44" height="44" viewBox="0 0 16 16" fill="#3fd2ff"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>isiahjonesSTEM/security-methodology</div>
-      <h3 style="margin-bottom:16px">Isiah Jones' security methodology</h3>
-      <ul class="clean c">
-        <li style="font-size:30px"><b>AI agent-based threat modeling</b> — automates analytical steps for ICS, OT, IIoT &amp; embedded systems</li>
-        <li style="font-size:30px"><b>Assessment &amp; testing templates</b> — risk, threat, vulnerability, mission assurance, acceptance testing</li>
-        <li style="font-size:30px"><b>Papers, guides &amp; scripts</b> from the field</li>
-      </ul>
-      <p class="mono" style="font-size:20px;color:var(--dim);margin-top:14px">Open source · GPL-3.0 · thank you, Isiah</p>
+      <div>
+        <div class="gh"><svg width="36" height="36" viewBox="0 0 16 16" fill="#3fd2ff"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>isiahjonesSTEM/security-methodology</div>
+        <h3>Isiah Jones' security methodology</h3>
+        <ul class="clean c">
+          <li><b>AI agent-based threat modeling</b> — automates analytical steps for ICS, OT, IIoT &amp; embedded systems</li>
+          <li><b>Assessment &amp; testing templates</b> — risk, threat, vulnerability, mission assurance, acceptance testing</li>
+          <li><b>Papers, guides &amp; scripts</b> from the field</li>
+        </ul>
+      </div>
+      <p class="mono" style="font-size:17px;color:var(--dim);margin:10px 0 0">Open source · GPL-3.0 · thank you, Isiah</p>
     </div>
     <div>
-      <h3 class="f" data-s="2" style="margin-bottom:20px">Prompt patterns to steal</h3>
+      <h3 class="f" data-s="2" style="margin-bottom:12px">Prompt patterns to steal</h3>
       <div class="prompt f" data-s="2"><b>Crosswalk:</b> Map 62443-3-3 SR 5.2 to SP 800-53 and CSF 2.0. Cite SR numbers only. I'll check them against my licensed copy. Rate each mapping's confidence. Flag anything you're unsure of.</div>
       <div class="prompt f" data-s="3"><b>Conduits:</b> Here's a firewall export and our zone list. Find rules that cross zones without a defined conduit.</div>
       <div class="prompt f" data-s="3"><b>Consequence:</b> Draft the worst credible consequence for this zone. List every assumption separately.</div>
     </div>
   </div>
+
+  <!-- Step 4: Thin Line Between Intelligence & Insanity Sine-Wave Oscilloscope -->
+  <div class="tk-sine-card f" data-s="4">
+    <div style="display:flex;align-items:center;gap:18px">
+      <span style="font:800 15px var(--mono);color:var(--amber);letter-spacing:.12em;white-space:nowrap;padding:6px 12px;border-radius:8px;border:1px solid rgba(255,176,0,.5);background:rgba(255,176,0,.10)">FIELD HUMOR</span>
+      <p style="font-size:23px;line-height:1.28;font-weight:700;color:#eef4fb;margin:0">There’s a <span class="amber">thin line</span> between <span class="green">intelligence</span> and <span class="red">insanity</span>. Some people <span class="cyan">fly close to the line</span>. <span class="amber">Some people are a sine wave.</span></p>
+    </div>
+
+    <svg class="tk-scope" viewBox="0 0 1640 190">
+      <defs>
+        <linearGradient id="tkSineGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#3ddc97"/>
+          <stop offset="46%" stop-color="#3fd2ff"/>
+          <stop offset="50%" stop-color="#ffb000"/>
+          <stop offset="54%" stop-color="#ff7a59"/>
+          <stop offset="100%" stop-color="#ff4f5e"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Subtle CRT zone shading & horizontal axis grid -->
+      <rect x="242" y="14" width="1364" height="81" fill="rgba(61,220,151,.05)"/>
+      <rect x="242" y="95" width="1364" height="81" fill="rgba(255,79,94,.05)"/>
+      <line x1="242" y1="39" x2="1606" y2="39" stroke="#1b2b3d" stroke-width="1" stroke-dasharray="4 6"/>
+      <line x1="242" y1="151" x2="1606" y2="151" stroke="#1b2b3d" stroke-width="1" stroke-dasharray="4 6"/>
+
+      <!-- Left Y-axis zone labels -->
+      <text x="124" y="45" text-anchor="middle" font-family="Consolas,monospace" font-size="16" font-weight="800" fill="#3ddc97">INTELLIGENCE ↑</text>
+      <rect x="26" y="79" width="196" height="32" rx="6" fill="#21180a" stroke="#ffb000" stroke-width="1.5"/>
+      <text x="124" y="100" text-anchor="middle" font-family="Consolas,monospace" font-size="15" font-weight="800" fill="#ffb000">THE THIN LINE</text>
+      <text x="124" y="156" text-anchor="middle" font-family="Consolas,monospace" font-size="16" font-weight="800" fill="#ff5e6c">INSANITY ↓</text>
+
+      <!-- Center Threshold Line -->
+      <line x1="226" y1="95" x2="1612" y2="95" stroke="#ffb000" stroke-width="2.2" stroke-dasharray="10 7" opacity=".82"/>
+
+      <!-- Waveform 1: Fly Close to the Line -->
+      <path id="tkClosePath" class="tk-draw-close" d="M250.0,79.7 L264.0,78.3 L277.9,77.2 L291.9,76.4 L305.8,76.0 L319.8,76.1 L333.8,76.5 L347.7,77.3 L361.7,78.4 L375.6,79.7 L389.6,81.3 L403.5,82.8 L417.5,84.3 L431.5,85.7 L445.4,86.8 L459.4,87.6 L473.3,88.0 L487.3,87.9 L501.2,87.5 L515.2,86.7 L529.2,85.6 L543.1,84.3 L557.1,82.7 L571.0,81.2 L585.0,79.7 L599.0,78.3 L612.9,77.2 L626.9,76.4 L640.8,76.0 L654.8,76.1 L668.8,76.5 L682.7,77.3 L696.7,78.4 L710.6,79.7 L724.6,81.3 L738.5,82.8 L752.5,84.3 L766.5,85.7 L780.4,86.8 L794.4,87.6 L808.3,88.0 L822.3,87.9 L836.2,87.5 L850.2,86.7 L864.2,85.6 L878.1,84.3 L892.1,82.7 L906.0,81.2 L920.0,79.7 L934.0,78.3 L947.9,77.2 L961.9,76.4 L975.8,76.0 L989.8,76.1 L1003.8,76.5 L1017.7,77.3 L1031.7,78.4 L1045.6,79.7 L1059.6,81.3 L1073.5,82.8 L1087.5,84.3 L1101.5,85.7 L1115.4,86.8 L1129.4,87.6 L1143.3,88.0 L1157.3,87.9 L1171.2,87.5 L1185.2,86.7 L1199.2,85.6 L1213.1,84.3 L1227.1,82.7 L1241.0,81.2 L1255.0,79.7 L1269.0,78.3 L1282.9,77.2 L1296.9,76.4 L1310.8,76.0 L1324.8,76.1 L1338.8,76.5 L1352.7,77.3 L1366.7,78.4 L1380.6,79.7 L1394.6,81.3 L1408.5,82.8 L1422.5,84.3 L1436.5,85.7 L1450.4,86.8 L1464.4,87.6 L1478.3,88.0 L1492.3,87.9 L1506.2,87.5 L1520.2,86.7 L1534.2,85.6 L1548.1,84.3 L1562.1,82.7 L1576.0,81.2 L1590.0,79.7" fill="none" stroke="#3fd2ff" stroke-width="2.4" opacity=".8"/>
+
+      <!-- Waveform 2: Full Sine Wave oscillating between Intelligence Peaks & Insanity Troughs -->
+      <path id="tkSinePath" class="tk-draw-sine" d="M250.0,95.0 L264.0,80.5 L277.9,67.0 L291.9,55.4 L305.8,46.5 L319.8,40.9 L333.8,39.0 L347.7,40.9 L361.7,46.5 L375.6,55.4 L389.6,67.0 L403.5,80.5 L417.5,95.0 L431.5,109.5 L445.4,123.0 L459.4,134.6 L473.3,143.5 L487.3,149.1 L501.2,151.0 L515.2,149.1 L529.2,143.5 L543.1,134.6 L557.1,123.0 L571.0,109.5 L585.0,95.0 L599.0,80.5 L612.9,67.0 L626.9,55.4 L640.8,46.5 L654.8,40.9 L668.8,39.0 L682.7,40.9 L696.7,46.5 L710.6,55.4 L724.6,67.0 L738.5,80.5 L752.5,95.0 L766.5,109.5 L780.4,123.0 L794.4,134.6 L808.3,143.5 L822.3,149.1 L836.2,151.0 L850.2,149.1 L864.2,143.5 L878.1,134.6 L892.1,123.0 L906.0,109.5 L920.0,95.0 L934.0,80.5 L947.9,67.0 L961.9,55.4 L975.8,46.5 L989.8,40.9 L1003.8,39.0 L1017.7,40.9 L1031.7,46.5 L1045.6,55.4 L1059.6,67.0 L1073.5,80.5 L1087.5,95.0 L1101.5,109.5 L1115.4,123.0 L1129.4,134.6 L1143.3,143.5 L1157.3,149.1 L1171.2,151.0 L1185.2,149.1 L1199.2,143.5 L1213.1,134.6 L1227.1,123.0 L1241.0,109.5 L1255.0,95.0 L1269.0,80.5 L1282.9,67.0 L1296.9,55.4 L1310.8,46.5 L1324.8,40.9 L1338.8,39.0 L1352.7,40.9 L1366.7,46.5 L1380.6,55.4 L1394.6,67.0 L1408.5,80.5 L1422.5,95.0 L1436.5,109.5 L1450.4,123.0 L1464.4,134.6 L1478.3,143.5 L1492.3,149.1 L1506.2,151.0 L1520.2,149.1 L1534.2,143.5 L1548.1,134.6 L1562.1,123.0 L1576.0,109.5 L1590.0,95.0" fill="none" stroke="url(#tkSineGrad)" stroke-width="4.2" stroke-linecap="round"/>
+
+      <!-- Crisp callout tags along waveforms -->
+      <text x="668" y="27" text-anchor="middle" font-family="Consolas,monospace" font-size="13" font-weight="800" fill="#3ddc97">★ GENIUS PEAK</text>
+      <text x="808" y="68" text-anchor="middle" font-family="Consolas,monospace" font-size="12.5" font-weight="700" fill="#8bdfff">~ FLYING CLOSE TO THE LINE</text>
+      <text x="501" y="172" text-anchor="middle" font-family="Consolas,monospace" font-size="13" font-weight="800" fill="#ff7d88">⚡ INSANITY DIP</text>
+      <text x="1171" y="172" text-anchor="middle" font-family="Consolas,monospace" font-size="13" font-weight="800" fill="#ffb000">〰 SINE WAVE MODE</text>
+
+      <!-- Live animated tracer orbs riding both curves simultaneously -->
+      <g class="tk-orb">
+        <circle r="6" fill="#3fd2ff" stroke="#e9eef4" stroke-width="2">
+          <animateMotion dur="5.2s" repeatCount="indefinite">
+            <mpath href="#tkClosePath"/>
+          </animateMotion>
+        </circle>
+        <circle r="11" fill="rgba(255,176,0,.35)">
+          <animateMotion dur="3.8s" repeatCount="indefinite">
+            <mpath href="#tkSinePath"/>
+          </animateMotion>
+        </circle>
+        <circle r="6.5" fill="#ffb000" stroke="#ffffff" stroke-width="2">
+          <animateMotion dur="3.8s" repeatCount="indefinite">
+            <mpath href="#tkSinePath"/>
+          </animateMotion>
+        </circle>
+      </g>
+    </svg>
+  </div>
+
   <aside class="notes"><ul>
-    <li>[Click] My friend Isiah Jones built and open-sourced this. Threat modeling agent for ICS/OT, plus assessment templates from real work. QR code at the end.</li>
-    <li>[Click] Prompt patterns — notice every one asks the model to show its work and flag uncertainty.</li>
-    <li>[Click] Never paste real plant data into a public model. Sanitize or run it locally.</li>
+    <li>[Click — Step 1] My friend Isiah Jones built and open-sourced this. Threat modeling agent for ICS/OT, plus assessment templates from real work. QR code at the end.</li>
+    <li>[Click — Step 2] Prompt patterns — notice every one asks the model to show its work and flag uncertainty.</li>
+    <li>[Click — Step 3] Never paste real plant data into a public model. Sanitize or run it locally.</li>
+    <li>[Click — Step 4] Side note looking at the folks who push these workflows to the limit: I always joke that there's a thin line between intelligence and insanity. Some people fly close to the line — and some people are a literal sine wave.</li>
   </ul></aside>
 </section>
 
