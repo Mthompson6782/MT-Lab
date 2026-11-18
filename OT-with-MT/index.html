@@ -1732,8 +1732,8 @@ ul.clean.g li:before{border-color:var(--green)}
   <div class="num">02</div>
   <div class="kicker">Section 02 · Standards Meet Steel</div>
   <h1>Engineering <span class="amber">reality</span></h1>
-  <p class="handoff">Plant manager lens · aligned vs. broken incentives · legacy vs. modern controllers · operating trade-offs · system dependencies</p>
-  <aside class="notes"><ul><li>Now we take those standards onto the plant floor: what the plant manager cares about, how OT cyber incentives align or collide with production tempo, legacy vs. modern controllers, trade-offs, and system dependencies.</li></ul></aside>
+  <p class="handoff">Plant manager lens · aligned vs. broken incentives · operating trade-offs · system dependencies</p>
+  <aside class="notes"><ul><li>Now we take those standards onto the plant floor: what the plant manager cares about, how OT cyber incentives align or collide with production tempo, operating trade-offs, and system dependencies.</li></ul></aside>
 </section>
 
 <!-- ================= 16 PLANT MANAGER ================= -->
@@ -1931,38 +1931,7 @@ ul.clean.g li:before{border-color:var(--green)}
     <li>Here's why most OT cyber friction is self-inflicted: at baseline, our incentives line up with the plant. Site Manager wants uptime; OT Cyber wants zero cyber shutdowns. Watch both streams pushing right into Steel Moving.</li>
     <li>[Click — Step 1] Watch what happens when OT Cyber flips direction and chases OT Cyber Nirvana at the cost of operational tempo — slowing turnarounds, blocking 2 a.m. access, adding friction. Head-on collision.</li>
     <li>[Click — Step 2] And here's plant-floor gravity: operational tempo wins that fight every single time. Nirvana gets knocked off the line, operations routes around you — guess who wins? Not you.</li>
-    <li>Hand-off: now let's look at the actual controllers sitting on that plant floor.</li>
-  </ul></aside>
-</section>
-
-<!-- ================= 24 CONTROLLERS ================= -->
-<section class="slide" data-title="Legacy vs modern controllers" data-steps="2">
-  <div class="kicker">Legacy vs. modern controllers</div>
-  <div class="ctrls">
-    <div class="card f left" data-s="0">
-      <svg viewBox="0 0 700 210"><rect x="20" y="20" width="660" height="170" rx="8" fill="#3a3a33" stroke="#6b6a5c" stroke-width="3"/>
-        <g fill="#5c5b4f" stroke="#7d7b6a" stroke-width="2"><rect x="40" y="38" width="80" height="134"/><rect x="132" y="38" width="80" height="134"/><rect x="224" y="38" width="80" height="134"/><rect x="316" y="38" width="80" height="134"/><rect x="408" y="38" width="80" height="134"/><rect x="500" y="38" width="80" height="134"/><rect x="592" y="38" width="70" height="134"/></g>
-        <g fill="#9aff6b"><circle cx="60" cy="60" r="6"/><circle cx="152" cy="60" r="6"/><circle cx="244" cy="60" r="6" fill="#ff4f5e"/></g>
-        <text x="80" y="160" font-family="Consolas,monospace" font-size="18" fill="#b9b7a2" text-anchor="middle">CPU</text>
-        <text x="620" y="160" font-family="Consolas,monospace" font-size="16" fill="#b9b7a2" text-anchor="middle">DH+</text></svg>
-      <h3>Legacy <small>c. 1998 · still running</small></h3>
-      <ul class="clean r"><li>Cleartext protocols, no authentication</li><li>No signed firmware · vendor may be gone</li><li>Can fall over from an active scan</li><li>20–30 year lifecycle</li></ul>
-    </div>
-    <div class="card f right" data-s="1">
-      <svg viewBox="0 0 700 210"><rect x="20" y="20" width="660" height="170" rx="14" fill="#141c28" stroke="#3fd2ff" stroke-width="3"/>
-        <g fill="#1d2939" stroke="#2e405a" stroke-width="2"><rect x="40" y="38" width="120" height="134" rx="6"/><rect x="172" y="38" width="90" height="134" rx="6"/><rect x="274" y="38" width="90" height="134" rx="6"/><rect x="376" y="38" width="90" height="134" rx="6"/><rect x="478" y="38" width="90" height="134" rx="6"/></g>
-        <g fill="#3fd2ff"><circle cx="62" cy="58" r="6"/><circle cx="82" cy="58" r="6"/><circle cx="190" cy="58" r="6"/><circle cx="292" cy="58" r="6"/></g>
-        <g transform="translate(600 70)"><rect x="0" y="30" width="56" height="44" rx="6" fill="#3ddc97"/><path d="M10 30 V18 a18 18 0 0 1 36 0 V30" fill="none" stroke="#3ddc97" stroke-width="7"/></g>
-        <text x="100" y="160" font-family="Consolas,monospace" font-size="18" fill="#8c9cb1" text-anchor="middle">CPU · TLS</text></svg>
-      <h3>Modern <small>c. 2024 · new build</small></h3>
-      <ul class="clean g"><li>Secure protocols, role-based access</li><li>Signed firmware, secure boot</li><li>Patchable — if you get a window</li><li>Bigger attack surface: web servers, services</li></ul>
-    </div>
-  </div>
-  <p class="f" data-s="2" style="text-align:center;margin-top:34px;font-size:38px;color:var(--text)">Modern isn't “secure.” It's <span class="amber">securable</span> — and it brings new things to configure.</p>
-  <aside class="notes"><ul>
-    <li>Legacy: designed for a trusted, isolated network that hasn't existed for 20 years. Some will crash if you scan them actively. Don't learn that in production.</li>
-    <li>[Click] Modern: real security features — that ship turned off half the time, and bring web servers and services you didn't have before.</li>
-    <li>[Click] Securable, not secure. Somebody still has to configure it.</li>
+    <li>Hand-off: now let's look at the actual operating trade-offs every control imposes on that plant floor.</li>
   </ul></aside>
 </section>
 
@@ -2058,7 +2027,7 @@ ul.clean.g li:before{border-color:var(--green)}
     <p>Patching = shooting asteroids with lasers (requires 100% perfection · 1 miss = crater) · Segmentation = the planetary shield</p>
     <div class="sub2">“Vulnerabilities are a function of <b class="amber">time, money, and creativity</b> — and nearly limitless with an adversary that's <b class="cyan">well-funded or bored</b>.”</div>
   </div>
-  <button class="pdskip" type="button">SKIP 3D SIM → SLIDE 21 ▸</button>
+  <button class="pdskip" type="button">SKIP 3D SIM → SLIDE 20 ▸</button>
   <aside class="notes"><ul>
     <li>Cheeky truth right after that Clausewitz quote: Patching is for suckers if that's your primary strategy.</li>
     <li>This 3D Planetary Defense sim takes the keyboard/clicker: → / Space steps through the 5 scenes (Lasers only → 1 miss = Crater → Raise the Segmentation Shield → Defense in Depth). Press S to toggle shield, L for lasers, Esc to jump out early.</li>
@@ -2158,7 +2127,7 @@ ul.clean.g li:before{border-color:var(--green)}
       <div class="kicker">Kodak · Rochester, NY · 1975</div>
       <h2 style="font-size:72px">Kodak built the first <span class="amber">digital camera.</span></h2>
       <p class="f big" data-s="1" style="font-size:44px">Then shelved it to protect film. <span class="red">Bankrupt in 2012.</span></p>
-      <p class="f" data-s="2" style="margin-top:34px;font-size:38px;color:var(--text)">They had the breakthrough in hand — and never put it to work.<br><b class="amber">Don't be Kodak with AI.</b></p>
+      <p class="f" data-s="2" style="margin-top:34px;font-size:38px;color:var(--text)">They had the breakthrough in hand — and never put it to work.<br><b class="amber">Don't be Kodak.</b></p>
       <div class="f" data-s="3" style="margin-top:44px;padding:22px 28px;border-left:4px solid var(--cyan);background:rgba(63,210,255,.06);border-radius:10px">
         <p style="font-size:30px;color:var(--text)">Other fields borrow well: <b class="cyan">surgery stole the pilot's checklist</b> and cut complications.</p>
         <p style="font-size:24px;color:var(--muted);margin-top:8px">So let's steal from the intelligence community next ▸</p>
@@ -2168,7 +2137,7 @@ ul.clean.g li:before{border-color:var(--green)}
   <aside class="notes"><ul>
     <li>1975, Kodak engineer Steve Sasson builds the first digital camera. Toaster-sized, about 8 pounds, 0.01 megapixels, recorded to cassette tape, 23 seconds per picture.</li>
     <li>[Click] Management shelved it. Digital threatened the film business. Kodak filed for bankruptcy in 2012.</li>
-    <li>[Click] The lesson: having the breakthrough in hand isn't the same as applying it. Don't be Kodak with AI — put it to work on the boring, expensive parts of OT engineering.</li>
+    <li>[Click] The lesson: having the breakthrough in hand isn't the same as applying it. Don't be Kodak — put new tools to work on the boring, expensive parts of OT engineering instead of shelving them.</li>
     <li>[Click] The flip side: fields that borrow well win. Surgery adopted aviation's checklist and complications dropped. Hand-off: we're going to borrow from the intelligence community.</li>
   </ul></aside>
 </section>
@@ -2324,11 +2293,11 @@ ul.clean.g li:before{border-color:var(--green)}
   <aside class="notes"><ul>
     <li>[Click ×4] These are non-negotiable.</li>
     <li>#4 matters: models will confidently cite SR numbers that don't exist. Check.</li>
-    <li><b>Clock Gate 1:</b> If &lt;5:30 left → click <b>#44</b> ("Let's bring this straight to five things you can do Monday."). If ≥6:00 left → click <b>#31</b> ("Those are the rules for the tools — with a few minutes left, let's test that same analysis discipline on two real plant incidents.").</li>
+    <li><b>Clock Gate 1:</b> If &lt;5:30 left → click <b>#43</b> ("Let's bring this straight to five things you can do Monday."). If ≥6:00 left → click <b>#30</b> ("Those are the rules for the tools — with a few minutes left, let's test that same analysis discipline on two real plant incidents.").</li>
   </ul></aside>
   <div style="position:absolute;right:140px;bottom:46px;display:flex;gap:18px;font:700 18px var(--mono)">
-    <a href="#31" onclick="event.stopPropagation()" style="color:var(--cyan);text-decoration:none;padding:8px 14px;border:1px solid rgba(63,210,255,.4);border-radius:8px;background:rgba(63,210,255,.08)">TIME PERMITTING: FIELD CASES (#31) ▸</a>
-    <a href="#44" onclick="event.stopPropagation()" style="color:var(--amber);text-decoration:none;padding:8px 14px;border:1px solid rgba(255,176,0,.45);border-radius:8px;background:rgba(255,176,0,.10)">JUMP TO CLOSE: 5 THINGS MONDAY (#44) ▸</a>
+    <a href="#30" onclick="event.stopPropagation()" style="color:var(--cyan);text-decoration:none;padding:8px 14px;border:1px solid rgba(63,210,255,.4);border-radius:8px;background:rgba(63,210,255,.08)">TIME PERMITTING: FIELD CASES (#30) ▸</a>
+    <a href="#43" onclick="event.stopPropagation()" style="color:var(--amber);text-decoration:none;padding:8px 14px;border:1px solid rgba(255,176,0,.45);border-radius:8px;background:rgba(255,176,0,.10)">JUMP TO CLOSE: 5 THINGS MONDAY (#43) ▸</a>
   </div>
 </section>
 
@@ -2492,11 +2461,11 @@ ul.clean.g li:before{border-color:var(--green)}
   <aside class="notes"><ul>
     <li>Have fun with this. I genuinely feel for the attackers out there. They do all this work and it gets logged as a maintenance ticket.</li>
     <li>[Click] Real point under the joke: plants are noisy. Equipment fails all the time — great cover for attackers and bad analysis alike.</li>
-    <li><b>Clock Gate 2:</b> If ≥4:30 left → click <b>#39</b> ("If first reports are unreliable, who can you actually trust in this industry?"). If tight → click <b>#43</b> to land the Dave's keyboard callback.</li>
+    <li><b>Clock Gate 2:</b> If ≥4:30 left → click <b>#38</b> ("If first reports are unreliable, who can you actually trust in this industry?"). If tight → click <b>#42</b> to land the Dave's keyboard callback.</li>
   </ul></aside>
   <div style="position:absolute;right:140px;bottom:46px;display:flex;gap:18px;font:700 18px var(--mono)">
-    <a href="#39" onclick="event.stopPropagation()" style="color:var(--cyan);text-decoration:none;padding:8px 14px;border:1px solid rgba(63,210,255,.4);border-radius:8px;background:rgba(63,210,255,.08)">TIME PERMITTING: FILTER NOISE (#39) ▸</a>
-    <a href="#43" onclick="event.stopPropagation()" style="color:var(--amber);text-decoration:none;padding:8px 14px;border:1px solid rgba(255,176,0,.45);border-radius:8px;background:rgba(255,176,0,.10)">JUMP TO CLOSE: DAVE'S KEYBOARD (#43) ▸</a>
+    <a href="#38" onclick="event.stopPropagation()" style="color:var(--cyan);text-decoration:none;padding:8px 14px;border:1px solid rgba(63,210,255,.4);border-radius:8px;background:rgba(63,210,255,.08)">TIME PERMITTING: FILTER NOISE (#38) ▸</a>
+    <a href="#42" onclick="event.stopPropagation()" style="color:var(--amber);text-decoration:none;padding:8px 14px;border:1px solid rgba(255,176,0,.45);border-radius:8px;background:rgba(255,176,0,.10)">JUMP TO CLOSE: DAVE'S KEYBOARD (#42) ▸</a>
   </div>
 </section>
 

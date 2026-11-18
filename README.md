@@ -157,7 +157,7 @@ Together, **CUTLASS** and **HALBERD** deliver comprehensive defense-in-depth acr
 | Resource | Description | Direct Link |
 | :--- | :--- | :--- |
 | **MT-Lab Engineering Portal** | Interactive catalog & dashboard for OT cyber engineers | [Launch Portal](https://mthompson6782.github.io/MT-Lab/) |
-| **Standards Meet Steel (U of A Talk)** | 45-slide interactive OT standards deck + 3D WebGL Planetary Defense sim | [Launch Deck](https://mthompson6782.github.io/MT-Lab/decks/standards-meet-steel.html) |
+| **Standards Meet Steel (U of A Talk)** | 44-slide interactive OT standards deck + 3D WebGL Planetary Defense sim | [Launch Deck](https://mthompson6782.github.io/MT-Lab/decks/standards-meet-steel.html) |
 | **OT with MT Hub** | Executive OT cybersecurity briefings & field cases | [Open Hub](https://mthompson6782.github.io/MT-Lab/OT-with-MT/) |
 | **CUTLASS Console** | ISA/IEC 62443-3-2 automated site survey & topology map | [Open CUTLASS UI](https://mthompson6782.github.io/MT-Lab/cutlass-demo.html) |
 | **HALBERD Technical Console** | Interactive Happened-Before edge threat simulator | [Open HALBERD UI](https://mthompson6782.github.io/MT-Lab/halberd-demo.html) |
